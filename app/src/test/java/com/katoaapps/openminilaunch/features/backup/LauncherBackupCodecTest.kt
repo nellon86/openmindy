@@ -284,7 +284,6 @@ class LauncherBackupCodecTest {
             settings = sample.settings.copy(
                 quickDrawer = QuickDrawerConfig(
                     orderedTargetKeys = listOf("app:0:com.example/.MainActivity"),
-                    showMinkPad = false,
                     showPrivateSpace = false,
                     showWorkProfile = false,
                     colorArgb = 0xFF123456.toInt(),

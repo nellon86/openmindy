@@ -388,7 +388,6 @@ internal object LauncherBackupCodec {
         settings.quickDrawer?.let { quickDrawer ->
             put("quickDrawer", JSONObject().apply {
                 put("orderedTargetKeys", quickDrawer.orderedTargetKeys.stringsJsonArray())
-                put("showMinkPad", quickDrawer.showMinkPad)
                 put("showPrivateSpace", quickDrawer.showPrivateSpace)
                 put("showWorkProfile", quickDrawer.showWorkProfile)
                 putNullable("colorArgb", quickDrawer.colorArgb)
@@ -407,7 +406,6 @@ internal object LauncherBackupCodec {
             put("pauseMode", settings.minkAppPauseMode.name)
         })
         put("githubUpdateChecksEnabled", settings.githubUpdateChecksEnabled)
-        settings.minkPadPreferences?.let { put("minkPad", MinkPadBackupCodec.encode(it)) }
     }
 
     private fun decodeSettings(
@@ -516,7 +514,6 @@ internal object LauncherBackupCodec {
                     orderedTargetKeys = drawer.optJSONArray("orderedTargetKeys")
                         ?.safeTargets()
                         ?: legacyDrawerTargets,
-                    showMinkPad = drawer.optBoolean("showMinkPad", true),
                     showPrivateSpace = drawer.optBoolean("showPrivateSpace", true),
                     showWorkProfile = drawer.optBoolean("showWorkProfile", true),
                     colorArgb = drawer.optNullableInt("colorArgb"),
@@ -534,7 +531,6 @@ internal object LauncherBackupCodec {
                 .coerceIn(MIN_SOCIAL_GOAL_HOURS, MAX_SOCIAL_GOAL_HOURS),
             minkAppPauseMode = minkDay.enumValue("pauseMode", MinkAppPauseMode.NEVER),
             githubUpdateChecksEnabled = json.optBoolean("githubUpdateChecksEnabled", true),
-            minkPadPreferences = json.optJSONObject("minkPad")?.let(MinkPadBackupCodec::decode),
         )
     }
 
@@ -678,7 +674,6 @@ internal object LauncherBackupCodec {
         "devicePrivateAreaGateway",
         "activeBubbleNotifications",
         "updateCacheAndReminders",
-        "minkPadHostsAndSession",
     )
 
     private const val MAX_ENUM_VALUES = 100

@@ -1,6 +1,5 @@
 package com.katoaapps.openminilaunch.ui.settings
 
-import com.katoaapps.minkpad.core.R as MinkPadR
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Chat
@@ -10,7 +9,6 @@ import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.ImportExport
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Keyboard
 import androidx.compose.material.icons.filled.Pets
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Security
@@ -21,7 +19,6 @@ import androidx.compose.ui.res.stringResource
 import com.katoaapps.openminilaunch.BuildConfig
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
-import com.katoaapps.openminilaunch.features.minkpad.MinkPadLauncherEntry
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.profile.openVirtualContactCard
 import com.katoaapps.openminilaunch.ui.theme.socialGoalLabel
@@ -112,11 +109,6 @@ private fun AdvancedSettingsSection(
 ) {
     val context = LocalContext.current
     SettingsPage(stringResource(R.string.settings_section_advanced), goBack) {
-        SettingsCategoryRow(
-            title = stringResource(MinkPadR.string.minkpad_name),
-            subtitle = stringResource(MinkPadR.string.minkpad_tagline),
-            icon = Icons.Default.Keyboard,
-        ) { MinkPadLauncherEntry.open(context) }
         SettingsCategoryRow(
             title = stringResource(R.string.mink_assistant),
             subtitle = stringResource(R.string.settings_assistant_summary),

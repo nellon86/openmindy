@@ -59,7 +59,6 @@ internal fun LauncherStore.createPortableBackup(appVersion: String): LauncherBac
             socialGoalHours = socialGoalHours,
             minkAppPauseMode = minkAppPauseMode,
             githubUpdateChecksEnabled = githubUpdateChecksEnabled,
-            minkPadPreferences = minkPadPreferences.state.value,
             fontAppearance = fontAppearance,
         ),
         todos = savedTodosForBackup,
@@ -152,7 +151,6 @@ internal fun LauncherStore.restorePortableBackup(
     settings.preferredCallingPackage?.let(::setPreferredCallingApp)
         ?: resetPreferredCallingApp()
     settings.quickDrawer?.let { quickDrawer ->
-        updateShowMinkPadInQuickDrawer(quickDrawer.showMinkPad)
         updateShowPrivateSpaceInQuickDrawer(quickDrawer.showPrivateSpace)
         updateShowWorkProfileInQuickDrawer(quickDrawer.showWorkProfile)
         setQuickDrawerColor(quickDrawer.colorArgb)
@@ -166,7 +164,6 @@ internal fun LauncherStore.restorePortableBackup(
     else replaceSocialApps(settings.socialPackages.toSet())
 
     setGitHubUpdateChecksEnabled(settings.githubUpdateChecksEnabled)
-    settings.minkPadPreferences?.let(minkPadPreferences::update)
     backup.integratedContacts?.let { importedContacts ->
         favoriteIntegratedContactStore.mergeFromBackup(importedContacts)
         backup.integratedContactOrder?.let { importedOrder ->

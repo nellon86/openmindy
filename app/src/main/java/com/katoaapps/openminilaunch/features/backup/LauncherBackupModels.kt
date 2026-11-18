@@ -95,7 +95,6 @@ internal data class LauncherBackupSettings(
     val socialGoalHours: Int,
     val minkAppPauseMode: MinkAppPauseMode,
     val githubUpdateChecksEnabled: Boolean,
-    val minkPadPreferences: com.katoaapps.minkpad.core.MinkPadPreferences? = null,
     val fontAppearance: FontAppearance = FontAppearance(),
     /** Null means this backup predates Quick Drawer appearance and control preferences. */
     val quickDrawer: QuickDrawerConfig? = null,

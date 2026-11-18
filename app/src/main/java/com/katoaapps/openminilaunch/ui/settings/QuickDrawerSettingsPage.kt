@@ -43,12 +43,6 @@ internal fun QuickDrawerSettingsPage(
         )
 
         SectionLabel(stringResource(R.string.quick_drawer_controls))
-        SettingsSwitchRow(
-            title = stringResource(R.string.show_minkpad_button),
-            subtitle = stringResource(R.string.show_minkpad_button_description),
-            checked = store.showMinkPadInQuickDrawer,
-            onCheckedChange = store::updateShowMinkPadInQuickDrawer,
-        )
         SettingsRow(
             title = stringResource(R.string.privacy_apps),
             subtitle = stringResource(R.string.privacy_apps_settings_summary),

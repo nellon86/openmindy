@@ -68,7 +68,6 @@ class LauncherStore private constructor(context: Context) {
         appContext,
         favoriteAttentionColorStore,
     )
-    internal val minkPadPreferences = com.katoaapps.openminilaunch.features.minkpad.minkPadRepository(appContext).preferences
     private val demoModeStore: DemoModeStore = DemoModeStore(appContext, prefs, todoStore)
     internal val demoHomeProfile get() = demoModeStore.profile
     internal val demoScenario get() = demoModeStore.scenario
@@ -158,14 +157,12 @@ class LauncherStore private constructor(context: Context) {
     val folderAnimationStyle get() = appGridPreferences.folderAnimationStyle
     val automaticAppBubbleTargets get() = appBubblePreferences.automaticTargetKeys
     val privateContainerGatewaySelectionKey get() = privateContainerPreferences.gatewaySelectionKey
-    val showMinkPadInQuickDrawer get() = quickDrawerPreferences.showMinkPadButton
     val showPrivateSpaceInQuickDrawer get() = quickDrawerPreferences.showPrivateSpaceButton
     val showWorkProfileInQuickDrawer get() = quickDrawerPreferences.showWorkProfileButton
     val quickDrawerColorArgb get() = quickDrawerPreferences.colorArgb
     val quickDrawerConfig: QuickDrawerConfig
         get() = QuickDrawerConfig(
             orderedTargetKeys = drawerTargets.toList(),
-            showMinkPad = showMinkPadInQuickDrawer,
             showPrivateSpace = showPrivateSpaceInQuickDrawer,
             showWorkProfile = showWorkProfileInQuickDrawer,
             colorArgb = quickDrawerColorArgb,
@@ -387,10 +384,6 @@ class LauncherStore private constructor(context: Context) {
 
     fun clearPrivateContainerGateway() {
         privateContainerPreferences.clearGateway()
-    }
-
-    fun updateShowMinkPadInQuickDrawer(enabled: Boolean) {
-        quickDrawerPreferences.updateShowMinkPadButton(enabled)
     }
 
     fun updateShowPrivateSpaceInQuickDrawer(enabled: Boolean) {
