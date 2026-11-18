@@ -79,6 +79,8 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import android.os.SystemClock
+import com.katoaapps.openminilaunch.features.wellbeing.MindyDaySummaryCache
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -114,6 +116,15 @@ internal fun MindyHomeIcon(
     }
 }
 
+/**
+ * Mindy's Day summary for the page and the Home icon.
+ *
+ * The last summary is shown immediately; usage stats are read again in the background only when
+ * [MindyDaySummaryCache] says it is stale (older than three hours, from another day, or computed
+ * for other settings) or when [externalRefreshToken] changes, such as after granting access.
+ * While the page is merely composed next to Home, it fills an empty cache once so the first
+ * visit does not wait either.
+ */
 @Composable
 internal fun rememberMindyDaySummary(
     store: LauncherStore,
@@ -124,42 +135,58 @@ internal fun rememberMindyDaySummary(
     val context = LocalContext.current
     val socialPackages = store.socialPackages.toSet()
     val usesAutomaticSocialApps = store.usesAutomaticSocialApps
-    var lifecycleRefreshToken by remember { mutableIntStateOf(0) }
+    val socialGoalMinutes = store.socialGoalMinutes
+    val inputsKey = remember(socialPackages, usesAutomaticSocialApps, socialGoalMinutes) {
+        MindyDaySummaryCache.inputsKey(socialPackages, usesAutomaticSocialApps, socialGoalMinutes)
+    }
+    var stalenessCheckToken by remember { mutableIntStateOf(0) }
     val launcherVisible = rememberLauncherVisible()
     LaunchedEffect(isActive, launcherVisible) {
         if (isActive && launcherVisible) {
-            lifecycleRefreshToken++
+            stalenessCheckToken++
             while (true) {
-                delay(5 * 60_000L)
-                lifecycleRefreshToken++
+                delay(STALENESS_CHECK_INTERVAL_MILLIS)
+                stalenessCheckToken++
             }
         }
     }
     DisposableEffect(context, isActive) {
         val lifecycle = (context as? ComponentActivity)?.lifecycle
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME && isActive) lifecycleRefreshToken++
+            if (event == Lifecycle.Event.ON_RESUME && isActive) stalenessCheckToken++
         }
         lifecycle?.addObserver(observer)
         onDispose { lifecycle?.removeObserver(observer) }
     }
+    val handledExternalRefresh = remember { intArrayOf(externalRefreshToken) }
     return produceState(
-        initialValue = MindyDaySummary.loading(context),
-        lifecycleRefreshToken,
+        initialValue = MindyDaySummaryCache.latest(inputsKey) ?: MindyDaySummary.loading(context),
+        stalenessCheckToken,
         externalRefreshToken,
-        store.socialGoalMinutes,
-        socialPackages,
-        usesAutomaticSocialApps,
+        inputsKey,
+        isActive,
     ) {
-        if (isActive) {
-            val socialGoalMinutes = store.socialGoalMinutes
+        val forced = handledExternalRefresh[0] != externalRefreshToken
+        handledExternalRefresh[0] = externalRefreshToken
+        val now = SystemClock.elapsedRealtime()
+        MindyDaySummaryCache.latest(inputsKey)?.let { value = it }
+        val shouldCompute = forced || (
+            (isActive || MindyDaySummaryCache.latest(inputsKey) == null) &&
+                !MindyDaySummaryCache.isFresh(inputsKey, now)
+            )
+        if (shouldCompute) {
             value = withContext(Dispatchers.IO) {
                 runCatching { repository.summary(socialPackages, usesAutomaticSocialApps, socialGoalMinutes) }
                     .getOrElse { MindyDaySummary.unavailable(context, repository.hasAccess()) }
+            }.also { summary ->
+                MindyDaySummaryCache.store(inputsKey, summary, SystemClock.elapsedRealtime())
             }
         }
     }
 }
+
+/** Only decides whether the cached summary expired; the expensive read happens at most every 3 h. */
+private const val STALENESS_CHECK_INTERVAL_MILLIS = 15 * 60_000L
 
 @Composable
 internal fun MindyHero(summary: MindyDaySummary) {
