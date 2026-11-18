@@ -24,7 +24,7 @@ private enum class WidgetBindingStage { IDLE, BOUND, CONFIGURING, AWAITING_CONFI
 
 /**
  * Shared Android binding/configuration flow. Placement storage and sizing stay with the caller so
- * the full widget page and optional MinkSpace support remain independently replaceable.
+ * the full widget page and optional MindySpace support remain independently replaceable.
  */
 @Stable
 internal class WidgetBindingController internal constructor(

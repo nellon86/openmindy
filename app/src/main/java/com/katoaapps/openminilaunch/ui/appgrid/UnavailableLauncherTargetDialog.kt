@@ -12,8 +12,8 @@ import androidx.compose.ui.res.stringResource
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.model.LauncherTarget
 import com.katoaapps.openminilaunch.platform.DeviceActions
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 
 /** Recovery actions for a saved launcher target whose app is no longer available. */
 @Composable
@@ -35,9 +35,9 @@ internal fun UnavailableLauncherTargetDialog(
         }
     }
     AlertDialog(
-        modifier = Modifier.minkDialogWidth(),
+        modifier = Modifier.mindyDialogWidth(),
         onDismissRequest = onDismiss,
-        properties = MinkDialogDefaults.properties,
+        properties = MindyDialogDefaults.properties,
         title = { Text(stringResource(R.string.app_unavailable)) },
         text = { Text(stringResource(R.string.launcher_app_unavailable, target.label)) },
         confirmButton = {

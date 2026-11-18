@@ -1,14 +1,8 @@
-@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
-
 package com.katoaapps.openminilaunch.ui.launcher.home
 
-import com.katoaapps.minkpad.core.R as MinkPadR
 
 import android.widget.Toast
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,63 +10,49 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.BusinessCenter
-import androidx.compose.material.icons.filled.GridView
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
-import com.katoaapps.openminilaunch.features.minkpad.MinkPadLauncherEntry
-import com.katoaapps.openminilaunch.features.wellbeing.MinkAppAccessState
-import com.katoaapps.openminilaunch.model.MAX_DRAWER_APPS
+import com.katoaapps.openminilaunch.features.wellbeing.MindyAppAccessState
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.quickdrawer.QuickAppsFolderDialog
 import com.katoaapps.openminilaunch.ui.quickdrawer.QuickDrawerDestination
 import com.katoaapps.openminilaunch.ui.quickdrawer.quickDrawerDestinations
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.theme.MinkBrown
 import com.katoaapps.openminilaunch.ui.theme.readableContentColor
 
+/**
+ * The Quick Drawer opens straight into the Quick Apps folder. Navigation sits below the apps:
+ * All Apps on the left, the right cell intentionally empty for now, and Private or Work Space
+ * on an extra row only when the user enabled them and they exist on this device.
+ */
 @Composable
 internal fun HomeDrawerSheet(
     store: LauncherStore,
     actions: DeviceActions,
-    appAccessState: MinkAppAccessState,
+    appAccessState: MindyAppAccessState,
     onDismiss: () -> Unit,
     onManageQuickApps: () -> Unit,
     onPausedApp: (String) -> Unit,
 ) {
     val context = LocalContext.current
-    var quickAppsOpen by remember { mutableStateOf(false) }
     val demoModeEnabled = store.demoModeEnabled
     val showDemoPreview = {
         Toast.makeText(context, R.string.demo_preview_action, Toast.LENGTH_SHORT).show()
@@ -80,187 +60,74 @@ internal fun HomeDrawerSheet(
     val drawerColor = store.quickDrawerColorArgb?.let(::Color) ?: MaterialTheme.colorScheme.background
     val drawerContentColor = readableContentColor(drawerColor)
     val destinations = quickDrawerDestinations(
-        showMinkPad = store.showMinkPadInQuickDrawer,
         showPrivateSpace = store.showPrivateSpaceInQuickDrawer,
         privateSpaceAvailable = store.demoModeEnabled ||
             actions.privateContainerEntryPointAvailable(store.privateContainerGatewaySelectionKey),
         showWorkSpace = store.showWorkProfileInQuickDrawer,
         workSpaceAvailable = store.demoModeEnabled || actions.workProfileAvailable(),
     )
-
-    ModalBottomSheet(
-        onDismissRequest = onDismiss,
-        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-        containerColor = drawerColor,
-        contentColor = drawerContentColor,
-    ) {
-        Text(
-            stringResource(R.string.your_drawer),
-            Modifier.padding(horizontal = Dimens.dp24),
-            fontWeight = FontWeight.Black,
-            letterSpacing = Dimens.sp1,
-        )
-        QuickDrawerAnnouncementRow(
-            title = stringResource(R.string.join_google_play_beta),
-            summary = stringResource(R.string.google_play_beta_summary),
-            onClick = {
-                if (demoModeEnabled) {
-                    showDemoPreview()
-                } else if (actions.openGooglePlayBetaPage()) {
-                    onDismiss()
-                } else {
-                    Toast.makeText(context, R.string.no_browser_available, Toast.LENGTH_SHORT).show()
-                }
-            },
-        )
-        ManageQuickAppsRow(
-            selectedCount = if (demoModeEnabled) 4 else store.drawerTargets.size,
-            contentColor = drawerContentColor,
-            onClick = { quickAppsOpen = true },
-        )
-        QuickDrawerNavigationGrid(
-            destinations = destinations,
-            contentColor = drawerContentColor,
-            onDestination = { destination ->
-                if (!demoModeEnabled) {
-                    onDismiss()
-                    when (destination) {
-                        QuickDrawerDestination.MINKPAD_LITE -> MinkPadLauncherEntry.open(context)
-                        QuickDrawerDestination.ALL_APPS -> actions.openAllApps()
-                        QuickDrawerDestination.PRIVATE_SPACE -> actions.openPrivateApps()
-                        QuickDrawerDestination.WORK_SPACE -> actions.openWorkApps()
-                    }
-                } else {
-                    showDemoPreview()
-                }
-            },
-        )
-        Spacer(Modifier.height(Dimens.dp28))
-    }
-
-    if (quickAppsOpen) {
-        QuickAppsFolderDialog(
-            store = store,
-            actions = actions,
-            appAccessState = appAccessState,
-            onEdit = {
-                quickAppsOpen = false
-                onDismiss()
-                onManageQuickApps()
-            },
-            onLaunch = {
-                quickAppsOpen = false
-                onDismiss()
-            },
-            onPausedApp = { packageName ->
-                quickAppsOpen = false
-                onDismiss()
-                onPausedApp(packageName)
-            },
-            onDismiss = { quickAppsOpen = false },
-        )
-    }
-}
-
-@Composable
-private fun QuickDrawerAnnouncementRow(
-    title: String,
-    summary: String,
-    onClick: () -> Unit,
-) {
-    val contentColor = readableContentColor(MinkBrown)
-    Surface(
-        onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = Dimens.dp18, vertical = Dimens.dp12),
-        shape = RoundedCornerShape(Dimens.dp18),
-        color = MinkBrown,
-        contentColor = contentColor,
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(Dimens.dp16),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Dimens.dp12),
-        ) {
-            Icon(Icons.Default.PlayArrow, null)
-            Column(Modifier.weight(1f)) {
-                Text(
-                    title,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Text(
-                    summary,
-                    color = contentColor.copy(alpha = .78f),
-                    fontSize = Dimens.sp12,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
+    val openDestination: (QuickDrawerDestination) -> Unit = { destination ->
+        if (!demoModeEnabled) {
+            onDismiss()
+            when (destination) {
+                QuickDrawerDestination.ALL_APPS -> actions.openAllApps()
+                QuickDrawerDestination.PRIVATE_SPACE -> actions.openPrivateApps()
+                QuickDrawerDestination.WORK_SPACE -> actions.openWorkApps()
             }
-            Icon(Icons.AutoMirrored.Filled.ArrowForward, null)
+        } else {
+            showDemoPreview()
         }
     }
-}
 
-@Composable
-private fun ManageQuickAppsRow(
-    selectedCount: Int,
-    contentColor: Color,
-    onClick: () -> Unit,
-) {
-    Surface(
-        onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = Dimens.dp18, vertical = Dimens.dp12),
-        shape = RoundedCornerShape(Dimens.dp18),
-        color = contentColor.copy(alpha = .09f),
-        contentColor = contentColor,
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(Dimens.dp16),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Dimens.dp12),
-        ) {
-            Icon(Icons.Default.GridView, null)
-            Column(Modifier.weight(1f)) {
-                Text(
-                    stringResource(R.string.quick_apps),
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Text(
-                    stringResource(R.string.quick_drawer_apps_description),
-                    color = contentColor.copy(alpha = .68f),
-                    fontSize = Dimens.sp12,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            }
-            Text(
-                stringResource(R.string.count_of_max, selectedCount, MAX_DRAWER_APPS),
-                color = contentColor.copy(alpha = .68f),
-                fontWeight = FontWeight.Bold,
+    QuickAppsFolderDialog(
+        store = store,
+        actions = actions,
+        appAccessState = appAccessState,
+        onEdit = {
+            onDismiss()
+            onManageQuickApps()
+        },
+        onLaunch = onDismiss,
+        onPausedApp = { packageName ->
+            onDismiss()
+            onPausedApp(packageName)
+        },
+        onDismiss = onDismiss,
+        footer = {
+            QuickDrawerFooter(
+                destinations = destinations,
+                contentColor = drawerContentColor,
+                onDestination = openDestination,
             )
-            Icon(Icons.AutoMirrored.Filled.ArrowForward, null)
-        }
-    }
+        },
+    )
 }
 
 @Composable
-private fun QuickDrawerNavigationGrid(
+private fun QuickDrawerFooter(
     destinations: List<QuickDrawerDestination>,
     contentColor: Color,
     onDestination: (QuickDrawerDestination) -> Unit,
 ) {
+    val spaces = destinations.filterNot { it == QuickDrawerDestination.ALL_APPS }
     Column(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = Dimens.dp18),
+        modifier = Modifier.fillMaxWidth().padding(top = Dimens.dp8),
         verticalArrangement = Arrangement.spacedBy(Dimens.dp8),
     ) {
-        destinations.chunked(2).forEach { rowDestinations ->
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(Dimens.dp8),
+        ) {
+            QuickDrawerNavigationButton(
+                destination = QuickDrawerDestination.ALL_APPS,
+                contentColor = contentColor,
+                onClick = { onDestination(QuickDrawerDestination.ALL_APPS) },
+                modifier = Modifier.weight(1f),
+            )
+            // Reserved for a future shortcut; intentionally empty.
+            Spacer(Modifier.weight(1f))
+        }
+        spaces.chunked(2).forEach { rowDestinations ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(Dimens.dp8),
@@ -273,9 +140,7 @@ private fun QuickDrawerNavigationGrid(
                         modifier = Modifier.weight(1f),
                     )
                 }
-                if (rowDestinations.size == 1) {
-                    Spacer(Modifier.weight(1f))
-                }
+                if (rowDestinations.size == 1) Spacer(Modifier.weight(1f))
             }
         }
     }
@@ -301,7 +166,6 @@ private fun QuickDrawerNavigationButton(
             verticalArrangement = Arrangement.Center,
         ) {
             when (destination) {
-                QuickDrawerDestination.MINKPAD_LITE -> MinkPadDrawerIcon()
                 QuickDrawerDestination.ALL_APPS -> Icon(Icons.Default.Apps, null)
                 QuickDrawerDestination.PRIVATE_SPACE -> Icon(Icons.Default.Shield, null)
                 QuickDrawerDestination.WORK_SPACE -> Icon(Icons.Default.BusinessCenter, null)
@@ -309,7 +173,6 @@ private fun QuickDrawerNavigationButton(
             Spacer(Modifier.height(Dimens.dp6))
             Text(
                 text = when (destination) {
-                    QuickDrawerDestination.MINKPAD_LITE -> stringResource(R.string.minkpad_lite)
                     QuickDrawerDestination.ALL_APPS -> stringResource(R.string.all_apps)
                     QuickDrawerDestination.PRIVATE_SPACE -> stringResource(R.string.private_space)
                     QuickDrawerDestination.WORK_SPACE -> stringResource(R.string.work_space)
@@ -318,33 +181,6 @@ private fun QuickDrawerNavigationButton(
                 textAlign = TextAlign.Center,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
-            )
-        }
-    }
-}
-
-@Composable
-private fun MinkPadDrawerIcon() {
-    Box(Modifier.size(Dimens.dp28)) {
-        Icon(
-            painterResource(R.drawable.ic_minkpad_notification),
-            stringResource(MinkPadR.string.minkpad_name),
-            modifier = Modifier.size(Dimens.dp24).align(Alignment.TopStart),
-        )
-        Box(
-            Modifier
-                .size(Dimens.dp14)
-                .align(Alignment.BottomEnd)
-                .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.surface),
-        ) {
-            Image(
-                painter = painterResource(R.drawable.ic_launcher_foreground),
-                contentDescription = null,
-                contentScale = ContentScale.Fit,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .graphicsLayer(scaleX = 1.55f, scaleY = 1.55f),
             )
         }
     }

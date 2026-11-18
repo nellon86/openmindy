@@ -15,7 +15,7 @@ class VisibleDeviceWallpaperAppearanceTest {
     )
 
     @Test
-    fun retainedMinkPhotoWinsOverSystemPalette() {
+    fun retainedMindyPhotoWinsOverSystemPalette() {
         assertEquals(
             darkRetainedPhoto,
             selectVisibleDeviceWallpaperAppearance(

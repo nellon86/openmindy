@@ -7,7 +7,6 @@ package com.katoaapps.openminilaunch.ui.launcher
 
 import android.app.Activity
 import android.content.Intent
-import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -47,10 +46,8 @@ import com.katoaapps.openminilaunch.ui.launcher.layout.LauncherHomePager
 import com.katoaapps.openminilaunch.ui.launcher.layout.WIDGET_PAGE
 import com.katoaapps.openminilaunch.ui.magic.rememberMagicBoxSessionState
 import com.katoaapps.openminilaunch.ui.magic.AssistantActivity
-import com.katoaapps.openminilaunch.ui.minkspace.core.rememberMinkSpacePresentationState
-import com.katoaapps.openminilaunch.ui.minkspace.todo.TodosScreen
-import com.katoaapps.openminilaunch.ui.onboarding.FeatureUpdateDialog
-import com.katoaapps.openminilaunch.ui.onboarding.GooglePlayBetaDialog
+import com.katoaapps.openminilaunch.ui.mindyspace.core.rememberMindySpacePresentationState
+import com.katoaapps.openminilaunch.ui.mindyspace.todo.TodosScreen
 import com.katoaapps.openminilaunch.ui.onboarding.HomeFeatureTour
 import com.katoaapps.openminilaunch.ui.onboarding.LocalHomeTourTargetRegistry
 import com.katoaapps.openminilaunch.ui.onboarding.OnboardingScreen
@@ -59,16 +56,13 @@ import com.katoaapps.openminilaunch.ui.onboarding.rememberHomeTourTargetRegistry
 import com.katoaapps.openminilaunch.ui.settings.SettingsDestination
 import com.katoaapps.openminilaunch.ui.settings.SettingsScreen
 import com.katoaapps.openminilaunch.ui.theme.FontAppearanceTheme
-import com.katoaapps.openminilaunch.ui.theme.MinkLauncherTheme
-import com.katoaapps.openminilaunch.ui.theme.MinkTransparent
+import com.katoaapps.openminilaunch.ui.theme.MindyLauncherTheme
+import com.katoaapps.openminilaunch.ui.theme.MindyTransparent
 import com.katoaapps.openminilaunch.ui.theme.shouldUseDarkForeground
-import com.katoaapps.openminilaunch.ui.profile.openVirtualContactCard
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 
-private const val FEATURE_UPDATE_ID = "v320_whats_new_v1"
 private const val HOME_FEATURE_TOUR_ID = "home_spotlight_tour_v2"
-private const val GOOGLE_PLAY_BETA_NOTICE_ID = "google_play_beta_v1"
 private const val PACKAGE_REMOVAL_CONFIRMATION_MS = 750L
 
 @Composable
@@ -82,9 +76,6 @@ internal fun MiniLaunchApp(
     var screen by rememberSaveable { mutableStateOf(Screen.HOME) }
     var settingsDestination by rememberSaveable { mutableStateOf(SettingsDestination.OVERVIEW) }
     var showTutorial by rememberSaveable { mutableStateOf(!store.onboardingComplete) }
-    var showUpdateNotice by rememberSaveable {
-        mutableStateOf(store.onboardingComplete && !store.hasSeenUpdate(FEATURE_UPDATE_ID))
-    }
     var showHomeFeatureTour by rememberSaveable {
         mutableStateOf(
             shouldShowHomeFeatureTour(
@@ -93,13 +84,10 @@ internal fun MiniLaunchApp(
             ),
         )
     }
-    var showGooglePlayBetaNotice by rememberSaveable {
-        mutableStateOf(store.onboardingComplete && !store.hasSeenUpdate(GOOGLE_PLAY_BETA_NOTICE_ID))
-    }
     var tutorialRun by rememberSaveable { mutableIntStateOf(0) }
     val homeMagicBoxSessionState = rememberMagicBoxSessionState()
     val homeTourTargetRegistry = rememberHomeTourTargetRegistry()
-    val minkSpacePresentation = rememberMinkSpacePresentationState()
+    val mindySpacePresentation = rememberMindySpacePresentationState()
     var animateHomeEntrance by remember { mutableStateOf(false) }
     var focusedLauncherPage by rememberSaveable { mutableIntStateOf(HOME_PAGE) }
     var twoPanelActive by remember { mutableStateOf(false) }
@@ -137,10 +125,10 @@ internal fun MiniLaunchApp(
     val context = LocalContext.current
     val view = LocalView.current
 
-    val transparent = MinkTransparent
+    val transparent = MindyTransparent
     val hideHomeStatusBar = store.hideStatusBar && screen == Screen.HOME && !showTutorial
 
-    MinkLauncherTheme(store) {
+    MindyLauncherTheme(store) {
         val homeVisible = screen == Screen.HOME && !showTutorial
         val statusBarBackground = if (homeVisible) {
             launcherBackgroundColor(store, header = true)
@@ -182,7 +170,7 @@ internal fun MiniLaunchApp(
         val revealSystemWallpaper = !showTutorial && screen == Screen.HOME && store.useSystemHomeWallpaper
         Surface(
             Modifier.fillMaxSize(),
-            color = if (revealSystemWallpaper) MinkTransparent else MaterialTheme.colorScheme.background,
+            color = if (revealSystemWallpaper) MindyTransparent else MaterialTheme.colorScheme.background,
         ) {
             if (showTutorial) {
                 key(tutorialRun) {
@@ -192,7 +180,6 @@ internal fun MiniLaunchApp(
                         requestHomeRole = requestHomeRole,
                         onFinish = {
                             store.completeOnboarding()
-                            store.markUpdateSeen(FEATURE_UPDATE_ID)
                             showTutorial = false
                             screen = Screen.HOME
                             focusedLauncherPage = HOME_PAGE
@@ -224,20 +211,16 @@ internal fun MiniLaunchApp(
                                     homePageRequestToken = homePageRequestToken,
                                     keyboardInputEnabled =
                                         (twoPanelActive || launcherPagerState.currentPage == HOME_PAGE) &&
-                                            !showTutorial && !showUpdateNotice &&
-                                            !showHomeFeatureTour &&
-                                            !showGooglePlayBetaNotice,
+                                            !showTutorial &&
+                                            !showHomeFeatureTour,
                                     homeRequestToken = homeRequestToken,
                                     magicBoxSessionState = homeMagicBoxSessionState,
-                                    minkSpacePresentation = minkSpacePresentation,
+                                    mindySpacePresentation = mindySpacePresentation,
                                     openSettings = { destination ->
                                         settingsDestination = destination
                                         screen = Screen.SETTINGS
                                     },
                                     openTodos = { screen = Screen.TODOS },
-                                    openVCardSettings = {
-                                        openVirtualContactCard(context)
-                                    },
                                     openConversations = { screen = Screen.CONVERSATIONS },
                                     modifier = Modifier.fillMaxSize(),
                                 )
@@ -299,7 +282,7 @@ internal fun MiniLaunchApp(
                             store = store,
                             actions = actions,
                             onComposeMessage = { recipient, route ->
-                                minkSpacePresentation.collapse()
+                                mindySpacePresentation.collapse()
                                 val providerPackage = (route as? ContactAppRoute.Package)?.packageName
                                 homeMagicBoxSessionState.prepareMessage(
                                     recipient = recipient,
@@ -311,7 +294,7 @@ internal fun MiniLaunchApp(
                                 screen = Screen.HOME
                             },
                             onComposeConversationMessage = { conversation ->
-                                minkSpacePresentation.collapse()
+                                mindySpacePresentation.collapse()
                                 homeMagicBoxSessionState.prepareConversationMessage(conversation)
                                 focusedLauncherPage = HOME_PAGE
                                 homePageRequestToken++
@@ -324,51 +307,12 @@ internal fun MiniLaunchApp(
             }
         }
 
-        if (showUpdateNotice && !showTutorial) {
-            FeatureUpdateDialog(
-                onOpenSettings = {
-                    store.markUpdateSeen(FEATURE_UPDATE_ID)
-                    showUpdateNotice = false
-                    screen = Screen.SETTINGS
-                    settingsDestination = SettingsDestination.OVERVIEW
-                },
-                onReviewTutorial = {
-                    store.markUpdateSeen(FEATURE_UPDATE_ID)
-                    showUpdateNotice = false
-                    tutorialRun++
-                    showTutorial = true
-                },
-                onNotNow = {
-                    store.markUpdateSeen(FEATURE_UPDATE_ID)
-                    showUpdateNotice = false
-                },
-            )
-        }
-        if (showHomeFeatureTour && !showTutorial && !showUpdateNotice) {
+        if (showHomeFeatureTour && !showTutorial) {
             HomeFeatureTour(
                 registry = homeTourTargetRegistry,
                 onComplete = {
                     store.markUpdateSeen(HOME_FEATURE_TOUR_ID)
                     showHomeFeatureTour = false
-                },
-            )
-        }
-        if (
-            showGooglePlayBetaNotice && !showTutorial && !showUpdateNotice &&
-            !showHomeFeatureTour
-        ) {
-            GooglePlayBetaDialog(
-                onOpenBeta = {
-                    if (actions.openGooglePlayBetaPage()) {
-                        store.markUpdateSeen(GOOGLE_PLAY_BETA_NOTICE_ID)
-                        showGooglePlayBetaNotice = false
-                    } else {
-                        Toast.makeText(context, R.string.no_browser_available, Toast.LENGTH_SHORT).show()
-                    }
-                },
-                onDismiss = {
-                    store.markUpdateSeen(GOOGLE_PLAY_BETA_NOTICE_ID)
-                    showGooglePlayBetaNotice = false
                 },
             )
         }

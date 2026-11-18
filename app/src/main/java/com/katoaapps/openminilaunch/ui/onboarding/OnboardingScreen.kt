@@ -244,7 +244,7 @@ internal fun OnboardingScreen(
                     onSelectTheme = { theme ->
                         applyingThemeId = theme.id
                         scope.launch {
-                            store.setPalette(PalettePreference.MINK)
+                            store.setPalette(PalettePreference.MINDY)
                             val result = applyBundledHomeTheme(
                                 store,
                                 wallpaperRepository,

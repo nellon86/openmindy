@@ -39,7 +39,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.features.magic.MagicBoxRoute
-import com.katoaapps.openminilaunch.ui.theme.MinkTransparent
+import com.katoaapps.openminilaunch.ui.theme.MindyTransparent
 import kotlinx.coroutines.awaitCancellation
 
 private val SEND_IME_ROUTES = setOf(
@@ -82,10 +82,10 @@ internal fun MagicInputField(
     var preferredVerticalX by remember { mutableStateOf<Float?>(null) }
     val interactionSource = remember { MutableInteractionSource() }
     val colors = TextFieldDefaults.colors(
-        focusedContainerColor = MinkTransparent,
-        unfocusedContainerColor = MinkTransparent,
-        focusedIndicatorColor = MinkTransparent,
-        unfocusedIndicatorColor = MinkTransparent,
+        focusedContainerColor = MindyTransparent,
+        unfocusedContainerColor = MindyTransparent,
+        focusedIndicatorColor = MindyTransparent,
+        unfocusedIndicatorColor = MindyTransparent,
     )
     val updateValue: (TextFieldValue) -> Unit = { updated ->
         preferredVerticalX = null
@@ -108,13 +108,13 @@ internal fun MagicInputField(
         PlatformTextInputInterceptor { _, _ -> awaitCancellation() }
     }
     val placeholderRes = when (route) {
-        MagicBoxRoute.SEARCH -> R.string.magic_box_hotkey_hint
+        MagicBoxRoute.SEARCH -> R.string.magic_search_web_hint
         MagicBoxRoute.MESSAGE -> R.string.command_text
         MagicBoxRoute.CALL -> R.string.command_call
         MagicBoxRoute.TODO -> R.string.command_todo
         MagicBoxRoute.NOTE -> R.string.command_note
         MagicBoxRoute.EVENT -> R.string.command_event
-        MagicBoxRoute.APP -> R.string.search_apps
+        MagicBoxRoute.APP -> R.string.magic_box_hotkey_hint
         MagicBoxRoute.ASSISTANT -> R.string.ai
     }
 

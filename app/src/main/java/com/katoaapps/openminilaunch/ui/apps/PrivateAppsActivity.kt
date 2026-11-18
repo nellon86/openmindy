@@ -8,7 +8,7 @@ import com.katoaapps.openminilaunch.data.LauncherStore
 import com.katoaapps.openminilaunch.features.privatespace.PrivateSpaceRepository
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.apps.private.PrivateAppsScreen
-import com.katoaapps.openminilaunch.ui.theme.MinkLauncherTheme
+import com.katoaapps.openminilaunch.ui.theme.MindyLauncherTheme
 
 class PrivateAppsActivity : ComponentActivity() {
     private lateinit var repository: PrivateSpaceRepository
@@ -22,7 +22,7 @@ class PrivateAppsActivity : ComponentActivity() {
         actions = DeviceActions(this)
         store = LauncherStore.get(this)
         setContent {
-            MinkLauncherTheme(store) {
+            MindyLauncherTheme(store) {
                 PrivateAppsScreen(
                     repository = repository,
                     actions = actions,

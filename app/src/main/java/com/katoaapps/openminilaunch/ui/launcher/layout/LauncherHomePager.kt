@@ -26,17 +26,17 @@ import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.launcher.home.HomeScreen
 import com.katoaapps.openminilaunch.ui.launcher.home.HomeBackground
 import com.katoaapps.openminilaunch.ui.magic.MagicBoxSessionState
-import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpaceMiniAppCatalog
-import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpacePresentationState
-import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpaceTotalScreenDependencies
-import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpaceTotalScreenHost
+import com.katoaapps.openminilaunch.ui.mindyspace.core.MindySpaceMiniAppCatalog
+import com.katoaapps.openminilaunch.ui.mindyspace.core.MindySpacePresentationState
+import com.katoaapps.openminilaunch.ui.mindyspace.core.MindySpaceTotalScreenDependencies
+import com.katoaapps.openminilaunch.ui.mindyspace.core.MindySpaceTotalScreenHost
 import com.katoaapps.openminilaunch.ui.settings.SettingsDestination
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.wellbeing.MinkDayScreen
+import com.katoaapps.openminilaunch.ui.wellbeing.MindyDayScreen
 import com.katoaapps.openminilaunch.ui.widgets.WidgetPage
 import kotlinx.coroutines.launch
 
-internal const val MINK_DAY_PAGE = 0
+internal const val MINDY_DAY_PAGE = 0
 internal const val HOME_PAGE = 1
 internal const val WIDGET_PAGE = 2
 
@@ -54,10 +54,9 @@ internal fun LauncherHomePager(
     keyboardInputEnabled: Boolean,
     homeRequestToken: Int,
     magicBoxSessionState: MagicBoxSessionState,
-    minkSpacePresentation: MinkSpacePresentationState,
+    mindySpacePresentation: MindySpacePresentationState,
     openSettings: (SettingsDestination) -> Unit,
     openTodos: () -> Unit,
-    openVCardSettings: () -> Unit,
     openConversations: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -70,7 +69,7 @@ internal fun LauncherHomePager(
     var settledPair by remember { mutableIntStateOf(1) }
     var initialized by remember { mutableStateOf(false) }
     var previousModeWasTwoPanel by remember { mutableStateOf(false) }
-    var minkSpaceExpanded by remember { mutableStateOf(false) }
+    var mindySpaceExpanded by remember { mutableStateOf(false) }
     val magicBoxExpanded = magicBoxSessionState.expanded
 
     LaunchedEffect(fold, configuration.smallestScreenWidthDp) {
@@ -149,14 +148,14 @@ internal fun LauncherHomePager(
                 }
             }
         }
-        val goToMinkDay: () -> Unit = {
-            onFocusedPageChange(MINK_DAY_PAGE)
+        val goToMindyDay: () -> Unit = {
+            onFocusedPageChange(MINDY_DAY_PAGE)
             scope.launch {
                 if (twoPanelActive) {
                     settledPair = 0
                     twoPanelState.animateScrollToItem(0)
                 } else {
-                    pagerState.animateScrollToPage(MINK_DAY_PAGE)
+                    pagerState.animateScrollToPage(MINDY_DAY_PAGE)
                 }
             }
         }
@@ -181,18 +180,17 @@ internal fun LauncherHomePager(
                 listState = twoPanelState,
                 homeStateHolder = homeStateHolder,
                 magicBoxExpanded = magicBoxExpanded,
-                minkSpaceExpanded = minkSpaceExpanded,
+                mindySpaceExpanded = mindySpaceExpanded,
                 homeRequestToken = homeRequestToken,
                 magicBoxSessionState = magicBoxSessionState,
-                minkSpacePresentation = minkSpacePresentation,
+                mindySpacePresentation = mindySpacePresentation,
                 onFocusPage = onFocusedPageChange,
-                onMinkDay = goToMinkDay,
+                onMindyDay = goToMindyDay,
                 onGoHome = goHome,
                 openSettings = openSettings,
                 openTodos = openTodos,
-                openVCardSettings = openVCardSettings,
                 openConversations = openConversations,
-                onMinkSpaceExpandedChange = { minkSpaceExpanded = it },
+                onMindySpaceExpandedChange = { mindySpaceExpanded = it },
                 modifier = Modifier.fillMaxSize(),
             )
         } else {
@@ -203,13 +201,13 @@ internal fun LauncherHomePager(
                 HorizontalPager(
                     state = pagerState,
                     modifier = Modifier.fillMaxSize(),
-                    userScrollEnabled = !magicBoxExpanded && !minkSpaceExpanded,
+                    userScrollEnabled = !magicBoxExpanded && !mindySpaceExpanded,
                 ) { page ->
                     CompositionLocalProvider(LocalLayoutDirection provides contentLayoutDirection) {
                         when (page) {
-                            MINK_DAY_PAGE -> MinkDayScreen(
+                            MINDY_DAY_PAGE -> MindyDayScreen(
                                 store = store,
-                                isActive = pagerState.currentPage == MINK_DAY_PAGE,
+                                isActive = pagerState.currentPage == MINDY_DAY_PAGE,
                                 goHome = goHome,
                             )
                             HOME_PAGE -> homeStateHolder.SaveableStateProvider("home") {
@@ -218,16 +216,15 @@ internal fun LauncherHomePager(
                                     actions = actions,
                                     openSettings = openSettings,
                                     openTodos = openTodos,
-                                    openVCardSettings = openVCardSettings,
                                     openConversations = openConversations,
-                                    openMinkDay = goToMinkDay,
-                                    minkStatusActive = pagerState.currentPage == HOME_PAGE,
+                                    openMindyDay = goToMindyDay,
+                                    mindyStatusActive = pagerState.currentPage == HOME_PAGE,
                                     onMagicExpandedChange = {},
-                                    onMinkSpaceExpandedChange = { minkSpaceExpanded = it },
+                                    onMindySpaceExpandedChange = { mindySpaceExpanded = it },
                                     keyboardInputEnabled = keyboardInputEnabled,
                                     homeRequestToken = homeRequestToken,
                                     magicBoxSessionState = magicBoxSessionState,
-                                    minkSpacePresentation = minkSpacePresentation,
+                                    mindySpacePresentation = mindySpacePresentation,
                                 )
                             }
                             else -> WidgetPage(store = store, actions = actions, goHome = goHome)
@@ -237,20 +234,20 @@ internal fun LauncherHomePager(
             }
         }
 
-        minkSpacePresentation.totalScreenMiniApp?.let { miniApp ->
+        mindySpacePresentation.totalScreenMiniApp?.let { miniApp ->
             val dependencies = remember(actions) {
-                MinkSpaceTotalScreenDependencies(openMediaLab = actions::openMediaLab)
+                MindySpaceTotalScreenDependencies()
             }
             val totalScreenApp = remember(miniApp, dependencies) {
-                MinkSpaceMiniAppCatalog.createTotalScreenApp(miniApp, dependencies)
+                MindySpaceMiniAppCatalog.createTotalScreenApp(miniApp, dependencies)
             }
             if (totalScreenApp == null) {
-                LaunchedEffect(miniApp) { minkSpacePresentation.collapse(miniApp) }
+                LaunchedEffect(miniApp) { mindySpacePresentation.collapse(miniApp) }
             } else {
-                MinkSpaceTotalScreenHost(
+                MindySpaceTotalScreenHost(
                     store = store,
                     app = totalScreenApp,
-                    onDismiss = { minkSpacePresentation.collapse(miniApp) },
+                    onDismiss = { mindySpacePresentation.collapse(miniApp) },
                     onOpenConversations = openConversations,
                     modifier = Modifier.fillMaxSize(),
                 )

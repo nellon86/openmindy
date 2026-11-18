@@ -48,8 +48,8 @@ import com.katoaapps.openminilaunch.model.ContactAppRoute
 import com.katoaapps.openminilaunch.model.FavoriteAndroidContact
 import com.katoaapps.openminilaunch.model.FavoriteContactActionRoutes
 import com.katoaapps.openminilaunch.model.uniquePhones
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
 
@@ -78,9 +78,9 @@ internal fun FavoriteAndroidContactActionDialog(
     showPrimaryActions: Boolean = true,
 ) {
     val availablePhones = contact.uniquePhones()
-    Dialog(onDismissRequest = onDismiss, properties = MinkDialogDefaults.properties) {
+    Dialog(onDismissRequest = onDismiss, properties = MindyDialogDefaults.properties) {
         Surface(
-            modifier = Modifier.minkDialogWidth(),
+            modifier = Modifier.mindyDialogWidth(),
             shape = RoundedCornerShape(Dimens.dp24),
             color = MaterialTheme.colorScheme.background,
         ) {

@@ -6,6 +6,4 @@
     <string name="settings_tab_advanced">Advanced</string>
     <string name="settings_section_more">More</string>
     <string name="settings_launcher_home_summary">Home app, appearance and language</string>
-    <string name="minklauncher_community">MinkLauncher community</string>
-    <string name="minklauncher_community_summary">Join r/minklauncher on Reddit</string>
 </resources>

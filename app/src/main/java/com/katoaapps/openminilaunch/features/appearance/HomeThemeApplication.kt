@@ -4,7 +4,7 @@ import com.katoaapps.openminilaunch.data.LauncherStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-/** Applies a complete curated theme, including its paired wallpaper or solid Mink background. */
+/** Applies a complete curated theme, including its paired wallpaper or solid Mindy background. */
 internal suspend fun applyBundledHomeTheme(
     store: LauncherStore,
     repository: HomeWallpaperRepository,
@@ -20,8 +20,8 @@ internal suspend fun applyHomeThemeWallpaper(
 ): Result<Unit> = applyThemeWallpaper(store, repository, theme)
 
 /**
- * Returns Android to the last gallery photo chosen through Mink when one is available.
- * Without a retained Mink photo, this simply reveals the device's current system wallpaper.
+ * Returns Android to the last gallery photo chosen through Mindy when one is available.
+ * Without a retained Mindy photo, this simply reveals the device's current system wallpaper.
  */
 internal suspend fun restoreDeviceWallpaper(
     store: LauncherStore,

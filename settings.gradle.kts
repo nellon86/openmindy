@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "OpenMiniLaunch"
-include(":app", ":minkpad-core")
+rootProject.name = "OpenMindy"
+include(":app")

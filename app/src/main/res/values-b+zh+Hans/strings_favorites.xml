@@ -8,7 +8,7 @@
     <string name="message">发消息</string>
     <string name="call">打电话</string>
     <string name="open_contact">在通讯录中打开</string>
-    <string name="change_favorite_in_contacts">请在 Android 通讯录中为此人添加或取消星标。Mink 不会保存单独的收藏列表。</string>
+    <string name="change_favorite_in_contacts">请在 Android 通讯录中为此人添加或取消星标。Mindy 不会保存单独的收藏列表。</string>
     <string name="choose_phone_number">选择电话号码</string>
     <string name="preferred_number">首选号码</string>
     <string name="ask_every_time">每次询问</string>

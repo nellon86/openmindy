@@ -11,10 +11,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.katoaapps.openminilaunch.data.LauncherStore
-import com.katoaapps.openminilaunch.features.wellbeing.MinkAppAccessState
+import com.katoaapps.openminilaunch.features.wellbeing.MindyAppAccessState
 import com.katoaapps.openminilaunch.platform.DeviceActions
-import com.katoaapps.openminilaunch.ui.minkspace.todo.AssistantTodoFlightChip
-import com.katoaapps.openminilaunch.ui.minkspace.todo.todoFlightAnimationSpec
+import com.katoaapps.openminilaunch.ui.mindyspace.todo.AssistantTodoFlightChip
+import com.katoaapps.openminilaunch.ui.mindyspace.todo.todoFlightAnimationSpec
 
 /** Home owns a persistent session and can present the collapsed keyboard-first entry bar. */
 @Composable
@@ -29,7 +29,7 @@ internal fun HomeMagicBox(
     onOpenTodos: () -> Unit,
     onOpenKeyboardSettings: () -> Unit,
     onOpenTotalScreen: (() -> Unit)?,
-    appAccessState: MinkAppAccessState,
+    appAccessState: MindyAppAccessState,
     modifier: Modifier = Modifier,
     collapsedModifier: Modifier = Modifier,
 ) {

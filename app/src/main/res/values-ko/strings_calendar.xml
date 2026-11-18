@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="calendar">달력</string>
-    <string name="calendar_onboarding_privacy">Mink는 달력을 열기 전에 날짜와 시간을 미리 봅니다. 캘린더 문구는 이 장치에서 해석되며 당사로 전송되지 않습니다.</string>
+    <string name="calendar_onboarding_privacy">Mindy는 달력을 열기 전에 날짜와 시간을 미리 봅니다. 캘린더 문구는 이 장치에서 해석되며 당사로 전송되지 않습니다.</string>
     <string name="calendar_preview_all_day">하루 종일</string>
     <string name="calendar_preview_no_time">날짜 또는 시간이 감지되지 않았습니다.</string>
     <string name="calendar_preview_date_all_day">%1$s · 하루 종일</string>
@@ -13,7 +13,7 @@
     <string name="calendar_review_edit">문구 수정</string>
     <string name="calendar_issue_empty">이벤트 제목을 입력하세요.</string>
     <string name="calendar_issue_unsupported_language">이 캘린더 언어는 아직 지원되지 않습니다.</string>
-    <string name="calendar_issue_unsupported_phrase">Mink는 안전하게 이해할 수 없는 날짜 또는 시간 문구를 발견했습니다.</string>
+    <string name="calendar_issue_unsupported_phrase">Mindy는 안전하게 이해할 수 없는 날짜 또는 시간 문구를 발견했습니다.</string>
     <string name="calendar_issue_ambiguous_date">이 날짜는 여러 가지 방식으로 해석될 수 있습니다.</string>
     <string name="calendar_issue_invalid_date">이 날짜는 유효하지 않습니다.</string>
     <string name="calendar_issue_invalid_time">이번 시간은 유효하지 않습니다.</string>
@@ -23,11 +23,11 @@
     <string name="calendar_warning_dst_overlap">이 시간은 시계가 바뀌기 때문에 두 번 발생합니다.</string>
     <string name="update_notice_calendar_heading">언어 및 캘린더 지원 · 베타</string>
     <string name="update_notice_calendar_preview_title">핸드오프 전에 이벤트 보기</string>
-    <string name="update_notice_calendar_preview_description">이제 + 명령을 사용하면 Mink가 캘린더 앱으로 보낼 정확한 제목, 날짜, 시간 및 기간을 미리 볼 수 있습니다.</string>
-    <string name="update_notice_calendar_review_title">Mink는 추측 대신 멈춥니다.</string>
+    <string name="update_notice_calendar_preview_description">이제 + 명령을 사용하면 Mindy가 캘린더 앱으로 보낼 정확한 제목, 날짜, 시간 및 기간을 미리 볼 수 있습니다.</string>
+    <string name="update_notice_calendar_review_title">Mindy는 추측 대신 멈춥니다.</string>
     <string name="update_notice_calendar_review_description">유효하지 않거나 상충되거나 지원되지 않는 날짜 표현을 사용하면 오늘 조용히 일정을 만드는 대신 검토를 요청합니다.</string>
-    <string name="update_notice_calendar_language_title">Mink가 더 많은 언어를 지원합니다</string>
+    <string name="update_notice_calendar_language_title">Mindy가 더 많은 언어를 지원합니다</string>
     <string name="update_notice_calendar_language_description">15개의 런처 언어 중에서 선택할 수 있습니다. 캘린더 분석은 미국 및 영국 영어, 스페인어, 중국어 간체, 아랍어에서 베타로 제공됩니다.</string>
     <string name="update_notice_calendar_local_title">여전히 완전히 기기에 있습니다.</string>
-    <string name="update_notice_calendar_local_description">Mink는 앱 내부에서 결정론적 언어 모듈을 사용합니다. 달력 문구는 AI 서비스에 업로드되거나 전송되지 않습니다.</string>
+    <string name="update_notice_calendar_local_description">Mindy는 앱 내부에서 결정론적 언어 모듈을 사용합니다. 달력 문구는 AI 서비스에 업로드되거나 전송되지 않습니다.</string>
 </resources>

@@ -34,7 +34,6 @@ import com.katoaapps.openminilaunch.features.backup.LauncherBackup
 import com.katoaapps.openminilaunch.features.backup.LauncherBackupFile
 import com.katoaapps.openminilaunch.features.backup.createPortableBackup
 import com.katoaapps.openminilaunch.features.backup.restorePortableBackup
-import com.katoaapps.openminilaunch.features.profile.ProfileState
 import com.katoaapps.openminilaunch.ui.components.SettingsRow
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
@@ -54,7 +53,7 @@ internal fun BackupRestoreSettingsPage(
     val scope = rememberCoroutineScope()
     var pendingImport by remember { mutableStateOf<LauncherBackup?>(null) }
     var confirmSensitiveExport by remember { mutableStateOf(false) }
-    val includesMinkFavoriteContacts by produceState(
+    val includesMindyFavoriteContacts by produceState(
         initialValue = false,
         key1 = store.favoriteIntegratedContactStore,
     ) {
@@ -116,8 +115,7 @@ internal fun BackupRestoreSettingsPage(
             icon = Icons.Default.FileUpload,
             onClick = {
                 if (
-                    store.profileRepository.state is ProfileState.Ready ||
-                    includesMinkFavoriteContacts ||
+                    includesMindyFavoriteContacts ||
                     includesFavoriteAttentionColors
                 ) {
                     confirmSensitiveExport = true
@@ -139,7 +137,7 @@ internal fun BackupRestoreSettingsPage(
             modifier = Modifier.padding(top = Dimens.dp4),
         )
         Text(
-            stringResource(R.string.backup_minkspace_description),
+            stringResource(R.string.backup_mindyspace_description),
             color = Muted,
             fontSize = Dimens.sp11,
             modifier = Modifier.padding(top = Dimens.dp4),

@@ -14,7 +14,7 @@ import com.katoaapps.openminilaunch.features.demo.DemoFavoriteData
 import com.katoaapps.openminilaunch.features.demo.DemoHomeData
 import com.katoaapps.openminilaunch.features.demo.DemoHomeProfile
 import com.katoaapps.openminilaunch.features.demo.DemoScenario
-import com.katoaapps.openminilaunch.features.minkspace.todo.TodoStore
+import com.katoaapps.openminilaunch.features.mindyspace.todo.TodoStore
 import com.katoaapps.openminilaunch.model.AppGridSlot
 import com.katoaapps.openminilaunch.model.FavoriteContactId
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="update_notice_200_minkspace_heading">আপনার হোম প্যানেল আরও কিছু করে</string>
-    <string name="update_notice_200_minkspace_title">MinkSpace মিনি-অ্যাপস</string>
-    <string name="update_notice_200_minkspace_description">মিনি-অ্যাপগুলির মধ্যে যেতে হোম প্যানেলের ভিতরে উল্লম্বভাবে সোয়াইপ করুন। সেটিংসে কোনগুলি দেখানো হবে তা বেছে নিন এবং করণীয়, ক্যালকুলেটর, মিডিয়া, সঙ্গীত ও উইজেট সাজান।</string>
+    <string name="update_notice_200_mindyspace_heading">আপনার হোম প্যানেল আরও কিছু করে</string>
+    <string name="update_notice_200_mindyspace_title">MindySpace মিনি-অ্যাপস</string>
+    <string name="update_notice_200_mindyspace_description">মিনি-অ্যাপগুলির মধ্যে যেতে হোম প্যানেলের ভিতরে উল্লম্বভাবে সোয়াইপ করুন। সেটিংসে কোনগুলি দেখানো হবে তা বেছে নিন এবং করণীয়, ক্যালকুলেটর, মিডিয়া, সঙ্গীত ও উইজেট সাজান।</string>
     <string name="update_notice_200_media_title">আপনার নির্বাচিত মিডিয়া, এখনও আপনার</string>
-    <string name="update_notice_200_media_description">Android পিকারের মাধ্যমে ছবি, GIF বা ভিডিও যোগ করুন। Mink একটি স্থানীয় রেফারেন্স সঞ্চয় করে এবং আপনার বেছে নেওয়া অ্যাপে আসল আইটেমটি খোলে।</string>
+    <string name="update_notice_200_media_description">Android পিকারের মাধ্যমে ছবি, GIF বা ভিডিও যোগ করুন। Mindy একটি স্থানীয় রেফারেন্স সঞ্চয় করে এবং আপনার বেছে নেওয়া অ্যাপে আসল আইটেমটি খোলে।</string>
     <string name="update_notice_200_music_title">সক্রিয় মিডিয়া নিয়ন্ত্রণ</string>
-    <string name="update_notice_200_music_description">ঐচ্ছিক বিজ্ঞপ্তি অ্যাক্সেসের সাথে, সঙ্গীত Android এর সক্রিয় মিডিয়া সেশন দেখাতে পারে এবং শুধুমাত্র তার প্রদানকারী সমর্থন করে এমন নিয়ন্ত্রণ পাঠাতে পারে। Mink অডিও রেকর্ড করে না বা শোনার ইতিহাস রাখে না।</string>
+    <string name="update_notice_200_music_description">ঐচ্ছিক বিজ্ঞপ্তি অ্যাক্সেসের সাথে, সঙ্গীত Android এর সক্রিয় মিডিয়া সেশন দেখাতে পারে এবং শুধুমাত্র তার প্রদানকারী সমর্থন করে এমন নিয়ন্ত্রণ পাঠাতে পারে। Mindy অডিও রেকর্ড করে না বা শোনার ইতিহাস রাখে না।</string>
     <string name="update_notice_200_bubbles_heading">দ্রুত স্যুইচিং · বিটা</string>
     <string name="update_notice_200_bubbles_title">Android বুদবুদে অ্যাপ ব্যবহার করে দেখুন</string>
     <string name="update_notice_200_bubbles_description">একটি Magic Box অ্যাপের ফলাফল দীর্ঘক্ষণ প্রেস করুন বা সেটিংস থেকে স্বয়ংক্রিয় অ্যাপ বেছে নিন। সামঞ্জস্য Android এবং টার্গেট অ্যাপের অন্তর্গত, তাই অসমর্থিত অ্যাপগুলি এর পরিবর্তে সাধারণত খুলতে পারে।</string>
@@ -17,9 +17,9 @@
     <string name="update_notice_200_privacy_description">Android প্রাইভেট স্পেস অ্যাপ্লিকেশানগুলি কখনই নিয়মিত অনুসন্ধান, শর্টকাট বা দেখুন সবগুলিতে উপস্থিত হয় না৷ Android বা আপনার ডিভাইস মেকারের নিজস্ব প্রমাণীকরণ এবং সুরক্ষা অব্যাহত রয়েছে।</string>
     <string name="update_notice_200_smaller_title">আরও কীবোর্ড-প্রথম পরিমার্জন</string>
     <string name="update_notice_200_smaller_description">Nextcloud Talk মেসেজিং ইন্টিগ্রেশনে যোগ দেয়, প্রথম-ম্যাচ এন্টার অ্যাকশনগুলি দ্রুততর হয় এবং বড়-ডিসপ্লে লেআউটগুলি আরও আরামদায়ক।</string>
-    <string name="open_minkspace_settings">MinkSpace সেটিংস খুলুন</string>
-    <string name="mink_space_onboarding_description">কোনগুলি দেখানো হবে তা বেছে নিন এবং করণীয়, ক্যালকুলেটর, মিডিয়া, সঙ্গীত ও উইজেট সাজান, তারপর সুইচ করতে হোম প্যানেলের ভিতরে উল্লম্বভাবে সোয়াইপ করুন। ইন্টারঅ্যাক্ট করতে উইজেটে ট্যাপ করুন।</string>
+    <string name="open_mindyspace_settings">MindySpace সেটিংস খুলুন</string>
+    <string name="mindy_space_onboarding_description">কোনগুলি দেখানো হবে তা বেছে নিন এবং করণীয়, ক্যালকুলেটর, মিডিয়া, সঙ্গীত ও উইজেট সাজান, তারপর সুইচ করতে হোম প্যানেলের ভিতরে উল্লম্বভাবে সোয়াইপ করুন। ইন্টারঅ্যাক্ট করতে উইজেটে ট্যাপ করুন।</string>
     <string name="work_apps_onboarding_description">ওয়ার্ক-প্রোফাইল অ্যাপগুলি একটি ডেডিকেটেড ড্রয়ারে থাকে। Android এবং আপনার সংস্থা সেই প্রোফাইলটি উপলব্ধ বা পজ করা কিনা তা নিয়ন্ত্রণ করে।</string>
     <string name="privacy_space_onboarding_description">Android প্রাইভেট স্পেস এবং ডিভাইস মেকার প্রাইভেট এলাকা নিয়মিত সার্চ, শর্টকাট এবং সব দেখুন এর বাইরে থাকে। আপনার ডিভাইস প্রমাণীকরণ নিয়ন্ত্রণ করে।</string>
-    <string name="backup_minkspace_description">MinkSpace-এর ক্রম এবং দৃশ্যমানতা অন্তর্ভুক্ত থাকে। Android উইজেট বাইন্ডিং, ক্যালকুলেটর ইতিহাস, নির্বাচিত মিডিয়া ও তার Android অনুমতি, সক্রিয় মিডিয়া সেশন, কাজ ও গোপনীয়তা স্পেসের অবস্থা, ডিভাইস গেটওয়ে এবং সক্রিয় বুদবুদ বিজ্ঞপ্তি এই ডিভাইসেই থাকে।</string>
+    <string name="backup_mindyspace_description">MindySpace-এর ক্রম এবং দৃশ্যমানতা অন্তর্ভুক্ত থাকে। Android উইজেট বাইন্ডিং, ক্যালকুলেটর ইতিহাস, নির্বাচিত মিডিয়া ও তার Android অনুমতি, সক্রিয় মিডিয়া সেশন, কাজ ও গোপনীয়তা স্পেসের অবস্থা, ডিভাইস গেটওয়ে এবং সক্রিয় বুদবুদ বিজ্ঞপ্তি এই ডিভাইসেই থাকে।</string>
 </resources>

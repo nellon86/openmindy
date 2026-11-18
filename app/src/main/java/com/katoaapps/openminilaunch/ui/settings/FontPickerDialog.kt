@@ -38,8 +38,8 @@ import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
 import com.katoaapps.openminilaunch.features.appearance.launcherFontFamily
 import com.katoaapps.openminilaunch.model.FontSource
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
 
@@ -53,9 +53,9 @@ internal fun FontPickerDialog(
     val customFamily = remember(store.customFontRevision, store.hasCustomFont) {
         launcherFontFamily(FontSource.CUSTOM, store.customFontFile)
     }
-    Dialog(onDismissRequest = onDismiss, properties = MinkDialogDefaults.properties) {
+    Dialog(onDismissRequest = onDismiss, properties = MindyDialogDefaults.properties) {
         Surface(
-            Modifier.minkDialogWidth().fillMaxHeight(.9f),
+            Modifier.mindyDialogWidth().fillMaxHeight(.9f),
             shape = RoundedCornerShape(Dimens.dp24),
             color = MaterialTheme.colorScheme.background,
         ) {

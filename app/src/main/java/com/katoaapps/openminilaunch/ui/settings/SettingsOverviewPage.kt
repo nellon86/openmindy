@@ -1,29 +1,23 @@
 package com.katoaapps.openminilaunch.ui.settings
 
-import com.katoaapps.minkpad.core.R as MinkPadR
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Chat
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Assistant
 import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.ImportExport
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Keyboard
 import androidx.compose.material.icons.filled.Pets
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.katoaapps.openminilaunch.BuildConfig
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
-import com.katoaapps.openminilaunch.features.minkpad.MinkPadLauncherEntry
 import com.katoaapps.openminilaunch.platform.DeviceActions
-import com.katoaapps.openminilaunch.ui.profile.openVirtualContactCard
 import com.katoaapps.openminilaunch.ui.theme.socialGoalLabel
 
 @Composable
@@ -40,7 +34,7 @@ internal fun SettingsOverviewPage(
 ) {
     when (section) {
         SettingsSection.HOME -> HomeSettingsSection(store, actions, onNavigate, goBack)
-        SettingsSection.MINI_APPS -> MinkSpaceSettingsPage(
+        SettingsSection.MINI_APPS -> MindySpaceSettingsPage(
             store = store,
             actions = actions,
             openTodos = openTodos,
@@ -110,37 +104,26 @@ private fun AdvancedSettingsSection(
     onNavigate: (SettingsDestination) -> Unit,
     goBack: () -> Unit,
 ) {
-    val context = LocalContext.current
     SettingsPage(stringResource(R.string.settings_section_advanced), goBack) {
         SettingsCategoryRow(
-            title = stringResource(MinkPadR.string.minkpad_name),
-            subtitle = stringResource(MinkPadR.string.minkpad_tagline),
-            icon = Icons.Default.Keyboard,
-        ) { MinkPadLauncherEntry.open(context) }
-        SettingsCategoryRow(
-            title = stringResource(R.string.mink_assistant),
+            title = stringResource(R.string.mindy_assistant),
             subtitle = stringResource(R.string.settings_assistant_summary),
             status = stringResource(
                 if (permissionState.assistantRoleHeld) R.string.status_active
                 else R.string.status_optional,
             ),
             icon = Icons.Default.Assistant,
-        ) { onNavigate(SettingsDestination.MINK_ASSISTANT) }
+        ) { onNavigate(SettingsDestination.MINDY_ASSISTANT) }
         SettingsCategoryRow(
-            title = stringResource(R.string.mink_day),
-            subtitle = stringResource(R.string.settings_mink_day_summary),
+            title = stringResource(R.string.mindy_day),
+            subtitle = stringResource(R.string.settings_mindy_day_summary),
             status = stringResource(
                 R.string.two_part_label,
                 socialGoalLabel(store.socialGoalMinutes),
-                stringResource(store.minkAppPauseMode.labelRes),
+                stringResource(store.mindyAppPauseMode.labelRes),
             ),
             icon = Icons.Default.Pets,
-        ) { onNavigate(SettingsDestination.MINK_DAY) }
-        SettingsCategoryRow(
-            title = stringResource(R.string.profile),
-            subtitle = stringResource(R.string.vcard_settings_summary),
-            icon = Icons.Default.AccountCircle,
-        ) { openVirtualContactCard(context) }
+        ) { onNavigate(SettingsDestination.MINDY_DAY) }
     }
 }
 

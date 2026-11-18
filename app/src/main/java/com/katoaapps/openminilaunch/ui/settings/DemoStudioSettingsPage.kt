@@ -142,9 +142,6 @@ internal fun DemoStudioSettingsPage(
             onOpenGitHub = {
                 Toast.makeText(context, R.string.demo_preview_action, Toast.LENGTH_SHORT).show()
             },
-            onOpenFdroid = {
-                Toast.makeText(context, R.string.demo_preview_action, Toast.LENGTH_SHORT).show()
-            },
             onDismiss = { showUpdatePreview = false },
         )
     }

@@ -16,3 +16,9 @@ Third-party AI provider names and app icons are likewise used only to identify r
 targets and do not imply endorsement, sponsorship, or partnership. Installed apps continue to
 supply their own current artwork through Android. Bundled artwork, package IDs, and source links
 are recorded in docs/ai-provider-assets.md.
+
+OpenMindy
+Modifications Copyright 2026 Aniello Napoli (nellon86).
+OpenMindy is a modified fork of MinkLauncher OpenSource 3.2.2. Changes include the removal of
+MinkPad, a reversed Magic Box default (app search first, `?` for web search), and new branding.
+It is not affiliated with or endorsed by Katoa Apps.

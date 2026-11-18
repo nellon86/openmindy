@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="calendar">Календарь</string>
-    <string name="calendar_onboarding_privacy">Mink предварительно просматривает дату и время перед открытием календаря. Фразы календаря интерпретируются на этом устройстве и никогда не отправляются нам.</string>
+    <string name="calendar_onboarding_privacy">Mindy предварительно просматривает дату и время перед открытием календаря. Фразы календаря интерпретируются на этом устройстве и никогда не отправляются нам.</string>
     <string name="calendar_preview_all_day">Весь день</string>
     <string name="calendar_preview_no_time">Дата и время не обнаружены</string>
     <string name="calendar_preview_date_all_day">%1$s · Весь день</string>
@@ -13,7 +13,7 @@
     <string name="calendar_review_edit">Изменить фразу</string>
     <string name="calendar_issue_empty">Введите название мероприятия.</string>
     <string name="calendar_issue_unsupported_language">Этот язык календаря пока не поддерживается.</string>
-    <string name="calendar_issue_unsupported_phrase">Mink обнаружил формулировку даты или времени, которую он не мог понять.</string>
+    <string name="calendar_issue_unsupported_phrase">Mindy обнаружил формулировку даты или времени, которую он не мог понять.</string>
     <string name="calendar_issue_ambiguous_date">Эту дату можно интерпретировать по-разному.</string>
     <string name="calendar_issue_invalid_date">Эта дата недействительна.</string>
     <string name="calendar_issue_invalid_time">Это время недействительно.</string>
@@ -23,11 +23,11 @@
     <string name="calendar_warning_dst_overlap">Это время встречается дважды, потому что тогда часы меняются.</string>
     <string name="update_notice_calendar_heading">Поддержка языков и календаря · БЕТА</string>
     <string name="update_notice_calendar_preview_title">Посмотрите мероприятие перед передачей</string>
-    <string name="update_notice_calendar_preview_description">Команда + теперь позволяет просмотреть точное название, дату, время и продолжительность, которые Mink отправит в ваше приложение-календарь.</string>
-    <string name="update_notice_calendar_review_title">Mink вместо того, чтобы гадать, останавливается.</string>
+    <string name="update_notice_calendar_preview_description">Команда + теперь позволяет просмотреть точное название, дату, время и продолжительность, которые Mindy отправит в ваше приложение-календарь.</string>
+    <string name="update_notice_calendar_review_title">Mindy вместо того, чтобы гадать, останавливается.</string>
     <string name="update_notice_calendar_review_description">Неверная, противоречивая или неподдерживаемая формулировка даты требует проверки вместо того, чтобы незаметно создать мероприятие сегодня.</string>
-    <string name="update_notice_calendar_language_title">Mink теперь поддерживает больше языков</string>
+    <string name="update_notice_calendar_language_title">Mindy теперь поддерживает больше языков</string>
     <string name="update_notice_calendar_language_description">Выберите один из 15 языков лаунчера. Разбор календарных фраз доступен в бета-версии для американского и британского английского, испанского, упрощённого китайского и арабского.</string>
     <string name="update_notice_calendar_local_title">Все еще полностью на устройстве</string>
-    <string name="update_notice_calendar_local_description">Mink использует детерминированные языковые модули внутри приложения. Фразы календаря не загружаются и не отправляются в службу AI.</string>
+    <string name="update_notice_calendar_local_description">Mindy использует детерминированные языковые модули внутри приложения. Фразы календаря не загружаются и не отправляются в службу AI.</string>
 </resources>

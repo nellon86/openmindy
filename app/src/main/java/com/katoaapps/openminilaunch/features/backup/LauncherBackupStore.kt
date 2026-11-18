@@ -3,12 +3,10 @@ package com.katoaapps.openminilaunch.features.backup
 import com.katoaapps.openminilaunch.data.LauncherStore
 import com.katoaapps.openminilaunch.data.WidgetRecipeImportResult
 import com.katoaapps.openminilaunch.features.appearance.BundledHomeThemeCatalog
-import com.katoaapps.openminilaunch.features.profile.ProfileState
 import com.katoaapps.openminilaunch.model.FontSource
 import com.katoaapps.openminilaunch.model.IconSource
 
 internal fun LauncherStore.createPortableBackup(appVersion: String): LauncherBackup {
-    val profile = profileRepository.state as? ProfileState.Ready
     return LauncherBackup(
         sourceAppVersion = appVersion,
         exportedAtMillis = System.currentTimeMillis(),
@@ -40,10 +38,10 @@ internal fun LauncherStore.createPortableBackup(appVersion: String): LauncherBac
             launcherKeyboardPreferences = launcherKeyboardPreferences,
             includeAppShortcutsInDiscovery = includeAppShortcutsInDiscovery,
             automaticAppBubbleTargets = automaticAppBubbleTargets.toList(),
-            minkSpaceMiniAppOrder = minkSpaceMiniAppOrder.filter { it.readyForHome },
-            enabledMinkSpaceMiniApps = enabledMinkSpaceMiniApps.filterTo(mutableSetOf()) { it.readyForHome },
-            minkSpaceTotalScreenShortcut = MinkSpaceTotalScreenShortcutBackup(
-                minkSpaceTotalScreenShortcut,
+            mindySpaceMiniAppOrder = mindySpaceMiniAppOrder.filter { it.readyForHome },
+            enabledMindySpaceMiniApps = enabledMindySpaceMiniApps.filterTo(mutableSetOf()) { it.readyForHome },
+            mindySpaceTotalScreenShortcut = MindySpaceTotalScreenShortcutBackup(
+                mindySpaceTotalScreenShortcut,
             ),
             sendMessagesAutomatically = sendMessagesAutomatically,
             preferredMessagingPackage = preferredMessagingPackage,
@@ -57,14 +55,11 @@ internal fun LauncherStore.createPortableBackup(appVersion: String): LauncherBac
             usesAutomaticSocialApps = usesAutomaticSocialApps,
             socialPackages = socialPackages.toList(),
             socialGoalHours = socialGoalHours,
-            minkAppPauseMode = minkAppPauseMode,
+            mindyAppPauseMode = mindyAppPauseMode,
             githubUpdateChecksEnabled = githubUpdateChecksEnabled,
-            minkPadPreferences = minkPadPreferences.state.value,
             fontAppearance = fontAppearance,
         ),
         todos = savedTodosForBackup,
-        profile = profile?.card?.copy(hasPortrait = false),
-        profileLinks = profile?.links.orEmpty(),
         widgetRecipes = portableWidgetRestoreRecipes(),
         integratedContacts = favoriteIntegratedContactStore.contacts(),
         integratedContactOrder = favoriteIntegratedContactStore.contacts()
@@ -80,7 +75,7 @@ internal fun LauncherStore.restorePortableBackup(
     backup: LauncherBackup,
     restoreWidgetPlaceholders: Boolean = true,
 ): WidgetRecipeImportResult {
-    // Android widget IDs, provider-owned configuration, and the MinkSpace widget binding
+    // Android widget IDs, provider-owned configuration, and the MindySpace widget binding
     // remain installation-local. Portable provider recipes append setup placeholders without
     // replacing widgets that are already configured on this installation.
     if (demoModeEnabled) disableDemoMode()
@@ -94,7 +89,6 @@ internal fun LauncherStore.restorePortableBackup(
         libraryShortcutTargets = backup.launcher.libraryShortcutTargets,
     )
     replaceTodosFromBackup(backup.todos)
-    profileRepository.replaceFromBackup(backup.profile, backup.profileLinks)
 
     setTheme(settings.themePreference)
     setPalette(settings.palettePreference)
@@ -118,13 +112,13 @@ internal fun LauncherStore.restorePortableBackup(
     )
     settings.appBackgroundPresetId?.let(::restoreAppBackgroundPreset)
     when (settings.iconAppearance.source) {
-        IconSource.MINK -> useMinkIcons()
+        IconSource.MINDY -> useMindyIcons()
         IconSource.SYSTEM -> useSystemIcons()
         IconSource.ICON_PACK -> settings.iconAppearance.iconPackPackage
             ?.let(::useIconPack)
-            ?: useMinkIcons()
+            ?: useMindyIcons()
     }
-    setMinkIconColor(settings.iconAppearance.minkIconColorArgb)
+    setMindyIconColor(settings.iconAppearance.mindyIconColorArgb)
     val restoredFontSource = settings.fontAppearance.source
     useFont(if (restoredFontSource == FontSource.CUSTOM && !hasCustomFont) FontSource.DEFAULT else restoredFontSource)
     setFontSizeScale(settings.fontAppearance.sizeScale)
@@ -136,14 +130,14 @@ internal fun LauncherStore.restorePortableBackup(
     settings.folderIndicatorStyle?.let(::updateFolderIndicatorStyle)
     settings.folderAnimationStyle?.let(::updateFolderAnimationStyle)
     replaceAutomaticAppBubbleTargets(settings.automaticAppBubbleTargets)
-    if (settings.minkSpaceMiniAppOrder != null && settings.enabledMinkSpaceMiniApps != null) {
-        replaceMinkSpacePreferencesFromBackup(
-            order = settings.minkSpaceMiniAppOrder,
-            enabledMiniApps = settings.enabledMinkSpaceMiniApps,
+    if (settings.mindySpaceMiniAppOrder != null && settings.enabledMindySpaceMiniApps != null) {
+        replaceMindySpacePreferencesFromBackup(
+            order = settings.mindySpaceMiniAppOrder,
+            enabledMiniApps = settings.enabledMindySpaceMiniApps,
         )
     }
-    settings.minkSpaceTotalScreenShortcut?.let { shortcut ->
-        setMinkSpaceTotalScreenShortcut(shortcut.miniApp)
+    settings.mindySpaceTotalScreenShortcut?.let { shortcut ->
+        setMindySpaceTotalScreenShortcut(shortcut.miniApp)
     }
     updateSendMessagesAutomatically(settings.sendMessagesAutomatically)
     settings.preferredMessagingPackage?.let(::setPreferredMessagingApp)
@@ -152,7 +146,6 @@ internal fun LauncherStore.restorePortableBackup(
     settings.preferredCallingPackage?.let(::setPreferredCallingApp)
         ?: resetPreferredCallingApp()
     settings.quickDrawer?.let { quickDrawer ->
-        updateShowMinkPadInQuickDrawer(quickDrawer.showMinkPad)
         updateShowPrivateSpaceInQuickDrawer(quickDrawer.showPrivateSpace)
         updateShowWorkProfileInQuickDrawer(quickDrawer.showWorkProfile)
         setQuickDrawerColor(quickDrawer.colorArgb)
@@ -161,12 +154,11 @@ internal fun LauncherStore.restorePortableBackup(
     settings.preferredWebPackage?.let(::setPreferredWebApp) ?: resetPreferredWebApp()
 
     updateSocialGoalHours(settings.socialGoalHours)
-    updateMinkAppPauseMode(settings.minkAppPauseMode)
+    updateMindyAppPauseMode(settings.mindyAppPauseMode)
     if (settings.usesAutomaticSocialApps) clearSocialApps()
     else replaceSocialApps(settings.socialPackages.toSet())
 
     setGitHubUpdateChecksEnabled(settings.githubUpdateChecksEnabled)
-    settings.minkPadPreferences?.let(minkPadPreferences::update)
     backup.integratedContacts?.let { importedContacts ->
         favoriteIntegratedContactStore.mergeFromBackup(importedContacts)
         backup.integratedContactOrder?.let { importedOrder ->

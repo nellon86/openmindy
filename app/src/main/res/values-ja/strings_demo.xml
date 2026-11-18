@@ -7,5 +7,5 @@
     <string name="demo_invoice_number">請求書番号: %1$s</string>
     <string name="demo_invoice_services">デモサービスと資料</string>
     <string name="demo_invoice_total">合計: %1$s</string>
-    <string name="demo_invoice_footer">MinkLauncher OpenSource によって生成されたサンプル ドキュメント</string>
+    <string name="demo_invoice_footer">OpenMindy によって生成されたサンプル ドキュメント</string>
 </resources>

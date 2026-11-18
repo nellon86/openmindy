@@ -1,8 +1,8 @@
 <resources>
     <string name="home_spotlight_folders_title">Build a folder</string>
     <string name="home_spotlight_folders_description">Press and hold any app, then add another app to turn the tile into a folder.</string>
-    <string name="home_spotlight_minkspace_title">Mini Apps live here</string>
-    <string name="home_spotlight_minkspace_description">Swipe up or down inside MinkSpace to move between Mini Apps. Tap supported apps to expand.</string>
+    <string name="home_spotlight_mindyspace_title">Mini Apps live here</string>
+    <string name="home_spotlight_mindyspace_description">Swipe up or down inside MindySpace to move between Mini Apps. Tap supported apps to expand.</string>
     <string name="home_spotlight_magic_title">Start typing</string>
     <string name="home_spotlight_magic_description">Search, message, call, create notes, and launch actions with ordinary text or Magic Box hotkeys.</string>
     <string name="home_spotlight_keyboard_title">More than a keyboard</string>

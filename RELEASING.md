@@ -1,54 +1,48 @@
-# Publishing a GitHub APK
+# Publicar un APK de OpenMindy
 
-GitHub APKs are published as release assets instead of being committed to the
-source tree. This keeps repository history small and keeps packaged binaries
-out of the source F-Droid scans.
+Los APK se publican como assets de una release de GitHub, no se guardan en el repositorio.
 
-## One-time signing setup
+## Configuración inicial de la firma
 
-The upstream release key lives only in `.signing/`, which is ignored by Git.
-Back up both `.signing/openminilaunch-release.jks` and
-`.signing/release.properties` in a secure password manager or encrypted backup.
-Losing this key means existing GitHub installs cannot be updated.
+1. Crea una clave de firma propia y guárdala en `.signing/` (Git la ignora):
 
-Authenticate GitHub CLI as the `katoaapps` account, then run:
+   ```shell
+   mkdir -p .signing
+   keytool -genkeypair -v -keystore .signing/openmindy-release.jks \
+     -alias openmindy -keyalg RSA -keysize 4096 -validity 10000
+   ```
+
+2. Crea `.signing/release.properties`:
+
+   ```properties
+   storeFile=.signing/openmindy-release.jks
+   storePassword=...
+   keyAlias=openmindy
+   keyPassword=...
+   ```
+
+3. Haz una copia de seguridad de los dos archivos en un gestor de contraseñas. Sin esta clave no podrás actualizar las instalaciones existentes.
+
+4. Inicia sesión en GitHub CLI como `nellon86` y sube los secrets del workflow:
+
+   ```shell
+   tools/configure_github_release_secrets.sh
+   ```
+
+   El script crea `ANDROID_SIGNING_KEY_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS` y `ANDROID_KEY_PASSWORD` en `nellon86/openmindy`.
+
+## Publicar
+
+1. Actualiza `versionCode` y `versionName` en `app/build.gradle.kts`, y también `RELEASE_NOTES.md`.
+2. Crea y sube el tag de la versión, por ejemplo `git tag v1.0.0 && git push origin v1.0.0`.
+3. El workflow `Publish OpenMindy APK` ejecuta los tests, compila la release firmada y publica `OpenMindy.apk` junto con su suma SHA-256.
+
+El comprobador de actualizaciones de la app lee `https://api.github.com/repos/nellon86/openmindy/releases/latest`, así que el tag debe seguir el formato `vX.Y.Z`.
+
+## Compilación local firmada
+
+Con `.signing/release.properties` en su sitio, basta con ejecutar:
 
 ```shell
-tools/configure_github_release_secrets.sh
+./gradlew assembleRelease
 ```
-
-The script refuses to continue under another GitHub identity and adds these
-encrypted GitHub Actions repository secrets without printing their values:
-
-- `ANDROID_SIGNING_KEY_BASE64`: Base64 contents of the JKS file
-- `ANDROID_KEYSTORE_PASSWORD`: `storePassword` from `release.properties`
-- `ANDROID_KEY_ALIAS`: `keyAlias` from `release.properties`
-- `ANDROID_KEY_PASSWORD`: `keyPassword` from `release.properties`
-
-On macOS, copy the JKS value without printing it to the terminal:
-
-```shell
-base64 -i .signing/openminilaunch-release.jks | pbcopy
-```
-
-Copy each remaining value from `.signing/release.properties` directly into its
-matching GitHub secret.
-
-## Publish
-
-After the release commit is approved and pushed, create and push its version
-tag. The `Publish GitHub APK` workflow tests the tagged source, builds and
-verifies a signed APK, and creates a GitHub Release containing:
-
-- `MinkLauncher-OpenSource.apk`
-- `MinkLauncher-OpenSource.apk.sha256`
-
-The permanent latest-build URL is:
-
-<https://github.com/katoaapps/openminilaunch/releases/latest/download/MinkLauncher-OpenSource.apk>
-
-## Signing-channel warning
-
-The GitHub APK uses the Katoa Apps upstream key. The standard F-Droid APK uses
-F-Droid's key. Android cannot update one with the other; changing channels
-requires uninstalling the current app first, which clears its local data.

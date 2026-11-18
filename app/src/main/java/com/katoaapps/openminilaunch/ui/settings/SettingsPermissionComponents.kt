@@ -1,8 +1,8 @@
 package com.katoaapps.openminilaunch.ui.settings
 
 import com.katoaapps.openminilaunch.R
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.MagicCallColor
 import com.katoaapps.openminilaunch.ui.theme.Muted
@@ -87,9 +87,9 @@ internal fun PermissionCard(
 internal fun LockAccessibilityDisclosureDialog(onContinue: () -> Unit, onDismiss: () -> Unit) {
     val appName = stringResource(R.string.app_name)
     AlertDialog(
-        modifier = Modifier.minkDialogWidth(),
+        modifier = Modifier.mindyDialogWidth(),
         onDismissRequest = onDismiss,
-        properties = MinkDialogDefaults.properties,
+        properties = MindyDialogDefaults.properties,
         icon = { Icon(Icons.Default.Lock, null, tint = Rust) },
         title = { Text(stringResource(R.string.enable_double_tap_lock)) },
         text = {
@@ -108,9 +108,9 @@ internal fun LockAccessibilityDisclosureDialog(onContinue: () -> Unit, onDismiss
 internal fun AssistantDisclosureDialog(active: Boolean, onContinue: () -> Unit, onDismiss: () -> Unit) {
     val appName = stringResource(R.string.app_name)
     AlertDialog(
-        modifier = Modifier.minkDialogWidth(),
+        modifier = Modifier.mindyDialogWidth(),
         onDismissRequest = onDismiss,
-        properties = MinkDialogDefaults.properties,
+        properties = MindyDialogDefaults.properties,
         icon = { Icon(Icons.Default.Assistant, null, tint = Rust) },
         title = { Text(stringResource(if (active) R.string.assistant_active_title else R.string.assistant_enable_title)) },
         text = {
@@ -137,9 +137,9 @@ internal fun NotificationAccessDisclosureDialog(
 ) {
     val appName = stringResource(R.string.app_name)
     val showRestrictedSettingsStep = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU
-    Dialog(onDismissRequest = onDismiss, properties = MinkDialogDefaults.properties) {
+    Dialog(onDismissRequest = onDismiss, properties = MindyDialogDefaults.properties) {
         Surface(
-            modifier = Modifier.minkDialogWidth().fillMaxHeight(0.94f),
+            modifier = Modifier.mindyDialogWidth().fillMaxHeight(0.94f),
             shape = RoundedCornerShape(Dimens.dp24),
             color = MaterialTheme.colorScheme.background,
         ) {
@@ -224,7 +224,7 @@ private fun RestrictedSettingsSteps(
         body = stringResource(R.string.restricted_settings_step_two_body),
     )
     Image(
-        painter = painterResource(R.drawable.restricted_settings_openmink_example),
+        painter = painterResource(R.drawable.restricted_settings_openmindy_example),
         contentDescription = stringResource(R.string.restricted_settings_example_description),
         modifier = Modifier.fillMaxWidth().aspectRatio(1280f / 579f).clip(RoundedCornerShape(Dimens.dp14)),
         contentScale = ContentScale.Crop,

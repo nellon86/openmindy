@@ -6,6 +6,4 @@
     <string name="settings_tab_advanced">高级</string>
     <string name="settings_section_more">更多</string>
     <string name="settings_launcher_home_summary">主屏幕应用、外观和语言</string>
-    <string name="minklauncher_community">MinkLauncher 社区</string>
-    <string name="minklauncher_community_summary">在 Reddit 加入 r/minklauncher</string>
 </resources>

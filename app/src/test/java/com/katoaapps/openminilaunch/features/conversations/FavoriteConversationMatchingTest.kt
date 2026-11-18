@@ -15,7 +15,7 @@ class FavoriteConversationMatchingTest {
     fun demoFavoritesMatchDemoConversationsWithoutDeviceContacts() {
         val notifications = DemoConversationData.notifications(
             now = 1_000_000L,
-            scenario = DemoScenario.PET_MINK,
+            scenario = DemoScenario.PET_MINDY,
             state = DemoConversationState.ONE_FAVORITE,
         )
         val conversations = ConversationNotificationStore.groupConversations(
@@ -25,7 +25,7 @@ class FavoriteConversationMatchingTest {
 
         val matches = matchFavoriteConversations(
             conversations = conversations,
-            orderedFavorites = DemoFavoriteData.contacts(DemoScenario.PET_MINK),
+            orderedFavorites = DemoFavoriteData.contacts(DemoScenario.PET_MINDY),
         )
 
         assertEquals(1, matches.size)

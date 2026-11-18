@@ -5,10 +5,7 @@ import com.katoaapps.openminilaunch.features.contacts.AndroidFavoriteAttentionTr
 import com.katoaapps.openminilaunch.features.contacts.AndroidFavoriteAttentionTransfers
 import com.katoaapps.openminilaunch.features.contacts.AndroidFavoriteIdentityCandidate
 import com.katoaapps.openminilaunch.features.contacts.AndroidFavoriteIdentityKind
-import com.katoaapps.openminilaunch.features.minkspace.MinkSpaceMiniApp
-import com.katoaapps.openminilaunch.features.profile.ProfileCard
-import com.katoaapps.openminilaunch.features.profile.ProfileLink
-import com.katoaapps.openminilaunch.features.profile.ProfileLinkType
+import com.katoaapps.openminilaunch.features.mindyspace.MindySpaceMiniApp
 import com.katoaapps.openminilaunch.model.AppFolderConfig
 import com.katoaapps.openminilaunch.model.AppFolderAnimationStyle
 import com.katoaapps.openminilaunch.model.AppFolderColorMode
@@ -24,7 +21,7 @@ import com.katoaapps.openminilaunch.model.IconAppearance
 import com.katoaapps.openminilaunch.model.IntegratedContactCallEndpoint
 import com.katoaapps.openminilaunch.model.IntegratedContactEndpoint
 import com.katoaapps.openminilaunch.model.ProviderAddressType
-import com.katoaapps.openminilaunch.model.MinkAppPauseMode
+import com.katoaapps.openminilaunch.model.MindyAppPauseMode
 import com.katoaapps.openminilaunch.model.LauncherKeyboardColorSource
 import com.katoaapps.openminilaunch.model.LauncherKeyboardHeightPreset
 import com.katoaapps.openminilaunch.model.LauncherKeyboardLayout
@@ -45,7 +42,7 @@ import org.junit.Test
 class LauncherBackupCodecTest {
     @Test fun launcherKeyboardPreferencesSurvivePortableBackupRoundTrip() {
         val keyboard = LauncherKeyboardPreferences(
-            useMinkKeyboard = false,
+            useMindyKeyboard = false,
             style = LauncherKeyboardStyle.OUTLINED_SECONDARY,
             layout = LauncherKeyboardLayout.DVORAK,
             colorSource = LauncherKeyboardColorSource.CUSTOM,
@@ -79,13 +76,13 @@ class LauncherBackupCodecTest {
         assertNull(LauncherBackupCodec.decode(json.toString()).settings.launcherKeyboardPreferences)
     }
 
-    @Test fun olderLauncherKeyboardBackupDefaultsToMinkKeyboard() {
+    @Test fun olderLauncherKeyboardBackupDefaultsToMindyKeyboard() {
         val sample = sampleBackup(twoPanelMode = true)
         val json = JSONObject(
             LauncherBackupCodec.encode(
                 sample.copy(
                     settings = sample.settings.copy(
-                        launcherKeyboardPreferences = LauncherKeyboardPreferences(useMinkKeyboard = false),
+                        launcherKeyboardPreferences = LauncherKeyboardPreferences(useMindyKeyboard = false),
                     ),
                 ),
             ),
@@ -99,7 +96,7 @@ class LauncherBackupCodecTest {
             true,
             LauncherBackupCodec.decode(json.toString())
                 .settings.launcherKeyboardPreferences
-                ?.useMinkKeyboard,
+                ?.useMindyKeyboard,
         )
     }
 
@@ -114,12 +111,12 @@ class LauncherBackupCodecTest {
         assertEquals(PalettePreference.SYSTEM, restored.settings.palettePreference)
     }
 
-    @Test fun olderBackupWithoutPaletteUsesMink() {
+    @Test fun olderBackupWithoutPaletteUsesMindy() {
         val json = JSONObject(LauncherBackupCodec.encode(sampleBackup(twoPanelMode = true)))
         json.getJSONObject("settings").getJSONObject("appearance").remove("palette")
 
         assertEquals(
-            PalettePreference.MINK,
+            PalettePreference.MINDY,
             LauncherBackupCodec.decode(json.toString()).settings.palettePreference,
         )
     }
@@ -144,12 +141,12 @@ class LauncherBackupCodecTest {
         assertNull(LauncherBackupCodec.decode(json.toString()).settings.twoPanelModeForLargeDisplays)
     }
 
-    @Test fun minkSpacePreferencesSurvivePortableBackupRoundTrip() {
+    @Test fun mindySpacePreferencesSurvivePortableBackupRoundTrip() {
         val sample = sampleBackup(twoPanelMode = true)
         val original = sample.copy(
             settings = sample.settings.copy(
-                minkSpaceTotalScreenShortcut = MinkSpaceTotalScreenShortcutBackup(
-                    MinkSpaceMiniApp.MEDIA,
+                mindySpaceTotalScreenShortcut = MindySpaceTotalScreenShortcutBackup(
+                    MindySpaceMiniApp.CALCULATOR,
                 ),
             ),
         )
@@ -159,20 +156,20 @@ class LauncherBackupCodecTest {
         assertEquals(3, JSONObject(encoded).getInt("schemaVersion"))
         assertEquals(
             listOf(
-                MinkSpaceMiniApp.MUSIC,
-                MinkSpaceMiniApp.TODO,
-                MinkSpaceMiniApp.CALCULATOR,
-                MinkSpaceMiniApp.VCARD,
+                MindySpaceMiniApp.MUSIC,
+                MindySpaceMiniApp.TODO,
+                MindySpaceMiniApp.CALCULATOR,
+                MindySpaceMiniApp.WIDGET_2,
             ),
-            restored.settings.minkSpaceMiniAppOrder,
+            restored.settings.mindySpaceMiniAppOrder,
         )
         assertEquals(
-            setOf(MinkSpaceMiniApp.TODO, MinkSpaceMiniApp.MUSIC),
-            restored.settings.enabledMinkSpaceMiniApps,
+            setOf(MindySpaceMiniApp.TODO, MindySpaceMiniApp.MUSIC),
+            restored.settings.enabledMindySpaceMiniApps,
         )
         assertEquals(
-            MinkSpaceTotalScreenShortcutBackup(MinkSpaceMiniApp.MEDIA),
-            restored.settings.minkSpaceTotalScreenShortcut,
+            MindySpaceTotalScreenShortcutBackup(MindySpaceMiniApp.CALCULATOR),
+            restored.settings.mindySpaceTotalScreenShortcut,
         )
     }
 
@@ -180,27 +177,27 @@ class LauncherBackupCodecTest {
         val sample = sampleBackup(twoPanelMode = true)
         val original = sample.copy(
             settings = sample.settings.copy(
-                minkSpaceTotalScreenShortcut = MinkSpaceTotalScreenShortcutBackup(null),
+                mindySpaceTotalScreenShortcut = MindySpaceTotalScreenShortcutBackup(null),
             ),
         )
 
         val restored = LauncherBackupCodec.decode(LauncherBackupCodec.encode(original))
 
         assertEquals(
-            MinkSpaceTotalScreenShortcutBackup(null),
-            restored.settings.minkSpaceTotalScreenShortcut,
+            MindySpaceTotalScreenShortcutBackup(null),
+            restored.settings.mindySpaceTotalScreenShortcut,
         )
     }
 
-    @Test fun backupWithoutMinkSpaceLeavesCurrentPreferencesAlone() {
+    @Test fun backupWithoutMindySpaceLeavesCurrentPreferencesAlone() {
         val json = JSONObject(LauncherBackupCodec.encode(sampleBackup(twoPanelMode = true)))
         json.getJSONObject("settings").remove("minkSpace")
 
         val restored = LauncherBackupCodec.decode(json.toString())
 
-        assertNull(restored.settings.minkSpaceMiniAppOrder)
-        assertNull(restored.settings.enabledMinkSpaceMiniApps)
-        assertNull(restored.settings.minkSpaceTotalScreenShortcut)
+        assertNull(restored.settings.mindySpaceMiniAppOrder)
+        assertNull(restored.settings.enabledMindySpaceMiniApps)
+        assertNull(restored.settings.mindySpaceTotalScreenShortcut)
     }
 
     @Test fun bundledWallpaperSelectionSurvivesPortableBackupRoundTrip() {
@@ -284,7 +281,6 @@ class LauncherBackupCodecTest {
             settings = sample.settings.copy(
                 quickDrawer = QuickDrawerConfig(
                     orderedTargetKeys = listOf("app:0:com.example/.MainActivity"),
-                    showMinkPad = false,
                     showPrivateSpace = false,
                     showWorkProfile = false,
                     colorArgb = 0xFF123456.toInt(),
@@ -492,8 +488,8 @@ class LauncherBackupCodecTest {
         val restored = LauncherBackupCodec.decode(json.toString())
 
         assertEquals(
-            setOf(MinkSpaceMiniApp.TODO, MinkSpaceMiniApp.MUSIC),
-            restored.settings.enabledMinkSpaceMiniApps,
+            setOf(MindySpaceMiniApp.TODO, MindySpaceMiniApp.MUSIC),
+            restored.settings.enabledMindySpaceMiniApps,
         )
     }
 
@@ -508,32 +504,20 @@ class LauncherBackupCodecTest {
         assertEquals(com.katoaapps.openminilaunch.model.AppGridSlot.DRAWER, restored.launcher.appGridOrder.last())
     }
 
-    @Test fun minkSpaceBackupFromBeforeVCardEnablesVCardDuringMigration() {
+    @Test fun removedMemoriesAndVCardMiniAppsAreIgnoredOnImport() {
         val json = JSONObject(LauncherBackupCodec.encode(sampleBackup(twoPanelMode = true)))
         json.getJSONObject("settings").getJSONObject("minkSpace").apply {
-            put("order", org.json.JSONArray(listOf("todo", "music", "calculator")))
-            put("enabled", org.json.JSONArray(listOf("todo", "music")))
+            put("order", org.json.JSONArray(listOf("todo", "media", "music", "vcard")))
+            put("enabled", org.json.JSONArray(listOf("todo", "media", "vcard")))
         }
 
         val restored = LauncherBackupCodec.decode(json.toString())
 
         assertEquals(
-            setOf(MinkSpaceMiniApp.TODO, MinkSpaceMiniApp.MUSIC, MinkSpaceMiniApp.VCARD),
-            restored.settings.enabledMinkSpaceMiniApps,
+            listOf(MindySpaceMiniApp.TODO, MindySpaceMiniApp.MUSIC),
+            restored.settings.mindySpaceMiniAppOrder,
         )
-    }
-
-    @Test fun profileTextAndLinksSurviveBackupWithoutPortrait() {
-        val original = sampleBackup(twoPanelMode = true).copy(
-            profile = ProfileCard("Mink User", selectedLinkIds = listOf("site"), hasPortrait = true),
-            profileLinks = listOf(ProfileLink("site", ProfileLinkType.WEBSITE, "Site", "minklauncher.com")),
-        )
-
-        val restored = LauncherBackupCodec.decode(LauncherBackupCodec.encode(original))
-
-        assertEquals("Mink User", restored.profile?.fullName)
-        assertEquals(false, restored.profile?.hasPortrait)
-        assertEquals("site", restored.profileLinks.single().id)
+        assertEquals(setOf(MindySpaceMiniApp.TODO), restored.settings.enabledMindySpaceMiniApps)
     }
 
     @Test fun widgetRestoreRecipesSurvivePortableBackupRoundTrip() {
@@ -563,7 +547,7 @@ class LauncherBackupCodecTest {
         assertEquals(emptyList<WidgetRestoreRecipe>(), LauncherBackupCodec.decode(json.toString()).widgetRecipes)
     }
 
-    @Test fun minkCreatedFavoritesSurvivePortableBackupRoundTrip() {
+    @Test fun mindyCreatedFavoritesSurvivePortableBackupRoundTrip() {
         val favorite = FavoriteIntegratedContact(
             id = FavoriteContactId.Integrated("favorite-may"),
             displayName = "May Wong",
@@ -616,7 +600,7 @@ class LauncherBackupCodecTest {
         )
     }
 
-    @Test fun olderBackupWithoutMinkCreatedFavoritesLeavesExistingFavoritesAlone() {
+    @Test fun olderBackupWithoutMindyCreatedFavoritesLeavesExistingFavoritesAlone() {
         val json = JSONObject(
             LauncherBackupCodec.encode(
                 sampleBackup(twoPanelMode = true).copy(integratedContacts = emptyList()),
@@ -627,7 +611,7 @@ class LauncherBackupCodecTest {
         assertNull(LauncherBackupCodec.decode(json.toString()).integratedContacts)
     }
 
-    @Test fun minkCreatedFavoriteOrderSurvivesPortableBackupRoundTrip() {
+    @Test fun mindyCreatedFavoriteOrderSurvivesPortableBackupRoundTrip() {
         val order = listOf("favorite-gary", "favorite-may")
         val encoded = LauncherBackupCodec.encode(
             sampleBackup(twoPanelMode = true).copy(integratedContactOrder = order),
@@ -832,13 +816,13 @@ class LauncherBackupCodecTest {
             openSoftwareKeyboardOnHome = true,
             includeAppShortcutsInDiscovery = false,
             automaticAppBubbleTargets = listOf("app:0:com.example/.MainActivity"),
-            minkSpaceMiniAppOrder = listOf(
-                MinkSpaceMiniApp.MUSIC,
-                MinkSpaceMiniApp.TODO,
-                MinkSpaceMiniApp.CALCULATOR,
-                MinkSpaceMiniApp.VCARD,
+            mindySpaceMiniAppOrder = listOf(
+                MindySpaceMiniApp.MUSIC,
+                MindySpaceMiniApp.TODO,
+                MindySpaceMiniApp.CALCULATOR,
+                MindySpaceMiniApp.WIDGET_2,
             ),
-            enabledMinkSpaceMiniApps = setOf(MinkSpaceMiniApp.TODO, MinkSpaceMiniApp.MUSIC),
+            enabledMindySpaceMiniApps = setOf(MindySpaceMiniApp.TODO, MindySpaceMiniApp.MUSIC),
             sendMessagesAutomatically = false,
             preferredMessagingPackage = null,
             preferredAiPackage = null,
@@ -846,11 +830,9 @@ class LauncherBackupCodecTest {
             usesAutomaticSocialApps = true,
             socialPackages = emptyList(),
             socialGoalHours = 1,
-            minkAppPauseMode = MinkAppPauseMode.NEVER,
+            mindyAppPauseMode = MindyAppPauseMode.NEVER,
             githubUpdateChecksEnabled = true,
         ),
         todos = emptyList(),
-        profile = null,
-        profileLinks = emptyList(),
     )
 }

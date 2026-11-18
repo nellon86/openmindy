@@ -1,6 +1,6 @@
 package com.katoaapps.openminilaunch.model
 
-/** A Mink location selected for an app-initiated pinned shortcut request. */
+/** A Mindy location selected for an app-initiated pinned shortcut request. */
 internal sealed interface PinShortcutDestination {
     val key: String
 

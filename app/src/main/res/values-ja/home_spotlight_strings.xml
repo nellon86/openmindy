@@ -1,8 +1,8 @@
 <resources>
     <string name="home_spotlight_folders_title">フォルダーを作成</string>
     <string name="home_spotlight_folders_description">アプリを長押しして別のアプリを追加すると、タイルがフォルダーになります。</string>
-    <string name="home_spotlight_minkspace_title">ミニアプリはこちら</string>
-    <string name="home_spotlight_minkspace_description">MinkSpace 内を上下にスワイプしてミニアプリを切り替えます。対応アプリをタップすると拡大します。</string>
+    <string name="home_spotlight_mindyspace_title">ミニアプリはこちら</string>
+    <string name="home_spotlight_mindyspace_description">MindySpace 内を上下にスワイプしてミニアプリを切り替えます。対応アプリをタップすると拡大します。</string>
     <string name="home_spotlight_magic_title">入力を始める</string>
     <string name="home_spotlight_magic_description">通常のテキストや Magic Box のホットキーで、検索、メッセージ、通話、メモ、アクションを実行できます。</string>
     <string name="home_spotlight_keyboard_title">キーボード以上の機能</string>

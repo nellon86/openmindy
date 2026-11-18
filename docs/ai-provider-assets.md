@@ -1,6 +1,6 @@
 # AI provider assets
 
-OpenMink bundles a current icon for every provider in `AiProviderCatalog` so the AI picker can
+OpenMindy bundles a current icon for every provider in `AiProviderCatalog` so the AI picker can
 identify reviewed providers even when their apps are not installed. When an app is installed,
 Android's `PackageManager` remains the source of truth for its current label and icon.
 

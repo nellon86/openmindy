@@ -21,7 +21,7 @@ class MagicBoxInputTest {
 
         assertEquals("", session.textState.value.text)
         assertEquals(null, session.selectedRecipientState.value)
-        assertEquals(MagicBoxRoute.SEARCH, session.routeState.value)
+        assertEquals(MAGIC_DEFAULT_ROUTE, session.routeState.value)
         assertEquals(false, session.expanded)
     }
 
@@ -83,11 +83,33 @@ class MagicBoxInputTest {
     }
 
     @Test
-    fun plainTextBecomesSearchQuery() {
-        val input = parseMagicBoxInput("  quarterly budget  ")
+    fun plainTextSearchesInstalledApps() {
+        val input = parseMagicBoxInput("  wha  ")
 
-        assertEquals(MagicBoxRoute.SEARCH, input.route)
-        assertEquals("quarterly budget", input.plainQuery)
+        assertEquals(MagicBoxRoute.APP, input.route)
+        assertEquals("wha", input.searchTerm)
+        assertEquals("", input.plainQuery)
+    }
+
+    @Test
+    fun questionMarkSelectsWebSearchWithoutBecomingContent() {
+        val result = consumeMagicBoxTrigger("", "?wha")
+
+        assertEquals(MagicBoxRoute.SEARCH, result?.route)
+        assertEquals("wha", result?.content)
+    }
+
+    @Test
+    fun webRouteProducesBrowserQuery() {
+        val input = parseMagicBoxInput("  wha  ", MagicBoxRoute.SEARCH)
+
+        assertEquals("wha", input.plainQuery)
+        assertEquals("", input.searchTerm)
+    }
+
+    @Test
+    fun plainLetterDoesNotSelectARoute() {
+        assertEquals(null, consumeMagicBoxTrigger("", "w"))
     }
 
     @Test
@@ -116,11 +138,11 @@ class MagicBoxInputTest {
     }
 
     @Test
-    fun ordinaryPunctuationRemainsPlainSearchText() {
+    fun ordinaryPunctuationRemainsPlainAppSearchText() {
         val input = parseMagicBoxInput("\$quarterly revenue")
 
-        assertEquals(MagicBoxRoute.SEARCH, input.route)
-        assertEquals("\$quarterly revenue", input.plainQuery)
+        assertEquals(MagicBoxRoute.APP, input.route)
+        assertEquals("\$quarterly revenue", input.searchTerm)
     }
 
     @Test

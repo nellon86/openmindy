@@ -49,7 +49,7 @@ class DemoSearchDataTest {
             assertEquals(1, first.count { it.completed })
         }
         assertTrue(
-            DemoHomeData.todos(scenario = DemoScenario.PET_MINK)
+            DemoHomeData.todos(scenario = DemoScenario.PET_MINDY)
                 .any { "May" in it.text },
         )
     }
@@ -64,7 +64,7 @@ class DemoSearchDataTest {
             assertEquals(contacts.size, contacts.map { it.id }.distinct().size)
         }
         assertTrue(
-            DemoFavoriteData.contacts(DemoScenario.PET_MINK)
+            DemoFavoriteData.contacts(DemoScenario.PET_MINDY)
                 .any { it.displayName == "May Wong" },
         )
     }

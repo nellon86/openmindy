@@ -5,16 +5,14 @@ import org.junit.Test
 
 class QuickDrawerDestinationTest {
     @Test
-    fun `available navigation follows the requested two by two order`() {
+    fun `available navigation follows the requested order`() {
         assertEquals(
             listOf(
-                QuickDrawerDestination.MINKPAD_LITE,
                 QuickDrawerDestination.ALL_APPS,
                 QuickDrawerDestination.PRIVATE_SPACE,
                 QuickDrawerDestination.WORK_SPACE,
             ),
             quickDrawerDestinations(
-                showMinkPad = true,
                 showPrivateSpace = true,
                 privateSpaceAvailable = true,
                 showWorkSpace = true,
@@ -28,7 +26,6 @@ class QuickDrawerDestinationTest {
         assertEquals(
             listOf(QuickDrawerDestination.ALL_APPS),
             quickDrawerDestinations(
-                showMinkPad = false,
                 showPrivateSpace = true,
                 privateSpaceAvailable = false,
                 showWorkSpace = false,

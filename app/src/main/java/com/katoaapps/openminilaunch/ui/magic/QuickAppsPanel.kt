@@ -30,7 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
-import com.katoaapps.openminilaunch.features.wellbeing.MinkAppAccessState
+import com.katoaapps.openminilaunch.features.wellbeing.MindyAppAccessState
 import com.katoaapps.openminilaunch.model.LauncherTarget
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.components.LauncherTargetIcon
@@ -41,7 +41,7 @@ import com.katoaapps.openminilaunch.ui.theme.Muted
 internal fun QuickAppsPanel(
     store: LauncherStore,
     actions: DeviceActions,
-    appAccessState: MinkAppAccessState,
+    appAccessState: MindyAppAccessState,
     onSelect: (LauncherTarget) -> Unit,
 ) {
     val targets = if (store.demoModeEnabled) emptyList() else store.drawerTargets

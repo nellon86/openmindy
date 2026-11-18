@@ -27,10 +27,10 @@ internal data class FoldLayoutFeature(
 )
 
 internal fun pairForFocusedPage(page: Int): Int =
-    if (page == MINK_DAY_PAGE) 0 else 1
+    if (page == MINDY_DAY_PAGE) 0 else 1
 
 internal fun newlyRevealedPage(pair: Int): Int =
-    if (pair == 0) MINK_DAY_PAGE else WIDGET_PAGE
+    if (pair == 0) MINDY_DAY_PAGE else WIDGET_PAGE
 
 /** A narrow window or a tabletop posture retains the familiar single-page Home. */
 internal fun twoPanelGeometry(

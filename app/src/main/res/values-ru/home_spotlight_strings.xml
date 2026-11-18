@@ -1,8 +1,8 @@
 <resources>
     <string name="home_spotlight_folders_title">Создайте папку</string>
     <string name="home_spotlight_folders_description">Нажмите и удерживайте приложение, затем добавьте ещё одно, чтобы превратить плитку в папку.</string>
-    <string name="home_spotlight_minkspace_title">Мини-приложения находятся здесь</string>
-    <string name="home_spotlight_minkspace_description">Проведите вверх или вниз внутри MinkSpace, чтобы переключать мини-приложения. Нажмите поддерживаемое приложение, чтобы развернуть его.</string>
+    <string name="home_spotlight_mindyspace_title">Мини-приложения находятся здесь</string>
+    <string name="home_spotlight_mindyspace_description">Проведите вверх или вниз внутри MindySpace, чтобы переключать мини-приложения. Нажмите поддерживаемое приложение, чтобы развернуть его.</string>
     <string name="home_spotlight_magic_title">Начните печатать</string>
     <string name="home_spotlight_magic_description">Ищите, отправляйте сообщения, звоните, создавайте заметки и запускайте действия с помощью текста или горячих клавиш Magic Box.</string>
     <string name="home_spotlight_keyboard_title">Больше, чем клавиатура</string>

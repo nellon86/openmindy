@@ -1,13 +1,13 @@
-# Contributing OpenMink translations
+# Contributing OpenMindy translations
 
-OpenMink has two technical language surfaces that share one user-facing **Launcher language** setting:
+OpenMindy has two technical language surfaces that share one user-facing **Launcher language** setting:
 
 1. Android UI resources in `app/src/main/res/values-<locale>/`.
 2. Deterministic calendar phrase modules in `features/calendar/language/<locale>/`.
 
-Changing the Launcher language changes both surfaces. A translated UI does not automatically make that language available for `+` calendar commands, however. When a matching calendar grammar is unavailable or cannot confidently understand a phrase, OpenMink must ask the user to review it instead of guessing.
+Changing the Launcher language changes both surfaces. A translated UI does not automatically make that language available for `+` calendar commands, however. When a matching calendar grammar is unavailable or cannot confidently understand a phrase, OpenMindy must ask the user to review it instead of guessing.
 
-OpenMink does not upload phrases for translation or parsing. UI resources and calendar modules ship inside the APK and run on the device.
+OpenMindy does not upload phrases for translation or parsing. UI resources and calendar modules ship inside the APK and run on the device.
 
 ## Target language roadmap
 
@@ -37,11 +37,11 @@ The app language picker is generated only from packaged locale resources. Do not
 
 The following brand names always remain exactly in plain English in every locale:
 
-- Mink
-- Mink Launcher
-- Mink's Day
+- Mindy
+- Mindy Launcher
+- Mindy's Day
 
-Also preserve the established spellings of `MinkLauncher`, `OpenMink`, `MinkLauncher OpenSource`, `Magic Box`, and `Katoa Apps` wherever they appear. Do not translate product or provider names.
+Also preserve the established spellings of `OpenMindy`, `Magic Box`, `MindySpace`, and `Mindy’s Day` wherever they appear. Do not translate product or provider names.
 
 Keep `@`, `#`, `-`, `/`, `+`, and `?` unchanged. Translate the explanation beside each command symbol, not the symbol itself. Preserve URLs, email addresses, package names, file extensions, and Android permission identifiers.
 
@@ -92,8 +92,8 @@ Every calendar language requires a fixed corpus covering:
 - Run `python3 tools/validate_localizations.py`.
 - Confirm all placeholders and plural forms match English.
 - Inspect the locale with a long-text screen and, where applicable, RTL layout.
-- Exercise Home, Settings, onboarding, To-dos, Widgets, Conversations, All Apps, Mink's Day, and Magic Box.
-- Verify that Mink, Mink Launcher, and Mink's Day remain in plain English.
+- Exercise Home, Settings, onboarding, To-dos, Widgets, Conversations, All Apps, Mindy's Day, and Magic Box.
+- Verify that Mindy, Mindy Launcher, and Mindy's Day remain in plain English.
 - Verify physical-keyboard command symbols are unchanged.
 - Verify calendar previews show the exact date/time handed to the provider.
 - Verify unsupported temporal wording asks for review instead of scheduling a partial match.

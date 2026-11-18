@@ -35,7 +35,7 @@ internal class PrivateSpaceRepository private constructor(context: Context) {
     }
 
     /**
-     * Only advertise a container Mink can actually reach. Some OEMs expose fragments of the
+     * Only advertise a container Mindy can actually reach. Some OEMs expose fragments of the
      * Android contract while suppressing setup, so a settings IntentSender alone is not proof.
      */
     fun isEntryPointAvailable(): Boolean {

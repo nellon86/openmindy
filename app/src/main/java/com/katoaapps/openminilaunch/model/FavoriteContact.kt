@@ -19,7 +19,7 @@ internal sealed interface FavoriteContactId {
     }
 }
 
-/** A contact starred in Android Contacts. Nothing in this model is persisted by Mink. */
+/** A contact starred in Android Contacts. Nothing in this model is persisted by Mindy. */
 internal data class FavoriteAndroidContact(
     override val id: FavoriteContactId.Android,
     val contactUri: String,
@@ -65,7 +65,7 @@ internal sealed interface IntegratedContactEndpoint {
     ) : IntegratedContactEndpoint
 }
 
-/** A callable identity owned by Mink rather than Android Contacts. */
+/** A callable identity owned by Mindy rather than Android Contacts. */
 internal sealed interface IntegratedContactCallEndpoint {
     /**
      * A standard Android phone-number route. The optional package is an installed app that

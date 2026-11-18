@@ -145,7 +145,7 @@ internal object DemoConversationData {
         )
         val scenarioNotifications = when (scenario) {
             DemoScenario.PRODUCT_TOUR -> allNotifications
-            DemoScenario.PET_MINK -> allNotifications.filter { notification ->
+            DemoScenario.PET_MINDY -> allNotifications.filter { notification ->
                 notification.conversationName in setOf("May Wong", "Noah Williams", "Kara Ellis")
             }
             DemoScenario.WORKDAY -> allNotifications.filter { notification ->
@@ -162,7 +162,7 @@ internal object DemoConversationData {
             DemoConversationState.ONE_FAVORITE -> listOfNotNull(
                 scenarioNotifications.firstOrNull { notification ->
                     notification.conversationName == when (scenario) {
-                        DemoScenario.PET_MINK -> "May Wong"
+                        DemoScenario.PET_MINDY -> "May Wong"
                         DemoScenario.PRODUCT_TOUR,
                         DemoScenario.WORKDAY,
                         -> "Maya Diaz"

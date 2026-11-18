@@ -1,7 +1,7 @@
 package com.katoaapps.openminilaunch.data
 
 import android.content.SharedPreferences
-import com.katoaapps.openminilaunch.features.minkspace.todo.TodoItem
+import com.katoaapps.openminilaunch.features.mindyspace.todo.TodoItem
 import com.katoaapps.openminilaunch.model.AppFolderConfig
 import com.katoaapps.openminilaunch.model.AppFolderColorMode
 import com.katoaapps.openminilaunch.model.AppGridAssignment

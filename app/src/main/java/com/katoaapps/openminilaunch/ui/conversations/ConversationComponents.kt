@@ -37,9 +37,9 @@ import com.katoaapps.openminilaunch.model.FavoriteIntegratedContact
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.components.AppIcon
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.theme.MinkWhite
+import com.katoaapps.openminilaunch.ui.theme.MindyWhite
 import com.katoaapps.openminilaunch.ui.theme.Muted
-import com.katoaapps.openminilaunch.ui.theme.MinkFeatureColors
+import com.katoaapps.openminilaunch.ui.theme.MindyFeatureColors
 import com.katoaapps.openminilaunch.ui.theme.readableContentColor
 import java.text.DateFormat
 import java.util.Date
@@ -112,7 +112,7 @@ internal fun ConversationCard(
                         color = if (favoriteStyle?.isUnread == true) {
                             contentColor.copy(alpha = .88f)
                         } else {
-                            MinkFeatureColors.ConversationAttention
+                            MindyFeatureColors.ConversationAttention
                         },
                         fontSize = Dimens.sp11,
                         modifier = Modifier.padding(top = Dimens.dp4),
@@ -178,7 +178,7 @@ internal fun ConversationSourceIcons(packages: List<String>, actions: DeviceActi
 
 @Composable
 internal fun ConversationSourceIcon(packageName: String, actions: DeviceActions, size: Dp) {
-    val installedIconAvailable = remember(packageName, actions) { actions.appIcon(packageName) != null }
+    val installedIconAvailable = remember(packageName, actions) { actions.isAppInstalled(packageName) }
     if (installedIconAvailable) {
         AppIcon(packageName, actions, size)
         return
@@ -186,17 +186,17 @@ internal fun ConversationSourceIcon(packageName: String, actions: DeviceActions,
     when (packageName) {
         DemoConversationData.SLACK_PACKAGE -> DemoSourceIcon(
             Icons.Default.Forum,
-            MinkFeatureColors.Slack,
+            MindyFeatureColors.Slack,
             size,
         )
         DemoConversationData.GMAIL_PACKAGE -> DemoSourceIcon(
             Icons.Default.Email,
-            MinkFeatureColors.Gmail,
+            MindyFeatureColors.Gmail,
             size,
         )
         DemoConversationData.GOOGLE_MESSAGES_PACKAGE -> DemoSourceIcon(
             Icons.Default.Forum,
-            MinkFeatureColors.GoogleMessages,
+            MindyFeatureColors.GoogleMessages,
             size,
         )
         else -> AppIcon(packageName, actions, size)
@@ -209,6 +209,6 @@ private fun DemoSourceIcon(icon: ImageVector, background: Color, size: Dp) {
         Modifier.size(size).background(background, CircleShape),
         contentAlignment = Alignment.Center,
     ) {
-        Icon(icon, null, Modifier.size(size * .56f), tint = MinkWhite)
+        Icon(icon, null, Modifier.size(size * .56f), tint = MindyWhite)
     }
 }

@@ -30,7 +30,7 @@ import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
 
-/** Source-app notification actions followed by Mink's distinct notification-dismiss control. */
+/** Source-app notification actions followed by Mindy's distinct notification-dismiss control. */
 @Composable
 internal fun ConversationActionRow(
     conversationActions: List<ConversationNotificationAction>,

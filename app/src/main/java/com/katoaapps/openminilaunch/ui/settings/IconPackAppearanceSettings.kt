@@ -47,7 +47,7 @@ internal fun IconPackAppearanceSettings(
         it.packageName == store.iconAppearance.iconPackPackage
     }
     val selectionLabel = when (store.iconAppearance.source) {
-        IconSource.MINK -> stringResource(R.string.mink_icons)
+        IconSource.MINDY -> stringResource(R.string.mindy_icons)
         IconSource.SYSTEM -> stringResource(R.string.system_icons)
         IconSource.ICON_PACK -> selectedPack?.label ?: stringResource(R.string.icon_pack_unavailable)
     }
@@ -85,8 +85,8 @@ internal fun IconPackAppearanceSettings(
             selectionEnabled = !selectionInProgress,
             showApplyingFeedback = showApplyingFeedback,
             applyingStyleLabel = selectionLabel,
-            minkColorContent = { MinkIconColorSetting(store) },
-            onMinkIcons = { selectIconStyle(store::useMinkIcons) },
+            mindyColorContent = { MindyIconColorSetting(store) },
+            onMindyIcons = { selectIconStyle(store::useMindyIcons) },
             onSystemIcons = { selectIconStyle(store::useSystemIcons) },
             onIconPack = { packageName -> selectIconStyle { store.useIconPack(packageName) } },
             onDismiss = {

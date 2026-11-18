@@ -50,13 +50,13 @@ import com.katoaapps.openminilaunch.model.MAX_APP_FOLDER_NAME_LENGTH
 import com.katoaapps.openminilaunch.model.LauncherTarget
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.components.LauncherTargetIcon
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
 import com.katoaapps.openminilaunch.ui.components.UnavailableLauncherTargetIcon
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.settings.AppearanceColorDialog
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.readableContentColor
-import com.katoaapps.openminilaunch.ui.wellbeing.MinkPausedBadge
+import com.katoaapps.openminilaunch.ui.wellbeing.MindyPausedBadge
 
 /** Functional folder surface used until the final Home folder design is chosen. */
 @Composable
@@ -72,6 +72,8 @@ internal fun AppFolderContentsDialog(
     titleOverride: String? = null,
     targetsOverride: List<LauncherTarget>? = null,
     appearanceEditable: Boolean = true,
+    /** Optional content pinned below the app grid, such as Quick Drawer navigation. */
+    footer: (@Composable () -> Unit)? = null,
 ) {
     val targets = targetsOverride ?: folder.orderedTargetKeys.map(actions::resolveLauncherSelection)
     var draftName by remember(folder.id) { mutableStateOf(folder.customName.orEmpty()) }
@@ -99,9 +101,9 @@ internal fun AppFolderContentsDialog(
         onDismiss()
     }
 
-    Dialog(onDismissRequest = ::commitAndDismiss, properties = MinkDialogDefaults.properties) {
+    Dialog(onDismissRequest = ::commitAndDismiss, properties = MindyDialogDefaults.properties) {
         Surface(
-            Modifier.minkDialogWidth().fillMaxHeight(.72f),
+            Modifier.mindyDialogWidth().fillMaxHeight(.72f),
             shape = RoundedCornerShape(Dimens.dp24),
             color = folderColor,
             contentColor = folderContentColor,
@@ -192,7 +194,7 @@ internal fun AppFolderContentsDialog(
                                             )
                                         }
                                         if (target.isAvailable && isPaused(target)) {
-                                            MinkPausedBadge(Modifier.align(Alignment.Center))
+                                            MindyPausedBadge(Modifier.align(Alignment.Center))
                                         }
                                     }
                                     Text(
@@ -211,6 +213,7 @@ internal fun AppFolderContentsDialog(
                             }
                         }
                     }
+                    footer?.invoke()
                 }
             }
         }

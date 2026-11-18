@@ -85,7 +85,7 @@ internal class AndroidPrivateSpacePlatform(context: Context) {
             .firstOrNull { profiles.classify(it) == AndroidProfileKind.PRIVATE }
     }.getOrNull()
 
-    /** Uses reflection until OpenMink moves its compile SDK beyond Android 15. */
+    /** Uses reflection until OpenMindy moves its compile SDK beyond Android 15. */
     private fun privateSpaceSettingsIntentSender(): IntentSender? {
         if (Build.VERSION.SDK_INT < ANDROID_16_API_LEVEL) return null
         val service = launcherApps ?: return null

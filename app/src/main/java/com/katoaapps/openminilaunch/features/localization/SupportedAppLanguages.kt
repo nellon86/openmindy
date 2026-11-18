@@ -36,7 +36,7 @@ internal object SupportedAppLanguages {
         SupportedAppLanguage("ar"),
     )
 
-    /** The user's explicit OpenMink locale, or Android's authoritative system locale. */
+    /** The user's explicit OpenMindy locale, or Android's authoritative system locale. */
     fun activeLanguageTag(context: Context): String =
         selectedLanguageTag(context) ?: systemLanguageTag(context)
 

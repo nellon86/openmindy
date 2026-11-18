@@ -59,7 +59,7 @@ import com.katoaapps.openminilaunch.ui.components.PageHeader
 import com.katoaapps.openminilaunch.ui.settings.NotificationAccessDisclosureDialog
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
-import com.katoaapps.openminilaunch.ui.theme.MinkFeatureColors
+import com.katoaapps.openminilaunch.ui.theme.MindyFeatureColors
 import com.katoaapps.openminilaunch.ui.theme.Rust
 import com.katoaapps.openminilaunch.ui.theme.Sage
 
@@ -88,12 +88,7 @@ internal fun ConversationCenterScreen(
     var selectedConversationId by rememberSaveable { mutableStateOf<String?>(null) }
     var selectedSection by rememberSaveable { mutableStateOf(ConversationSection.MESSAGES) }
     var acknowledgementRevision by remember { mutableIntStateOf(0) }
-    val conversations = ConversationNotificationStore.currentConversations(
-        useDemoData = demoModeEnabled,
-        demoScenario = store.demoScenario,
-        demoConversationState = store.demoConversationState,
-        demoSessionStartedAt = store.demoSessionStartedAt,
-    )
+    val conversations = rememberCurrentConversations(store)
     val favoriteContacts = rememberOrderedConversationFavorites(
         store = store,
         refreshKey = selectedSection to shortcutsRevision,
@@ -130,7 +125,7 @@ internal fun ConversationCenterScreen(
             } else {
                 store.favoriteAttentionColorStore.color(match.favoriteId)
             })?.let(::Color)
-                ?: MinkFeatureColors.ConversationAttention,
+                ?: MindyFeatureColors.ConversationAttention,
             isUnread = shouldShowConversationAttention(
                 latestActivityAt = conversationsById[conversationId]
                     ?.let(::conversationActivityAt),

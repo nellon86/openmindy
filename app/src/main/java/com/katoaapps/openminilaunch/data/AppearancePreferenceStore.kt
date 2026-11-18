@@ -22,10 +22,10 @@ internal class AppearancePreferenceStore(
     var palettePreference by mutableStateOf(
         runCatching {
             PalettePreference.valueOf(
-                prefs.getString(PALETTE_PREFERENCE_KEY, PalettePreference.MINK.name)
-                    ?: PalettePreference.MINK.name,
+                prefs.getString(PALETTE_PREFERENCE_KEY, PalettePreference.MINDY.name)
+                    ?: PalettePreference.MINDY.name,
             )
-        }.getOrDefault(PalettePreference.MINK),
+        }.getOrDefault(PalettePreference.MINDY),
     )
         private set
     var themePreference by mutableStateOf(
@@ -56,7 +56,7 @@ internal class AppearancePreferenceStore(
     )
         private set
     var homePanelColorArgb by mutableIntStateOf(
-        prefs.getInt(HOME_PANEL_COLOR_KEY, ContextCompat.getColor(context, R.color.home_panel_mink)),
+        prefs.getInt(HOME_PANEL_COLOR_KEY, ContextCompat.getColor(context, R.color.home_panel_mindy)),
     )
         private set
     var watermelonModeEnabled by mutableStateOf(prefs.getBoolean(WATERMELON_MODE_KEY, false))

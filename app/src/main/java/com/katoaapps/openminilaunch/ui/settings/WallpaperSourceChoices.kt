@@ -45,7 +45,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.features.appearance.HomeWallpaperRepository
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.theme.MinkWhite
+import com.katoaapps.openminilaunch.ui.theme.MindyWhite
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -166,13 +166,13 @@ private fun WallpaperSourceChoice(
                         imageVector = if (selected) Icons.Default.Check else icon,
                         contentDescription = null,
                         modifier = Modifier.size(Dimens.dp20),
-                        tint = if (previewBitmap != null) MinkWhite else MaterialTheme.colorScheme.onSurface,
+                        tint = if (previewBitmap != null) MindyWhite else MaterialTheme.colorScheme.onSurface,
                     )
                 }
                 Text(
                     text = label,
                     modifier = Modifier.padding(top = Dimens.dp4),
-                    color = if (previewBitmap != null) MinkWhite else MaterialTheme.colorScheme.onSurface,
+                    color = if (previewBitmap != null) MindyWhite else MaterialTheme.colorScheme.onSurface,
                     fontSize = Dimens.sp10,
                     fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
                     textAlign = TextAlign.Center,

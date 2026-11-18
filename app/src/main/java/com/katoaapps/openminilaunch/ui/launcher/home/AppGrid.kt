@@ -39,7 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.katoaapps.openminilaunch.data.LauncherStore
-import com.katoaapps.openminilaunch.features.wellbeing.MinkAppAccessState
+import com.katoaapps.openminilaunch.features.wellbeing.MindyAppAccessState
 import com.katoaapps.openminilaunch.model.AppGridAssignment
 import com.katoaapps.openminilaunch.model.AppGridSlot
 import com.katoaapps.openminilaunch.model.LauncherTarget
@@ -53,29 +53,29 @@ import com.katoaapps.openminilaunch.ui.appgrid.backgroundColor
 import com.katoaapps.openminilaunch.ui.appgrid.defaultIcon
 import com.katoaapps.openminilaunch.ui.appgrid.displayLabel
 import com.katoaapps.openminilaunch.ui.components.LauncherTargetIcon
-import com.katoaapps.openminilaunch.ui.components.minkBuiltInIconTint
+import com.katoaapps.openminilaunch.ui.components.mindyBuiltInIconTint
 import com.katoaapps.openminilaunch.ui.onboarding.HomeTourTarget
 import com.katoaapps.openminilaunch.ui.onboarding.homeTourTarget
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.theme.MinkTransparent
-import com.katoaapps.openminilaunch.ui.wellbeing.MinkPausedBadge
+import com.katoaapps.openminilaunch.ui.theme.MindyTransparent
+import com.katoaapps.openminilaunch.ui.wellbeing.MindyPausedBadge
 
 @Composable
 internal fun AppGrid(
     store: LauncherStore,
     actions: DeviceActions,
-    appAccessState: MinkAppAccessState,
+    appAccessState: MindyAppAccessState,
     onPausedApp: (String) -> Unit,
     onConfigureExtraApp: () -> Unit,
     compact: Boolean = false,
     contentColor: Color = MaterialTheme.colorScheme.onSurface,
-    itemContainerColor: Color = MinkTransparent,
+    itemContainerColor: Color = MindyTransparent,
     modifier: Modifier = Modifier,
     openDrawer: () -> Unit,
 ) {
     val launcherAppsRevision by actions.launcherAppsRevision.collectAsState()
     val launcherShortcutsRevision by actions.launcherShortcutsRevision.collectAsState()
-    val builtInIconColor = store.iconAppearance.minkBuiltInIconTint(contentColor)
+    val builtInIconColor = store.iconAppearance.mindyBuiltInIconTint(contentColor)
     var openFolderSlot by remember { mutableStateOf<AppGridSlot?>(null) }
     var editingSelectionSlot by remember { mutableStateOf<AppGridSlot?>(null) }
     var pendingUnavailableTarget by remember { mutableStateOf<LauncherTarget?>(null) }
@@ -193,7 +193,7 @@ internal fun AppGrid(
                                     contentDescription = assignedTarget.label,
                                 )
                                 if (appPaused) {
-                                    MinkPausedBadge(Modifier.align(Alignment.Center))
+                                    MindyPausedBadge(Modifier.align(Alignment.Center))
                                 }
                             } else {
                                 Icon(

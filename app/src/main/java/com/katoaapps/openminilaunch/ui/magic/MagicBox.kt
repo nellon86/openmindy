@@ -19,7 +19,7 @@ import com.katoaapps.openminilaunch.features.conversations.*
 import com.katoaapps.openminilaunch.features.files.*
 import com.katoaapps.openminilaunch.features.magic.*
 import com.katoaapps.openminilaunch.features.messaging.*
-import com.katoaapps.openminilaunch.features.wellbeing.MinkAppAccessState
+import com.katoaapps.openminilaunch.features.wellbeing.MindyAppAccessState
 import com.katoaapps.openminilaunch.ui.components.*
 import com.katoaapps.openminilaunch.ui.theme.*
 import com.katoaapps.openminilaunch.platform.hasMediaReadAccess
@@ -28,7 +28,7 @@ import com.katoaapps.openminilaunch.platform.mediaPermissionPermanentlyDenied
 import com.katoaapps.openminilaunch.platform.mediaReadPermissions
 import com.katoaapps.openminilaunch.platform.supportsDirectCalls
 import com.katoaapps.openminilaunch.platform.supportsDirectSms
-import com.katoaapps.openminilaunch.ui.wellbeing.rememberMinkAppAccessState
+import com.katoaapps.openminilaunch.ui.wellbeing.rememberMindyAppAccessState
 
 import android.Manifest
 import android.content.Intent
@@ -87,7 +87,7 @@ internal fun MagicBoxContent(
     onSessionComplete: () -> Unit = {},
     onBubblePublished: () -> Unit = {},
     appBubbleHost: MagicAppBubbleHost = MagicAppBubbleHost.HOME,
-    appAccessState: MinkAppAccessState? = null,
+    appAccessState: MindyAppAccessState? = null,
 ) {
     val magicBoxMinimumHeight = Dimens.dp64
     val context = LocalContext.current
@@ -96,7 +96,7 @@ internal fun MagicBoxContent(
         configuration.keyboard,
         configuration.hardKeyboardHidden,
     )
-    val useMinkKeyboard = store.launcherKeyboardPreferences.useMinkKeyboard &&
+    val useMindyKeyboard = store.launcherKeyboardPreferences.useMindyKeyboard &&
         keyboardInputEnabled &&
         !useDirectHardwareInput
     val shouldAutoOpenOnHome = shouldAutoOpenSoftwareKeyboard(
@@ -107,7 +107,7 @@ internal fun MagicBoxContent(
     val fileSearchRepository = remember { FileSearchRepository(context.applicationContext) }
     val launcherAppsRevision by actions.launcherAppsRevision.collectAsState()
     val launcherShortcutsRevision by actions.launcherShortcutsRevision.collectAsState()
-    val localAppAccessState = if (appAccessState == null) rememberMinkAppAccessState(store) else null
+    val localAppAccessState = if (appAccessState == null) rememberMindyAppAccessState(store) else null
     val effectiveAppAccessState = appAccessState ?: checkNotNull(localAppAccessState).value
     val editorSession = sessionState ?: rememberMagicBoxSessionState(initiallyExpanded)
     var text by editorSession.textState
@@ -116,7 +116,7 @@ internal fun MagicBoxContent(
     var route by editorSession.routeState
     var expanded by editorSession.expandedState
     var showKeyboardWhileCollapsed by remember {
-        mutableStateOf(shouldAutoOpenOnHome && !useMinkKeyboard && !initiallyExpanded)
+        mutableStateOf(shouldAutoOpenOnHome && !useMindyKeyboard && !initiallyExpanded)
     }
     var hasContacts by remember {
         mutableStateOf(ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED)
@@ -202,7 +202,7 @@ internal fun MagicBoxContent(
     var textFieldPlaced by remember { mutableStateOf(false) }
     var armedTargetPlaced by remember { mutableStateOf(false) }
 
-    fun refocus(showSoftwareKeyboard: Boolean = !useMinkKeyboard) {
+    fun refocus(showSoftwareKeyboard: Boolean = !useMindyKeyboard) {
         focusRequestShowsKeyboard = showSoftwareKeyboard
         focusRequestSerial += 1
     }
@@ -347,7 +347,7 @@ internal fun MagicBoxContent(
         selectedRecipient != null &&
         text.text.isNotBlank()
     val fileSearchState = rememberMagicFileSearchState(
-        query = plainQuery,
+        query = if (MAGIC_FILE_SEARCH_ENABLED) plainQuery else "",
         store = store,
         repository = fileSearchRepository,
         hasMediaAccess = hasMediaAccess,
@@ -367,7 +367,7 @@ internal fun MagicBoxContent(
             MagicActionVisuals(MagicEventColor, Icons.Default.Event)
         }
         MagicBoxRoute.APP -> MagicActionVisuals(MagicAppColor, Icons.Default.Apps)
-        MagicBoxRoute.ASSISTANT -> MagicActionVisuals(MinkBlack, Icons.Default.AutoAwesome)
+        MagicBoxRoute.ASSISTANT -> MagicActionVisuals(MindyBlack, Icons.Default.AutoAwesome)
         MagicBoxRoute.SEARCH -> MagicActionVisuals(
             MaterialTheme.colorScheme.primary,
             Icons.Default.Search,
@@ -376,20 +376,20 @@ internal fun MagicBoxContent(
     val actionContentColor = when (route) {
         MagicBoxRoute.TODO -> LightInk
         MagicBoxRoute.SEARCH -> MaterialTheme.colorScheme.onPrimary
-        else -> MinkWhite
+        else -> MindyWhite
     }
     fun clearCommand() {
         fileSearchState.clear()
         initialHardwareKeyCorrection.clear()
         text = TextFieldValue()
         selectedRecipient = null
-        route = MagicBoxRoute.SEARCH
+        route = MAGIC_DEFAULT_ROUTE
         pendingCalendarReview = null
     }
 
     fun activateRoute(
         nextRoute: MagicBoxRoute,
-        showSoftwareKeyboard: Boolean = !useMinkKeyboard,
+        showSoftwareKeyboard: Boolean = !useMindyKeyboard,
     ) {
         clearCommand()
         route = nextRoute
@@ -475,7 +475,7 @@ internal fun MagicBoxContent(
     }
 
     fun completeAppHandoff(target: LauncherAppTarget) {
-        store.addSearchQuery("?${target.label}")
+        store.addSearchQuery(target.label)
         clearCommand()
         keyboard?.hide()
         expanded = false
@@ -531,7 +531,7 @@ internal fun MagicBoxContent(
                 Toast.LENGTH_LONG,
             ).show()
         }
-        store.addSearchQuery(query)
+        store.addSearchQuery("$MAGIC_WEB_TRIGGER$query")
         dismiss()
     }
 
@@ -621,7 +621,7 @@ internal fun MagicBoxContent(
         } else if (app is LauncherAppTarget && appBubbleFlow.opensAutomatically(app)) {
             appBubbleFlow.launchInBubble(app)
         } else if (actions.launchLauncherTarget(app)) {
-            store.addSearchQuery("?${app.label}")
+            store.addSearchQuery(app.label)
             dismiss()
         } else {
             val displayLabel = launcherDiscoveryLabel(app, actions::appLabel)
@@ -667,6 +667,20 @@ internal fun MagicBoxContent(
         return false
     }
 
+    /** Default-route fallback: no installed app matches, so hand the typed text to the browser. */
+    fun submitWebFallback() {
+        val query = text.text.trim()
+        if (query.isBlank()) return
+        if (store.demoModeEnabled) {
+            Toast.makeText(context, R.string.demo_preview_action, Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (actions.webSearch(query, store.preferredWebPackage)) {
+            store.addSearchQuery("$MAGIC_WEB_TRIGGER$query")
+            dismiss()
+        }
+    }
+
     fun submit() {
         if (onOpenTodos != null && isOpenTodosCommand(text.text, route)) {
             openTodos()
@@ -677,6 +691,10 @@ internal fun MagicBoxContent(
             return
         }
         if (selectFirstCommandResult()) return
+        if (route == MagicBoxRoute.APP) {
+            submitWebFallback()
+            return
+        }
         if (route == MagicBoxRoute.ASSISTANT) {
             submitAi()
             return
@@ -751,7 +769,7 @@ internal fun MagicBoxContent(
     // The Home-keyboard preference still focuses the real field for touch-first devices.
     LaunchedEffect(
         keyboardInputEnabled,
-        useMinkKeyboard,
+        useMindyKeyboard,
         expanded,
         smsFlow.sentConfirmationVisible,
         showKeyboardWhileCollapsed,
@@ -766,7 +784,7 @@ internal fun MagicBoxContent(
                 withFrameNanos { }
                 focusRequester.requestFocus()
                 withFrameNanos { }
-                if (!useMinkKeyboard) keyboard?.show() else keyboard?.hide()
+                if (!useMindyKeyboard) keyboard?.show() else keyboard?.hide()
             } else {
                 while (!armedTargetPlaced) withFrameNanos { }
                 withFrameNanos { }
@@ -777,8 +795,8 @@ internal fun MagicBoxContent(
             armedTargetPlaced = false
             if (expanded) showKeyboardWhileCollapsed = false
             if (expanded && focusRequestSerial == 0) {
-                if (useMinkKeyboard) {
-                    // Mink's keyboard writes directly to this editor, so the field still needs
+                if (useMindyKeyboard) {
+                    // Mindy's keyboard writes directly to this editor, so the field still needs
                     // focus for an immediate cursor and selection even though Android's IME is
                     // intentionally blocked by MagicInputField.
                     while (!textFieldPlaced) withFrameNanos { }
@@ -800,15 +818,15 @@ internal fun MagicBoxContent(
         }
     }
 
-    LaunchedEffect(homeRequestToken, shouldAutoOpenOnHome, keyboardInputEnabled, useMinkKeyboard) {
+    LaunchedEffect(homeRequestToken, shouldAutoOpenOnHome, keyboardInputEnabled, useMindyKeyboard) {
         if (homeRequestToken > 0 && shouldAutoOpenOnHome && keyboardInputEnabled &&
             !expanded && text.text.isBlank() &&
-            route == MagicBoxRoute.SEARCH && selectedRecipient == null
+            route == MAGIC_DEFAULT_ROUTE && selectedRecipient == null
         ) {
             // Android can redeliver the launcher's Home intent while a fold changes displays.
             // Re-arm an idle field, but never erase an expanded draft as a side effect.
             clearCommand()
-            if (useMinkKeyboard) {
+            if (useMindyKeyboard) {
                 keyboard?.hide()
             } else {
                 showKeyboardWhileCollapsed = true
@@ -816,13 +834,13 @@ internal fun MagicBoxContent(
         }
     }
 
-    LaunchedEffect(shouldAutoOpenOnHome, useMinkKeyboard) {
-        showKeyboardWhileCollapsed = shouldAutoOpenOnHome && !useMinkKeyboard && !expanded
+    LaunchedEffect(shouldAutoOpenOnHome, useMindyKeyboard) {
+        showKeyboardWhileCollapsed = shouldAutoOpenOnHome && !useMindyKeyboard && !expanded
     }
 
     LaunchedEffect(focusRequestSerial) {
         if (focusRequestSerial > 0) {
-            if (useMinkKeyboard) {
+            if (useMindyKeyboard) {
                 while (!textFieldPlaced) withFrameNanos { }
                 withFrameNanos { }
                 focusRequester.requestFocus()
@@ -863,12 +881,12 @@ internal fun MagicBoxContent(
     val onLauncherKeyboardValueChange: (TextFieldValue) -> Unit = { value ->
         updateEditorValue(value, correctHardwareInput = false)
     }
-    val showDockedLauncherKeyboard = useMinkKeyboard &&
+    val showDockedLauncherKeyboard = useMindyKeyboard &&
         shouldAutoOpenOnHome &&
         !expanded &&
         !smsFlow.sentConfirmationVisible &&
         !todoCompletionPending
-    val launcherKeyboardNavigationBottom = if (useMinkKeyboard) {
+    val launcherKeyboardNavigationBottom = if (useMindyKeyboard) {
         WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
     } else {
         Dimens.dp0
@@ -880,15 +898,15 @@ internal fun MagicBoxContent(
 
     Box(modifier) {
         if (expanded) {
-            Box(Modifier.matchParentSize().background(MinkBlack.copy(alpha = .48f)).clickable(onClick = { requestDismiss() }))
+            Box(Modifier.matchParentSize().background(MindyBlack.copy(alpha = .48f)).clickable(onClick = { requestDismiss() }))
         }
 
         Box(
             modifier = Modifier
                 .matchParentSize()
-                .statusBarsPadding()
+                .statusBarsAndCutoutPadding()
                 .then(
-                    if (!useMinkKeyboard) {
+                    if (!useMindyKeyboard) {
                         Modifier.imePadding()
                     } else {
                         Modifier
@@ -904,7 +922,7 @@ internal fun MagicBoxContent(
                         start = Dimens.dp18,
                         top = Dimens.dp18,
                         end = Dimens.dp18,
-                        bottom = if (expanded && useMinkKeyboard) {
+                        bottom = if (expanded && useMindyKeyboard) {
                             Dimens.dp0
                         } else {
                             Dimens.dp18
@@ -953,7 +971,7 @@ internal fun MagicBoxContent(
                                     Toast.LENGTH_SHORT,
                                 ).show()
                             } else {
-                                store.addSearchQuery(plainQuery)
+                                store.addSearchQuery("$MAGIC_WEB_TRIGGER$plainQuery")
                                 actions.openFile(file)
                                 dismiss()
                             }
@@ -961,6 +979,7 @@ internal fun MagicBoxContent(
                         onRequestMedia = { mediaPermissionLauncher.launch(mediaReadPermissions()) },
                         onRequestFolder = { showFileScopeChoice = true },
                         onSubmitWeb = ::submit,
+                        onSearchWebFallback = ::submitWebFallback,
                         onSubmitAi = {
                             if (store.demoModeEnabled) {
                                 Toast.makeText(
@@ -1018,7 +1037,7 @@ internal fun MagicBoxContent(
 
             if (
                 !noteMode && expanded && text.text.isBlank() &&
-                route == MagicBoxRoute.SEARCH
+                route == MAGIC_DEFAULT_ROUTE
             ) {
                 if (appBubbleHost == MagicAppBubbleHost.ASSISTANT) {
                     QuickAppsPanel(
@@ -1061,12 +1080,12 @@ internal fun MagicBoxContent(
                     }
                 },
                 route = route,
-                acceptPlatformTextInput = !useMinkKeyboard,
+                acceptPlatformTextInput = !useMindyKeyboard,
                 actionVisuals = actionVisuals,
                 actionContentColor = actionContentColor,
                 focusRequester = focusRequester,
                 interactionSource = inputSurfaceInteractionSource,
-                onRefocus = { refocus(showSoftwareKeyboard = !useMinkKeyboard) },
+                onRefocus = { refocus(showSoftwareKeyboard = !useMindyKeyboard) },
                 onTextChange = { value ->
                     updateEditorValue(value, correctHardwareInput = true)
                 },
@@ -1084,7 +1103,7 @@ internal fun MagicBoxContent(
                 ),
             )
 
-                if (expanded && useMinkKeyboard) {
+                if (expanded && useMindyKeyboard) {
                     Spacer(
                         Modifier.height(
                             launcherKeyboardTotalHeight + Dimens.dp8,
@@ -1124,7 +1143,7 @@ internal fun MagicBoxContent(
                 onOpen = {
                     clearCommand()
                     expanded = true
-                    refocus(showSoftwareKeyboard = !useMinkKeyboard)
+                    refocus(showSoftwareKeyboard = !useMindyKeyboard)
                 },
                 onOpenTotalScreen = onOpenTotalScreen,
             )
@@ -1132,7 +1151,7 @@ internal fun MagicBoxContent(
         }
 
         MagicLauncherKeyboardHost(
-            visible = useMinkKeyboard && (expanded || showDockedLauncherKeyboard),
+            visible = useMindyKeyboard && (expanded || showDockedLauncherKeyboard),
             value = text,
             onValueChange = { value ->
                 val changed = value.text != text.text

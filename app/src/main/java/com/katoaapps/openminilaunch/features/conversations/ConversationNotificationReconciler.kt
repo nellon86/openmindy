@@ -94,8 +94,17 @@ internal fun conversationNotificationContentHash(item: ConversationNotification)
     return oneWayHash(contentIdentity)
 }
 
-private fun oneWayHash(value: String): String = MessageDigest.getInstance("SHA-256")
-    .digest(value.toByteArray(Charsets.UTF_8))
-    .joinToString(separator = "") { byte -> "%02x".format(byte.toInt() and 0xff) }
+private fun oneWayHash(value: String): String {
+    val digest = MessageDigest.getInstance("SHA-256").digest(value.toByteArray(Charsets.UTF_8))
+    val hex = CharArray(digest.size * 2)
+    digest.forEachIndexed { index, byte ->
+        val unsigned = byte.toInt() and 0xff
+        hex[index * 2] = HEX_DIGITS[unsigned ushr 4]
+        hex[index * 2 + 1] = HEX_DIGITS[unsigned and 0x0f]
+    }
+    return String(hex)
+}
+
+private val HEX_DIGITS = "0123456789abcdef".toCharArray()
 
 private const val MAX_REMEMBERED_STATES = 256

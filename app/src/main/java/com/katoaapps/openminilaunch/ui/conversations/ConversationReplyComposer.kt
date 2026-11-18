@@ -62,7 +62,7 @@ internal fun ConversationReplyBox(
         withFrameNanos { }
         focusRequester.requestFocus()
 
-        // Replies use the platform IME on slabs. Mink's launcher keyboard remains Magic Box-only.
+        // Replies use the platform IME on slabs. Mindy's launcher keyboard remains Magic Box-only.
         if (!hasHardwareKeyboard) {
             withFrameNanos { }
             keyboard?.show()

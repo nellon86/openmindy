@@ -41,9 +41,9 @@ import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.features.iconpacks.InstalledIconPack
 import com.katoaapps.openminilaunch.model.IconSource
 import com.katoaapps.openminilaunch.ui.components.DrawableIcon
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
 import com.katoaapps.openminilaunch.ui.components.SectionLabel
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
 
@@ -55,15 +55,15 @@ internal fun IconPackPickerDialog(
     selectionEnabled: Boolean,
     showApplyingFeedback: Boolean,
     applyingStyleLabel: String,
-    minkColorContent: @Composable () -> Unit,
-    onMinkIcons: () -> Unit,
+    mindyColorContent: @Composable () -> Unit,
+    onMindyIcons: () -> Unit,
     onSystemIcons: () -> Unit,
     onIconPack: (String) -> Unit,
     onDismiss: () -> Unit,
 ) {
-    Dialog(onDismissRequest = onDismiss, properties = MinkDialogDefaults.properties) {
+    Dialog(onDismissRequest = onDismiss, properties = MindyDialogDefaults.properties) {
         Surface(
-            Modifier.minkDialogWidth().fillMaxHeight(.9f),
+            Modifier.mindyDialogWidth().fillMaxHeight(.9f),
             shape = RoundedCornerShape(Dimens.dp24),
             color = MaterialTheme.colorScheme.background,
         ) {
@@ -79,8 +79,8 @@ internal fun IconPackPickerDialog(
                         selectedPackage = selectedPackage,
                         packs = packs,
                         selectionEnabled = selectionEnabled,
-                        minkColorContent = minkColorContent,
-                        onMinkIcons = onMinkIcons,
+                        mindyColorContent = mindyColorContent,
+                        onMindyIcons = onMindyIcons,
                         onSystemIcons = onSystemIcons,
                         onIconPack = onIconPack,
                         onDismiss = onDismiss,
@@ -97,8 +97,8 @@ private fun IconStyleChoices(
     selectedPackage: String?,
     packs: List<InstalledIconPack>?,
     selectionEnabled: Boolean,
-    minkColorContent: @Composable () -> Unit,
-    onMinkIcons: () -> Unit,
+    mindyColorContent: @Composable () -> Unit,
+    onMindyIcons: () -> Unit,
     onSystemIcons: () -> Unit,
     onIconPack: (String) -> Unit,
     onDismiss: () -> Unit,
@@ -121,16 +121,16 @@ private fun IconStyleChoices(
         ) {
             item {
                 BuiltInIconChoice(
-                    title = stringResource(R.string.mink_icons),
-                    description = stringResource(R.string.mink_icons_description),
+                    title = stringResource(R.string.mindy_icons),
+                    description = stringResource(R.string.mindy_icons_description),
                     icon = Icons.Default.AutoAwesome,
-                    selected = selectedSource == IconSource.MINK,
+                    selected = selectedSource == IconSource.MINDY,
                     enabled = selectionEnabled,
-                    onClick = onMinkIcons,
+                    onClick = onMindyIcons,
                 )
             }
-            if (selectedSource == IconSource.MINK) {
-                item { minkColorContent() }
+            if (selectedSource == IconSource.MINDY) {
+                item { mindyColorContent() }
             }
             item {
                 BuiltInIconChoice(

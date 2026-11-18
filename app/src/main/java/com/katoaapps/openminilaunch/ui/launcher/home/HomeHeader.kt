@@ -1,5 +1,6 @@
 package com.katoaapps.openminilaunch.ui.launcher.home
 
+import com.katoaapps.openminilaunch.ui.conversations.rememberCurrentConversations
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -35,27 +36,26 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
-import com.katoaapps.openminilaunch.features.conversations.ConversationNotificationStore
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.settings.SettingsDestination
 import com.katoaapps.openminilaunch.ui.onboarding.HomeTourTarget
 import com.katoaapps.openminilaunch.ui.onboarding.homeTourTarget
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.theme.MinkFeatureColors
-import com.katoaapps.openminilaunch.ui.wellbeing.MinkHomeIcon
+import com.katoaapps.openminilaunch.ui.theme.MindyFeatureColors
+import com.katoaapps.openminilaunch.ui.wellbeing.MindyHomeIcon
 
 @Composable
 internal fun HomeHeader(
     store: LauncherStore,
     actions: DeviceActions,
-    minkStatusActive: Boolean,
+    mindyStatusActive: Boolean,
     qwertyHome: Boolean,
     horizontalPadding: Dp,
     actionSize: Dp,
     iconSize: Dp,
     followHorizontalWindowOffset: Boolean,
     updateAvailable: Boolean,
-    onMinkDay: () -> Unit,
+    onMindyDay: () -> Unit,
     onUpdate: () -> Unit,
     onConversations: () -> Unit,
     openSettings: (SettingsDestination) -> Unit,
@@ -66,16 +66,11 @@ internal fun HomeHeader(
     val verticalPadding = if (qwertyHome) Dimens.dp0 else Dimens.dp8
     val groupGap = Dimens.dp6
     CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides actionSize) {
-        val conversations = ConversationNotificationStore.currentConversations(
-            useDemoData = store.demoModeEnabled,
-            demoScenario = store.demoScenario,
-            demoConversationState = store.demoConversationState,
-            demoSessionStartedAt = store.demoSessionStartedAt,
-        )
+        val conversations = rememberCurrentConversations(store)
         val favoriteAttention = rememberPendingFavoriteAttention(
             store = store,
             conversations = conversations,
-            defaultColorArgb = MinkFeatureColors.ConversationAttention.toArgb(),
+            defaultColorArgb = MindyFeatureColors.ConversationAttention.toArgb(),
         )
         val dateTime = rememberHomeDateTimeParts(
             datePattern = stringResource(R.string.home_date_pattern),
@@ -108,10 +103,10 @@ internal fun HomeHeader(
             followHorizontalWindowOffset = followHorizontalWindowOffset,
             leadingContent = {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    MinkHomeIcon(
+                    MindyHomeIcon(
                         store = store,
-                        isActive = minkStatusActive,
-                        onClick = onMinkDay,
+                        isActive = mindyStatusActive,
+                        onClick = onMindyDay,
                         modifier = Modifier.size(actionSize),
                     )
                     if (store.showBatteryPercentage) {

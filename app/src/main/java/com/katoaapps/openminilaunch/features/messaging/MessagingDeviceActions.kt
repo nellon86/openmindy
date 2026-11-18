@@ -260,7 +260,7 @@ internal class MessagingDeviceActions(
 
     private companion object {
         const val ROUTE_PROBE_PHONE = "+15551234567"
-        const val ROUTE_PROBE_BODY = "MinkLauncher"
+        const val ROUTE_PROBE_BODY = "OpenMindy"
         const val ROUTE_PROBE_SHORTCUT_ID = "minklauncher-conversation"
     }
 }

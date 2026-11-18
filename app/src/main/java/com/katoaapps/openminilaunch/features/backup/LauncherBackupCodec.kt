@@ -6,8 +6,8 @@ import com.katoaapps.openminilaunch.features.contacts.AndroidFavoriteAttentionTr
 import com.katoaapps.openminilaunch.features.contacts.AndroidFavoriteAttentionTransfers
 import com.katoaapps.openminilaunch.features.contacts.isExactPortableFavoriteAttentionColorKey
 import com.katoaapps.openminilaunch.features.contacts.isPortableFavoriteAttentionColorKey
-import com.katoaapps.openminilaunch.features.minkspace.MinkSpaceMiniApp
-import com.katoaapps.openminilaunch.features.minkspace.todo.TodoItem
+import com.katoaapps.openminilaunch.features.mindyspace.MindySpaceMiniApp
+import com.katoaapps.openminilaunch.features.mindyspace.todo.TodoItem
 import com.katoaapps.openminilaunch.model.AppFolderConfig
 import com.katoaapps.openminilaunch.model.AppFolderAnimationStyle
 import com.katoaapps.openminilaunch.model.AppFolderColorMode
@@ -21,7 +21,7 @@ import com.katoaapps.openminilaunch.model.IconSource
 import com.katoaapps.openminilaunch.model.MAX_APP_FOLDER_NAME_LENGTH
 import com.katoaapps.openminilaunch.model.MAX_SOCIAL_GOAL_HOURS
 import com.katoaapps.openminilaunch.model.MIN_SOCIAL_GOAL_HOURS
-import com.katoaapps.openminilaunch.model.MinkAppPauseMode
+import com.katoaapps.openminilaunch.model.MindyAppPauseMode
 import com.katoaapps.openminilaunch.model.LauncherKeyboardColorSource
 import com.katoaapps.openminilaunch.model.LauncherKeyboardLayout
 import com.katoaapps.openminilaunch.model.LauncherKeyboardPreferences
@@ -85,17 +85,15 @@ internal object LauncherBackupCodec {
             ?.let { transfer ->
                 put("androidFavoriteAttention", encodeAndroidFavoriteAttention(transfer))
             }
-        backup.profile?.let { put("profile", ProfileBackupCodec.encode(it, backup.profileLinks)) }
         put("notIncluded", PORTABILITY_EXCLUSIONS.stringsJsonArray())
     }.toString(2)
 
     fun decode(json: String): LauncherBackup {
         val root = JSONObject(json)
-        require(root.optString("format") == LAUNCHER_BACKUP_FORMAT) { "Not an OpenMink backup" }
+        require(root.optString("format") == LAUNCHER_BACKUP_FORMAT) { "Not an OpenMindy backup" }
         require(root.optInt("schemaVersion", -1) in 1..LAUNCHER_BACKUP_MAX_READABLE_SCHEMA_VERSION) {
-            "Unsupported OpenMink backup version"
+            "Unsupported OpenMindy backup version"
         }
-        val profile = root.optJSONObject("profile")?.let(ProfileBackupCodec::decode)
         val launcher = decodeLauncher(root.getJSONObject("launcher"))
 
         return LauncherBackup(
@@ -104,8 +102,6 @@ internal object LauncherBackupCodec {
             launcher = launcher,
             settings = decodeSettings(root.getJSONObject("settings"), launcher.drawerTargets),
             todos = decodeTodos(root.optJSONArray("todos") ?: JSONArray()),
-            profile = profile?.first,
-            profileLinks = profile?.second.orEmpty(),
             widgetRecipes = decodeWidgetRecipes(root.optJSONArray("widgets")),
             integratedContacts = if (root.has("favoriteContacts")) {
                 FavoriteContactBackupCodec.decodeContacts(root.optJSONArray("favoriteContacts"))
@@ -331,7 +327,7 @@ internal object LauncherBackupCodec {
             putNullable("appBackgroundPresetId", settings.appBackgroundPresetId)
             put("iconSource", settings.iconAppearance.source.name)
             putNullable("iconPackPackage", settings.iconAppearance.iconPackPackage)
-            putNullable("minkIconColorArgb", settings.iconAppearance.minkIconColorArgb)
+            putNullable("minkIconColorArgb", settings.iconAppearance.mindyIconColorArgb)
             put("fontSource", settings.fontAppearance.source.name)
             put("fontSizeScale", settings.fontAppearance.sizeScale.toDouble())
             putNullable("fontColorArgb", settings.fontAppearance.colorArgb)
@@ -345,7 +341,7 @@ internal object LauncherBackupCodec {
             putNullable("preferredWebPackage", settings.preferredWebPackage)
             settings.launcherKeyboardPreferences?.let { keyboard ->
                 put("launcherKeyboard", JSONObject().apply {
-                    put("useMinkKeyboard", keyboard.useMinkKeyboard)
+                    put("useMinkKeyboard", keyboard.useMindyKeyboard)
                     put("style", keyboard.style.name)
                     put("layout", keyboard.layout.name)
                     put("colorSource", keyboard.colorSource.name)
@@ -359,17 +355,17 @@ internal object LauncherBackupCodec {
                 })
             }
         })
-        settings.minkSpaceMiniAppOrder?.let { order ->
+        settings.mindySpaceMiniAppOrder?.let { order ->
             put("minkSpace", JSONObject().apply {
-                put("order", order.map(MinkSpaceMiniApp::stableId).stringsJsonArray())
+                put("order", order.map(MindySpaceMiniApp::stableId).stringsJsonArray())
                 put(
                     "enabled",
-                    settings.enabledMinkSpaceMiniApps
+                    settings.enabledMindySpaceMiniApps
                         .orEmpty()
-                        .map(MinkSpaceMiniApp::stableId)
+                        .map(MindySpaceMiniApp::stableId)
                         .stringsJsonArray(),
                 )
-                settings.minkSpaceTotalScreenShortcut?.let { shortcut ->
+                settings.mindySpaceTotalScreenShortcut?.let { shortcut ->
                     put(
                         "totalScreenShortcut",
                         shortcut.miniApp?.stableId ?: TOTAL_SCREEN_SHORTCUT_OFF,
@@ -388,7 +384,6 @@ internal object LauncherBackupCodec {
         settings.quickDrawer?.let { quickDrawer ->
             put("quickDrawer", JSONObject().apply {
                 put("orderedTargetKeys", quickDrawer.orderedTargetKeys.stringsJsonArray())
-                put("showMinkPad", quickDrawer.showMinkPad)
                 put("showPrivateSpace", quickDrawer.showPrivateSpace)
                 put("showWorkProfile", quickDrawer.showWorkProfile)
                 putNullable("colorArgb", quickDrawer.colorArgb)
@@ -404,10 +399,9 @@ internal object LauncherBackupCodec {
             put("usesAutomaticSocialApps", settings.usesAutomaticSocialApps)
             put("socialPackages", settings.socialPackages.stringsJsonArray())
             put("socialGoalHours", settings.socialGoalHours)
-            put("pauseMode", settings.minkAppPauseMode.name)
+            put("pauseMode", settings.mindyAppPauseMode.name)
         })
         put("githubUpdateChecksEnabled", settings.githubUpdateChecksEnabled)
-        settings.minkPadPreferences?.let { put("minkPad", MinkPadBackupCodec.encode(it)) }
     }
 
     private fun decodeSettings(
@@ -421,33 +415,26 @@ internal object LauncherBackupCodec {
         val calling = json.optJSONObject("calling")
         val quickDrawer = json.optJSONObject("quickDrawer")
         val appGrid = json.optJSONObject("appGrid")
-        val minkDay = json.getJSONObject("minkDay")
-        val minkSpace = json.optJSONObject("minkSpace")
-        val minkSpaceOrder = minkSpace?.optJSONArray("order")?.minkSpaceMiniApps()
-        val enabledMinkSpaceMiniApps = minkSpace?.optJSONArray("enabled")
-            ?.minkSpaceMiniApps()
+        val mindyDay = json.getJSONObject("minkDay")
+        val mindySpace = json.optJSONObject("minkSpace")
+        val mindySpaceOrder = mindySpace?.optJSONArray("order")?.mindySpaceMiniApps()
+        val enabledMindySpaceMiniApps = mindySpace?.optJSONArray("enabled")
+            ?.mindySpaceMiniApps()
             ?.toSet()
-            ?.let { enabled ->
-                if (minkSpaceOrder != null && MinkSpaceMiniApp.VCARD !in minkSpaceOrder) {
-                    enabled + MinkSpaceMiniApp.VCARD
-                } else {
-                    enabled
-                }
-            }
-        val minkSpaceTotalScreenShortcut = minkSpace
+        val mindySpaceTotalScreenShortcut = mindySpace
             ?.takeIf { it.has("totalScreenShortcut") }
             ?.optString("totalScreenShortcut")
             ?.let { stableId ->
                 when (stableId) {
-                    TOTAL_SCREEN_SHORTCUT_OFF -> MinkSpaceTotalScreenShortcutBackup(null)
-                    else -> MinkSpaceMiniApp.fromStableId(stableId)
-                        ?.let(::MinkSpaceTotalScreenShortcutBackup)
+                    TOTAL_SCREEN_SHORTCUT_OFF -> MindySpaceTotalScreenShortcutBackup(null)
+                    else -> MindySpaceMiniApp.fromStableId(stableId)
+                        ?.let(::MindySpaceTotalScreenShortcutBackup)
                 }
             }
 
         return LauncherBackupSettings(
             themePreference = appearance.enumValue("theme", ThemePreference.SYSTEM),
-            palettePreference = appearance.enumValue("palette", PalettePreference.MINK),
+            palettePreference = appearance.enumValue("palette", PalettePreference.MINDY),
             hideStatusBar = appearance.optBoolean("hideStatusBar", true),
             alignHomePanelBottom = appearance.optBoolean("alignHomePanelBottom", false),
             twoPanelModeForLargeDisplays = if (appearance.has("twoPanelModeForLargeDisplays")) {
@@ -466,9 +453,9 @@ internal object LauncherBackupCodec {
             appBackgroundPresetId = appearance.optNullableString("appBackgroundPresetId")
                 ?.safeText(80),
             iconAppearance = IconAppearance(
-                source = appearance.enumValue("iconSource", IconSource.MINK),
+                source = appearance.enumValue("iconSource", IconSource.MINDY),
                 iconPackPackage = appearance.optNullableString("iconPackPackage")?.safePackage(),
-                minkIconColorArgb = appearance.optNullableInt("minkIconColorArgb"),
+                mindyIconColorArgb = appearance.optNullableInt("minkIconColorArgb"),
             ),
             fontAppearance = FontAppearance(
                 source = appearance.enumValue("fontSource", FontSource.DEFAULT),
@@ -484,7 +471,7 @@ internal object LauncherBackupCodec {
                     keyboard.optDouble("heightDp", DEFAULT_KEYBOARD_HEIGHT_DP.toDouble()).toFloat(),
                 )
                 LauncherKeyboardPreferences(
-                    useMinkKeyboard = keyboard.optBoolean("useMinkKeyboard", true),
+                    useMindyKeyboard = keyboard.optBoolean("useMinkKeyboard", true),
                     style = keyboard.enumValue("style", LauncherKeyboardStyle.FLAT_PRIMARY),
                     layout = keyboard.enumValue("layout", LauncherKeyboardLayout.QWERTY),
                     colorSource = keyboard.enumValue("colorSource", LauncherKeyboardColorSource.THEME),
@@ -502,9 +489,9 @@ internal object LauncherBackupCodec {
             },
             includeAppShortcutsInDiscovery = magicBox.optBoolean("includeAppShortcutsInDiscovery", false),
             automaticAppBubbleTargets = magicBox.optJSONArray("automaticAppBubbleTargets").safeTargets(),
-            minkSpaceMiniAppOrder = minkSpaceOrder,
-            enabledMinkSpaceMiniApps = enabledMinkSpaceMiniApps,
-            minkSpaceTotalScreenShortcut = minkSpaceTotalScreenShortcut,
+            mindySpaceMiniAppOrder = mindySpaceOrder,
+            enabledMindySpaceMiniApps = enabledMindySpaceMiniApps,
+            mindySpaceTotalScreenShortcut = mindySpaceTotalScreenShortcut,
             // Automatic messaging is the product default. Backups created before this
             // preference existed must inherit that default instead of silently opting out.
             sendMessagesAutomatically = messaging.optBoolean("sendMessagesAutomatically", true),
@@ -516,7 +503,6 @@ internal object LauncherBackupCodec {
                     orderedTargetKeys = drawer.optJSONArray("orderedTargetKeys")
                         ?.safeTargets()
                         ?: legacyDrawerTargets,
-                    showMinkPad = drawer.optBoolean("showMinkPad", true),
                     showPrivateSpace = drawer.optBoolean("showPrivateSpace", true),
                     showWorkProfile = drawer.optBoolean("showWorkProfile", true),
                     colorArgb = drawer.optNullableInt("colorArgb"),
@@ -528,13 +514,12 @@ internal object LauncherBackupCodec {
                 ?.enumValueOrNull<AppFolderAnimationStyle>("folderAnimationStyle"),
             preferredAiPackage = magicBox.optNullableString("preferredAiPackage")?.safePackage(),
             preferredWebPackage = magicBox.optNullableString("preferredWebPackage")?.safePackage(),
-            usesAutomaticSocialApps = minkDay.optBoolean("usesAutomaticSocialApps", true),
-            socialPackages = minkDay.optJSONArray("socialPackages").safePackages(),
-            socialGoalHours = minkDay.optInt("socialGoalHours", 1)
+            usesAutomaticSocialApps = mindyDay.optBoolean("usesAutomaticSocialApps", true),
+            socialPackages = mindyDay.optJSONArray("socialPackages").safePackages(),
+            socialGoalHours = mindyDay.optInt("socialGoalHours", 1)
                 .coerceIn(MIN_SOCIAL_GOAL_HOURS, MAX_SOCIAL_GOAL_HOURS),
-            minkAppPauseMode = minkDay.enumValue("pauseMode", MinkAppPauseMode.NEVER),
+            mindyAppPauseMode = mindyDay.enumValue("pauseMode", MindyAppPauseMode.NEVER),
             githubUpdateChecksEnabled = json.optBoolean("githubUpdateChecksEnabled", true),
-            minkPadPreferences = json.optJSONObject("minkPad")?.let(MinkPadBackupCodec::decode),
         )
     }
 
@@ -620,10 +605,10 @@ internal object LauncherBackupCodec {
 
     private fun JSONArray?.safeTargets(): List<String> = safeStrings(MAX_TARGET_LENGTH)
 
-    private fun JSONArray?.minkSpaceMiniApps(): List<MinkSpaceMiniApp> = buildList {
-        val source = this@minkSpaceMiniApps ?: return@buildList
+    private fun JSONArray?.mindySpaceMiniApps(): List<MindySpaceMiniApp> = buildList {
+        val source = this@mindySpaceMiniApps ?: return@buildList
         repeat(minOf(source.length(), MAX_ENUM_VALUES)) { index ->
-            MinkSpaceMiniApp.fromStableId(source.optString(index))?.let { miniApp ->
+            MindySpaceMiniApp.fromStableId(source.optString(index))?.let { miniApp ->
                 if (miniApp.readyForHome && miniApp !in this) add(miniApp)
             }
         }
@@ -670,15 +655,12 @@ internal object LauncherBackupCodec {
         "wallpaperImage",
         "recentQueryHistory",
         "demoData",
-        "profilePhoto",
         "minkSpaceCalculatorHistory",
-        "minkSpaceMediaSelectionsAndUriGrants",
         "activeMediaSessions",
         "workAndPrivateProfileState",
         "devicePrivateAreaGateway",
         "activeBubbleNotifications",
         "updateCacheAndReminders",
-        "minkPadHostsAndSession",
     )
 
     private const val MAX_ENUM_VALUES = 100

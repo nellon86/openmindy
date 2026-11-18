@@ -34,8 +34,8 @@ import com.katoaapps.openminilaunch.model.FONT_SIZE_SCALE_STEPS
 import com.katoaapps.openminilaunch.model.normalizeFontSizeScale
 import com.katoaapps.openminilaunch.ui.components.SettingsRow
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.theme.MinkBlack
-import com.katoaapps.openminilaunch.ui.theme.MinkWhite
+import com.katoaapps.openminilaunch.ui.theme.MindyBlack
+import com.katoaapps.openminilaunch.ui.theme.MindyWhite
 import com.katoaapps.openminilaunch.ui.theme.Muted
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -134,11 +134,11 @@ private fun FontColorSetting(store: LauncherStore) {
     val context = LocalContext.current
     val selected = store.fontAppearance.colorArgb
     val presets = listOf(
-        HomePanelColorPreset(R.string.color_white, MinkWhite.toArgb()),
-        HomePanelColorPreset(R.string.color_black, MinkBlack.toArgb()),
-        HomePanelColorPreset(R.string.color_mink, androidx.core.content.ContextCompat.getColor(context, R.color.home_panel_mink)),
+        HomePanelColorPreset(R.string.color_white, MindyWhite.toArgb()),
+        HomePanelColorPreset(R.string.color_black, MindyBlack.toArgb()),
+        HomePanelColorPreset(R.string.color_mindy, androidx.core.content.ContextCompat.getColor(context, R.color.home_panel_mindy)),
         HomePanelColorPreset(R.string.color_rust, androidx.core.content.ContextCompat.getColor(context, R.color.rust)),
-        HomePanelColorPreset(R.string.color_forest, androidx.core.content.ContextCompat.getColor(context, R.color.mink_forest)),
+        HomePanelColorPreset(R.string.color_forest, androidx.core.content.ContextCompat.getColor(context, R.color.mindy_forest)),
     )
     AppearanceColorSetting(
         selectedArgb = selected,

@@ -21,10 +21,9 @@ import com.katoaapps.openminilaunch.features.contacts.FavoriteAttentionColorStor
 import com.katoaapps.openminilaunch.features.contacts.AndroidFavoriteAttentionReconciler
 import com.katoaapps.openminilaunch.features.contacts.FavoriteContactOrderStore
 import com.katoaapps.openminilaunch.features.contacts.FavoriteIntegratedContactStore
-import com.katoaapps.openminilaunch.features.minkspace.MinkSpaceMiniApp
-import com.katoaapps.openminilaunch.features.minkspace.todo.TodoItem
-import com.katoaapps.openminilaunch.features.minkspace.todo.TodoStore
-import com.katoaapps.openminilaunch.features.profile.ProfileRepository
+import com.katoaapps.openminilaunch.features.mindyspace.MindySpaceMiniApp
+import com.katoaapps.openminilaunch.features.mindyspace.todo.TodoItem
+import com.katoaapps.openminilaunch.features.mindyspace.todo.TodoStore
 import com.katoaapps.openminilaunch.model.*
 
 class LauncherStore private constructor(context: Context) {
@@ -47,20 +46,19 @@ class LauncherStore private constructor(context: Context) {
     private val messagingPreferences = MessagingPreferenceStore(prefs)
     private val callingPreferences = CallingPreferenceStore(prefs)
     private val conversationAttentionPreferences = ConversationAttentionPreferenceStore(prefs)
-    private val minkDayPreferences = MinkDayPreferenceStore(prefs)
+    private val mindyDayPreferences = MindyDayPreferenceStore(prefs)
     private val updatePreferences = UpdatePreferenceStore(prefs)
     private val appDiscoveryPreferences = AppDiscoveryPreferenceStore(prefs)
     private val appGridPreferences = AppGridPreferenceStore(prefs)
     private val appBubblePreferences = AppBubblePreferenceStore(prefs)
     private val privateContainerPreferences = PrivateContainerPreferenceStore(prefs)
     private val quickDrawerPreferences = QuickDrawerPreferenceStore(prefs)
-    private val minkSpacePreferences = MinkSpacePreferenceStore(prefs)
-    private val minkSpaceWidgetStore = MinkSpaceWidgetStore(prefs)
+    private val mindySpacePreferences = MindySpacePreferenceStore(prefs)
+    private val mindySpaceWidgetStore = MindySpaceWidgetStore(prefs)
     private val homeWallpaperRepository = HomeWallpaperRepository(appContext)
     private val customFontRepository = CustomFontRepository(appContext)
     var customFontRevision by mutableIntStateOf(0)
         private set
-    internal val profileRepository = ProfileRepository(appContext)
     internal val favoriteIntegratedContactStore = FavoriteIntegratedContactStore(appContext)
     internal val favoriteContactOrderStore = FavoriteContactOrderStore(appContext)
     internal val favoriteAttentionColorStore = FavoriteAttentionColorStore(appContext)
@@ -68,7 +66,6 @@ class LauncherStore private constructor(context: Context) {
         appContext,
         favoriteAttentionColorStore,
     )
-    internal val minkPadPreferences = com.katoaapps.openminilaunch.features.minkpad.minkPadRepository(appContext).preferences
     private val demoModeStore: DemoModeStore = DemoModeStore(appContext, prefs, todoStore)
     internal val demoHomeProfile get() = demoModeStore.profile
     internal val demoScenario get() = demoModeStore.scenario
@@ -96,8 +93,8 @@ class LauncherStore private constructor(context: Context) {
     val searchFolders get() = searchStore.folders
     val searchHistory get() = searchStore.history
     internal val widgetEntries get() = widgetStore.entries
-    val socialPackages get() = minkDayPreferences.socialPackages
-    val usesAutomaticSocialApps get() = minkDayPreferences.usesAutomaticSocialApps
+    val socialPackages get() = mindyDayPreferences.socialPackages
+    val usesAutomaticSocialApps get() = mindyDayPreferences.usesAutomaticSocialApps
     val onboardingComplete get() = generalPreferences.onboardingComplete
     val hasOpenedClockFromDate get() = generalPreferences.hasOpenedClockFromDate
     val openSoftwareKeyboardOnHome get() = generalPreferences.openSoftwareKeyboardOnHome
@@ -126,7 +123,7 @@ class LauncherStore private constructor(context: Context) {
         } else {
             BundledHomeThemeCatalog.findByColors(
                 backgroundColorArgb = appBackgroundColorArgb
-                    ?: ContextCompat.getColor(appContext, R.color.mink_forest),
+                    ?: ContextCompat.getColor(appContext, R.color.mindy_forest),
                 panelColorArgb = homePanelColorArgb,
             )
         }
@@ -147,9 +144,9 @@ class LauncherStore private constructor(context: Context) {
     val preferredCallingPackage get() = callingPreferences.preferredCallingPackage
     val preferredAiPackage get() = messagingPreferences.preferredAiPackage
     val preferredWebPackage get() = messagingPreferences.preferredWebPackage
-    val socialGoalMinutes get() = minkDayPreferences.socialGoalMinutes
-    val socialGoalHours get() = minkDayPreferences.socialGoalHours
-    val minkAppPauseMode get() = minkDayPreferences.pauseMode
+    val socialGoalMinutes get() = mindyDayPreferences.socialGoalMinutes
+    val socialGoalHours get() = mindyDayPreferences.socialGoalHours
+    val mindyAppPauseMode get() = mindyDayPreferences.pauseMode
     val demoModeEnabled get() = demoModeStore.enabled
     val githubUpdateChecksEnabled get() = updatePreferences.checksEnabled
     val latestGitHubReleaseTag get() = updatePreferences.latestReleaseTag
@@ -158,22 +155,20 @@ class LauncherStore private constructor(context: Context) {
     val folderAnimationStyle get() = appGridPreferences.folderAnimationStyle
     val automaticAppBubbleTargets get() = appBubblePreferences.automaticTargetKeys
     val privateContainerGatewaySelectionKey get() = privateContainerPreferences.gatewaySelectionKey
-    val showMinkPadInQuickDrawer get() = quickDrawerPreferences.showMinkPadButton
     val showPrivateSpaceInQuickDrawer get() = quickDrawerPreferences.showPrivateSpaceButton
     val showWorkProfileInQuickDrawer get() = quickDrawerPreferences.showWorkProfileButton
     val quickDrawerColorArgb get() = quickDrawerPreferences.colorArgb
     val quickDrawerConfig: QuickDrawerConfig
         get() = QuickDrawerConfig(
             orderedTargetKeys = drawerTargets.toList(),
-            showMinkPad = showMinkPadInQuickDrawer,
             showPrivateSpace = showPrivateSpaceInQuickDrawer,
             showWorkProfile = showWorkProfileInQuickDrawer,
             colorArgb = quickDrawerColorArgb,
         )
-    internal val minkSpaceMiniAppOrder get() = minkSpacePreferences.order
-    internal val enabledMinkSpaceMiniApps get() = minkSpacePreferences.enabledMiniApps
-    internal val minkSpaceTotalScreenShortcut get() = minkSpacePreferences.totalScreenShortcut
-    internal val minkSpaceWidgetId get() = minkSpaceWidgetStore.appWidgetId
+    internal val mindySpaceMiniAppOrder get() = mindySpacePreferences.order
+    internal val enabledMindySpaceMiniApps get() = mindySpacePreferences.enabledMiniApps
+    internal val mindySpaceTotalScreenShortcut get() = mindySpacePreferences.totalScreenShortcut
+    internal fun mindySpaceWidgetId(slot: MindySpaceMiniApp): Int? = mindySpaceWidgetStore.appWidgetId(slot)
     val effectiveHomePanelColorArgb: Int
         get() = demoModeStore.effectivePanelColor(
             homePanelColorArgb,
@@ -184,10 +179,10 @@ class LauncherStore private constructor(context: Context) {
         get() = demoModeStore.effectiveBackgroundColor(
             appBackgroundColorArgb,
         )
-    /** Theme color for controls such as Mink's keyboard; never inherits arbitrary wallpaper pixels. */
+    /** Theme color for controls such as Mindy's keyboard; never inherits arbitrary wallpaper pixels. */
     val effectiveThemeSecondaryColorArgb: Int
         get() = effectiveAppBackgroundColorArgb
-            ?: ContextCompat.getColor(appContext, R.color.mink_forest)
+            ?: ContextCompat.getColor(appContext, R.color.mindy_forest)
     val visibleAppBackgroundColorArgb: Int?
         get() = if (appBackgroundImageEnabled) {
             appearancePreferences.appBackgroundImageAppearance?.averageColorArgb
@@ -210,10 +205,10 @@ class LauncherStore private constructor(context: Context) {
         }
 
     /**
-     * A gallery photo chosen through Mink is retained privately before it becomes Android's
+     * A gallery photo chosen through Mindy is retained privately before it becomes Android's
      * system wallpaper. Its pixel sample describes the visible image more reliably than
      * WallpaperColors' single palette swatch, especially for mostly dark or mostly light photos
-     * with one high-contrast accent. Wallpapers selected outside Mink still use Android's
+     * with one high-contrast accent. Wallpapers selected outside Mindy still use Android's
      * permission-free palette as the best available fallback.
      */
     private fun visibleDeviceWallpaperAppearance(): HomeWallpaperAppearance? =
@@ -270,7 +265,7 @@ class LauncherStore private constructor(context: Context) {
         launcherSelections.restore(saved)
         searchStore.restore(saved)
         widgetStore.restore(saved)
-        minkDayPreferences.restore(saved.socialPackages)
+        mindyDayPreferences.restore(saved.socialPackages)
         demoModeStore.applyIfEnabled()
     }
 
@@ -387,10 +382,6 @@ class LauncherStore private constructor(context: Context) {
 
     fun clearPrivateContainerGateway() {
         privateContainerPreferences.clearGateway()
-    }
-
-    fun updateShowMinkPadInQuickDrawer(enabled: Boolean) {
-        quickDrawerPreferences.updateShowMinkPadButton(enabled)
     }
 
     fun updateShowPrivateSpaceInQuickDrawer(enabled: Boolean) {
@@ -552,31 +543,31 @@ class LauncherStore private constructor(context: Context) {
         appearancePreferences.updateUse24HourClock(enabled)
     }
 
-    internal fun setMinkSpaceMiniAppEnabled(miniApp: MinkSpaceMiniApp, enabled: Boolean) {
-        minkSpacePreferences.setEnabled(miniApp, enabled)
+    internal fun setMindySpaceMiniAppEnabled(miniApp: MindySpaceMiniApp, enabled: Boolean) {
+        mindySpacePreferences.setEnabled(miniApp, enabled)
     }
 
-    internal fun setMinkSpaceMiniAppOrder(order: List<MinkSpaceMiniApp>) {
-        minkSpacePreferences.updateOrder(order)
+    internal fun setMindySpaceMiniAppOrder(order: List<MindySpaceMiniApp>) {
+        mindySpacePreferences.updateOrder(order)
     }
 
-    internal fun setMinkSpaceTotalScreenShortcut(miniApp: MinkSpaceMiniApp?) {
-        minkSpacePreferences.updateTotalScreenShortcut(miniApp)
+    internal fun setMindySpaceTotalScreenShortcut(miniApp: MindySpaceMiniApp?) {
+        mindySpacePreferences.updateTotalScreenShortcut(miniApp)
     }
 
-    internal fun replaceMinkSpacePreferencesFromBackup(
-        order: List<MinkSpaceMiniApp>,
-        enabledMiniApps: Set<MinkSpaceMiniApp>,
+    internal fun replaceMindySpacePreferencesFromBackup(
+        order: List<MindySpaceMiniApp>,
+        enabledMiniApps: Set<MindySpaceMiniApp>,
     ) {
-        minkSpacePreferences.replaceFromBackup(order, enabledMiniApps)
+        mindySpacePreferences.replaceFromBackup(order, enabledMiniApps)
     }
 
-    internal fun setMinkSpaceWidget(appWidgetId: Int) {
-        minkSpaceWidgetStore.replace(appWidgetId)
+    internal fun setMindySpaceWidget(slot: MindySpaceMiniApp, appWidgetId: Int) {
+        mindySpaceWidgetStore.replace(slot, appWidgetId)
     }
 
-    internal fun clearMinkSpaceWidget() {
-        minkSpaceWidgetStore.clear()
+    internal fun clearMindySpaceWidget(slot: MindySpaceMiniApp) {
+        mindySpaceWidgetStore.clear(slot)
     }
 
     fun setHomePanelColor(argb: Int) {
@@ -640,8 +631,8 @@ class LauncherStore private constructor(context: Context) {
         return true
     }
 
-    fun useMinkIcons() {
-        iconAppearancePreferences.useMinkIcons()
+    fun useMindyIcons() {
+        iconAppearancePreferences.useMindyIcons()
     }
 
     fun useSystemIcons() {
@@ -652,8 +643,8 @@ class LauncherStore private constructor(context: Context) {
         iconAppearancePreferences.useIconPack(packageName)
     }
 
-    fun setMinkIconColor(argb: Int?) {
-        iconAppearancePreferences.setMinkIconColor(argb)
+    fun setMindyIconColor(argb: Int?) {
+        iconAppearancePreferences.setMindyIconColor(argb)
     }
 
     fun useFont(source: FontSource) {
@@ -676,23 +667,23 @@ class LauncherStore private constructor(context: Context) {
     }
 
     fun updateSocialGoalHours(hours: Int) {
-        minkDayPreferences.updateGoalHours(hours)
+        mindyDayPreferences.updateGoalHours(hours)
     }
 
-    fun updateMinkAppPauseMode(mode: MinkAppPauseMode) {
-        minkDayPreferences.updatePauseMode(mode)
+    fun updateMindyAppPauseMode(mode: MindyAppPauseMode) {
+        mindyDayPreferences.updatePauseMode(mode)
     }
 
     fun reconcileSocialApps(installedPackages: Set<String>) {
-        minkDayPreferences.reconcileApps(installedPackages)
+        mindyDayPreferences.reconcileApps(installedPackages)
     }
 
     fun replaceSocialApps(packageNames: Set<String>) {
-        minkDayPreferences.replaceApps(packageNames)
+        mindyDayPreferences.replaceApps(packageNames)
     }
 
     fun clearSocialApps() {
-        minkDayPreferences.clearApps()
+        mindyDayPreferences.clearApps()
     }
 
     fun updateSendMessagesAutomatically(enabled: Boolean) {

@@ -8,7 +8,7 @@
     <string name="message">メッセージ</string>
     <string name="call">電話</string>
     <string name="open_contact">連絡先で開く</string>
-    <string name="change_favorite_in_contacts">Android の連絡先でこの相手をお気に入りに追加または解除できます。Mink は別のお気に入りリストを保存しません。</string>
+    <string name="change_favorite_in_contacts">Android の連絡先でこの相手をお気に入りに追加または解除できます。Mindy は別のお気に入りリストを保存しません。</string>
     <string name="choose_phone_number">電話番号を選択</string>
     <string name="preferred_number">優先する電話番号</string>
     <string name="ask_every_time">毎回確認</string>

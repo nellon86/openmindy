@@ -1,4 +1,4 @@
-name: Publish GitHub APK
+name: Publish OpenMindy APK
 
 on:
   push:
@@ -33,11 +33,11 @@ jobs:
           SIGNING_KEY_BASE64: ${{ secrets.ANDROID_SIGNING_KEY_BASE64 }}
         run: |
           test -n "$SIGNING_KEY_BASE64"
-          printf '%s' "$SIGNING_KEY_BASE64" | base64 --decode > "$RUNNER_TEMP/openminilaunch-release.jks"
+          printf '%s' "$SIGNING_KEY_BASE64" | base64 --decode > "$RUNNER_TEMP/openmindy-release.jks"
 
       - name: Test and build signed release
         env:
-          ANDROID_KEYSTORE_PATH: ${{ runner.temp }}/openminilaunch-release.jks
+          ANDROID_KEYSTORE_PATH: ${{ runner.temp }}/openmindy-release.jks
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
@@ -51,8 +51,8 @@ jobs:
           test -f "$APK"
           APKSIGNER="$(find "$ANDROID_HOME/build-tools" -name apksigner -type f | sort -V | tail -1)"
           "$APKSIGNER" verify --verbose --print-certs "$APK"
-          cp "$APK" MinkLauncher-OpenSource.apk
-          sha256sum MinkLauncher-OpenSource.apk > MinkLauncher-OpenSource.apk.sha256
+          cp "$APK" OpenMindy.apk
+          sha256sum OpenMindy.apk > OpenMindy.apk.sha256
 
       - name: Preserve R8 mapping
         uses: actions/upload-artifact@v4
@@ -67,14 +67,14 @@ jobs:
         run: |
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
             gh release upload "$GITHUB_REF_NAME" \
-              MinkLauncher-OpenSource.apk \
-              MinkLauncher-OpenSource.apk.sha256 \
+              OpenMindy.apk \
+              OpenMindy.apk.sha256 \
               --clobber
           else
             gh release create "$GITHUB_REF_NAME" \
-              MinkLauncher-OpenSource.apk \
-              MinkLauncher-OpenSource.apk.sha256 \
+              OpenMindy.apk \
+              OpenMindy.apk.sha256 \
               --verify-tag \
               --notes-file RELEASE_NOTES.md \
-              --title "MinkLauncher OpenSource $GITHUB_REF_NAME"
+              --title "OpenMindy $GITHUB_REF_NAME"
           fi

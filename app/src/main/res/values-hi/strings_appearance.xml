@@ -8,12 +8,12 @@
     <string name="your_photo">आपकी फ़ोटो</string>
     <string name="device_wallpaper">डिवाइस वॉलपेपर</string>
     <string name="color_palette">Color palette</string>
-    <string name="palette_mink">Mink</string>
+    <string name="palette_mindy">Mindy</string>
     <string name="palette_system">System</string>
     <string name="palette_system_unavailable">System colors require Android 12 or newer.</string>
     <string name="home_themes">होम थीम</string>
     <string name="home_themes_description">एक पूरा थीम चुनें या ऊपर उसका वॉलपेपर स्रोत बदलें।</string>
-    <string name="mink_theme">Mink थीम</string>
+    <string name="mindy_theme">Mindy थीम</string>
     <string name="theme_number">थीम %1$d</string>
     <string name="custom_theme">कस्टम थीम</string>
     <string name="custom_theme_description">वॉलपेपर बदले बिना बैकग्राउंड और पैनल के रंग ठीक करें।</string>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="update_notice_200_minkspace_heading">Your Home panel does more</string>
-    <string name="update_notice_200_minkspace_title">MinkSpace Mini-Apps</string>
-    <string name="update_notice_200_minkspace_description">Swipe vertically inside the Home panel to move between mini-apps. Choose which ones appear and arrange To-dos, Calculator, Media, Music, and Widget in Settings.</string>
+    <string name="update_notice_200_mindyspace_heading">Your Home panel does more</string>
+    <string name="update_notice_200_mindyspace_title">MindySpace Mini-Apps</string>
+    <string name="update_notice_200_mindyspace_description">Swipe vertically inside the Home panel to move between mini-apps. Choose which ones appear and arrange To-dos, Calculator, Media, Music, and Widget in Settings.</string>
     <string name="update_notice_200_media_title">Your selected media, still yours</string>
-    <string name="update_notice_200_media_description">Add images, GIFs, or videos through Android’s picker. Mink stores a local reference and opens the original item in the app you choose.</string>
+    <string name="update_notice_200_media_description">Add images, GIFs, or videos through Android’s picker. Mindy stores a local reference and opens the original item in the app you choose.</string>
     <string name="update_notice_200_music_title">Active media controls</string>
-    <string name="update_notice_200_music_description">With optional Notification access, Music can show Android’s active media session and send only the controls its provider supports. Mink does not record audio or keep listening history.</string>
+    <string name="update_notice_200_music_description">With optional Notification access, Music can show Android’s active media session and send only the controls its provider supports. Mindy does not record audio or keep listening history.</string>
     <string name="update_notice_200_bubbles_heading">Faster switching · BETA</string>
     <string name="update_notice_200_bubbles_title">Try apps in Android bubbles</string>
     <string name="update_notice_200_bubbles_description">Long-press a Magic Box app result or choose automatic apps in Settings. Compatibility belongs to Android and the target app, so unsupported apps may open normally instead.</string>
@@ -17,9 +17,9 @@
     <string name="update_notice_200_privacy_description">Android Private Space apps never appear in regular search, shortcuts, or See All. Android or your device maker continues to own authentication and protection.</string>
     <string name="update_notice_200_smaller_title">More keyboard-first refinements</string>
     <string name="update_notice_200_smaller_description">Nextcloud Talk joins messaging integrations, first-match Enter actions are faster, and large-display layouts are more comfortable.</string>
-    <string name="open_minkspace_settings">Open MinkSpace settings</string>
-    <string name="mink_space_onboarding_description">Choose what appears and arrange To-dos, Calculator, Media, Music, and Widget, then swipe vertically inside the Home panel to switch. Tap a widget to interact with it.</string>
+    <string name="open_mindyspace_settings">Open MindySpace settings</string>
+    <string name="mindy_space_onboarding_description">Choose what appears and arrange To-dos, Calculator, Media, Music, and Widget, then swipe vertically inside the Home panel to switch. Tap a widget to interact with it.</string>
     <string name="work_apps_onboarding_description">Work-profile apps live in a dedicated drawer. Android and your organization control whether that profile is available or paused.</string>
     <string name="privacy_space_onboarding_description">Android Private Space and device-maker private areas stay outside regular search, shortcuts, and See All. Your device controls authentication.</string>
-    <string name="backup_minkspace_description">MinkSpace order and visibility are included. Android widget bindings, calculator history, selected media and its Android grants, active media sessions, Work and Privacy Space state, device gateways, and active bubble notifications stay with this device.</string>
+    <string name="backup_mindyspace_description">MindySpace order and visibility are included. Android widget bindings, calculator history, selected media and its Android grants, active media sessions, Work and Privacy Space state, device gateways, and active bubble notifications stay with this device.</string>
 </resources>

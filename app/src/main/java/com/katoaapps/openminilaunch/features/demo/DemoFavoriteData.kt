@@ -18,7 +18,7 @@ internal object DemoFavoriteData {
             contact("may-wong", "May Wong", "Friends", "+1 202-555-0102"),
             contact("noah-williams", "Noah Williams", "Family", "+1 202-555-0103"),
         )
-        DemoScenario.PET_MINK -> listOf(
+        DemoScenario.PET_MINDY -> listOf(
             contact("may-wong", "May Wong", "Friends", "+1 202-555-0102"),
             contact("gary-chen", "Gary Chen", "Wildlife Center", "+1 202-555-0104"),
             contact("kara-ellis", "Kara Ellis", "Family", "+1 202-555-0105"),

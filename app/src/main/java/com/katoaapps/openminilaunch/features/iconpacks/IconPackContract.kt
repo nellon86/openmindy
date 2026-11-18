@@ -1,6 +1,6 @@
 package com.katoaapps.openminilaunch.features.iconpacks
 
-/** External launcher contracts and resource locations understood by OpenMink. */
+/** External launcher contracts and resource locations understood by OpenMindy. */
 internal object IconPackContract {
     val discoveryActions = listOf(
         "com.novalauncher.THEME",

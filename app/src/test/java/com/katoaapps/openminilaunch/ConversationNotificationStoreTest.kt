@@ -13,6 +13,7 @@ import com.katoaapps.openminilaunch.features.conversations.conversationActivityA
 import com.katoaapps.openminilaunch.features.conversations.isConversationNotification
 import com.katoaapps.openminilaunch.features.conversations.isDismissibleNotification
 import com.katoaapps.openminilaunch.features.conversations.latestConversationActivityAt
+import com.katoaapps.openminilaunch.features.conversations.mayBeConversationNotification
 import com.katoaapps.openminilaunch.features.conversations.resolvesConversationNotification
 import com.katoaapps.openminilaunch.features.conversations.shouldShowConversationAttention
 import com.katoaapps.openminilaunch.features.conversations.shouldExposeConversationAction
@@ -31,12 +32,12 @@ class ConversationNotificationStoreTest {
                 state = DemoConversationState.QUIET,
             ).isEmpty(),
         )
-        val petMinkFavorite = DemoConversationData.notifications(
+        val petMindyFavorite = DemoConversationData.notifications(
             now = 1_000_000L,
-            scenario = DemoScenario.PET_MINK,
+            scenario = DemoScenario.PET_MINDY,
             state = DemoConversationState.ONE_FAVORITE,
         )
-        assertEquals(listOf("May Wong"), petMinkFavorite.map { it.conversationName })
+        assertEquals(listOf("May Wong"), petMindyFavorite.map { it.conversationName })
         val workday = DemoConversationData.notifications(
             now = 1_000_000L,
             scenario = DemoScenario.WORKDAY,
@@ -230,6 +231,35 @@ class ConversationNotificationStoreTest {
         assertTrue(resolvesConversationNotification(Notification.Action.SEMANTIC_ACTION_ARCHIVE))
         assertFalse(resolvesConversationNotification(Notification.Action.SEMANTIC_ACTION_MUTE))
         assertFalse(resolvesConversationNotification(Notification.Action.SEMANTIC_ACTION_REPLY))
+    }
+
+    @Test
+    fun commonArchiveDeleteAndReadTitlesResolveWithoutSemanticActions() {
+        val none = Notification.Action.SEMANTIC_ACTION_NONE
+        listOf("Archive", "Archivar", "Eliminar", "Borrar", "Marcar como leído", "MARK AS READ", "Löschen")
+            .forEach { title -> assertTrue(title, resolvesConversationNotification(none, title)) }
+        listOf("Reply", "Responder", "Me gusta", "Marcar como no leído", "Mark as unread", "Deshacer", "")
+            .forEach { title -> assertFalse(title, resolvesConversationNotification(none, title)) }
+    }
+
+    @Test
+    fun markAsUnreadSemanticActionNeverResolvesEvenWithMatchingTitle() {
+        assertFalse(
+            resolvesConversationNotification(
+                Notification.Action.SEMANTIC_ACTION_MARK_AS_UNREAD,
+                "Archive",
+            ),
+        )
+    }
+
+    @Test
+    fun onlyMessageEmailOrMessagePayloadNotificationsAreParsed() {
+        assertTrue(mayBeConversationNotification(Notification.CATEGORY_MESSAGE, false))
+        assertTrue(mayBeConversationNotification(Notification.CATEGORY_EMAIL, false))
+        assertTrue(mayBeConversationNotification(null, true))
+        assertFalse(mayBeConversationNotification(Notification.CATEGORY_TRANSPORT, false))
+        assertFalse(mayBeConversationNotification(Notification.CATEGORY_PROGRESS, false))
+        assertFalse(mayBeConversationNotification(null, false))
     }
 
     private fun conversation(notification: ConversationNotification) = NotificationConversation(

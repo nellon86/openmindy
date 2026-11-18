@@ -221,7 +221,7 @@ internal fun WallpaperCropDialog(
                                         }
                                         val result = saved.fold(
                                             onSuccess = { appearance ->
-                                                // Persist Mink's image choice before WallpaperManager can
+                                                // Persist Mindy's image choice before WallpaperManager can
                                                 // trigger a dynamic-color Activity recreation on Pixel devices.
                                                 onWallpaperSaved(appearance)
                                                 withContext(Dispatchers.IO) {

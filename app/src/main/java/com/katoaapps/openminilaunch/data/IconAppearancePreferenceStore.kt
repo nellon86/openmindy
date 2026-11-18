@@ -11,7 +11,7 @@ internal class IconAppearancePreferenceStore(private val prefs: SharedPreference
     var appearance by mutableStateOf(load())
         private set
 
-    fun useMinkIcons() = save(appearance.copy(source = IconSource.MINK, iconPackPackage = null))
+    fun useMindyIcons() = save(appearance.copy(source = IconSource.MINDY, iconPackPackage = null))
 
     fun useSystemIcons() = save(appearance.copy(source = IconSource.SYSTEM, iconPackPackage = null))
 
@@ -19,24 +19,24 @@ internal class IconAppearancePreferenceStore(private val prefs: SharedPreference
         save(appearance.copy(source = IconSource.ICON_PACK, iconPackPackage = packageName))
     }
 
-    fun setMinkIconColor(argb: Int?) {
-        save(appearance.copy(minkIconColorArgb = argb?.or(0xFF000000.toInt())))
+    fun setMindyIconColor(argb: Int?) {
+        save(appearance.copy(mindyIconColorArgb = argb?.or(0xFF000000.toInt())))
     }
 
     private fun load(): IconAppearance {
         val source = runCatching {
-            IconSource.valueOf(prefs.getString(SOURCE_KEY, IconSource.MINK.name).orEmpty())
-        }.getOrDefault(IconSource.MINK)
+            IconSource.valueOf(prefs.getString(SOURCE_KEY, IconSource.MINDY.name).orEmpty())
+        }.getOrDefault(IconSource.MINDY)
         val packageName = prefs.getString(PACKAGE_KEY, null)
-        val minkIconColor = if (prefs.contains(MINK_COLOR_KEY)) {
-            prefs.getInt(MINK_COLOR_KEY, 0)
+        val mindyIconColor = if (prefs.contains(MINDY_COLOR_KEY)) {
+            prefs.getInt(MINDY_COLOR_KEY, 0)
         } else {
             null
         }
         return if (source == IconSource.ICON_PACK && packageName.isNullOrBlank()) {
-            IconAppearance(minkIconColorArgb = minkIconColor)
+            IconAppearance(mindyIconColorArgb = mindyIconColor)
         } else {
-            IconAppearance(source, packageName, minkIconColor)
+            IconAppearance(source, packageName, mindyIconColor)
         }
     }
 
@@ -46,7 +46,7 @@ internal class IconAppearancePreferenceStore(private val prefs: SharedPreference
             .putString(SOURCE_KEY, value.source.name)
             .apply {
                 value.iconPackPackage?.let { putString(PACKAGE_KEY, it) } ?: remove(PACKAGE_KEY)
-                value.minkIconColorArgb?.let { putInt(MINK_COLOR_KEY, it) } ?: remove(MINK_COLOR_KEY)
+                value.mindyIconColorArgb?.let { putInt(MINDY_COLOR_KEY, it) } ?: remove(MINDY_COLOR_KEY)
             }
             .apply()
     }
@@ -54,6 +54,6 @@ internal class IconAppearancePreferenceStore(private val prefs: SharedPreference
     private companion object {
         const val PACKAGE_KEY = "icon_pack_package"
         const val SOURCE_KEY = "icon_source"
-        const val MINK_COLOR_KEY = "mink_icon_color"
+        const val MINDY_COLOR_KEY = "mink_icon_color"
     }
 }

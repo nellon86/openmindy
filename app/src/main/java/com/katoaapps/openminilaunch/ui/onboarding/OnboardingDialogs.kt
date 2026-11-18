@@ -34,62 +34,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.katoaapps.openminilaunch.R
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
 import com.katoaapps.openminilaunch.ui.theme.Rust
-
-@Composable
-internal fun FeatureUpdateDialog(
-    onOpenSettings: () -> Unit,
-    onReviewTutorial: () -> Unit,
-    onNotNow: () -> Unit,
-) {
-    AlertDialog(
-        modifier = Modifier.minkDialogWidth(),
-        onDismissRequest = onNotNow,
-        properties = MinkDialogDefaults.properties,
-        icon = { Icon(Icons.Default.Pets, null, tint = Rust) },
-        title = { Text(stringResource(R.string.whats_new)) },
-        text = {
-            Column(
-                Modifier.heightIn(max = Dimens.dp560).verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(Dimens.dp14),
-            ) {
-                UpdatePoint(
-                    Icons.Default.Apps,
-                    stringResource(R.string.app_grid),
-                    stringResource(R.string.update_notice_app_shortcuts_description),
-                )
-                UpdatePoint(
-                    Icons.Default.ContactPage,
-                    stringResource(R.string.favorites),
-                    stringResource(R.string.conversation_tour_favorites_description),
-                )
-                UpdatePoint(
-                    Icons.Default.Keyboard,
-                    stringResource(R.string.update_notice_keyboard_title),
-                    stringResource(R.string.update_notice_keyboard_description),
-                )
-                UpdatePoint(
-                    Icons.Default.Widgets,
-                    stringResource(R.string.widgets),
-                    stringResource(R.string.your_widget_page_description),
-                )
-                TextButton(onClick = onReviewTutorial, contentPadding = PaddingValues(Dimens.dp0)) {
-                    Text(stringResource(R.string.review_updated_tutorial))
-                }
-            }
-        },
-        confirmButton = {
-            Button(onClick = onOpenSettings) {
-                Text(stringResource(R.string.open_settings))
-            }
-        },
-        dismissButton = { TextButton(onClick = onNotNow) { Text(stringResource(R.string.not_now)) } },
-    )
-}
 
 @Composable
 internal fun FileSearchScopeDialog(
@@ -98,9 +47,9 @@ internal fun FileSearchScopeDialog(
 ) {
     val appName = stringResource(R.string.app_name)
     AlertDialog(
-        modifier = Modifier.minkDialogWidth(),
+        modifier = Modifier.mindyDialogWidth(),
         onDismissRequest = onSkip,
-        properties = MinkDialogDefaults.properties,
+        properties = MindyDialogDefaults.properties,
         icon = { Icon(Icons.Default.FolderOpen, null, tint = Rust) },
         title = { Text(stringResource(R.string.file_scope_title, appName)) },
         text = {
@@ -146,9 +95,9 @@ private fun UpdatePoint(icon: ImageVector, title: String, description: String) {
 internal fun UsageAccessDisclosureDialog(onContinue: () -> Unit, onDismiss: () -> Unit) {
     val appName = stringResource(R.string.app_name)
     AlertDialog(
-        modifier = Modifier.minkDialogWidth(),
+        modifier = Modifier.mindyDialogWidth(),
         onDismissRequest = onDismiss,
-        properties = MinkDialogDefaults.properties,
+        properties = MindyDialogDefaults.properties,
         icon = { Icon(Icons.Default.Pets, null, tint = Rust) },
         title = { Text(stringResource(R.string.usage_disclosure_title)) },
         text = {

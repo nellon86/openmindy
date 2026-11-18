@@ -1,8 +1,8 @@
 <resources>
     <string name="home_spotlight_folders_title">폴더 만들기</string>
     <string name="home_spotlight_folders_description">앱을 길게 누른 다음 다른 앱을 추가하면 타일이 폴더로 바뀝니다.</string>
-    <string name="home_spotlight_minkspace_title">미니 앱은 여기에 있습니다</string>
-    <string name="home_spotlight_minkspace_description">MinkSpace 안에서 위아래로 스와이프해 미니 앱을 전환하세요. 지원되는 앱을 탭하면 확장됩니다.</string>
+    <string name="home_spotlight_mindyspace_title">미니 앱은 여기에 있습니다</string>
+    <string name="home_spotlight_mindyspace_description">MindySpace 안에서 위아래로 스와이프해 미니 앱을 전환하세요. 지원되는 앱을 탭하면 확장됩니다.</string>
     <string name="home_spotlight_magic_title">입력 시작</string>
     <string name="home_spotlight_magic_description">일반 텍스트나 Magic Box 단축키로 검색, 메시지, 통화, 메모 및 작업을 실행하세요.</string>
     <string name="home_spotlight_keyboard_title">키보드 그 이상</string>

@@ -6,6 +6,4 @@
     <string name="settings_tab_advanced">進階</string>
     <string name="settings_section_more">更多</string>
     <string name="settings_launcher_home_summary">主畫面應用程式、外觀同語言</string>
-    <string name="minklauncher_community">MinkLauncher 社群</string>
-    <string name="minklauncher_community_summary">喺 Reddit 加入 r/minklauncher</string>
 </resources>

@@ -6,6 +6,4 @@
     <string name="settings_tab_advanced">高度</string>
     <string name="settings_section_more">その他</string>
     <string name="settings_launcher_home_summary">ホームアプリ、外観、言語</string>
-    <string name="minklauncher_community">MinkLauncher コミュニティ</string>
-    <string name="minklauncher_community_summary">Reddit の r/minklauncher に参加</string>
 </resources>

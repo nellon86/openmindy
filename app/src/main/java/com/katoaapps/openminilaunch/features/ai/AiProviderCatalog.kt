@@ -3,7 +3,7 @@ package com.katoaapps.openminilaunch.features.ai
 import androidx.annotation.DrawableRes
 import com.katoaapps.openminilaunch.R
 
-/** Known AI providers whose Android handoff behavior Mink has explicitly reviewed. */
+/** Known AI providers whose Android handoff behavior Mindy has explicitly reviewed. */
 internal object AiProviderCatalog {
     const val LUMO_PLAY_PACKAGE = "me.proton.android.lumo"
     const val LUMO_NO_GMS_PACKAGE = "me.proton.lumo"

@@ -17,8 +17,8 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.katoaapps.openminilaunch.data.LauncherStore
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.components.applyLargeDisplayOrientation
-import com.katoaapps.openminilaunch.ui.theme.MinkLauncherTheme
-import com.katoaapps.openminilaunch.ui.theme.MinkTransparent
+import com.katoaapps.openminilaunch.ui.theme.MindyLauncherTheme
+import com.katoaapps.openminilaunch.ui.theme.MindyTransparent
 
 /** Keyboard-first system assistant entry point. ACTION_ASSIST context is deliberately ignored. */
 class AssistantActivity : ComponentActivity() {
@@ -41,7 +41,7 @@ class AssistantActivity : ComponentActivity() {
         setContent {
             val context = LocalContext.current
             val view = LocalView.current
-            val transparent = MinkTransparent
+            val transparent = MindyTransparent
             SideEffect {
                 val activityWindow = (context as Activity).window
                 activityWindow.statusBarColor = transparent.toArgb()
@@ -51,7 +51,7 @@ class AssistantActivity : ComponentActivity() {
                     isAppearanceLightNavigationBars = false
                 }
             }
-            MinkLauncherTheme(store) {
+            MindyLauncherTheme(store) {
                 Box(Modifier.fillMaxSize()) {
                     AssistantMagicBox(
                         store = store,

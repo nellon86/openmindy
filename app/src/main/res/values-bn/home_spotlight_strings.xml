@@ -1,8 +1,8 @@
 <resources>
     <string name="home_spotlight_folders_title">একটি ফোল্ডার তৈরি করুন</string>
     <string name="home_spotlight_folders_description">যেকোনো অ্যাপ চেপে ধরে আরেকটি অ্যাপ যোগ করলে টাইলটি ফোল্ডারে পরিণত হবে।</string>
-    <string name="home_spotlight_minkspace_title">মিনি অ্যাপ এখানে থাকে</string>
-    <string name="home_spotlight_minkspace_description">মিনি অ্যাপ বদলাতে MinkSpace-এর ভেতরে উপরে বা নিচে সোয়াইপ করুন। সমর্থিত অ্যাপ বড় করতে ট্যাপ করুন।</string>
+    <string name="home_spotlight_mindyspace_title">মিনি অ্যাপ এখানে থাকে</string>
+    <string name="home_spotlight_mindyspace_description">মিনি অ্যাপ বদলাতে MindySpace-এর ভেতরে উপরে বা নিচে সোয়াইপ করুন। সমর্থিত অ্যাপ বড় করতে ট্যাপ করুন।</string>
     <string name="home_spotlight_magic_title">টাইপ করা শুরু করুন</string>
     <string name="home_spotlight_magic_description">সাধারণ লেখা বা Magic Box হটকি দিয়ে খুঁজুন, বার্তা পাঠান, কল করুন, নোট লিখুন এবং কাজ চালু করুন।</string>
     <string name="home_spotlight_keyboard_title">শুধু কীবোর্ড নয়</string>

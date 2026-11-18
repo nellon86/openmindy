@@ -37,7 +37,7 @@ class HomeFeatureTourTest {
         assertEquals(
             listOf(
                 HomeTourTarget.APP_GRID,
-                HomeTourTarget.MINK_SPACE,
+                HomeTourTarget.MINDY_SPACE,
                 HomeTourTarget.MAGIC_BOX,
                 HomeTourTarget.KEYBOARD_ACTION,
                 HomeTourTarget.HEADER,

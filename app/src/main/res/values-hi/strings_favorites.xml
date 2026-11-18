@@ -8,7 +8,7 @@
     <string name="message">संदेश</string>
     <string name="call">कॉल</string>
     <string name="open_contact">संपर्क में खोलें</string>
-    <string name="change_favorite_in_contacts">Android संपर्क में इस व्यक्ति को पसंदीदा बनाएं या हटाएं। Mink अलग पसंदीदा सूची नहीं रखता।</string>
+    <string name="change_favorite_in_contacts">Android संपर्क में इस व्यक्ति को पसंदीदा बनाएं या हटाएं। Mindy अलग पसंदीदा सूची नहीं रखता।</string>
     <string name="choose_phone_number">फ़ोन नंबर चुनें</string>
     <string name="preferred_number">पसंदीदा नंबर</string>
     <string name="ask_every_time">हर बार पूछें</string>

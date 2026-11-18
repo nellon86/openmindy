@@ -28,11 +28,11 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import com.katoaapps.openminilaunch.data.LauncherStore
-import com.katoaapps.openminilaunch.features.wellbeing.MinkAppAccessState
+import com.katoaapps.openminilaunch.features.wellbeing.MindyAppAccessState
 import com.katoaapps.openminilaunch.platform.DeviceActions
-import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpaceHost
-import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpacePresentationState
-import com.katoaapps.openminilaunch.ui.minkspace.core.animateMinkSpaceExpansionLayout
+import com.katoaapps.openminilaunch.ui.mindyspace.core.MindySpaceHost
+import com.katoaapps.openminilaunch.ui.mindyspace.core.MindySpacePresentationState
+import com.katoaapps.openminilaunch.ui.mindyspace.core.animateMindySpaceExpansionLayout
 import com.katoaapps.openminilaunch.ui.onboarding.HomeTourTarget
 import com.katoaapps.openminilaunch.ui.onboarding.homeTourTarget
 import com.katoaapps.openminilaunch.ui.theme.Dimens
@@ -45,22 +45,21 @@ import com.katoaapps.openminilaunch.ui.theme.shouldUseDarkForeground
 internal fun BoxScope.HomeFocusPanel(
     store: LauncherStore,
     actions: DeviceActions,
-    appAccessState: MinkAppAccessState,
+    appAccessState: MindyAppAccessState,
     qwertyHome: Boolean,
     expandToAvailableHeight: Boolean,
     availableHeight: Dp,
     focusPanelHeight: Dp,
     todoJumpToken: Int,
-    minkSpacePresentation: MinkSpacePresentationState,
+    mindySpacePresentation: MindySpacePresentationState,
     openTodos: () -> Unit,
-    openVCardSettings: () -> Unit,
-    openMinkSpaceSettings: () -> Unit,
+    openMindySpaceSettings: () -> Unit,
     openAppGridSettings: () -> Unit,
     onTodoCenterChanged: (Offset) -> Unit,
     onPausedApp: (String) -> Unit,
     onOpenDrawer: () -> Unit,
 ) {
-    val minkSpaceExpanded = minkSpacePresentation.isExpanded
+    val mindySpaceExpanded = mindySpacePresentation.isExpanded
     val configuration = LocalConfiguration.current
     val fontScale = LocalDensity.current.fontScale
     val panelColor = Color(store.effectiveHomePanelColorArgb)
@@ -76,10 +75,10 @@ internal fun BoxScope.HomeFocusPanel(
         preferred = store.fontAppearance.colorArgb?.let(::Color),
     )
     val mutedColor = contentColor.copy(alpha = .68f)
-    val insetColor = if (contentColor == com.katoaapps.openminilaunch.ui.theme.MinkWhite) {
-        com.katoaapps.openminilaunch.ui.theme.MinkBlack.copy(alpha = .16f)
+    val insetColor = if (contentColor == com.katoaapps.openminilaunch.ui.theme.MindyWhite) {
+        com.katoaapps.openminilaunch.ui.theme.MindyBlack.copy(alpha = .16f)
     } else {
-        com.katoaapps.openminilaunch.ui.theme.MinkWhite.copy(alpha = .24f)
+        com.katoaapps.openminilaunch.ui.theme.MindyWhite.copy(alpha = .24f)
     }
     val panelHeight = if (expandToAvailableHeight) {
         availableHeight
@@ -128,8 +127,8 @@ internal fun BoxScope.HomeFocusPanel(
                 },
             ),
         ) {
-            val expansionLayout = animateMinkSpaceExpansionLayout(
-                expanded = minkSpaceExpanded,
+            val expansionLayout = animateMindySpaceExpansionLayout(
+                expanded = mindySpaceExpanded,
                 compact = qwertyHome,
                 availableWidth = maxWidth,
             )
@@ -138,7 +137,7 @@ internal fun BoxScope.HomeFocusPanel(
                 Modifier.fillMaxSize().padding(expansionLayout.contentPadding),
                 horizontalArrangement = Arrangement.spacedBy(expansionLayout.contentSpacing),
             ) {
-                MinkSpaceHost(
+                MindySpaceHost(
                     store = store,
                     actions = actions,
                     openTodos = openTodos,
@@ -149,15 +148,13 @@ internal fun BoxScope.HomeFocusPanel(
                     contentColor = contentColor,
                     mutedContentColor = mutedColor,
                     insetColor = insetColor,
-                    openMediaLab = actions::openMediaLab,
-                    openVCardSettings = openVCardSettings,
-                    openMinkSpaceSettings = openMinkSpaceSettings,
-                    presentationState = minkSpacePresentation,
+                    openMindySpaceSettings = openMindySpaceSettings,
+                    presentationState = mindySpacePresentation,
                     expandedPresentation = expansionLayout.expandedPresentation,
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
-                        .homeTourTarget(HomeTourTarget.MINK_SPACE)
+                        .homeTourTarget(HomeTourTarget.MINDY_SPACE)
                         .onGloballyPositioned { coordinates ->
                             val origin = coordinates.positionInRoot()
                             onTodoCenterChanged(

@@ -11,17 +11,17 @@ internal enum class SettingsDestination {
     APPEARANCE_WALLPAPER,
     APPEARANCE_ICONS,
     APPEARANCE_LAYOUT_CLOCK,
-    MINK_SPACE,
+    MINDY_SPACE,
     APP_GRID,
     QUICK_DRAWER,
     PRIVACY_APPS,
     KEYBOARD,
     APP_BUBBLES,
-    MINK_ASSISTANT,
+    MINDY_ASSISTANT,
     MESSAGING,
     CALLING,
     FILE_SEARCH,
-    MINK_DAY,
+    MINDY_DAY,
     BACKUP_RESTORE,
     PERMISSIONS,
     ABOUT,
@@ -103,7 +103,7 @@ internal fun settingsPathTo(destination: SettingsDestination): List<SettingsDest
         SettingsDestination.LAUNCHER,
         destination,
     )
-    SettingsDestination.MINK_SPACE -> listOf(SettingsDestination.OVERVIEW)
+    SettingsDestination.MINDY_SPACE -> listOf(SettingsDestination.OVERVIEW)
     SettingsDestination.APP_GRID,
     SettingsDestination.QUICK_DRAWER -> listOf(SettingsDestination.OVERVIEW, destination)
     SettingsDestination.PRIVACY_APPS -> listOf(
@@ -128,10 +128,10 @@ internal fun settingsPathTo(destination: SettingsDestination): List<SettingsDest
         SettingsDestination.OVERVIEW,
         SettingsDestination.APP_BUBBLES,
     )
-    SettingsDestination.MINK_ASSISTANT,
+    SettingsDestination.MINDY_ASSISTANT,
     SettingsDestination.MESSAGING,
     SettingsDestination.CALLING,
-    SettingsDestination.MINK_DAY,
+    SettingsDestination.MINDY_DAY,
     SettingsDestination.BACKUP_RESTORE,
     SettingsDestination.PERMISSIONS,
     SettingsDestination.ABOUT -> listOf(SettingsDestination.OVERVIEW, destination)

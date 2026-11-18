@@ -1,11 +1,11 @@
 package com.katoaapps.openminilaunch.ui.updates
 
 import com.katoaapps.openminilaunch.R
-import com.katoaapps.openminilaunch.features.wellbeing.MinkState
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.features.wellbeing.MindyState
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.wellbeing.MinkSprite
+import com.katoaapps.openminilaunch.ui.wellbeing.MindySprite
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.rememberScrollState
@@ -29,15 +29,14 @@ internal fun GitHubUpdateDialog(
     currentVersion: String,
     availableVersion: String,
     onOpenGitHub: () -> Unit,
-    onOpenFdroid: () -> Unit,
     onDismiss: () -> Unit,
 ) {
     Dialog(
         onDismissRequest = onDismiss,
-        properties = MinkDialogDefaults.properties,
+        properties = MindyDialogDefaults.properties,
     ) {
         Surface(
-            modifier = Modifier.minkDialogWidth(),
+            modifier = Modifier.mindyDialogWidth(),
             shape = RoundedCornerShape(Dimens.dp28),
             color = MaterialTheme.colorScheme.background,
             tonalElevation = Dimens.dp8,
@@ -53,7 +52,7 @@ internal fun GitHubUpdateDialog(
                         .background(MaterialTheme.colorScheme.secondaryContainer),
                     contentAlignment = Alignment.Center,
                 ) {
-                    MinkSprite(MinkState.PURPOSEFUL, Modifier.size(Dimens.dp116))
+                    MindySprite(MindyState.PURPOSEFUL, Modifier.size(Dimens.dp116))
                 }
                 Text(
                     stringResource(R.string.github_update_dialog_title),
@@ -72,12 +71,6 @@ internal fun GitHubUpdateDialog(
                     stringResource(R.string.github_update_description),
                     modifier = Modifier.fillMaxWidth().padding(top = Dimens.dp18),
                 )
-                Text(
-                    stringResource(R.string.github_update_fdroid_note),
-                    modifier = Modifier.fillMaxWidth().padding(top = Dimens.dp10),
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = .64f),
-                    fontSize = Dimens.sp12,
-                )
                 Button(
                     onClick = onOpenGitHub,
                     modifier = Modifier.fillMaxWidth().padding(top = Dimens.dp18),
@@ -85,16 +78,6 @@ internal fun GitHubUpdateDialog(
                     Icon(Icons.Default.OpenInBrowser, null)
                     Text(
                         stringResource(R.string.download_from_github),
-                        Modifier.padding(start = Dimens.dp8),
-                    )
-                }
-                FilledTonalButton(
-                    onClick = onOpenFdroid,
-                    modifier = Modifier.fillMaxWidth().padding(top = Dimens.dp8),
-                ) {
-                    Icon(Icons.Default.OpenInBrowser, null)
-                    Text(
-                        stringResource(R.string.download_from_fdroid),
                         Modifier.padding(start = Dimens.dp8),
                     )
                 }

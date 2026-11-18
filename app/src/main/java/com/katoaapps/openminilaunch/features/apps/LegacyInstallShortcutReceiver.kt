@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import com.katoaapps.openminilaunch.ui.shortcuts.PinShortcutActivity
 
-/** Adapts the pre-O shortcut broadcast to Mink's normal placement screen. */
+/** Adapts the pre-O shortcut broadcast to Mindy's normal placement screen. */
 class LegacyInstallShortcutReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action != LEGACY_INSTALL_SHORTCUT_ACTION) return

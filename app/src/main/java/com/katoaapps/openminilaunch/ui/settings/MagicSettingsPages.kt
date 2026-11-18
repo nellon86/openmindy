@@ -1,5 +1,6 @@
 package com.katoaapps.openminilaunch.ui.settings
 
+import com.katoaapps.openminilaunch.features.magic.MAGIC_FILE_SEARCH_ENABLED
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
 import com.katoaapps.openminilaunch.model.SearchFolder
@@ -93,18 +94,20 @@ internal fun MagicBoxSettingsPage(
                 modifier = Modifier.weight(1f),
             )
         }
-        HorizontalDivider(color = Sage)
-        SectionLabel(stringResource(R.string.files_section))
-        SettingsRow(
-            stringResource(R.string.file_search),
-            stringResource(
-                R.string.file_search_status,
-                folderCountLabel(store.searchFolders.size),
-                stringResource(if (mediaGranted) R.string.status_on else R.string.status_off),
-            ),
-            Icons.Default.FolderOpen,
-            onClick = onOpenFileSearch,
-        )
+        if (MAGIC_FILE_SEARCH_ENABLED) {
+            HorizontalDivider(color = Sage)
+            SectionLabel(stringResource(R.string.files_section))
+            SettingsRow(
+                stringResource(R.string.file_search),
+                stringResource(
+                    R.string.file_search_status,
+                    folderCountLabel(store.searchFolders.size),
+                    stringResource(if (mediaGranted) R.string.status_on else R.string.status_off),
+                ),
+                Icons.Default.FolderOpen,
+                onClick = onOpenFileSearch,
+            )
+        }
     }
 }
 
@@ -134,17 +137,17 @@ private fun SearchAppCard(
 }
 
 @Composable
-internal fun MinkAssistantSettingsPage(
+internal fun MindyAssistantSettingsPage(
     assistantRoleHeld: Boolean,
     showAssistantDisclosure: () -> Unit,
     onOpenQuickApps: () -> Unit,
     goBack: () -> Unit,
 ) {
-    SettingsPage(stringResource(R.string.mink_assistant), goBack) {
+    SettingsPage(stringResource(R.string.mindy_assistant), goBack) {
         Text(stringResource(R.string.assistant_settings_description), color = Muted, fontSize = Dimens.sp13)
         SettingsRow(
             title = stringResource(
-                if (assistantRoleHeld) R.string.manage_mink_assistant else R.string.choose_mink_assistant,
+                if (assistantRoleHeld) R.string.manage_mindy_assistant else R.string.choose_mindy_assistant,
             ),
             subtitle = stringResource(
                 if (assistantRoleHeld) R.string.assistant_active_description else R.string.assistant_inactive_description,

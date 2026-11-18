@@ -5,16 +5,16 @@ package com.katoaapps.openminilaunch.ui.launcher.home
 import com.katoaapps.openminilaunch.BuildConfig
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
-import com.katoaapps.openminilaunch.features.minkspace.MinkSpaceMiniApp
+import com.katoaapps.openminilaunch.features.mindyspace.MindySpaceMiniApp
 import com.katoaapps.openminilaunch.features.updates.GitHubReleaseChecker
 import com.katoaapps.openminilaunch.features.updates.isNewerRelease
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.magic.HomeMagicBox
 import com.katoaapps.openminilaunch.ui.magic.MagicBoxSessionState
-import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpaceMiniAppCatalog
-import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpacePresentationState
-import com.katoaapps.openminilaunch.ui.minkspace.todo.TodoFlightChip
-import com.katoaapps.openminilaunch.ui.minkspace.todo.todoFlightAnimationSpec
+import com.katoaapps.openminilaunch.ui.mindyspace.core.MindySpaceMiniAppCatalog
+import com.katoaapps.openminilaunch.ui.mindyspace.core.MindySpacePresentationState
+import com.katoaapps.openminilaunch.ui.mindyspace.todo.TodoFlightChip
+import com.katoaapps.openminilaunch.ui.mindyspace.todo.todoFlightAnimationSpec
 import com.katoaapps.openminilaunch.ui.onboarding.HomeTourTarget
 import com.katoaapps.openminilaunch.ui.onboarding.homeTourTarget
 import com.katoaapps.openminilaunch.ui.quickdrawer.QuickAppsEditorDialog
@@ -22,8 +22,8 @@ import com.katoaapps.openminilaunch.ui.settings.LockAccessibilityDisclosureDialo
 import com.katoaapps.openminilaunch.ui.settings.SettingsDestination
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.updates.GitHubUpdateDialog
-import com.katoaapps.openminilaunch.ui.wellbeing.MinkPausedAppDialog
-import com.katoaapps.openminilaunch.ui.wellbeing.rememberMinkAppAccessState
+import com.katoaapps.openminilaunch.ui.wellbeing.MindyPausedAppDialog
+import com.katoaapps.openminilaunch.ui.wellbeing.rememberMindyAppAccessState
 
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -51,16 +51,15 @@ internal fun HomeScreen(
     actions: DeviceActions,
     openSettings: (SettingsDestination) -> Unit,
     openTodos: () -> Unit,
-    openVCardSettings: () -> Unit,
     openConversations: () -> Unit,
-    openMinkDay: () -> Unit,
-    minkStatusActive: Boolean,
+    openMindyDay: () -> Unit,
+    mindyStatusActive: Boolean,
     onMagicExpandedChange: (Boolean) -> Unit,
-    onMinkSpaceExpandedChange: (Boolean) -> Unit = {},
+    onMindySpaceExpandedChange: (Boolean) -> Unit = {},
     keyboardInputEnabled: Boolean,
     homeRequestToken: Int,
     magicBoxSessionState: MagicBoxSessionState,
-    minkSpacePresentation: MinkSpacePresentationState,
+    mindySpacePresentation: MindySpacePresentationState,
     paneModifier: Modifier = Modifier.fillMaxSize(),
     collapsedBarMaxWidth: androidx.compose.ui.unit.Dp = Dimens.dp620,
     collapsedBarOffsetX: androidx.compose.ui.unit.Dp = Dimens.dp0,
@@ -81,7 +80,7 @@ internal fun HomeScreen(
     var showLockDisclosure by remember { mutableStateOf(false) }
     var showUpdateConfirmation by remember { mutableStateOf(false) }
     var pausedAppPackage by remember { mutableStateOf<String?>(null) }
-    val appAccessState by rememberMinkAppAccessState(store, minkStatusActive)
+    val appAccessState by rememberMindyAppAccessState(store, mindyStatusActive)
     val todoSnackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
     val releaseChecker = remember { GitHubReleaseChecker() }
@@ -92,8 +91,8 @@ internal fun HomeScreen(
         if (actions.isLockServiceEnabled()) actions.lockDevice()
     }
     LaunchedEffect(magicExpanded) { onMagicExpandedChange(magicExpanded) }
-    LaunchedEffect(minkSpacePresentation.isExpanded) {
-        onMinkSpaceExpandedChange(minkSpacePresentation.isExpanded)
+    LaunchedEffect(mindySpacePresentation.isExpanded) {
+        onMindySpaceExpandedChange(mindySpacePresentation.isExpanded)
     }
 
     fun lockFromHome() {
@@ -138,13 +137,15 @@ internal fun HomeScreen(
                 .homeTourTarget(HomeTourTarget.GESTURES)
                 .homePaneGestures(
                 magicExpanded = magicExpanded,
-                verticalGesturesEnabled = !minkSpacePresentation.isExpanded,
-                horizontalGesturesEnabled = !minkSpacePresentation.isExpanded,
+                verticalGesturesEnabled = !mindySpacePresentation.isExpanded,
+                horizontalGesturesEnabled = !mindySpacePresentation.isExpanded,
                 onPaneInteracted = onPaneInteracted,
                 onHorizontalDrag = onHorizontalDrag,
                 onHorizontalDragFinished = onHorizontalDragFinished,
                 onSwipeUp = { actions.openAllAppsFromBottom() },
-                onSwipeDown = actions::expandNotificationShade,
+                onSwipeDown = { fromRightHalf ->
+                    if (fromRightHalf) actions.expandQuickSettings() else actions.expandNotificationShade()
+                },
                 onDoubleTap = ::lockFromHome,
                 ),
         ) {
@@ -176,14 +177,14 @@ internal fun HomeScreen(
                     HomeHeader(
                         store = store,
                         actions = actions,
-                        minkStatusActive = minkStatusActive,
+                        mindyStatusActive = mindyStatusActive,
                         qwertyHome = qwertyHome,
                         horizontalPadding = homeHorizontalPadding,
                         actionSize = headerActionSize,
                         iconSize = headerIconSize,
                         followHorizontalWindowOffset = twoPanelLayout,
                         updateAvailable = updateAvailable,
-                        onMinkDay = openMinkDay,
+                        onMindyDay = openMindyDay,
                         onUpdate = { showUpdateConfirmation = true },
                         onConversations = openConversations,
                         openSettings = openSettings,
@@ -203,10 +204,9 @@ internal fun HomeScreen(
                             availableHeight = maxHeight,
                             focusPanelHeight = focusPanelHeight,
                             todoJumpToken = todoJumpToken,
-                            minkSpacePresentation = minkSpacePresentation,
+                            mindySpacePresentation = mindySpacePresentation,
                             openTodos = openTodos,
-                            openVCardSettings = openVCardSettings,
-                            openMinkSpaceSettings = { openSettings(SettingsDestination.MINK_SPACE) },
+                            openMindySpaceSettings = { openSettings(SettingsDestination.MINDY_SPACE) },
                             openAppGridSettings = { openSettings(SettingsDestination.APP_GRID) },
                             onTodoCenterChanged = { widgetCenter = it },
                             onPausedApp = { pausedAppPackage = it },
@@ -244,7 +244,7 @@ internal fun HomeScreen(
             autoOpenSoftwareKeyboardOnHome = store.openSoftwareKeyboardOnHome,
             homeRequestToken = homeRequestToken,
             onTodoAdded = { text ->
-                if (MinkSpaceMiniApp.TODO in store.enabledMinkSpaceMiniApps) {
+                if (MindySpaceMiniApp.TODO in store.enabledMindySpaceMiniApps) {
                     flyingTodo = text
                     todoJumpToken++
                 } else {
@@ -260,12 +260,12 @@ internal fun HomeScreen(
                 }
             },
             onOpenKeyboardSettings = { openSettings(SettingsDestination.KEYBOARD) },
-            onOpenTotalScreen = store.minkSpaceTotalScreenShortcut
-                ?.takeIf { MinkSpaceMiniAppCatalog.get(it).supportsTotalScreen }
+            onOpenTotalScreen = store.mindySpaceTotalScreenShortcut
+                ?.takeIf { MindySpaceMiniAppCatalog.get(it).supportsTotalScreen }
                 ?.let { miniApp ->
                     {
-                        MinkSpaceMiniAppCatalog.get(miniApp)
-                            .let(minkSpacePresentation::showTotalScreen)
+                        MindySpaceMiniAppCatalog.get(miniApp)
+                            .let(mindySpacePresentation::showTotalScreen)
                     }
                 },
             onOpenTodos = openTodos,
@@ -305,14 +305,6 @@ internal fun HomeScreen(
                     Toast.makeText(context, R.string.no_browser_available, Toast.LENGTH_SHORT).show()
                 }
             },
-            onOpenFdroid = {
-                if (actions.openFdroidPackagePage()) {
-                    store.latestGitHubReleaseTag?.let(store::snoozeGitHubUpdateReminder)
-                    showUpdateConfirmation = false
-                } else {
-                    Toast.makeText(context, R.string.no_browser_available, Toast.LENGTH_SHORT).show()
-                }
-            },
             onDismiss = {
                 store.latestGitHubReleaseTag?.let(store::snoozeGitHubUpdateReminder)
                 showUpdateConfirmation = false
@@ -340,6 +332,6 @@ internal fun HomeScreen(
     }
 
     pausedAppPackage?.let { packageName ->
-        MinkPausedAppDialog(actions.appLabel(packageName)) { pausedAppPackage = null }
+        MindyPausedAppDialog(actions.appLabel(packageName)) { pausedAppPackage = null }
     }
 }

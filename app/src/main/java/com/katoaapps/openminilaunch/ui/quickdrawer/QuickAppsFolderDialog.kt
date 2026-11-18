@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
-import com.katoaapps.openminilaunch.features.wellbeing.MinkAppAccessState
+import com.katoaapps.openminilaunch.features.wellbeing.MindyAppAccessState
 import com.katoaapps.openminilaunch.model.AppFolderColorMode
 import com.katoaapps.openminilaunch.model.AppFolderConfig
 import com.katoaapps.openminilaunch.model.LauncherShortcutTarget
@@ -19,16 +19,17 @@ import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.appgrid.AppFolderContentsDialog
 import com.katoaapps.openminilaunch.ui.appgrid.UnavailableLauncherTargetDialog
 
-/** Reuses the Home folder surface for the system-owned Quick Apps collection. */
+/** Reuses the Home folder surface for the system-owned Quick Apps collection (the Quick Drawer). */
 @Composable
 internal fun QuickAppsFolderDialog(
     store: LauncherStore,
     actions: DeviceActions,
-    appAccessState: MinkAppAccessState,
+    appAccessState: MindyAppAccessState,
     onEdit: () -> Unit,
     onLaunch: () -> Unit,
     onPausedApp: (String) -> Unit,
     onDismiss: () -> Unit,
+    footer: (@Composable () -> Unit)? = null,
 ) {
     val context = LocalContext.current
     val demoModeEnabled = store.demoModeEnabled
@@ -74,6 +75,7 @@ internal fun QuickAppsFolderDialog(
             titleOverride = title,
             targetsOverride = demoTargets,
             appearanceEditable = false,
+            footer = footer,
         )
     }
 

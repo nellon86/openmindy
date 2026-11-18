@@ -30,9 +30,9 @@ internal fun homeFeatureTourSteps(): List<HomeTourStep> {
     return listOf(
         folderStep,
         HomeTourStep(
-            HomeTourTarget.MINK_SPACE,
-            R.string.home_spotlight_minkspace_title,
-            R.string.home_spotlight_minkspace_description,
+            HomeTourTarget.MINDY_SPACE,
+            R.string.home_spotlight_mindyspace_title,
+            R.string.home_spotlight_mindyspace_description,
         ),
         HomeTourStep(
             HomeTourTarget.MAGIC_BOX,

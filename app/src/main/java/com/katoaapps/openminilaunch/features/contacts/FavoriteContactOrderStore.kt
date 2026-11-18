@@ -5,7 +5,7 @@ import com.katoaapps.openminilaunch.model.FavoriteContact
 import com.katoaapps.openminilaunch.model.FavoriteContactId
 import java.io.File
 
-/** Persists the user's mixed Android and Mink favorite order without copying contact details. */
+/** Persists the user's mixed Android and Mindy favorite order without copying contact details. */
 internal class FavoriteContactOrderStore(
     private val persistence: EncryptedFavoriteContactOrderPersistence,
 ) {

@@ -6,12 +6,12 @@ import org.junit.Assert.assertSame
 import org.junit.Test
 
 class BundledHomeThemeCatalogTest {
-    @Test fun catalogKeepsMinkDefaultAndOneColorThemePerWallpaper() {
+    @Test fun catalogKeepsMindyDefaultAndOneColorThemePerWallpaper() {
         val wallpapers = BundledWallpaperCatalog.wallpapers
         val themes = BundledHomeThemeCatalog.themes
 
         assertEquals(17, themes.size)
-        assertSame(BundledHomeThemeCatalog.minkTheme, themes.first())
+        assertSame(BundledHomeThemeCatalog.mindyTheme, themes.first())
         assertEquals(
             wallpapers.map { it.id },
             themes.drop(1).map { it.wallpaper?.id },

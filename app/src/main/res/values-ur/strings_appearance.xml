@@ -8,12 +8,12 @@
     <string name="your_photo">آپ کی تصویر</string>
     <string name="device_wallpaper">ڈیوائس وال پیپر</string>
     <string name="color_palette">Color palette</string>
-    <string name="palette_mink">Mink</string>
+    <string name="palette_mindy">Mindy</string>
     <string name="palette_system">System</string>
     <string name="palette_system_unavailable">System colors require Android 12 or newer.</string>
     <string name="home_themes">ہوم تھیمز</string>
     <string name="home_themes_description">مکمل تھیم منتخب کریں یا اوپر وال پیپر کا ماخذ تبدیل کریں۔</string>
-    <string name="mink_theme">Mink تھیم</string>
+    <string name="mindy_theme">Mindy تھیم</string>
     <string name="theme_number">تھیم %1$d</string>
     <string name="custom_theme">حسب ضرورت تھیم</string>
     <string name="custom_theme_description">وال پیپر بدلے بغیر پس منظر اور پینل کے رنگ ایڈجسٹ کریں۔</string>

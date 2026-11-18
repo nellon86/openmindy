@@ -8,7 +8,7 @@
     <string name="message">訊息</string>
     <string name="call">致電</string>
     <string name="open_contact">喺通訊錄開啟</string>
-    <string name="change_favorite_in_contacts">請喺 Android 通訊錄將呢位聯絡人加星或者取消。Mink 唔會另外儲存最愛清單。</string>
+    <string name="change_favorite_in_contacts">請喺 Android 通訊錄將呢位聯絡人加星或者取消。Mindy 唔會另外儲存最愛清單。</string>
     <string name="choose_phone_number">揀電話號碼</string>
     <string name="preferred_number">偏好號碼</string>
     <string name="ask_every_time">每次詢問</string>

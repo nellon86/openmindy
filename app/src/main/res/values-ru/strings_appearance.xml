@@ -8,12 +8,12 @@
     <string name="your_photo">Ваше фото</string>
     <string name="device_wallpaper">Обои устройства</string>
     <string name="color_palette">Color palette</string>
-    <string name="palette_mink">Mink</string>
+    <string name="palette_mindy">Mindy</string>
     <string name="palette_system">System</string>
     <string name="palette_system_unavailable">System colors require Android 12 or newer.</string>
     <string name="home_themes">Темы главного экрана</string>
     <string name="home_themes_description">Выберите полную тему или измените источник обоев выше.</string>
-    <string name="mink_theme">Тема Mink</string>
+    <string name="mindy_theme">Тема Mindy</string>
     <string name="theme_number">Тема %1$d</string>
     <string name="custom_theme">Пользовательская тема</string>
     <string name="custom_theme_description">Настройте цвета фона и панели, не меняя обои.</string>

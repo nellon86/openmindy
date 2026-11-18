@@ -25,12 +25,11 @@ import com.katoaapps.openminilaunch.features.messaging.ConversationShortcutDraft
 import com.katoaapps.openminilaunch.features.messaging.PreferredMessageDraftResult
 import com.katoaapps.openminilaunch.features.updates.GITHUB_LATEST_APK_URL
 import com.katoaapps.openminilaunch.features.updates.GITHUB_RELEASES_URL
-import com.katoaapps.openminilaunch.features.updates.FDROID_PACKAGE_URL
+import com.katoaapps.openminilaunch.features.updates.PRIVACY_POLICY_URL
 import com.katoaapps.openminilaunch.model.*
 import com.katoaapps.openminilaunch.ui.apps.AllAppsActivity
 import com.katoaapps.openminilaunch.ui.apps.PrivateAppsActivity
 import com.katoaapps.openminilaunch.ui.apps.work.WorkAppsActivity
-import com.katoaapps.openminilaunch.ui.minkspace.media.MediaLabActivity
 
 import android.Manifest
 import android.app.ActivityOptions
@@ -287,8 +286,6 @@ class DeviceActions(private val context: Context) {
 
     fun openWorkApps() = start(Intent(context, WorkAppsActivity::class.java))
 
-    fun openMediaLab() = start(Intent(context, MediaLabActivity::class.java))
-
     internal fun workProfileSnapshot(): WorkProfileSnapshot = workProfileRepository.snapshot()
 
     fun workProfileAvailable(): Boolean = workProfileRepository.snapshot().available
@@ -318,6 +315,12 @@ class DeviceActions(private val context: Context) {
             context.packageManager.getApplicationLabel(info).toString()
         }.getOrDefault(context.getString(R.string.not_installed)).also { synchronized(labelCache) { labelCache[packageName] = it } }
     }
+
+    /** Cheap installed check that avoids decoding the icon drawable just to test for it. */
+    fun isAppInstalled(packageName: String): Boolean = runCatching {
+        context.packageManager.getApplicationInfo(packageName, 0)
+        true
+    }.getOrDefault(false)
 
     fun appIcon(packageName: String): Drawable? {
         return runCatching { context.packageManager.getApplicationIcon(packageName) }
@@ -583,26 +586,13 @@ class DeviceActions(private val context: Context) {
         return start(intent)
     }
 
-    fun emailSupport() = start(Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:contact@katoaapps.com")))
-
-    fun openPrivacyPolicy() = start(Intent(Intent.ACTION_VIEW, Uri.parse("https://minklauncher.com/privacy")))
-
-    fun openTermsOfUse() = start(Intent(Intent.ACTION_VIEW, Uri.parse("https://minklauncher.com/terms")))
+    fun openPrivacyPolicy() = start(Intent(Intent.ACTION_VIEW, Uri.parse(PRIVACY_POLICY_URL)))
 
     fun openLatestGitHubReleaseDownload(): Boolean =
         start(Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_LATEST_APK_URL)))
 
     fun openGitHubReleasesPage(): Boolean =
         start(Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_RELEASES_URL)))
-
-    fun openFdroidPackagePage(): Boolean =
-        start(Intent(Intent.ACTION_VIEW, Uri.parse(FDROID_PACKAGE_URL)))
-
-    fun openMinkLauncherSubreddit(): Boolean =
-        start(Intent(Intent.ACTION_VIEW, Uri.parse(MINKLAUNCHER_SUBREDDIT_URL)))
-
-    fun openGooglePlayBetaPage(): Boolean =
-        start(Intent(Intent.ACTION_VIEW, Uri.parse(MINKLAUNCHER_BETA_URL)))
 
     fun webSearch(query: String, preferredPackage: String? = null): Boolean {
         val clean = query.trim()
@@ -641,11 +631,22 @@ class DeviceActions(private val context: Context) {
     )
 
     fun expandNotificationShade() {
-        runCatching {
-            val statusBar = context.getSystemService("statusbar")
-            statusBar.javaClass.getMethod("expandNotificationsPanel").invoke(statusBar)
-        }
+        invokeStatusBar("expandNotificationsPanel")
     }
+
+    /**
+     * Opens quick settings (the control center), matching Android's split shade where a swipe on
+     * the right side of the status bar opens it. Falls back to the notification shade.
+     */
+    fun expandQuickSettings() {
+        if (!invokeStatusBar("expandSettingsPanel")) expandNotificationShade()
+    }
+
+    private fun invokeStatusBar(methodName: String): Boolean = runCatching {
+        val statusBar = context.getSystemService("statusbar")
+        statusBar.javaClass.getMethod(methodName).invoke(statusBar)
+        true
+    }.getOrDefault(false)
 
     private fun canResolve(intent: Intent): Boolean = intent.resolveActivity(context.packageManager) != null
 
@@ -670,8 +671,6 @@ class DeviceActions(private val context: Context) {
 
     private companion object {
         const val EXTRA_SETTINGS_FRAGMENT_ARG_KEY = ":settings:fragment_args_key"
-        const val MINKLAUNCHER_BETA_URL = "https://minklauncher.com/beta"
-        const val MINKLAUNCHER_SUBREDDIT_URL = "https://reddit.com/r/minklauncher"
         const val SAMSUNG_CLOCK_PACKAGE = "com.sec.android.app.clockpackage"
         val CLOCK_PACKAGES = listOf(
             SAMSUNG_CLOCK_PACKAGE,
