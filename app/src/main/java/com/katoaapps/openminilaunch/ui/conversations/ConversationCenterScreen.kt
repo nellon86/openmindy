@@ -88,12 +88,7 @@ internal fun ConversationCenterScreen(
     var selectedConversationId by rememberSaveable { mutableStateOf<String?>(null) }
     var selectedSection by rememberSaveable { mutableStateOf(ConversationSection.MESSAGES) }
     var acknowledgementRevision by remember { mutableIntStateOf(0) }
-    val conversations = ConversationNotificationStore.currentConversations(
-        useDemoData = demoModeEnabled,
-        demoScenario = store.demoScenario,
-        demoConversationState = store.demoConversationState,
-        demoSessionStartedAt = store.demoSessionStartedAt,
-    )
+    val conversations = rememberCurrentConversations(store)
     val favoriteContacts = rememberOrderedConversationFavorites(
         store = store,
         refreshKey = selectedSection to shortcutsRevision,

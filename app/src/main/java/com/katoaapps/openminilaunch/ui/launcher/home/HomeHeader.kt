@@ -1,5 +1,6 @@
 package com.katoaapps.openminilaunch.ui.launcher.home
 
+import com.katoaapps.openminilaunch.ui.conversations.rememberCurrentConversations
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -35,7 +36,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
-import com.katoaapps.openminilaunch.features.conversations.ConversationNotificationStore
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.settings.SettingsDestination
 import com.katoaapps.openminilaunch.ui.onboarding.HomeTourTarget
@@ -66,12 +66,7 @@ internal fun HomeHeader(
     val verticalPadding = if (qwertyHome) Dimens.dp0 else Dimens.dp8
     val groupGap = Dimens.dp6
     CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides actionSize) {
-        val conversations = ConversationNotificationStore.currentConversations(
-            useDemoData = store.demoModeEnabled,
-            demoScenario = store.demoScenario,
-            demoConversationState = store.demoConversationState,
-            demoSessionStartedAt = store.demoSessionStartedAt,
-        )
+        val conversations = rememberCurrentConversations(store)
         val favoriteAttention = rememberPendingFavoriteAttention(
             store = store,
             conversations = conversations,

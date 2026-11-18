@@ -3,44 +3,169 @@ package com.katoaapps.openminilaunch.features.conversations
 import android.Manifest
 import android.app.Notification
 import android.app.RemoteInput
+import android.content.ComponentName
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.SystemClock
 import android.provider.ContactsContract
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import androidx.core.content.ContextCompat
 import com.katoaapps.openminilaunch.model.ProviderAddressType
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicBoolean
 
-/** Converts supported notification payloads into the local conversation model. */
+/**
+ * Converts supported notification payloads into the local conversation model.
+ *
+ * Android delivers every notification of every app here on the launcher's main thread. Parsing a
+ * message notification is comparatively expensive (style recovery, package and contact lookups),
+ * so non-message notifications are rejected from cheap fields first and the remaining work runs
+ * on one background thread. Results reach [ConversationNotificationStore] on the main thread in
+ * the order Android delivered them.
+ */
 class MinkNotificationListenerService : NotificationListenerService() {
+    private val mainHandler = Handler(Looper.getMainLooper())
+    private val worker: ExecutorService = Executors.newSingleThreadExecutor { runnable ->
+        Thread(runnable, "openmindy-conversations").apply { priority = Thread.NORM_PRIORITY - 1 }
+    }
+    private val refreshQueued = AtomicBoolean(false)
+
+    /** Incremented on connect and disconnect so stale background results are dropped. */
+    @Volatile private var generation = 0
+
+    // The caches below are only touched on [worker].
+    private val parsedByKey = object : LinkedHashMap<String, ParsedNotification>(64, .75f, true) {
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, ParsedNotification>?) =
+            size > MAX_PARSED_NOTIFICATIONS
+    }
+    private val appNameByPackage = HashMap<String, String>()
+    private val contactIdentityCache = object : LinkedHashMap<String, CachedContactIdentity>(64, .75f, true) {
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, CachedContactIdentity>?) =
+            size > MAX_CACHED_CONTACT_IDENTITIES
+    }
+
     override fun onListenerConnected() {
         super.onListenerConnected()
+        generation++
         connectedService = this
         refreshActiveNotifications()
     }
 
     override fun onListenerDisconnected() {
+        generation++
         if (connectedService === this) connectedService = null
+        worker.execute { clearCaches() }
         ConversationNotificationStore.replaceNotifications(emptyList())
         super.onListenerDisconnected()
     }
 
+    override fun onDestroy() {
+        generation++
+        if (connectedService === this) connectedService = null
+        worker.shutdownNow()
+        super.onDestroy()
+    }
+
     override fun onNotificationPosted(sbn: StatusBarNotification) {
-        toConversationNotification(sbn)?.let(ConversationNotificationStore::upsertNotification)
+        if (!mayBeConversation(sbn)) return
+        val postedGeneration = generation
+        runOnWorker {
+            val item = parseCached(sbn) ?: return@runOnWorker
+            postToStore(postedGeneration) { ConversationNotificationStore.upsertNotification(item) }
+        }
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification) {
-        ConversationNotificationStore.removeNotification(sbn.key)
+        val key = sbn.key
+        val removedGeneration = generation
+        // Queued behind any pending parse of the same key so a late result cannot resurrect it.
+        runOnWorker {
+            parsedByKey.remove(key)
+            postToStore(removedGeneration) { ConversationNotificationStore.removeNotification(key) }
+        }
     }
 
-    /** Reconciles Mink's in-memory view with Android's authoritative active notification set. */
-    internal fun refreshActiveNotifications(): Boolean = runCatching {
-        ConversationNotificationStore.replaceNotifications(
-            activeNotifications.orEmpty().mapNotNull(::toConversationNotification),
+    /**
+     * Reconciles Mink's in-memory view with Android's authoritative active notification set.
+     * Returns false when the listener is not connected; the work itself runs in the background
+     * and repeated requests while one is queued are coalesced.
+     */
+    internal fun refreshActiveNotifications(): Boolean {
+        if (connectedService !== this) return false
+        if (!refreshQueued.compareAndSet(false, true)) return true
+        val refreshGeneration = generation
+        runOnWorker {
+            refreshQueued.set(false)
+            val items = runCatching {
+                activeNotifications.orEmpty()
+                    .filter(::mayBeConversation)
+                    .mapNotNull(::parseCached)
+            }.getOrElse {
+                mainHandler.post { requestListenerRebind() }
+                return@runOnWorker
+            }
+            postToStore(refreshGeneration) { ConversationNotificationStore.replaceNotifications(items) }
+        }
+        return true
+    }
+
+    private fun requestListenerRebind() {
+        runCatching {
+            NotificationListenerService.requestRebind(
+                ComponentName(this, MinkNotificationListenerService::class.java),
+            )
+        }
+    }
+
+    private fun runOnWorker(block: () -> Unit) {
+        runCatching { worker.execute(block) }
+    }
+
+    private fun postToStore(expectedGeneration: Int, block: () -> Unit) {
+        mainHandler.post { if (generation == expectedGeneration) block() }
+    }
+
+    private fun clearCaches() {
+        parsedByKey.clear()
+        appNameByPackage.clear()
+        contactIdentityCache.clear()
+    }
+
+    /** Cheap, allocation-free test using only fields that every real conversation must carry. */
+    private fun mayBeConversation(sbn: StatusBarNotification): Boolean {
+        if (sbn.packageName == packageName) return false
+        val notification = sbn.notification ?: return false
+        if (notification.flags and Notification.FLAG_GROUP_SUMMARY != 0) return false
+        val extras = notification.extras
+        return mayBeConversationNotification(
+            category = notification.category,
+            hasMessagePayload = extras != null && (
+                extras.containsKey(Notification.EXTRA_MESSAGES) ||
+                    extras.containsKey(Notification.EXTRA_HISTORIC_MESSAGES)
+                ),
         )
-    }.isSuccess
+    }
+
+    /** Each posted version of a notification has its own post time, so a key and time pair is stable. */
+    private fun parseCached(sbn: StatusBarNotification): ConversationNotification? {
+        parsedByKey[sbn.key]?.takeIf { it.postTime == sbn.postTime }?.let { return it.item }
+        val item = runCatching { toConversationNotification(sbn) }.getOrNull()
+        parsedByKey[sbn.key] = ParsedNotification(sbn.postTime, item)
+        return item
+    }
+
+    private fun appName(packageName: String): String = appNameByPackage.getOrPut(packageName) {
+        runCatching {
+            val appInfo = packageManager.getApplicationInfo(packageName, 0)
+            packageManager.getApplicationLabel(appInfo).toString()
+        }.getOrDefault(packageName)
+    }
 
     @Suppress("DEPRECATION")
     private fun toConversationNotification(sbn: StatusBarNotification): ConversationNotification? {
@@ -58,10 +183,7 @@ class MinkNotificationListenerService : NotificationListenerService() {
         val replyAction = notification.actions?.firstOrNull { action ->
             action.remoteInputs?.any(RemoteInput::getAllowFreeFormInput) == true
         }
-        val appName = runCatching {
-            val appInfo = packageManager.getApplicationInfo(sbn.packageName, 0)
-            packageManager.getApplicationLabel(appInfo).toString()
-        }.getOrDefault(sbn.packageName)
+        val appName = appName(sbn.packageName)
         val conversationActions = extractConversationActions(sbn, notification, appName)
         val rawTitle = style?.conversationTitle
             ?: extras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)
@@ -208,6 +330,7 @@ class MinkNotificationListenerService : NotificationListenerService() {
                     } else {
                         Notification.Action.SEMANTIC_ACTION_NONE
                     },
+                    title,
                 ),
                 actionIntent = action.actionIntent,
             )
@@ -228,7 +351,18 @@ class MinkNotificationListenerService : NotificationListenerService() {
             )
         }
 
+    /** Contact lookups hit the contacts database; repeat messages from one person reuse the answer. */
     private fun resolveContactIdentity(personUri: String?, displayName: String): String? {
+        val cacheKey = "${personUri.orEmpty()}\u0000$displayName"
+        val now = SystemClock.elapsedRealtime()
+        contactIdentityCache[cacheKey]?.takeIf { now - it.resolvedAt < CONTACT_IDENTITY_TTL_MILLIS }
+            ?.let { return it.identity }
+        return lookupContactIdentity(personUri, displayName).also { identity ->
+            contactIdentityCache[cacheKey] = CachedContactIdentity(identity, now)
+        }
+    }
+
+    private fun lookupContactIdentity(personUri: String?, displayName: String): String? {
         val parsed = personUri?.let { runCatching { Uri.parse(it) }.getOrNull() }
         if (parsed?.scheme.equals("tel", ignoreCase = true)) {
             val digits = parsed?.schemeSpecificPart.orEmpty().filter(Char::isDigit)
@@ -290,8 +424,25 @@ class MinkNotificationListenerService : NotificationListenerService() {
 
     companion object {
         @Volatile internal var connectedService: MinkNotificationListenerService? = null
+        private const val MAX_PARSED_NOTIFICATIONS = 128
+        private const val MAX_CACHED_CONTACT_IDENTITIES = 128
+        private const val CONTACT_IDENTITY_TTL_MILLIS = 10 * 60 * 1_000L
     }
 }
+
+private class ParsedNotification(val postTime: Long, val item: ConversationNotification?)
+
+private class CachedContactIdentity(val identity: String?, val resolvedAt: Long)
+
+/**
+ * A notification can only become a conversation when it is categorized as a message or email, or
+ * carries message bundles (MessagingStyle stores its messages there). Everything else, such as
+ * media, download, navigation, and timer updates, is rejected before any parsing work.
+ */
+internal fun mayBeConversationNotification(category: String?, hasMessagePayload: Boolean): Boolean =
+    hasMessagePayload ||
+        category == Notification.CATEGORY_MESSAGE ||
+        category == Notification.CATEGORY_EMAIL
 
 internal fun isDismissibleNotification(flags: Int): Boolean =
     flags and (Notification.FLAG_ONGOING_EVENT or Notification.FLAG_NO_CLEAR) == 0

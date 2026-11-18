@@ -59,27 +59,41 @@ data class NotificationConversation(
     val notifications: List<ConversationNotification>,
     val messages: List<ConversationMessage>,
 ) {
-    val latestNotification: ConversationNotification get() =
+    // Derived values are computed once per immutable snapshot instead of on every UI read.
+    val latestNotification: ConversationNotification by lazy(LazyThreadSafetyMode.NONE) {
         notifications.maxBy(ConversationNotification::postedAt)
-    val openTarget: ConversationNotification get() =
+    }
+    val openTarget: ConversationNotification by lazy(LazyThreadSafetyMode.NONE) {
         notifications.firstOrNull { it.contentIntent != null } ?: latestNotification
-    val latestMessage: ConversationMessage? get() = messages.maxByOrNull(ConversationMessage::timestamp)
-    val replyTarget: ConversationNotification? get() = notifications
-        .filter(ConversationNotification::canReply)
-        .maxByOrNull(ConversationNotification::postedAt)
-    val sourcePackages: List<String> get() = notifications
-        .sortedByDescending(ConversationNotification::postedAt)
-        .map(ConversationNotification::packageName)
-        .distinct()
-    val identityHints: Set<String> get() = notifications
-        .flatMapTo(linkedSetOf(), ConversationNotification::identityHints)
-    val actions: List<ConversationNotificationAction> get() = notifications
-        .sortedByDescending(ConversationNotification::postedAt)
-        .flatMap(ConversationNotification::actions)
-        .distinctBy { action ->
-            action.packageName to action.title.lowercase(Locale.ROOT)
-        }
-    val canDismiss: Boolean get() = notifications.any(ConversationNotification::isDismissible)
+    }
+    val latestMessage: ConversationMessage? by lazy(LazyThreadSafetyMode.NONE) {
+        messages.maxByOrNull(ConversationMessage::timestamp)
+    }
+    val replyTarget: ConversationNotification? by lazy(LazyThreadSafetyMode.NONE) {
+        notifications
+            .filter(ConversationNotification::canReply)
+            .maxByOrNull(ConversationNotification::postedAt)
+    }
+    val sourcePackages: List<String> by lazy(LazyThreadSafetyMode.NONE) {
+        notifications
+            .sortedByDescending(ConversationNotification::postedAt)
+            .map(ConversationNotification::packageName)
+            .distinct()
+    }
+    val identityHints: Set<String> by lazy(LazyThreadSafetyMode.NONE) {
+        notifications.flatMapTo(linkedSetOf(), ConversationNotification::identityHints)
+    }
+    val actions: List<ConversationNotificationAction> by lazy(LazyThreadSafetyMode.NONE) {
+        notifications
+            .sortedByDescending(ConversationNotification::postedAt)
+            .flatMap(ConversationNotification::actions)
+            .distinctBy { action ->
+                action.packageName to action.title.lowercase(Locale.ROOT)
+            }
+    }
+    val canDismiss: Boolean by lazy(LazyThreadSafetyMode.NONE) {
+        notifications.any(ConversationNotification::isDismissible)
+    }
 }
 
 internal fun latestConversationActivityAt(
@@ -243,12 +257,43 @@ object ConversationNotificationStore {
         }.getOrDefault(false)
     }
 
-    fun performAction(context: Context, action: ConversationNotificationAction): Boolean = runCatching {
-        val resolvedNotification = if (action.resolvesNotification) {
-            activeNotifications.firstOrNull { it.key == action.notificationKey }
-        } else {
-            null
+    /**
+     * Sends a source-app action. For archive, delete, and mark-as-read style actions the same
+     * action is sent for every notification of that app in the conversation (an action on the
+     * newest notification alone left older ones behind), and they are hidden immediately rather
+     * than after the app eventually cancels them.
+     */
+    fun performAction(
+        context: Context,
+        conversation: NotificationConversation,
+        action: ConversationNotificationAction,
+    ): Boolean {
+        if (!action.resolvesNotification) return sendAction(context, action)
+        val targets = conversation.notifications.mapNotNull { notification ->
+            notification.actions
+                .firstOrNull { candidate ->
+                    candidate.packageName == action.packageName &&
+                        candidate.title.equals(action.title, ignoreCase = true)
+                }
+                ?.let { matchingAction -> notification to matchingAction }
+        }.ifEmpty {
+            listOfNotNull(
+                activeNotifications.firstOrNull { it.key == action.notificationKey }
+                    ?.let { it to action },
+            )
         }
+        var sentAny = false
+        targets.forEach { (notification, matchingAction) ->
+            if (sendAction(context, matchingAction)) {
+                sentAny = true
+                notificationReconciler.suppress(notification)
+                removeNotification(notification.key)
+            }
+        }
+        return sentAny || (targets.isEmpty() && sendAction(context, action))
+    }
+
+    private fun sendAction(context: Context, action: ConversationNotificationAction): Boolean = runCatching {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             val options = ActivityOptions.makeBasic()
                 .setPendingIntentBackgroundActivityStartMode(ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED)
@@ -256,10 +301,6 @@ object ConversationNotificationStore {
             action.actionIntent.send(context, 0, null, null, null, null, options)
         } else {
             action.actionIntent.send(context, 0, null)
-        }
-        resolvedNotification?.let { notification ->
-            notificationReconciler.suppress(notification)
-            removeNotification(notification.key)
         }
         true
     }.getOrDefault(false)

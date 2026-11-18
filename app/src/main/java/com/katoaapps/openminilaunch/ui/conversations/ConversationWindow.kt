@@ -98,7 +98,7 @@ internal fun ConversationWindow(
             dismissAvailable = conversation.canDismiss,
             actions = actions,
             onAction = { action ->
-                if (!ConversationNotificationStore.performAction(context, action)) {
+                if (!ConversationNotificationStore.performAction(context, conversation, action)) {
                     Toast.makeText(
                         context,
                         context.getString(R.string.conversation_action_unavailable),

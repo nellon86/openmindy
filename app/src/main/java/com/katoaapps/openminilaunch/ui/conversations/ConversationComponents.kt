@@ -178,7 +178,7 @@ internal fun ConversationSourceIcons(packages: List<String>, actions: DeviceActi
 
 @Composable
 internal fun ConversationSourceIcon(packageName: String, actions: DeviceActions, size: Dp) {
-    val installedIconAvailable = remember(packageName, actions) { actions.appIcon(packageName) != null }
+    val installedIconAvailable = remember(packageName, actions) { actions.isAppInstalled(packageName) }
     if (installedIconAvailable) {
         AppIcon(packageName, actions, size)
         return

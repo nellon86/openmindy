@@ -319,6 +319,12 @@ class DeviceActions(private val context: Context) {
         }.getOrDefault(context.getString(R.string.not_installed)).also { synchronized(labelCache) { labelCache[packageName] = it } }
     }
 
+    /** Cheap installed check that avoids decoding the icon drawable just to test for it. */
+    fun isAppInstalled(packageName: String): Boolean = runCatching {
+        context.packageManager.getApplicationInfo(packageName, 0)
+        true
+    }.getOrDefault(false)
+
     fun appIcon(packageName: String): Drawable? {
         return runCatching { context.packageManager.getApplicationIcon(packageName) }
             .getOrNull()

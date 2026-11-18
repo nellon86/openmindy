@@ -1,5 +1,6 @@
 package com.katoaapps.openminilaunch.ui.minkspace.core
 
+import com.katoaapps.openminilaunch.ui.conversations.rememberCurrentConversations
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
@@ -46,7 +47,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
-import com.katoaapps.openminilaunch.features.conversations.ConversationNotificationStore
 import com.katoaapps.openminilaunch.ui.launcher.home.ConversationAttentionButton
 import com.katoaapps.openminilaunch.ui.launcher.home.rememberPendingFavoriteAttention
 import com.katoaapps.openminilaunch.ui.theme.Dimens
@@ -69,12 +69,7 @@ internal fun MinkSpaceTotalScreenHost(
     val view = LocalView.current
     val window = activity?.window
     var chromeVisible by remember { mutableStateOf(true) }
-    val conversations = ConversationNotificationStore.currentConversations(
-        useDemoData = store.demoModeEnabled,
-        demoScenario = store.demoScenario,
-        demoConversationState = store.demoConversationState,
-        demoSessionStartedAt = store.demoSessionStartedAt,
-    )
+    val conversations = rememberCurrentConversations(store)
     val favoriteAttention = rememberPendingFavoriteAttention(
         store = store,
         conversations = conversations,

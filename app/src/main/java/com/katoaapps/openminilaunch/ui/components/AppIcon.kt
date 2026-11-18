@@ -12,6 +12,7 @@ import com.katoaapps.openminilaunch.ui.theme.MinkWhite
 
 import android.graphics.drawable.AdaptiveIconDrawable
 import android.os.Build
+import android.util.LruCache
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -65,6 +66,7 @@ internal fun AppIcon(
     }
     RenderedAppIcon(
         iconKey = "$packageName:$launcherAppsRevision:$iconPacksRevision:$appearance",
+        cacheNamespace = "package",
         drawable = {
             appearance.iconPackPackage
                 ?.takeIf { appearance.source == IconSource.ICON_PACK }
@@ -93,6 +95,7 @@ internal fun LauncherAppIcon(
     val launcherAppsRevision by actions.launcherAppsRevision.collectAsState()
     RenderedAppIcon(
         iconKey = "${target.selectionKey}:$launcherAppsRevision:$iconPacksRevision:$appearance",
+        cacheNamespace = "launcher",
         drawable = {
             appearance.iconPackPackage
                 ?.takeIf { appearance.source == IconSource.ICON_PACK }
@@ -122,6 +125,7 @@ internal fun LauncherTargetIcon(
     val shortcutsRevision by actions.launcherShortcutsRevision.collectAsState()
     RenderedAppIcon(
         iconKey = "${target.selectionKey}:$appsRevision:$shortcutsRevision:$iconPacksRevision:$appearance",
+        cacheNamespace = "target",
         drawable = {
             appearance.iconPackPackage
                 ?.takeIf { appearance.source == IconSource.ICON_PACK }
@@ -177,6 +181,8 @@ private fun RenderedAppIcon(
     size: Dp,
     themedTint: Color?,
     contentDescription: String?,
+    /** Set only when [iconKey] fully identifies the drawable, so the bitmap can be shared. */
+    cacheNamespace: String? = null,
 ) {
     val context = LocalContext.current
     val density = LocalDensity.current
@@ -188,16 +194,12 @@ private fun RenderedAppIcon(
         (size * MONOCHROME_ICON_SCALE).roundToPx()
     }.coerceAtLeast(MIN_ICON_BITMAP_SIZE_PX)
     val rendered = remember(iconKey, themedTint != null, targetBitmapSize) {
-        val drawable = drawable()
-        val monochrome = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            (drawable as? AdaptiveIconDrawable)?.monochrome
-        } else {
-            null
-        }
-        val source = if (themedTint != null) monochrome ?: drawable else drawable
-        source?.toBitmap(width = targetBitmapSize, height = targetBitmapSize)?.asImageBitmap()?.let {
-            RenderedIconBitmap(it, monochrome != null && source === monochrome)
-        }
+        val memoryKey = cacheNamespace?.let { "$it|$iconKey|${themedTint != null}|$targetBitmapSize" }
+        memoryKey?.let(RenderedIconCache::get) ?: renderIconBitmap(
+            drawable = drawable(),
+            themed = themedTint != null,
+            targetBitmapSize = targetBitmapSize,
+        )?.also { bitmap -> memoryKey?.let { RenderedIconCache.put(it, bitmap) } }
     }
     if (rendered != null) {
         val renderedSize = if (rendered.isMonochrome) {
@@ -253,3 +255,39 @@ private fun WatermelonAppIcon(size: Dp, description: String?) {
 }
 
 private data class RenderedIconBitmap(val bitmap: ImageBitmap, val isMonochrome: Boolean)
+
+private fun renderIconBitmap(
+    drawable: android.graphics.drawable.Drawable?,
+    themed: Boolean,
+    targetBitmapSize: Int,
+): RenderedIconBitmap? {
+    val monochrome = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        (drawable as? AdaptiveIconDrawable)?.monochrome
+    } else {
+        null
+    }
+    val source = if (themed) monochrome ?: drawable else drawable
+    return source?.toBitmap(width = targetBitmapSize, height = targetBitmapSize)?.asImageBitmap()?.let {
+        RenderedIconBitmap(it, monochrome != null && source === monochrome)
+    }
+}
+
+/**
+ * Process-wide cache of rendered launcher icons. Lists such as conversations, search results,
+ * and drawers recreate icon composables constantly; without it every instance decoded and
+ * rasterized its drawable again on the main thread. Keys include the app, icon-pack, and
+ * appearance revisions, so any change produces new entries and old ones simply age out.
+ */
+private object RenderedIconCache {
+    private const val MAX_BYTES = 8 * 1024 * 1024
+    private val cache = object : LruCache<String, RenderedIconBitmap>(MAX_BYTES) {
+        override fun sizeOf(key: String, value: RenderedIconBitmap): Int =
+            value.bitmap.width * value.bitmap.height * 4
+    }
+
+    fun get(key: String): RenderedIconBitmap? = cache.get(key)
+
+    fun put(key: String, value: RenderedIconBitmap) {
+        cache.put(key, value)
+    }
+}
