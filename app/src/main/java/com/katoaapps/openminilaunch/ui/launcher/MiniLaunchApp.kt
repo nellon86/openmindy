@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
@@ -93,6 +94,11 @@ internal fun MiniLaunchApp(
     var twoPanelActive by remember { mutableStateOf(false) }
     var homePageRequestToken by remember { mutableIntStateOf(0) }
     val launcherPagerState = rememberPagerState(initialPage = HOME_PAGE, pageCount = { WIDGET_PAGE + 1 })
+    // Read as a derived boolean of the settled page: currentPage flips halfway through every swipe,
+    // and reading it here recomposed the whole launcher in the middle of the page animation.
+    val launcherSettledOnHome by remember(launcherPagerState) {
+        derivedStateOf { launcherPagerState.settledPage == HOME_PAGE }
+    }
     val twoPanelState = rememberLazyListState(initialFirstVisibleItemIndex = 1)
     LaunchedEffect(screen) {
         setSettingsVisibleInRecents(screen == Screen.SETTINGS)
@@ -156,7 +162,7 @@ internal fun MiniLaunchApp(
         BackHandler(
             enabled = !showTutorial && screen == Screen.HOME &&
                 (if (twoPanelActive) twoPanelState.firstVisibleItemIndex == 0
-                    else launcherPagerState.currentPage != HOME_PAGE),
+                    else !launcherSettledOnHome),
         ) {
             focusedLauncherPage = HOME_PAGE
             homePageRequestToken++
@@ -164,7 +170,7 @@ internal fun MiniLaunchApp(
         val imeVisible = WindowInsets.isImeVisible
         BackHandler(
             enabled = !showTutorial && screen == Screen.HOME &&
-                (twoPanelActive || launcherPagerState.currentPage == HOME_PAGE) && !imeVisible,
+                (twoPanelActive || launcherSettledOnHome) && !imeVisible,
         ) { }
 
         val revealSystemWallpaper = !showTutorial && screen == Screen.HOME && store.useSystemHomeWallpaper
@@ -210,7 +216,7 @@ internal fun MiniLaunchApp(
                                     onTwoPanelActiveChange = { twoPanelActive = it },
                                     homePageRequestToken = homePageRequestToken,
                                     keyboardInputEnabled =
-                                        (twoPanelActive || launcherPagerState.currentPage == HOME_PAGE) &&
+                                        (twoPanelActive || launcherSettledOnHome) &&
                                             !showTutorial &&
                                             !showHomeFeatureTour,
                                     homeRequestToken = homeRequestToken,
