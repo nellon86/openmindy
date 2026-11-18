@@ -14,6 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
+import com.katoaapps.openminilaunch.ui.components.rememberLauncherVisible
 import java.text.NumberFormat
 
 @Composable
@@ -24,7 +25,12 @@ internal fun rememberBatteryPercentageText(): String? {
         mutableIntStateOf(context.currentBatteryPercentage())
     }
 
-    DisposableEffect(context) {
+    val launcherVisible = rememberLauncherVisible()
+
+    // ACTION_BATTERY_CHANGED fires on every level, voltage, and temperature change; listen only
+    // while Home is visible. Registering returns the sticky intent, so the value refreshes at once.
+    DisposableEffect(context, launcherVisible) {
+        if (!launcherVisible) return@DisposableEffect onDispose { }
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 batteryPercentage = intent.batteryPercentage()
@@ -35,7 +41,7 @@ internal fun rememberBatteryPercentageText(): String? {
             receiver,
             IntentFilter(Intent.ACTION_BATTERY_CHANGED),
             ContextCompat.RECEIVER_NOT_EXPORTED,
-        )
+        )?.batteryPercentage()?.let { batteryPercentage = it }
         onDispose { runCatching { context.unregisterReceiver(receiver) } }
     }
 

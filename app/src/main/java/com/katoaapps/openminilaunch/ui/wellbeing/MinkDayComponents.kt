@@ -125,8 +125,9 @@ internal fun rememberMinkDaySummary(
     val socialPackages = store.socialPackages.toSet()
     val usesAutomaticSocialApps = store.usesAutomaticSocialApps
     var lifecycleRefreshToken by remember { mutableIntStateOf(0) }
-    LaunchedEffect(isActive) {
-        if (isActive) {
+    val launcherVisible = rememberLauncherVisible()
+    LaunchedEffect(isActive, launcherVisible) {
+        if (isActive && launcherVisible) {
             lifecycleRefreshToken++
             while (true) {
                 delay(5 * 60_000L)

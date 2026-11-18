@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import com.katoaapps.openminilaunch.R
+import com.katoaapps.openminilaunch.ui.components.rememberLauncherVisible
 import com.katoaapps.openminilaunch.ui.theme.MinkFeatureColors
 import com.katoaapps.openminilaunch.ui.theme.readableContentColor
 import kotlinx.coroutines.delay
@@ -48,9 +49,10 @@ internal fun ConversationAttentionButton(
 ) {
     val palette = remember(attentionColors) { attentionColors.distinct() }
     var colorIndex by remember(palette) { mutableIntStateOf(0) }
-    LaunchedEffect(palette) {
+    val launcherVisible = rememberLauncherVisible()
+    LaunchedEffect(palette, launcherVisible) {
         colorIndex = 0
-        while (palette.size > 1) {
+        while (launcherVisible && palette.size > 1) {
             delay(1_100L)
             colorIndex = (colorIndex + 1) % palette.size
         }

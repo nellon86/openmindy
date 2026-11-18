@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.katoaapps.openminilaunch.ui.components.rememberLauncherVisible
 import kotlinx.coroutines.delay
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -24,7 +25,11 @@ internal fun rememberHomeDateTimeParts(
     use24HourClock: Boolean,
 ): HomeDateTimeParts {
     var currentDateTime by remember { mutableStateOf(LocalDateTime.now()) }
-    LaunchedEffect(Unit) {
+    val launcherVisible = rememberLauncherVisible()
+    LaunchedEffect(launcherVisible) {
+        // Ticks only while Home can be seen; catch up immediately when it returns.
+        if (!launcherVisible) return@LaunchedEffect
+        currentDateTime = LocalDateTime.now()
         while (true) {
             delay(millisUntilNextMinute())
             currentDateTime = LocalDateTime.now()

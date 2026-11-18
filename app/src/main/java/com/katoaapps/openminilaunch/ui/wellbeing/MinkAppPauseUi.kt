@@ -9,6 +9,7 @@ import com.katoaapps.openminilaunch.model.MIN_SOCIAL_GOAL_HOURS
 import com.katoaapps.openminilaunch.model.MinkAppPauseMode
 import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
 import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.rememberLauncherVisible
 import com.katoaapps.openminilaunch.ui.theme.AppBlockedRed
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
@@ -66,10 +67,12 @@ internal fun rememberMinkAppAccessState(
     val dailyLimitMinutes = store.socialGoalMinutes
     var refreshToken by remember { mutableIntStateOf(0) }
 
-    LaunchedEffect(isActive, mode) {
-        if (isActive) {
+    val launcherVisible = rememberLauncherVisible()
+    LaunchedEffect(isActive, mode, launcherVisible) {
+        if (isActive && launcherVisible) {
             refreshToken++
-            while (true) {
+            // Only the daily-limit mode changes minute to minute; the other modes refresh on resume.
+            while (mode == MinkAppPauseMode.AFTER_DAILY_LIMIT) {
                 delay(60_000L)
                 refreshToken++
             }
