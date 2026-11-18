@@ -8,12 +8,12 @@
     <string name="your_photo">你嘅相片</string>
     <string name="device_wallpaper">裝置牆紙</string>
     <string name="color_palette">Color palette</string>
-    <string name="palette_mink">Mink</string>
+    <string name="palette_mindy">Mindy</string>
     <string name="palette_system">System</string>
     <string name="palette_system_unavailable">System colors require Android 12 or newer.</string>
     <string name="home_themes">主畫面主題</string>
     <string name="home_themes_description">揀一個完整主題，或者喺上面更改牆紙來源。</string>
-    <string name="mink_theme">Mink 主題</string>
+    <string name="mindy_theme">Mindy 主題</string>
     <string name="theme_number">主題 %1$d</string>
     <string name="custom_theme">自訂主題</string>
     <string name="custom_theme_description">微調背景同面板顏色，而唔改變牆紙。</string>

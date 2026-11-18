@@ -34,7 +34,7 @@ internal fun SettingsOverviewPage(
 ) {
     when (section) {
         SettingsSection.HOME -> HomeSettingsSection(store, actions, onNavigate, goBack)
-        SettingsSection.MINI_APPS -> MinkSpaceSettingsPage(
+        SettingsSection.MINI_APPS -> MindySpaceSettingsPage(
             store = store,
             actions = actions,
             openTodos = openTodos,
@@ -106,24 +106,24 @@ private fun AdvancedSettingsSection(
 ) {
     SettingsPage(stringResource(R.string.settings_section_advanced), goBack) {
         SettingsCategoryRow(
-            title = stringResource(R.string.mink_assistant),
+            title = stringResource(R.string.mindy_assistant),
             subtitle = stringResource(R.string.settings_assistant_summary),
             status = stringResource(
                 if (permissionState.assistantRoleHeld) R.string.status_active
                 else R.string.status_optional,
             ),
             icon = Icons.Default.Assistant,
-        ) { onNavigate(SettingsDestination.MINK_ASSISTANT) }
+        ) { onNavigate(SettingsDestination.MINDY_ASSISTANT) }
         SettingsCategoryRow(
-            title = stringResource(R.string.mink_day),
-            subtitle = stringResource(R.string.settings_mink_day_summary),
+            title = stringResource(R.string.mindy_day),
+            subtitle = stringResource(R.string.settings_mindy_day_summary),
             status = stringResource(
                 R.string.two_part_label,
                 socialGoalLabel(store.socialGoalMinutes),
-                stringResource(store.minkAppPauseMode.labelRes),
+                stringResource(store.mindyAppPauseMode.labelRes),
             ),
             icon = Icons.Default.Pets,
-        ) { onNavigate(SettingsDestination.MINK_DAY) }
+        ) { onNavigate(SettingsDestination.MINDY_DAY) }
     }
 }
 

@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
  *
  * Home hides the status bar by default, which makes `statusBarsPadding()` collapse to zero on every
  * page of the Home pager. Home's header places itself around the cutout, but full-width pages such
- * as Mink's Day and Widgets would otherwise draw their titles under a punch-hole camera.
+ * as Mindy's Day and Widgets would otherwise draw their titles under a punch-hole camera.
  */
 @Composable
 internal fun Modifier.statusBarsAndCutoutPadding(): Modifier = windowInsetsPadding(

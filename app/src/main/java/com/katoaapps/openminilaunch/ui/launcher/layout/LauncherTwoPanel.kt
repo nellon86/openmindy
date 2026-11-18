@@ -27,10 +27,10 @@ import com.katoaapps.openminilaunch.data.LauncherStore
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.launcher.home.HomeScreen
 import com.katoaapps.openminilaunch.ui.magic.MagicBoxSessionState
-import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpacePresentationState
+import com.katoaapps.openminilaunch.ui.mindyspace.core.MindySpacePresentationState
 import com.katoaapps.openminilaunch.ui.settings.SettingsDestination
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.wellbeing.MinkDayScreen
+import com.katoaapps.openminilaunch.ui.wellbeing.MindyDayScreen
 import com.katoaapps.openminilaunch.ui.widgets.WidgetPage
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -45,17 +45,17 @@ internal fun LauncherTwoPanel(
     listState: LazyListState,
     homeStateHolder: SaveableStateHolder,
     magicBoxExpanded: Boolean,
-    minkSpaceExpanded: Boolean,
+    mindySpaceExpanded: Boolean,
     homeRequestToken: Int,
     magicBoxSessionState: MagicBoxSessionState,
-    minkSpacePresentation: MinkSpacePresentationState,
+    mindySpacePresentation: MindySpacePresentationState,
     onFocusPage: (Int) -> Unit,
-    onMinkDay: () -> Unit,
+    onMindyDay: () -> Unit,
     onGoHome: () -> Unit,
     openSettings: (SettingsDestination) -> Unit,
     openTodos: () -> Unit,
     openConversations: () -> Unit,
-    onMinkSpaceExpandedChange: (Boolean) -> Unit,
+    onMindySpaceExpandedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val density = LocalDensity.current
@@ -84,11 +84,11 @@ internal fun LauncherTwoPanel(
             horizontalArrangement = Arrangement.spacedBy(gap),
             contentPadding = PaddingValues(start = outerLeft, end = outerRight),
             flingBehavior = rememberSnapFlingBehavior(listState, snapPosition = SnapPosition.Start),
-            userScrollEnabled = !magicBoxExpanded && !minkSpaceExpanded,
+            userScrollEnabled = !magicBoxExpanded && !mindySpaceExpanded,
         ) {
             item(key = "mink-day") {
-                Box(Modifier.width(paneWidth).fillMaxHeight().focusPane { onFocusPage(MINK_DAY_PAGE) }) {
-                    MinkDayScreen(
+                Box(Modifier.width(paneWidth).fillMaxHeight().focusPane { onFocusPage(MINDY_DAY_PAGE) }) {
+                    MindyDayScreen(
                         store = store,
                         isActive = listState.firstVisibleItemIndex == 0,
                         goHome = onGoHome,
@@ -112,16 +112,16 @@ internal fun LauncherTwoPanel(
                 openSettings = openSettings,
                 openTodos = openTodos,
                 openConversations = openConversations,
-                openMinkDay = onMinkDay,
-                minkStatusActive = true,
+                openMindyDay = onMindyDay,
+                mindyStatusActive = true,
                 onMagicExpandedChange = { expanded ->
                     if (expanded) onFocusPage(HOME_PAGE)
                 },
-                onMinkSpaceExpandedChange = onMinkSpaceExpandedChange,
+                onMindySpaceExpandedChange = onMindySpaceExpandedChange,
                 keyboardInputEnabled = true,
                 homeRequestToken = homeRequestToken,
                 magicBoxSessionState = magicBoxSessionState,
-                minkSpacePresentation = minkSpacePresentation,
+                mindySpacePresentation = mindySpacePresentation,
                 paneModifier = Modifier.offset { IntOffset(homeLeftPx, 0) }
                     .width(paneWidth).fillMaxHeight(),
                 collapsedBarMaxWidth = minOf(paneWidth, Dimens.dp620),

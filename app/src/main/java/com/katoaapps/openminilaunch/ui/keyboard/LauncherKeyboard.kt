@@ -31,7 +31,7 @@ import com.katoaapps.openminilaunch.ui.theme.MagicEventColor
 import com.katoaapps.openminilaunch.ui.theme.MagicNoteColor
 import com.katoaapps.openminilaunch.ui.theme.MagicTextColor
 import com.katoaapps.openminilaunch.ui.theme.MagicTodoColor
-import com.katoaapps.openminilaunch.ui.theme.MinkWhite
+import com.katoaapps.openminilaunch.ui.theme.MindyWhite
 
 @Composable
 internal fun LauncherKeyboard(
@@ -74,7 +74,7 @@ internal fun LauncherKeyboard(
     val hotkeyColors = mapOf(
         "@" to actionColors(MagicTextColor),
         "#" to actionColors(MagicCallColor),
-        "-" to actionColors(MagicTodoColor, contentColor = MinkWhite),
+        "-" to actionColors(MagicTodoColor, contentColor = MindyWhite),
         "/" to actionColors(MagicNoteColor),
         "+" to actionColors(MagicEventColor),
         "?" to actionColors(MagicAppColor),

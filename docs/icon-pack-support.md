@@ -13,7 +13,7 @@ developers, or send the selected pack off the device.
 - Package-level fallback for Android app-published shortcuts
 - Work-profile badging after a themed icon is loaded
 
-When a pack does not map an app, Mink uses that app's original system icon.
+When a pack does not map an app, Mindy uses that app's original system icon.
 Legacy shortcuts installed by browsers or older apps retain their own icon
 because an icon pack cannot reliably identify the shortcut's destination.
 

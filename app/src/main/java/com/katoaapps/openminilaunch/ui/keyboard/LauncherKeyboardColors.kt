@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 import com.katoaapps.openminilaunch.model.LauncherKeyboardColorSource
 import com.katoaapps.openminilaunch.model.LauncherKeyboardPreferences
 import com.katoaapps.openminilaunch.model.LauncherKeyboardStyle
-import com.katoaapps.openminilaunch.ui.theme.MinkWhite
+import com.katoaapps.openminilaunch.ui.theme.MindyWhite
 import com.katoaapps.openminilaunch.ui.theme.ensureReadableContentColor
 import com.katoaapps.openminilaunch.ui.theme.readableContentColor
 
@@ -62,6 +62,6 @@ internal fun LauncherKeyboardColors.forAction(
     return copy(
         key = actionColor,
         content = resolvedContentColor,
-        outline = MinkWhite,
+        outline = MindyWhite,
     )
 }

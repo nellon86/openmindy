@@ -10,7 +10,7 @@ import com.katoaapps.openminilaunch.features.apps.*
 import com.katoaapps.openminilaunch.ui.components.*
 import com.katoaapps.openminilaunch.ui.theme.*
 import com.katoaapps.openminilaunch.features.wellbeing.*
-import com.katoaapps.openminilaunch.ui.wellbeing.rememberMinkAppAccessState
+import com.katoaapps.openminilaunch.ui.wellbeing.rememberMindyAppAccessState
 
 import android.app.Activity
 import android.os.Build
@@ -105,7 +105,7 @@ private fun AllAppsTheme(
 ) {
     val context = LocalContext.current
     val view = LocalView.current
-    val transparent = MinkTransparent
+    val transparent = MindyTransparent
     SideEffect {
         val activityWindow = (context as Activity).window
         activityWindow.statusBarColor = transparent.toArgb()
@@ -115,7 +115,7 @@ private fun AllAppsTheme(
             isAppearanceLightNavigationBars = false
         }
     }
-    MinkLauncherTheme(store, content)
+    MindyLauncherTheme(store, content)
 }
 
 @Composable
@@ -147,7 +147,7 @@ internal fun AllAppsScreen(
             )
         }
     }
-    val appAccessState by rememberMinkAppAccessState(store)
+    val appAccessState by rememberMindyAppAccessState(store)
     val installedTargets = targetsState.orEmpty()
     val apps = remember(installedTargets, appAccessState) {
         if (appAccessState.isResolved) {

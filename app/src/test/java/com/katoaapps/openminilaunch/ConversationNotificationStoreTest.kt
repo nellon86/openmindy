@@ -32,12 +32,12 @@ class ConversationNotificationStoreTest {
                 state = DemoConversationState.QUIET,
             ).isEmpty(),
         )
-        val petMinkFavorite = DemoConversationData.notifications(
+        val petMindyFavorite = DemoConversationData.notifications(
             now = 1_000_000L,
-            scenario = DemoScenario.PET_MINK,
+            scenario = DemoScenario.PET_MINDY,
             state = DemoConversationState.ONE_FAVORITE,
         )
-        assertEquals(listOf("May Wong"), petMinkFavorite.map { it.conversationName })
+        assertEquals(listOf("May Wong"), petMindyFavorite.map { it.conversationName })
         val workday = DemoConversationData.notifications(
             now = 1_000_000L,
             scenario = DemoScenario.WORKDAY,

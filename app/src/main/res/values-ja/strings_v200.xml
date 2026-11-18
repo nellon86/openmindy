@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="update_notice_200_minkspace_heading">ホームパネルにはさらに多くの機能があります</string>
-    <string name="update_notice_200_minkspace_title">MinkSpace ミニアプリ</string>
-    <string name="update_notice_200_minkspace_description">ホームパネル内で垂直にスワイプして、ミニアプリ間を移動します。［設定］で表示するアプリを選び、To-Do、電卓、メディア、音楽、ウィジェットを並べ替えます。</string>
+    <string name="update_notice_200_mindyspace_heading">ホームパネルにはさらに多くの機能があります</string>
+    <string name="update_notice_200_mindyspace_title">MindySpace ミニアプリ</string>
+    <string name="update_notice_200_mindyspace_description">ホームパネル内で垂直にスワイプして、ミニアプリ間を移動します。［設定］で表示するアプリを選び、To-Do、電卓、メディア、音楽、ウィジェットを並べ替えます。</string>
     <string name="update_notice_200_media_title">選択したメディアはそのままあなたのものになります</string>
-    <string name="update_notice_200_media_description">Android のピッカーを使用して画像、GIF、またはビデオを追加します。 Mink はローカル参照を保存し、選択したアプリで元のアイテムを開きます。</string>
+    <string name="update_notice_200_media_description">Android のピッカーを使用して画像、GIF、またはビデオを追加します。 Mindy はローカル参照を保存し、選択したアプリで元のアイテムを開きます。</string>
     <string name="update_notice_200_music_title">アクティブなメディアコントロール</string>
-    <string name="update_notice_200_music_description">オプションの通知アクセスを使用すると、ミュージックは Android のアクティブなメディア セッションを表示し、プロバイダーがサポートするコントロールのみを送信できます。 Mink は音声を録音したり、視聴履歴を保持したりしません。</string>
+    <string name="update_notice_200_music_description">オプションの通知アクセスを使用すると、ミュージックは Android のアクティブなメディア セッションを表示し、プロバイダーがサポートするコントロールのみを送信できます。 Mindy は音声を録音したり、視聴履歴を保持したりしません。</string>
     <string name="update_notice_200_bubbles_heading">より高速な切り替え・ベータ版</string>
     <string name="update_notice_200_bubbles_title">Android バブルでアプリを試す</string>
     <string name="update_notice_200_bubbles_description">Magic Box アプリの結果を長押しするか、設定で自動アプリを選択します。互換性は Android とターゲット アプリに属する​​ため、サポートされていないアプリは代わりに正常に開く可能性があります。</string>
@@ -17,9 +17,9 @@
     <string name="update_notice_200_privacy_description">Android Private Space アプリは、通常の検索、ショートカット、または「すべて表示」に表示されません。 Android またはデバイス メーカーが引き続き認証と保護を所有します。</string>
     <string name="update_notice_200_smaller_title">キーボードファーストのさらなる改良</string>
     <string name="update_notice_200_smaller_description">Nextcloud Talk がメッセージング統合に参加し、最初に一致する Enter アクションが高速になり、大画面レイアウトがより快適になりました。</string>
-    <string name="open_minkspace_settings">MinkSpace設定を開く</string>
-    <string name="mink_space_onboarding_description">表示する項目を選び、To-Do、電卓、メディア、音楽、ウィジェットを並べ替えてから、ホームパネル内で垂直にスワイプして切り替えます。ウィジェットをタップすると操作できます。</string>
+    <string name="open_mindyspace_settings">MindySpace設定を開く</string>
+    <string name="mindy_space_onboarding_description">表示する項目を選び、To-Do、電卓、メディア、音楽、ウィジェットを並べ替えてから、ホームパネル内で垂直にスワイプして切り替えます。ウィジェットをタップすると操作できます。</string>
     <string name="work_apps_onboarding_description">仕事用プロファイル アプリは専用のドロワーに保存されます。 Android とあなたの組織は、そのプロファイルを利用可能にするか一時停止するかを制御します。</string>
     <string name="privacy_space_onboarding_description">Android プライベート スペースとデバイス メーカーのプライベート エリアは、通常の検索、ショートカット、すべて表示の範囲外にあります。デバイスが認証を制御します。</string>
-    <string name="backup_minkspace_description">MinkSpace の順序と表示設定が含まれます。Android ウィジェットのバインド、電卓の履歴、選択したメディアとその Android 権限、アクティブなメディアセッション、ワークスペースとプライバシースペースの状態、デバイスゲートウェイ、アクティブなバブル通知はこのデバイスに残ります。</string>
+    <string name="backup_mindyspace_description">MindySpace の順序と表示設定が含まれます。Android ウィジェットのバインド、電卓の履歴、選択したメディアとその Android 権限、アクティブなメディアセッション、ワークスペースとプライバシースペースの状態、デバイスゲートウェイ、アクティブなバブル通知はこのデバイスに残ります。</string>
 </resources>

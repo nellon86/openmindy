@@ -7,8 +7,8 @@ import com.katoaapps.openminilaunch.features.iconpacks.IconPackRepository
 import com.katoaapps.openminilaunch.model.IconSource
 import com.katoaapps.openminilaunch.model.LauncherAppTarget
 import com.katoaapps.openminilaunch.model.LauncherTarget
-import com.katoaapps.openminilaunch.ui.theme.MinkBlack
-import com.katoaapps.openminilaunch.ui.theme.MinkWhite
+import com.katoaapps.openminilaunch.ui.theme.MindyBlack
+import com.katoaapps.openminilaunch.ui.theme.MindyWhite
 
 import android.graphics.drawable.AdaptiveIconDrawable
 import android.os.Build
@@ -74,7 +74,7 @@ internal fun AppIcon(
                 ?: originalIcon()
         },
         size = size,
-        themedTint = appearance.minkAppIconTint(themedTint),
+        themedTint = appearance.mindyAppIconTint(themedTint),
         contentDescription = contentDescription,
     )
 }
@@ -103,7 +103,7 @@ internal fun LauncherAppIcon(
                 ?: actions.launcherAppIcon(target)
         },
         size = size,
-        themedTint = appearance.minkAppIconTint(themedTint),
+        themedTint = appearance.mindyAppIconTint(themedTint),
         contentDescription = contentDescription,
     )
 }
@@ -133,7 +133,7 @@ internal fun LauncherTargetIcon(
                 ?: actions.launcherTargetIcon(target)
         },
         size = size,
-        themedTint = appearance.minkAppIconTint(themedTint),
+        themedTint = appearance.mindyAppIconTint(themedTint),
         contentDescription = contentDescription,
     )
 }
@@ -223,7 +223,7 @@ private fun RenderedAppIcon(
                 Icons.Default.Apps,
                 contentDescription,
                 tint = if (themedTint != null) {
-                    if (fallbackColor.luminance() > .5f) MinkBlack else MinkWhite
+                    if (fallbackColor.luminance() > .5f) MindyBlack else MindyWhite
                 } else {
                     MaterialTheme.colorScheme.background
                 },

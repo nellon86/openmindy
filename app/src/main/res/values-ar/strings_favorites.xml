@@ -8,7 +8,7 @@
     <string name="message">مراسلة</string>
     <string name="call">اتصال</string>
     <string name="open_contact">فتح في جهات الاتصال</string>
-    <string name="change_favorite_in_contacts">أضف هذا الشخص إلى المفضلة أو أزله منها في جهات اتصال Android. لا يحتفظ Mink بقائمة مفضلة منفصلة.</string>
+    <string name="change_favorite_in_contacts">أضف هذا الشخص إلى المفضلة أو أزله منها في جهات اتصال Android. لا يحتفظ Mindy بقائمة مفضلة منفصلة.</string>
     <string name="choose_phone_number">اختيار رقم هاتف</string>
     <string name="preferred_number">الرقم المفضل</string>
     <string name="ask_every_time">اسأل في كل مرة</string>

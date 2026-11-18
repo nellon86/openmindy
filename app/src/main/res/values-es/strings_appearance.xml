@@ -8,12 +8,12 @@
     <string name="your_photo">Tu foto</string>
     <string name="device_wallpaper">Fondo del dispositivo</string>
     <string name="color_palette">Color palette</string>
-    <string name="palette_mink">Mink</string>
+    <string name="palette_mindy">Mindy</string>
     <string name="palette_system">System</string>
     <string name="palette_system_unavailable">System colors require Android 12 or newer.</string>
     <string name="home_themes">Temas de inicio</string>
     <string name="home_themes_description">Elige un tema completo o cambia arriba el origen del fondo.</string>
-    <string name="mink_theme">Tema Mink</string>
+    <string name="mindy_theme">Tema Mindy</string>
     <string name="theme_number">Tema %1$d</string>
     <string name="custom_theme">Tema personalizado</string>
     <string name="custom_theme_description">Ajusta los colores del fondo y del panel sin cambiar el fondo de pantalla.</string>

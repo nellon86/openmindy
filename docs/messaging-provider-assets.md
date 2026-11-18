@@ -1,6 +1,6 @@
 # Messaging provider assets
 
-OpenMink bundles a current icon for every provider in `MessagingProviderCatalog` so the integrated
+OpenMindy bundles a current icon for every provider in `MessagingProviderCatalog` so the integrated
 app picker can identify supported services even when they are not installed. When an app is
 installed, Android's `PackageManager` remains the source of truth for its current label and icon.
 

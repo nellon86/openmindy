@@ -95,6 +95,6 @@ internal class ShareTargetDiscovery(private val context: Context) {
     }
 
     private companion object {
-        const val BROWSER_DISCOVERY_QUERY = "MinkLauncher"
+        const val BROWSER_DISCOVERY_QUERY = "OpenMindy"
     }
 }

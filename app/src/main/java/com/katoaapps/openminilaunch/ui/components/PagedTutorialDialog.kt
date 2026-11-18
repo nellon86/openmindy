@@ -51,8 +51,8 @@ internal fun PagedTutorialDialog(
     val lastPage = pagerState.currentPage == pages.lastIndex
 
     AlertDialog(
-        modifier = Modifier.minkDialogWidth(),
-        properties = MinkDialogDefaults.properties,
+        modifier = Modifier.mindyDialogWidth(),
+        properties = MindyDialogDefaults.properties,
         onDismissRequest = onDismiss,
         title = { Text(stringResource(titleRes)) },
         text = {

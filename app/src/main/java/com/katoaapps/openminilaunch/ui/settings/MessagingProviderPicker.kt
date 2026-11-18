@@ -6,8 +6,8 @@ import com.katoaapps.openminilaunch.features.messaging.MessagingSupportTier
 import com.katoaapps.openminilaunch.features.messaging.canOpenInstallPage
 import com.katoaapps.openminilaunch.features.messaging.isDraftReady
 import com.katoaapps.openminilaunch.ui.components.AppIcon
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
 
@@ -76,9 +76,9 @@ internal fun MessagingProviderPickerDialog(
     val draftReady = visibleOptions.filter { it.isDraftReady }
     val otherOptions = visibleOptions.filterNot { it.isDraftReady }
 
-    Dialog(onDismissRequest = onDismiss, properties = MinkDialogDefaults.properties) {
+    Dialog(onDismissRequest = onDismiss, properties = MindyDialogDefaults.properties) {
         Surface(
-            modifier = Modifier.minkDialogWidth().fillMaxHeight(.96f),
+            modifier = Modifier.mindyDialogWidth().fillMaxHeight(.96f),
             shape = RoundedCornerShape(Dimens.dp24),
             color = MaterialTheme.colorScheme.background,
         ) {

@@ -120,7 +120,7 @@ internal class HomeWallpaperRepository(context: Context) {
         }
     }
 
-    /** Saves Mink's private copy before Android is asked to change the system wallpaper. */
+    /** Saves Mindy's private copy before Android is asked to change the system wallpaper. */
     fun save(bitmap: Bitmap): Result<HomeWallpaperAppearance> = runCatching {
         val appearance = HomeWallpaperAppearanceAnalyzer.analyze(bitmap)
         wallpaperDirectory.mkdirs()

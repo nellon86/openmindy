@@ -181,7 +181,7 @@ internal class FavoriteIntegratedContactStore(
     }
 
     /**
-     * Imports Mink-owned people without deleting contacts already created on this installation.
+     * Imports Mindy-owned people without deleting contacts already created on this installation.
      * Existing local ids and endpoint identities win so importing an older backup is non-destructive.
      */
     @Synchronized

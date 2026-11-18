@@ -49,7 +49,7 @@ import kotlin.math.roundToInt
 internal fun KeyboardSettingsPage(store: LauncherStore, goBack: () -> Unit) {
     val preferences = store.launcherKeyboardPreferences
     val configuration = LocalConfiguration.current
-    var previewValue by remember { mutableStateOf(TextFieldValue("Mink makes every screen feel familiar.")) }
+    var previewValue by remember { mutableStateOf(TextFieldValue("Mindy makes every screen feel familiar.")) }
     var primaryPicker by remember { mutableStateOf(false) }
     var secondaryPicker by remember { mutableStateOf(false) }
     var keyColorPicker by remember { mutableStateOf(false) }
@@ -71,11 +71,11 @@ internal fun KeyboardSettingsPage(store: LauncherStore, goBack: () -> Unit) {
 
     SettingsPage(stringResource(R.string.launcher_keyboard), goBack) {
         SettingsSwitchRow(
-            title = stringResource(R.string.mink_keyboard),
-            subtitle = stringResource(R.string.mink_keyboard_description),
-            checked = preferences.useMinkKeyboard,
+            title = stringResource(R.string.mindy_keyboard),
+            subtitle = stringResource(R.string.mindy_keyboard_description),
+            checked = preferences.useMindyKeyboard,
             onCheckedChange = {
-                store.updateLauncherKeyboardPreferences(preferences.copy(useMinkKeyboard = it))
+                store.updateLauncherKeyboardPreferences(preferences.copy(useMindyKeyboard = it))
             },
         )
         SettingsSwitchRow(
@@ -84,7 +84,7 @@ internal fun KeyboardSettingsPage(store: LauncherStore, goBack: () -> Unit) {
             checked = store.openSoftwareKeyboardOnHome,
             onCheckedChange = store::updateOpenSoftwareKeyboardOnHome,
         )
-        if (preferences.useMinkKeyboard) {
+        if (preferences.useMindyKeyboard) {
             SettingsSwitchRow(
                 title = stringResource(R.string.keyboard_split_wide),
                 subtitle = stringResource(R.string.keyboard_split_wide_description),

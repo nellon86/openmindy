@@ -33,7 +33,7 @@ internal enum class SettingsSection(
 ) {
     HOME(R.string.launcher, icon = Icons.Default.Home),
     MINI_APPS(
-        R.string.mink_space_mini_apps,
+        R.string.mindy_space_mini_apps,
         R.string.settings_tab_mini_apps,
         Icons.Default.ViewCarousel,
     ),
@@ -47,14 +47,14 @@ internal enum class SettingsSection(
 }
 
 internal fun settingsSectionFor(destination: SettingsDestination): SettingsSection = when (destination) {
-    SettingsDestination.MINK_SPACE -> SettingsSection.MINI_APPS
+    SettingsDestination.MINDY_SPACE -> SettingsSection.MINI_APPS
 
     SettingsDestination.APP_BUBBLES,
     SettingsDestination.KEYBOARD,
     SettingsDestination.FILE_SEARCH -> SettingsSection.MAGIC_BOX
 
-    SettingsDestination.MINK_ASSISTANT,
-    SettingsDestination.MINK_DAY -> SettingsSection.ADVANCED
+    SettingsDestination.MINDY_ASSISTANT,
+    SettingsDestination.MINDY_DAY -> SettingsSection.ADVANCED
 
     SettingsDestination.BACKUP_RESTORE,
     SettingsDestination.PERMISSIONS,

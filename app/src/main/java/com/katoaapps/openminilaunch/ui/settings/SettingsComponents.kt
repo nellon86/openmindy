@@ -133,10 +133,10 @@ private fun <T> AppPickerDialogContent(
     val gridState = rememberLazyGridState()
     Dialog(
         onDismissRequest = onDismiss,
-        properties = MinkDialogDefaults.properties,
+        properties = MindyDialogDefaults.properties,
     ) {
         Surface(
-            Modifier.minkDialogWidth().fillMaxHeight(.96f),
+            Modifier.mindyDialogWidth().fillMaxHeight(.96f),
             shape = RoundedCornerShape(Dimens.dp24),
             color = MaterialTheme.colorScheme.background,
         ) {
@@ -471,7 +471,7 @@ private enum class LauncherTargetCategory { APPS, SHORTCUTS }
 @Composable
 internal fun PaletteChooser(selected: PalettePreference, onSelect: (PalettePreference) -> Unit) {
     val systemAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-    val displayedSelection = if (systemAvailable) selected else PalettePreference.MINK
+    val displayedSelection = if (systemAvailable) selected else PalettePreference.MINDY
     Column(
         Modifier.fillMaxWidth().clip(RoundedCornerShape(Dimens.dp16)).background(MaterialTheme.colorScheme.surfaceContainerLow).padding(Dimens.dp14),
         verticalArrangement = Arrangement.spacedBy(Dimens.dp10),

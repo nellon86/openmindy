@@ -17,9 +17,9 @@ internal enum class DemoScenario(
         R.string.demo_scenario_product_tour,
         R.string.demo_scenario_product_tour_description,
     ),
-    PET_MINK(
-        R.string.demo_scenario_pet_mink,
-        R.string.demo_scenario_pet_mink_description,
+    PET_MINDY(
+        R.string.demo_scenario_pet_mindy,
+        R.string.demo_scenario_pet_mindy_description,
     ),
     WORKDAY(
         R.string.demo_scenario_workday,

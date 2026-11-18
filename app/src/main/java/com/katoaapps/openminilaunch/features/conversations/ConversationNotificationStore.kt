@@ -240,7 +240,7 @@ object ConversationNotificationStore {
             val results = Bundle().apply { inputs.forEach { putCharSequence(it.resultKey, clean) } }
             val fillIn = Intent()
             RemoteInput.addResultsToIntent(inputs, fillIn, results)
-            action.actionIntent.send(MinkNotificationListenerService.connectedService, 0, fillIn)
+            action.actionIntent.send(MindyNotificationListenerService.connectedService, 0, fillIn)
             val now = System.currentTimeMillis()
             sentReplies += ConversationMessage(
                 id = "local|${item.conversationId}|$now|${System.nanoTime()}",
@@ -306,7 +306,7 @@ object ConversationNotificationStore {
     }.getOrDefault(false)
 
     fun dismissConversation(conversation: NotificationConversation): Boolean {
-        val service = MinkNotificationListenerService.connectedService ?: return false
+        val service = MindyNotificationListenerService.connectedService ?: return false
         var dismissedAny = false
         conversation.notifications
             .filter(ConversationNotification::isDismissible)
@@ -331,13 +331,13 @@ object ConversationNotificationStore {
     fun requestListenerReconnect(context: Context) {
         runCatching {
             NotificationListenerService.requestRebind(
-                ComponentName(context, MinkNotificationListenerService::class.java),
+                ComponentName(context, MindyNotificationListenerService::class.java),
             )
         }
     }
 
     fun refreshActiveNotifications(context: Context) {
-        val refreshed = MinkNotificationListenerService.connectedService
+        val refreshed = MindyNotificationListenerService.connectedService
             ?.refreshActiveNotifications() == true
         if (!refreshed) requestListenerReconnect(context)
     }

@@ -3,7 +3,7 @@ package com.katoaapps.openminilaunch.features.demo
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import com.katoaapps.openminilaunch.R
-import com.katoaapps.openminilaunch.features.minkspace.todo.TodoItem
+import com.katoaapps.openminilaunch.features.mindyspace.todo.TodoItem
 import com.katoaapps.openminilaunch.model.AppGridSlot
 
 internal enum class DemoHomeProfile(
@@ -15,7 +15,7 @@ internal enum class DemoHomeProfile(
     CLASSIC(
         R.string.demo_profile_classic,
         R.string.demo_profile_classic_description,
-        R.color.mink_forest,
+        R.color.mindy_forest,
         R.color.demo_app_background,
     ),
     WORK(
@@ -33,7 +33,7 @@ internal enum class DemoHomeProfile(
     PERSONAL(
         R.string.demo_profile_personal,
         R.string.demo_profile_personal_description,
-        R.color.home_panel_mink,
+        R.color.home_panel_mindy,
         R.color.app_background_cream,
     ),
     FRESH(
@@ -56,7 +56,7 @@ internal object DemoHomeData {
         profile: DemoHomeProfile = DemoHomeProfile.CLASSIC,
         scenario: DemoScenario = DemoScenario.PRODUCT_TOUR,
     ): List<TodoItem> = when (scenario) {
-        DemoScenario.PET_MINK -> listOf(
+        DemoScenario.PET_MINDY -> listOf(
             todo(scenario, 1, "Remember to text May for different pet mink names"),
             todo(scenario, 2, "Go to the pet store next Thursday at 3 PM"),
             todo(scenario, 3, "Text May that we're meeting Thursday at 3 PM"),

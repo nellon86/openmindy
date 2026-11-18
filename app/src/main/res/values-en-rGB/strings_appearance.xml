@@ -8,12 +8,12 @@
     <string name="your_photo">Your photo</string>
     <string name="device_wallpaper">Device wallpaper</string>
     <string name="color_palette">Color palette</string>
-    <string name="palette_mink">Mink</string>
+    <string name="palette_mindy">Mindy</string>
     <string name="palette_system">System</string>
     <string name="palette_system_unavailable">System colors require Android 12 or newer.</string>
     <string name="home_themes">Home themes</string>
     <string name="home_themes_description">Choose a complete theme, or change its wallpaper source above.</string>
-    <string name="mink_theme">Mink Theme</string>
+    <string name="mindy_theme">Mindy Theme</string>
     <string name="theme_number">Theme %1$d</string>
     <string name="custom_theme">Custom theme</string>
     <string name="custom_theme_description">Fine-tune background and pill colours without changing the wallpaper.</string>

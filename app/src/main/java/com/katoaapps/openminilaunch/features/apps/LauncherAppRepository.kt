@@ -81,7 +81,7 @@ internal class LauncherAppRepository private constructor(context: Context) {
                 val serial = userManager?.getSerialNumberForUser(user)?.takeIf { it >= 0 }
                     ?: return@flatMap emptyList()
                 // Private Space is filtered before this point. Other non-personal profiles retain
-                // OpenMink's existing work-style presentation and isolation behavior.
+                // OpenMindy's existing work-style presentation and isolation behavior.
                 val workProfile = serial != personalSerial
                 val quiet = runCatching { userManager?.isQuietModeEnabled(user) == true }.getOrDefault(false)
                 runCatching { service.getActivityList(null, user) }.getOrDefault(emptyList()).map { info ->

@@ -50,7 +50,7 @@ internal class UsageInsightsRepository(private val context: Context) {
         usesAutomaticSocialApps: Boolean,
         socialGoalMinutes: Int,
         nowMillis: Long = System.currentTimeMillis(),
-    ): MinkDaySummary {
+    ): MindyDaySummary {
         val zone = ZoneId.systemDefault()
         val hour = Instant.ofEpochMilli(nowMillis).atZone(zone).hour
         if (!hasAccess()) return noAccessSummary(hour)
@@ -82,12 +82,12 @@ internal class UsageInsightsRepository(private val context: Context) {
             ignoredPackages = ignored,
         )
         val allApps = analysis.packageDurations.map { (packageName, duration) ->
-            MinkAppUsage(packageName, appLabel(packageName), duration)
-        }.sortedByDescending(MinkAppUsage::foregroundMillis)
-        val socialMillis = allApps.sumOf(MinkAppUsage::foregroundMillis)
+            MindyAppUsage(packageName, appLabel(packageName), duration)
+        }.sortedByDescending(MindyAppUsage::foregroundMillis)
+        val socialMillis = allApps.sumOf(MindyAppUsage::foregroundMillis)
         val longestSocial = allApps.maxByOrNull { analysis.longestSessions[it.packageName] ?: 0L }
         val longestSocialMillis = longestSocial?.let { analysis.longestSessions[it.packageName] } ?: 0L
-        val state = chooseMinkState(
+        val state = chooseMindyState(
             hour = hour,
             socialMillis = socialMillis,
             socialGoalMinutes = socialGoalMinutes,
@@ -103,7 +103,7 @@ internal class UsageInsightsRepository(private val context: Context) {
             longestSocialMillis = longestSocialMillis,
             topSocial = allApps.firstOrNull { it.foregroundMillis >= DISPLAY_THRESHOLD_MILLIS },
         )
-        return MinkDaySummary(
+        return MindyDaySummary(
             accessGranted = true,
             state = state,
             socialMillis = socialMillis,
@@ -124,7 +124,7 @@ internal class UsageInsightsRepository(private val context: Context) {
             .toList()
         if (profileAwareApps.isNotEmpty()) return profileAwareApps
 
-        // Mink's Day is deliberately personal-profile only. This fallback preserves its picker
+        // Mindy's Day is deliberately personal-profile only. This fallback preserves its picker
         // if LauncherApps is temporarily unavailable without broadening it to managed profiles.
         val launcherIntent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
         return packageManager.queryIntentActivities(launcherIntent, 0)
@@ -159,11 +159,11 @@ internal class UsageInsightsRepository(private val context: Context) {
         return result
     }
 
-    private fun noAccessSummary(hour: Int) = MinkDaySummary(
+    private fun noAccessSummary(hour: Int) = MindyDaySummary(
         accessGranted = false,
-        state = if (hour >= 22 || hour < 5) MinkState.SLEEPING else MinkState.WALKING,
-        headline = context.getString(if (hour >= 22 || hour < 5) R.string.mink_made_it_home else R.string.mink_ready_for_day),
-        detail = context.getString(R.string.mink_enable_usage_detail),
+        state = if (hour >= 22 || hour < 5) MindyState.SLEEPING else MindyState.WALKING,
+        headline = context.getString(if (hour >= 22 || hour < 5) R.string.mindy_made_it_home else R.string.mindy_ready_for_day),
+        detail = context.getString(R.string.mindy_enable_usage_detail),
     )
 
     private fun personalLauncherPackages(): Set<String> = launcherApps.targets().asSequence()
@@ -172,36 +172,36 @@ internal class UsageInsightsRepository(private val context: Context) {
         .toSet()
 
     private fun stateCopy(
-        state: MinkState,
+        state: MindyState,
         socialMillis: Long,
         socialGoalMinutes: Int,
         socialOpensLastHour: Int,
-        longestSocial: MinkAppUsage?,
+        longestSocial: MindyAppUsage?,
         longestSocialMillis: Long,
-        topSocial: MinkAppUsage?,
+        topSocial: MindyAppUsage?,
     ): Pair<String, String> = when (state) {
-        MinkState.SLEEPING -> context.getString(R.string.mink_made_it_home) to context.getString(R.string.mink_sleeping_detail)
-        MinkState.PHONE -> context.getString(R.string.mink_stopped_to_scroll) to if (topSocial != null) {
+        MindyState.SLEEPING -> context.getString(R.string.mindy_made_it_home) to context.getString(R.string.mindy_sleeping_detail)
+        MindyState.PHONE -> context.getString(R.string.mindy_stopped_to_scroll) to if (topSocial != null) {
             context.getString(
-                R.string.mink_top_app_goal_detail,
+                R.string.mindy_top_app_goal_detail,
                 topSocial.label,
                 formatDuration(context, socialMillis),
                 formatDuration(context, socialGoalMinutes * 60_000L),
             )
-        } else context.getString(R.string.mink_goal_passed_detail, formatDuration(context, socialGoalMinutes * 60_000L))
-        MinkState.DISTRACTED -> context.getString(R.string.mink_checking_headline) to
+        } else context.getString(R.string.mindy_goal_passed_detail, formatDuration(context, socialGoalMinutes * 60_000L))
+        MindyState.DISTRACTED -> context.getString(R.string.mindy_checking_headline) to
             context.resources.getQuantityString(
-                R.plurals.mink_opens_detail,
+                R.plurals.mindy_opens_detail,
                 socialOpensLastHour,
                 socialOpensLastHour,
             )
-        MinkState.RESTING -> context.getString(R.string.mink_pause_headline) to if (longestSocial != null) {
-            context.getString(R.string.mink_longest_visit_detail, formatDuration(context, longestSocialMillis), longestSocial.label)
-        } else context.getString(R.string.mink_break_detail)
-        MinkState.PURPOSEFUL -> context.getString(R.string.mink_quiet_trail_headline) to context.getString(R.string.mink_no_social_detail)
-        MinkState.WALKING -> context.getString(R.string.mink_moving_headline) to if (topSocial == null) {
-            context.getString(R.string.mink_not_enough_detail)
-        } else context.getString(R.string.mink_leading_detail, topSocial.label, formatDuration(context, topSocial.foregroundMillis))
+        MindyState.RESTING -> context.getString(R.string.mindy_pause_headline) to if (longestSocial != null) {
+            context.getString(R.string.mindy_longest_visit_detail, formatDuration(context, longestSocialMillis), longestSocial.label)
+        } else context.getString(R.string.mindy_break_detail)
+        MindyState.PURPOSEFUL -> context.getString(R.string.mindy_quiet_trail_headline) to context.getString(R.string.mindy_no_social_detail)
+        MindyState.WALKING -> context.getString(R.string.mindy_moving_headline) to if (topSocial == null) {
+            context.getString(R.string.mindy_not_enough_detail)
+        } else context.getString(R.string.mindy_leading_detail, topSocial.label, formatDuration(context, topSocial.foregroundMillis))
     }
 
     private fun isSocial(packageName: String, selected: Set<String>): Boolean {

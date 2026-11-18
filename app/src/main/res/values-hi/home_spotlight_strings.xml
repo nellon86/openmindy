@@ -1,8 +1,8 @@
 <resources>
     <string name="home_spotlight_folders_title">फ़ोल्डर बनाएँ</string>
     <string name="home_spotlight_folders_description">किसी भी ऐप को दबाकर रखें, फिर टाइल को फ़ोल्डर बनाने के लिए एक और ऐप जोड़ें।</string>
-    <string name="home_spotlight_minkspace_title">मिनी ऐप यहाँ हैं</string>
-    <string name="home_spotlight_minkspace_description">मिनी ऐप बदलने के लिए MinkSpace में ऊपर या नीचे स्वाइप करें। समर्थित ऐप को बड़ा करने के लिए टैप करें।</string>
+    <string name="home_spotlight_mindyspace_title">मिनी ऐप यहाँ हैं</string>
+    <string name="home_spotlight_mindyspace_description">मिनी ऐप बदलने के लिए MindySpace में ऊपर या नीचे स्वाइप करें। समर्थित ऐप को बड़ा करने के लिए टैप करें।</string>
     <string name="home_spotlight_magic_title">टाइप करना शुरू करें</string>
     <string name="home_spotlight_magic_description">सामान्य टेक्स्ट या Magic Box हॉटकी से खोजें, संदेश भेजें, कॉल करें, नोट बनाएँ और कार्रवाइयाँ चलाएँ।</string>
     <string name="home_spotlight_keyboard_title">सिर्फ़ कीबोर्ड नहीं</string>

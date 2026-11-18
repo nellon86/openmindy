@@ -8,7 +8,7 @@
     <string name="message">Mensaje</string>
     <string name="call">Llamar</string>
     <string name="open_contact">Abrir en Contactos</string>
-    <string name="change_favorite_in_contacts">Marca o desmarca a esta persona como favorita en Contactos de Android. Mink no guarda una lista de favoritos aparte.</string>
+    <string name="change_favorite_in_contacts">Marca o desmarca a esta persona como favorita en Contactos de Android. Mindy no guarda una lista de favoritos aparte.</string>
     <string name="choose_phone_number">Elige un número de teléfono</string>
     <string name="preferred_number">Número preferido</string>
     <string name="ask_every_time">Preguntar cada vez</string>

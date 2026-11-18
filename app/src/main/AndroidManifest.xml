@@ -108,7 +108,7 @@
                 android:resource="@xml/demo_file_paths" />
         </provider>
         <service
-            android:name=".features.conversations.MinkNotificationListenerService"
+            android:name=".features.conversations.MindyNotificationListenerService"
             android:exported="true"
             android:label="@string/conversations_service_label"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">

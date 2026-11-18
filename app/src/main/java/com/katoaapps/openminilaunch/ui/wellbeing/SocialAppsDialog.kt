@@ -52,15 +52,15 @@ import com.katoaapps.openminilaunch.features.wellbeing.UsageInsightsRepository
 import com.katoaapps.openminilaunch.features.wellbeing.effectiveTrackedPackages
 import com.katoaapps.openminilaunch.model.LaunchableApp
 import com.katoaapps.openminilaunch.ui.components.AppIcon
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
 import com.katoaapps.openminilaunch.ui.theme.Rust
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-/** Selects the apps whose usage contributes to Mink's Day. */
+/** Selects the apps whose usage contributes to Mindy's Day. */
 @Composable
 internal fun SocialAppsDialog(
     store: LauncherStore,
@@ -87,9 +87,9 @@ internal fun SocialAppsDialog(
             ?.let { store.reconcileSocialApps(it.map(LaunchableApp::packageName).toSet()) }
     }
 
-    Dialog(onDismissRequest = onDismiss, properties = MinkDialogDefaults.properties) {
+    Dialog(onDismissRequest = onDismiss, properties = MindyDialogDefaults.properties) {
         Surface(
-            Modifier.minkDialogWidth().fillMaxHeight(.96f),
+            Modifier.mindyDialogWidth().fillMaxHeight(.96f),
             shape = RoundedCornerShape(Dimens.dp24),
             color = MaterialTheme.colorScheme.background,
         ) {

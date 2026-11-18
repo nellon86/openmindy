@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
-import com.katoaapps.openminilaunch.features.wellbeing.MinkAppAccessState
+import com.katoaapps.openminilaunch.features.wellbeing.MindyAppAccessState
 import com.katoaapps.openminilaunch.model.AppFolderColorMode
 import com.katoaapps.openminilaunch.model.AppFolderConfig
 import com.katoaapps.openminilaunch.model.LauncherShortcutTarget
@@ -24,7 +24,7 @@ import com.katoaapps.openminilaunch.ui.appgrid.UnavailableLauncherTargetDialog
 internal fun QuickAppsFolderDialog(
     store: LauncherStore,
     actions: DeviceActions,
-    appAccessState: MinkAppAccessState,
+    appAccessState: MindyAppAccessState,
     onEdit: () -> Unit,
     onLaunch: () -> Unit,
     onPausedApp: (String) -> Unit,

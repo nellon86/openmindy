@@ -11,11 +11,11 @@ described below.
 
 The app stores launcher settings, App Grid folders and choices, Quick Drawer choices, to-dos, the
 five most recent successful plain-text queries, approved document-folder references, optional
-cropped Home wallpaper, widget configuration, Mink’s Day preferences, app-bubble preferences,
-MinkSpace mini-app preferences, launcher-keyboard preferences, and onboarding state in app-private
+cropped Home wallpaper, widget configuration, Mindy’s Day preferences, app-bubble preferences,
+MindySpace mini-app preferences, launcher-keyboard preferences, and onboarding state in app-private
 storage. Android cloud backup is disabled for OpenMindy.
 
-MinkSpace stores calculator history locally, up to its visible history limit. Each of the three
+MindySpace stores calculator history locally, up to its visible history limit. Each of the three
 Quick Widget slots stores only the Android widget ID it hosts.
 
 The Music mini-app reads Android’s currently active media-session metadata, artwork, playback state,
@@ -25,12 +25,12 @@ audio and does not request microphone permission.
 
 ## Favorites
 
-Favorites can show Android Contacts that the user has starred and Mink-created integrated contacts.
+Favorites can show Android Contacts that the user has starred and Mindy-created integrated contacts.
 Android Contact names, phone numbers, photos, and contact records remain in Android's Contacts
 provider and are not copied into OpenMindy storage or portable backups. Per-person route choices
 are stored using an Android-generated contact lookup reference rather than copied contact data.
 
-A Mink-created integrated Favorite stores the display name and the messaging or calling endpoints
+A Mindy-created integrated Favorite stores the display name and the messaging or calling endpoints
 the user selects, such as an app shortcut, provider address, username, or phone number. These records
 and their ordering are kept in AES-GCM encrypted app-private storage backed by Android Keystore.
 They are not uploaded or used to create an account.
@@ -38,10 +38,10 @@ They are not uploaded or used to create an account.
 ## Portable backup
 
 An explicit portable backup is readable JSON. It includes portable launcher layout and settings,
-App Grid folders, Quick Drawer choices, launcher-keyboard preferences, MinkSpace order and
-enablement, to-dos, Mink-created integrated Favorites and
+App Grid folders, Quick Drawer choices, launcher-keyboard preferences, MindySpace order and
+enablement, to-dos, Mindy-created integrated Favorites and
 their ordering, and widget restore recipes so a user can move between distributions. The export
-screen warns that readable contact details may be present. For Mink-created Favorites, that can
+screen warns that readable contact details may be present. For Mindy-created Favorites, that can
 include display names, phone numbers, usernames, provider routes, and app shortcut identifiers.
 
 Widget restore recipes contain the provider package and component, app and widget labels, saved
@@ -72,7 +72,7 @@ using a manufacturer-specific private area, the user may save a device-owned app
 gateway. OpenMindy stores and opens only that target; the manufacturer controls authentication and
 the apps inside it.
 
-Mink’s Day pausing changes only which selected personal apps OpenMindy displays or launches. It
+Mindy’s Day pausing changes only which selected personal apps OpenMindy displays or launches. It
 does not disable, suspend, modify, or control those apps at the Android system level. The always-on
 launcher barrier does not require Usage Access; pausing after a daily limit does.
 

@@ -77,7 +77,7 @@ internal fun WallpaperAndBackgroundSettingsPage(
 
     SettingsPage(stringResource(R.string.appearance_wallpaper_title), goBack) {
         val customBackgroundArgb = store.appBackgroundColorArgb
-            ?: ContextCompat.getColor(context, R.color.mink_forest)
+            ?: ContextCompat.getColor(context, R.color.mindy_forest)
         HomeThemeSetting(
             selectedThemeId = store.selectedHomeTheme?.id,
             applyingThemeId = applyingSelectionId,

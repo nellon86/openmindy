@@ -41,21 +41,21 @@ import com.katoaapps.openminilaunch.ui.settings.SettingsDestination
 import com.katoaapps.openminilaunch.ui.onboarding.HomeTourTarget
 import com.katoaapps.openminilaunch.ui.onboarding.homeTourTarget
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.theme.MinkFeatureColors
-import com.katoaapps.openminilaunch.ui.wellbeing.MinkHomeIcon
+import com.katoaapps.openminilaunch.ui.theme.MindyFeatureColors
+import com.katoaapps.openminilaunch.ui.wellbeing.MindyHomeIcon
 
 @Composable
 internal fun HomeHeader(
     store: LauncherStore,
     actions: DeviceActions,
-    minkStatusActive: Boolean,
+    mindyStatusActive: Boolean,
     qwertyHome: Boolean,
     horizontalPadding: Dp,
     actionSize: Dp,
     iconSize: Dp,
     followHorizontalWindowOffset: Boolean,
     updateAvailable: Boolean,
-    onMinkDay: () -> Unit,
+    onMindyDay: () -> Unit,
     onUpdate: () -> Unit,
     onConversations: () -> Unit,
     openSettings: (SettingsDestination) -> Unit,
@@ -70,7 +70,7 @@ internal fun HomeHeader(
         val favoriteAttention = rememberPendingFavoriteAttention(
             store = store,
             conversations = conversations,
-            defaultColorArgb = MinkFeatureColors.ConversationAttention.toArgb(),
+            defaultColorArgb = MindyFeatureColors.ConversationAttention.toArgb(),
         )
         val dateTime = rememberHomeDateTimeParts(
             datePattern = stringResource(R.string.home_date_pattern),
@@ -103,10 +103,10 @@ internal fun HomeHeader(
             followHorizontalWindowOffset = followHorizontalWindowOffset,
             leadingContent = {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    MinkHomeIcon(
+                    MindyHomeIcon(
                         store = store,
-                        isActive = minkStatusActive,
-                        onClick = onMinkDay,
+                        isActive = mindyStatusActive,
+                        onClick = onMindyDay,
                         modifier = Modifier.size(actionSize),
                     )
                     if (store.showBatteryPercentage) {

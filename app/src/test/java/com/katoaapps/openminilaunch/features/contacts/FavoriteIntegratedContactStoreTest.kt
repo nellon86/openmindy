@@ -55,13 +55,13 @@ class FavoriteIntegratedContactStoreTest {
     @Test fun codecRoundTripPreservesProviderAddress() {
         val telegram = FavoriteIntegratedContact(
             id = FavoriteContactId.Integrated("local-telegram"),
-            displayName = "Mink Tester",
+            displayName = "Mindy Tester",
             endpoints = listOf(
                 IntegratedContactEndpoint.ProviderAddress(
                     providerId = "telegram",
                     packageName = "org.telegram.messenger",
                     addressType = ProviderAddressType.USERNAME,
-                    address = "minktester",
+                    address = "mindytester",
                 ),
             ),
         )
@@ -77,7 +77,7 @@ class FavoriteIntegratedContactStoreTest {
     @Test fun codecRoundTripPreservesCallOnlyFavorite() {
         val caller = FavoriteIntegratedContact(
             id = FavoriteContactId.Integrated("local-caller"),
-            displayName = "Mink Support",
+            displayName = "Mindy Support",
             endpoints = emptyList(),
             callEndpoint = IntegratedContactCallEndpoint.PhoneNumber(
                 number = "+1 555 0100",
@@ -102,7 +102,7 @@ class FavoriteIntegratedContactStoreTest {
 
         assertEquals(
             FavoriteIntegratedContactAddResult.ADDED,
-            store.addCall("us.zoom.videomeetings", "+1 555 0100", "Mink Support"),
+            store.addCall("us.zoom.videomeetings", "+1 555 0100", "Mindy Support"),
         )
         assertEquals(
             FavoriteIntegratedContactAddResult.DUPLICATE,
@@ -195,7 +195,7 @@ class FavoriteIntegratedContactStoreTest {
         val store = FavoriteIntegratedContactStore(persistence)
         val caller = FavoriteIntegratedContact(
             id = FavoriteContactId.Integrated("local-caller"),
-            displayName = "Mink Support",
+            displayName = "Mindy Support",
             endpoints = emptyList(),
             callEndpoint = IntegratedContactCallEndpoint.PhoneNumber(
                 number = "+15550100",
@@ -365,8 +365,8 @@ class FavoriteIntegratedContactStoreTest {
                 providerId = "telegram",
                 packageName = "org.telegram.messenger",
                 addressType = ProviderAddressType.USERNAME,
-                address = "MinkTester",
-                displayName = "Mink Tester",
+                address = "MindyTester",
+                displayName = "Mindy Tester",
             ),
         )
         assertEquals(
@@ -375,7 +375,7 @@ class FavoriteIntegratedContactStoreTest {
                 providerId = "telegram",
                 packageName = "org.telegram.messenger",
                 addressType = ProviderAddressType.USERNAME,
-                address = "@minktester",
+                address = "@mindytester",
                 displayName = "Duplicate",
             ),
         )

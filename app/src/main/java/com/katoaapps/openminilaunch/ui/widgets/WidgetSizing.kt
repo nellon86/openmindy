@@ -37,8 +37,8 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.window.Dialog
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.model.WidgetGridSize
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
 import com.katoaapps.openminilaunch.ui.theme.displayLabel
@@ -77,9 +77,9 @@ internal fun WidgetSizeDialog(
             ),
         )
     }
-    Dialog(onDismissRequest = onDismiss, properties = MinkDialogDefaults.properties) {
+    Dialog(onDismissRequest = onDismiss, properties = MindyDialogDefaults.properties) {
         Surface(
-            Modifier.minkDialogWidth().fillMaxHeight(.94f),
+            Modifier.mindyDialogWidth().fillMaxHeight(.94f),
             shape = RoundedCornerShape(Dimens.dp26),
             color = MaterialTheme.colorScheme.background,
         ) {

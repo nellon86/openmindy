@@ -8,12 +8,12 @@
     <string name="your_photo">صورتك</string>
     <string name="device_wallpaper">خلفية الجهاز</string>
     <string name="color_palette">Color palette</string>
-    <string name="palette_mink">Mink</string>
+    <string name="palette_mindy">Mindy</string>
     <string name="palette_system">System</string>
     <string name="palette_system_unavailable">System colors require Android 12 or newer.</string>
     <string name="home_themes">سمات الشاشة الرئيسية</string>
     <string name="home_themes_description">اختر سمة كاملة، أو غيّر مصدر خلفيتها أعلاه.</string>
-    <string name="mink_theme">سمة Mink</string>
+    <string name="mindy_theme">سمة Mindy</string>
     <string name="theme_number">السمة %1$d</string>
     <string name="custom_theme">سمة مخصصة</string>
     <string name="custom_theme_description">اضبط ألوان الخلفية واللوحة من دون تغيير خلفية الشاشة.</string>

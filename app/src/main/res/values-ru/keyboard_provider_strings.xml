@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="mink_keyboard">Клавиатура Mink</string>
-    <string name="mink_keyboard_description">Используйте встроенную клавиатуру Mink в Magic Box вместо системной клавиатуры.</string>
+    <string name="mindy_keyboard">Клавиатура Mindy</string>
+    <string name="mindy_keyboard_description">Используйте встроенную клавиатуру Mindy в Magic Box вместо системной клавиатуры.</string>
 </resources>

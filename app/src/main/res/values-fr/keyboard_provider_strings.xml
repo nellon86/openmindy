@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="mink_keyboard">Clavier Mink</string>
-    <string name="mink_keyboard_description">Utilisez le clavier intégré de Mink dans Magic Box à la place du clavier système.</string>
+    <string name="mindy_keyboard">Clavier Mindy</string>
+    <string name="mindy_keyboard_description">Utilisez le clavier intégré de Mindy dans Magic Box à la place du clavier système.</string>
 </resources>

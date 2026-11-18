@@ -30,7 +30,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.text.font.FontWeight
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.theme.MinkWhite
+import com.katoaapps.openminilaunch.ui.theme.MindyWhite
 import com.katoaapps.openminilaunch.ui.theme.Rust
 import kotlin.math.roundToInt
 
@@ -121,7 +121,7 @@ internal fun AlphabetRail(
                 Box(Modifier.size(Dimens.dp48), contentAlignment = Alignment.Center) {
                     Text(
                         letters[selectedIndex].toString(),
-                        color = MinkWhite,
+                        color = MindyWhite,
                         fontSize = Dimens.sp22,
                         fontWeight = FontWeight.Black,
                     )

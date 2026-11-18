@@ -1,8 +1,8 @@
 <resources>
     <string name="home_spotlight_folders_title">Buat folder</string>
     <string name="home_spotlight_folders_description">Tekan lama aplikasi, lalu tambahkan aplikasi lain untuk mengubah petak menjadi folder.</string>
-    <string name="home_spotlight_minkspace_title">Mini App ada di sini</string>
-    <string name="home_spotlight_minkspace_description">Geser ke atas atau bawah di MinkSpace untuk berpindah Mini App. Ketuk app yang didukung untuk memperluas.</string>
+    <string name="home_spotlight_mindyspace_title">Mini App ada di sini</string>
+    <string name="home_spotlight_mindyspace_description">Geser ke atas atau bawah di MindySpace untuk berpindah Mini App. Ketuk app yang didukung untuk memperluas.</string>
     <string name="home_spotlight_magic_title">Mulai mengetik</string>
     <string name="home_spotlight_magic_description">Cari, kirim pesan, telepon, buat catatan, dan jalankan tindakan dengan teks biasa atau tombol pintas Magic Box.</string>
     <string name="home_spotlight_keyboard_title">Lebih dari keyboard</string>

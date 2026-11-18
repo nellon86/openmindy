@@ -27,7 +27,7 @@ import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.components.applyLargeDisplayOrientation
 import com.katoaapps.openminilaunch.ui.magic.MagicHardwareHotkeyHost
 import com.katoaapps.openminilaunch.ui.widgets.InteractiveAppWidgetHost
-import com.katoaapps.openminilaunch.ui.widgets.MINK_WIDGET_HOST_ID
+import com.katoaapps.openminilaunch.ui.widgets.MINDY_WIDGET_HOST_ID
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity(), MagicHardwareHotkeyHost {
     private lateinit var actions: DeviceActions
     private var magicHardwareHotkeyHandler: ((KeyEvent) -> Boolean)? = null
     internal val appWidgetHost by lazy {
-        InteractiveAppWidgetHost(this, MINK_WIDGET_HOST_ID)
+        InteractiveAppWidgetHost(this, MINDY_WIDGET_HOST_ID)
     }
 
     @SuppressLint("RestrictedApi")

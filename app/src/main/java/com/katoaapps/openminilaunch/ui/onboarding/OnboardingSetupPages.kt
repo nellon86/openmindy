@@ -126,7 +126,7 @@ internal fun OnboardingAssistantSetupPage(
         Text(stringResource(R.string.onboarding_assistant_setup_description), fontSize = Dimens.sp18)
         SetupStatusCard(
             icon = { Icon(Icons.Default.Assistant, null, tint = Rust) },
-            title = stringResource(R.string.mink_assistant),
+            title = stringResource(R.string.mindy_assistant),
             description = stringResource(
                 if (active) {
                     R.string.onboarding_assistant_active_description
@@ -153,12 +153,12 @@ internal fun OnboardingAssistantSetupPage(
         )
         if (active) {
             OutlinedButton(onClick = onChooseAssistant, modifier = Modifier.fillMaxWidth()) {
-                Text(stringResource(R.string.manage_mink_assistant))
+                Text(stringResource(R.string.manage_mindy_assistant))
             }
         } else {
             Button(onClick = onChooseAssistant, modifier = Modifier.fillMaxWidth()) {
                 Icon(Icons.Default.Assistant, null)
-                Text(stringResource(R.string.choose_mink_assistant), Modifier.padding(start = Dimens.dp8))
+                Text(stringResource(R.string.choose_mindy_assistant), Modifier.padding(start = Dimens.dp8))
             }
         }
     }

@@ -17,7 +17,7 @@ internal sealed interface SettingsPicker {
     data object WebApp : SettingsPicker
     data object MessagingApp : SettingsPicker
     data object CallingApp : SettingsPicker
-    data object MinkDayApps : SettingsPicker
+    data object MindyDayApps : SettingsPicker
 }
 
 internal data class AppListLoadState(

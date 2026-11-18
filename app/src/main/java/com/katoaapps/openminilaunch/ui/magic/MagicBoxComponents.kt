@@ -152,8 +152,8 @@ internal fun FileResultTile(file: FileSearchResult, repository: FileSearchReposi
                 Icon(fileResultIcon(file), null, Modifier.size(Dimens.dp34), tint = Rust)
             }
             if (fileResultGroup(file) == FileResultGroup.VIDEOS) {
-                Surface(shape = CircleShape, color = MinkBlack.copy(alpha = .62f)) {
-                    Icon(Icons.Default.PlayArrow, null, Modifier.padding(Dimens.dp5).size(Dimens.dp20), tint = MinkWhite)
+                Surface(shape = CircleShape, color = MindyBlack.copy(alpha = .62f)) {
+                    Icon(Icons.Default.PlayArrow, null, Modifier.padding(Dimens.dp5).size(Dimens.dp20), tint = MindyWhite)
                 }
             }
         }
@@ -250,7 +250,7 @@ internal fun MagicBoxLegend(activePrefix: Char?, enabled: Boolean = true, onSele
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(Dimens.dp7)) {
                     rowCommands.forEach { command ->
                         val active = activePrefix == command.key
-                        val activeContentColor = if (command.key == '-') LightInk else MinkWhite
+                        val activeContentColor = if (command.key == '-') LightInk else MindyWhite
                         Surface(
                             onClick = { if (enabled) onSelect(command.key) },
                             modifier = Modifier.weight(1f),

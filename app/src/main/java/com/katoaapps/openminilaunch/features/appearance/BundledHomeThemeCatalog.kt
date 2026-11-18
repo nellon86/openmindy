@@ -9,17 +9,17 @@ internal data class BundledHomeTheme(
 )
 
 internal object BundledHomeThemeCatalog {
-    const val MINK_THEME_ID = "mink-theme"
+    const val MINDY_THEME_ID = "mink-theme"
 
-    val minkTheme = BundledHomeTheme(
-        id = MINK_THEME_ID,
+    val mindyTheme = BundledHomeTheme(
+        id = MINDY_THEME_ID,
         wallpaper = null,
         backgroundColorArgb = 0xFF173529.toInt(),
         panelColorArgb = 0xFF602C00.toInt(),
     )
 
     val themes = listOf(
-        minkTheme,
+        mindyTheme,
         theme("mink-01", background = 0xFFF4EFE3, panel = 0xFFB7D530),
         theme("mink-02", background = 0xFF111A20, panel = 0xFF9B6B35),
         theme("mink-03", background = 0xFFE9E5DE, panel = 0xFF7A5137),

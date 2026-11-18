@@ -30,8 +30,8 @@ import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.model.LauncherTarget
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.components.LauncherTargetIcon
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
 
@@ -47,9 +47,9 @@ internal fun QuickAppReplacementDialog(
     val currentTargets = remember(currentSelectionKeys) {
         currentSelectionKeys.map(actions::resolveLauncherSelection)
     }
-    Dialog(onDismissRequest = onDismiss, properties = MinkDialogDefaults.properties) {
+    Dialog(onDismissRequest = onDismiss, properties = MindyDialogDefaults.properties) {
         Surface(
-            modifier = Modifier.minkDialogWidth().fillMaxHeight(.9f),
+            modifier = Modifier.mindyDialogWidth().fillMaxHeight(.9f),
             shape = RoundedCornerShape(Dimens.dp24),
             color = MaterialTheme.colorScheme.background,
         ) {

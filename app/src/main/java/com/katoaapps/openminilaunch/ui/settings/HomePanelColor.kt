@@ -2,12 +2,12 @@ package com.katoaapps.openminilaunch.ui.settings
 
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.model.MAX_HOME_PANEL_TRANSPARENCY
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.theme.MinkBlack
-import com.katoaapps.openminilaunch.ui.theme.MinkTransparent
-import com.katoaapps.openminilaunch.ui.theme.MinkWhite
+import com.katoaapps.openminilaunch.ui.theme.MindyBlack
+import com.katoaapps.openminilaunch.ui.theme.MindyTransparent
+import com.katoaapps.openminilaunch.ui.theme.MindyWhite
 import com.katoaapps.openminilaunch.ui.theme.Muted
 import com.katoaapps.openminilaunch.ui.theme.readableContentColor
 
@@ -283,10 +283,10 @@ internal fun AppearanceColorDialog(
 
     Dialog(
         onDismissRequest = onDismiss,
-        properties = MinkDialogDefaults.properties,
+        properties = MindyDialogDefaults.properties,
     ) {
         Surface(
-            modifier = Modifier.minkDialogWidth().heightIn(max = Dimens.dp620),
+            modifier = Modifier.mindyDialogWidth().heightIn(max = Dimens.dp620),
             shape = RoundedCornerShape(Dimens.dp28),
             color = MaterialTheme.colorScheme.background,
         ) {
@@ -386,9 +386,9 @@ private fun SaturationBrightnessField(
     val innerMarkerRadius = Dimens.dp9
     val outerMarkerStroke = Dimens.dp1
     val innerMarkerStroke = Dimens.dp3
-    val white = MinkWhite
-    val black = MinkBlack
-    val transparent = MinkTransparent
+    val white = MindyWhite
+    val black = MindyBlack
+    val transparent = MindyTransparent
 
     fun update(position: Offset) {
         if (fieldSize.width <= 0 || fieldSize.height <= 0) return
@@ -428,8 +428,8 @@ private fun HueStrip(hue: Float, onChange: (Float) -> Unit) {
     val innerMarkerRadius = Dimens.dp8
     val outerMarkerStroke = Dimens.dp1
     val innerMarkerStroke = Dimens.dp3
-    val white = MinkWhite
-    val black = MinkBlack
+    val white = MindyWhite
+    val black = MindyBlack
     val hueColors = remember {
         (0..6).map { step -> Color(android.graphics.Color.HSVToColor(floatArrayOf(step * 60f, 1f, 1f))) }
     }

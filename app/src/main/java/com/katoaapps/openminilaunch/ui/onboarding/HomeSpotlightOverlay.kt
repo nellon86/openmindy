@@ -265,7 +265,7 @@ private fun BoxScope.GestureDirectionCues() {
         vertical = true,
     )
     DirectionCue(
-        label = stringResource(R.string.mink_day),
+        label = stringResource(R.string.mindy_day),
         icon = { Icon(Icons.Default.SwipeRight, null) },
         modifier = Modifier.align(Alignment.CenterEnd).padding(end = Dimens.dp8),
         vertical = true,

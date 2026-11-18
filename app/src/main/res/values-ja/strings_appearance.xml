@@ -8,12 +8,12 @@
     <string name="your_photo">あなたの写真</string>
     <string name="device_wallpaper">デバイスの壁紙</string>
     <string name="color_palette">Color palette</string>
-    <string name="palette_mink">Mink</string>
+    <string name="palette_mindy">Mindy</string>
     <string name="palette_system">System</string>
     <string name="palette_system_unavailable">System colors require Android 12 or newer.</string>
     <string name="home_themes">ホームテーマ</string>
     <string name="home_themes_description">完全なテーマを選択するか、上で壁紙の提供元を変更します。</string>
-    <string name="mink_theme">Mink テーマ</string>
+    <string name="mindy_theme">Mindy テーマ</string>
     <string name="theme_number">テーマ %1$d</string>
     <string name="custom_theme">カスタムテーマ</string>
     <string name="custom_theme_description">壁紙を変えずに背景とパネルの色を調整します。</string>

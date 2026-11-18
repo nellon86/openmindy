@@ -8,7 +8,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 
 /** Keeps dialogs roomy on phones without allowing them to become unwieldy on larger displays. */
-internal object MinkDialogDefaults {
+internal object MindyDialogDefaults {
     const val WidthFraction = 0.90f
 
     val properties: DialogProperties
@@ -16,5 +16,5 @@ internal object MinkDialogDefaults {
 }
 
 @Composable
-internal fun Modifier.minkDialogWidth(): Modifier =
-    fillMaxWidth(MinkDialogDefaults.WidthFraction).widthIn(max = Dimens.dp560)
+internal fun Modifier.mindyDialogWidth(): Modifier =
+    fillMaxWidth(MindyDialogDefaults.WidthFraction).widthIn(max = Dimens.dp560)

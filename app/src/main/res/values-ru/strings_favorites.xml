@@ -8,7 +8,7 @@
     <string name="message">Сообщение</string>
     <string name="call">Позвонить</string>
     <string name="open_contact">Открыть в Контактах</string>
-    <string name="change_favorite_in_contacts">Добавьте или удалите этого человека из избранного в Контактах Android. Mink не хранит отдельный список избранного.</string>
+    <string name="change_favorite_in_contacts">Добавьте или удалите этого человека из избранного в Контактах Android. Mindy не хранит отдельный список избранного.</string>
     <string name="choose_phone_number">Выберите номер телефона</string>
     <string name="preferred_number">Предпочитаемый номер</string>
     <string name="ask_every_time">Спрашивать каждый раз</string>

@@ -11,15 +11,15 @@ import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.res.colorResource
 
 private val ReadableDarkValue = Color(0xFF172019)
-private val MinkWhiteValue = Color(0xFFFAF9F6)
+private val MindyWhiteValue = Color(0xFFFAF9F6)
 
 internal val LightInk: Color @Composable get() = colorResource(R.color.light_ink)
 internal val LightPaper: Color @Composable get() = colorResource(R.color.light_paper)
 internal val Sage: Color @Composable get() = colorResource(R.color.sage)
 internal val Rust: Color @Composable get() = colorResource(R.color.rust)
-internal val MinkBrown: Color @Composable get() = colorResource(R.color.mink_brown)
-internal val MinkForest: Color @Composable get() = colorResource(R.color.mink_forest)
-internal val MinkForestPanel: Color @Composable get() = colorResource(R.color.mink_forest_panel)
+internal val MindyBrown: Color @Composable get() = colorResource(R.color.mindy_brown)
+internal val MindyForest: Color @Composable get() = colorResource(R.color.mindy_forest)
+internal val MindyForestPanel: Color @Composable get() = colorResource(R.color.mindy_forest_panel)
 internal val LocalMutedColor = compositionLocalOf<Color?> { null }
 internal val Muted: Color
     @Composable get() = LocalMutedColor.current ?: MaterialTheme.colorScheme.onSurface.copy(alpha = .68f)
@@ -30,16 +30,16 @@ internal val DarkSurface: Color @Composable get() = colorResource(R.color.dark_s
 internal val DarkSurfaceContainerLow: Color @Composable get() = colorResource(R.color.dark_surface_container_low)
 internal val DarkOnSurface: Color @Composable get() = colorResource(R.color.dark_on_surface)
 internal val ReadableDark: Color @Composable get() = colorResource(R.color.readable_dark)
-internal val MagicTextColor = MinkFeatureColors.MagicText
-internal val MagicCallColor = MinkFeatureColors.MagicCall
-internal val MagicTodoColor = MinkFeatureColors.MagicTodo
-internal val MagicNoteColor = MinkFeatureColors.MagicNote
-internal val MagicEventColor = MinkFeatureColors.MagicEvent
-internal val MagicAppColor = MinkFeatureColors.MagicApp
-internal val AppBlockedRed = MinkFeatureColors.AppBlocked
-internal val MinkWhite: Color @Composable get() = colorResource(R.color.mink_white)
-internal val MinkBlack: Color @Composable get() = colorResource(R.color.mink_black)
-internal val MinkTransparent: Color @Composable get() = colorResource(R.color.transparent)
+internal val MagicTextColor = MindyFeatureColors.MagicText
+internal val MagicCallColor = MindyFeatureColors.MagicCall
+internal val MagicTodoColor = MindyFeatureColors.MagicTodo
+internal val MagicNoteColor = MindyFeatureColors.MagicNote
+internal val MagicEventColor = MindyFeatureColors.MagicEvent
+internal val MagicAppColor = MindyFeatureColors.MagicApp
+internal val AppBlockedRed = MindyFeatureColors.AppBlocked
+internal val MindyWhite: Color @Composable get() = colorResource(R.color.mindy_white)
+internal val MindyBlack: Color @Composable get() = colorResource(R.color.mindy_black)
+internal val MindyTransparent: Color @Composable get() = colorResource(R.color.transparent)
 
 internal fun contrastRatio(first: Color, second: Color): Float {
     val lighter = maxOf(first.luminance(), second.luminance())
@@ -49,11 +49,11 @@ internal fun contrastRatio(first: Color, second: Color): Float {
 
 /** True when dark foreground content is more legible than light content on [background]. */
 internal fun shouldUseDarkForeground(background: Color): Boolean =
-    contrastRatio(background, ReadableDarkValue) >= contrastRatio(background, MinkWhiteValue)
+    contrastRatio(background, ReadableDarkValue) >= contrastRatio(background, MindyWhiteValue)
 
-/** Picks the higher-contrast member of Mink's standard light/dark content pair. */
+/** Picks the higher-contrast member of Mindy's standard light/dark content pair. */
 internal fun readableContentColor(background: Color): Color =
-    if (shouldUseDarkForeground(background)) ReadableDarkValue else MinkWhiteValue
+    if (shouldUseDarkForeground(background)) ReadableDarkValue else MindyWhiteValue
 
 /** Keeps an intentional palette color when legible and falls back only when contrast is unsafe. */
 internal fun ensureReadableContentColor(
@@ -99,7 +99,7 @@ internal fun ColorScheme.withAppBackground(customArgb: Int?): ColorScheme {
     val background = customArgb?.let(::Color) ?: return this
     val content = readableContentColor(background)
     val darkBackground = !shouldUseDarkForeground(background)
-    val surfaceTarget = if (darkBackground) MinkWhiteValue else Color.Black
+    val surfaceTarget = if (darkBackground) MindyWhiteValue else Color.Black
     fun surfaceTone(fraction: Float) = blendColor(background, surfaceTarget, fraction)
     fun visibleAccent(preferred: Color) = ensureReadableContentColor(
         background = background,

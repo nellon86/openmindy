@@ -50,7 +50,7 @@ import com.katoaapps.openminilaunch.features.appearance.BundledHomeThemeCatalog
 import com.katoaapps.openminilaunch.features.appearance.BundledWallpaper
 import com.katoaapps.openminilaunch.features.appearance.HomeWallpaperRepository
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.theme.MinkWhite
+import com.katoaapps.openminilaunch.ui.theme.MindyWhite
 import com.katoaapps.openminilaunch.ui.theme.Muted
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -104,7 +104,7 @@ private fun HomeThemeTile(
     onClick: () -> Unit,
 ) {
     val label = entry.number?.let { stringResource(R.string.theme_number, it) }
-        ?: stringResource(R.string.mink_theme)
+        ?: stringResource(R.string.mindy_theme)
     Column(
         modifier = Modifier.width(width),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -170,13 +170,13 @@ private fun ThemeSelectionBadge(applying: Boolean, modifier: Modifier = Modifier
                 CircularProgressIndicator(
                     modifier = Modifier.size(Dimens.dp16),
                     strokeWidth = Dimens.dp2,
-                    color = MinkWhite,
+                    color = MindyWhite,
                 )
             } else {
                 Icon(
                     Icons.Default.Check,
                     stringResource(R.string.selected_label),
-                    tint = MinkWhite,
+                    tint = MindyWhite,
                     modifier = Modifier.size(Dimens.dp17),
                 )
             }
@@ -226,6 +226,6 @@ private fun BundledWallpaperThumbnail(wallpaper: BundledWallpaper) {
 
 private data class HomeThemeEntry(
     val theme: BundledHomeTheme,
-    /** Null identifies the named Mink Theme; numbered themes begin at one. */
+    /** Null identifies the named Mindy Theme; numbered themes begin at one. */
     val number: Int?,
 )

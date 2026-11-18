@@ -61,7 +61,7 @@ import com.katoaapps.openminilaunch.model.FavoriteIntegratedContact
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.components.moveItem
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.theme.MinkFeatureColors
+import com.katoaapps.openminilaunch.ui.theme.MindyFeatureColors
 import com.katoaapps.openminilaunch.ui.theme.Muted
 import com.katoaapps.openminilaunch.ui.theme.Rust
 import sh.calvin.reorderable.ReorderableItem
@@ -293,7 +293,7 @@ private fun FavoriteContactGridCard(
     val shape = RoundedCornerShape(Dimens.dp18)
     val customAttentionColor = attentionColorArgb
         ?.let(::Color)
-        ?.takeUnless { it == MinkFeatureColors.ConversationAttention }
+        ?.takeUnless { it == MindyFeatureColors.ConversationAttention }
     Card(
         modifier = modifier
             .then(

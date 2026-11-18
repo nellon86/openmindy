@@ -1,8 +1,8 @@
 <resources>
     <string name="home_spotlight_folders_title">إنشاء مجلد</string>
     <string name="home_spotlight_folders_description">اضغط مطولاً على أي تطبيق، ثم أضف تطبيقاً آخر لتحويل المربع إلى مجلد.</string>
-    <string name="home_spotlight_minkspace_title">التطبيقات المصغّرة هنا</string>
-    <string name="home_spotlight_minkspace_description">اسحب لأعلى أو لأسفل داخل MinkSpace للتنقل بين التطبيقات المصغّرة. اضغط على التطبيقات المدعومة لتوسيعها.</string>
+    <string name="home_spotlight_mindyspace_title">التطبيقات المصغّرة هنا</string>
+    <string name="home_spotlight_mindyspace_description">اسحب لأعلى أو لأسفل داخل MindySpace للتنقل بين التطبيقات المصغّرة. اضغط على التطبيقات المدعومة لتوسيعها.</string>
     <string name="home_spotlight_magic_title">ابدأ الكتابة</string>
     <string name="home_spotlight_magic_description">ابحث وأرسل الرسائل واتصل وأنشئ الملاحظات وشغّل الإجراءات بالنص العادي أو مفاتيح Magic Box السريعة.</string>
     <string name="home_spotlight_keyboard_title">أكثر من لوحة مفاتيح</string>

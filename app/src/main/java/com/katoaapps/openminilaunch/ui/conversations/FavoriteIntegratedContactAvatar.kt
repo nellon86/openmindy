@@ -6,7 +6,7 @@ import com.katoaapps.openminilaunch.model.FavoriteIntegratedContact
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.components.DrawableIcon
 
-/** Uses the provider's live conversation artwork without copying it into Mink-owned storage. */
+/** Uses the provider's live conversation artwork without copying it into Mindy-owned storage. */
 @Composable
 internal fun FavoriteIntegratedContactAvatar(
     contact: FavoriteIntegratedContact,

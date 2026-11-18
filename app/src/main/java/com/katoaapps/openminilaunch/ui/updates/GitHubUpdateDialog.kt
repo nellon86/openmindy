@@ -1,11 +1,11 @@
 package com.katoaapps.openminilaunch.ui.updates
 
 import com.katoaapps.openminilaunch.R
-import com.katoaapps.openminilaunch.features.wellbeing.MinkState
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.features.wellbeing.MindyState
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
-import com.katoaapps.openminilaunch.ui.wellbeing.MinkSprite
+import com.katoaapps.openminilaunch.ui.wellbeing.MindySprite
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.rememberScrollState
@@ -33,10 +33,10 @@ internal fun GitHubUpdateDialog(
 ) {
     Dialog(
         onDismissRequest = onDismiss,
-        properties = MinkDialogDefaults.properties,
+        properties = MindyDialogDefaults.properties,
     ) {
         Surface(
-            modifier = Modifier.minkDialogWidth(),
+            modifier = Modifier.mindyDialogWidth(),
             shape = RoundedCornerShape(Dimens.dp28),
             color = MaterialTheme.colorScheme.background,
             tonalElevation = Dimens.dp8,
@@ -52,7 +52,7 @@ internal fun GitHubUpdateDialog(
                         .background(MaterialTheme.colorScheme.secondaryContainer),
                     contentAlignment = Alignment.Center,
                 ) {
-                    MinkSprite(MinkState.PURPOSEFUL, Modifier.size(Dimens.dp116))
+                    MindySprite(MindyState.PURPOSEFUL, Modifier.size(Dimens.dp116))
                 }
                 Text(
                     stringResource(R.string.github_update_dialog_title),

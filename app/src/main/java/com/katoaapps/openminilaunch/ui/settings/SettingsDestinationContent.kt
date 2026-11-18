@@ -74,7 +74,7 @@ internal fun SettingsDestinationContent(
             store = store,
             goBack = onNavigateBack,
         )
-        SettingsDestination.MINK_SPACE -> MinkSpaceSettingsPage(
+        SettingsDestination.MINDY_SPACE -> MindySpaceSettingsPage(
             store = store,
             actions = actions,
             openTodos = onOpenTodos,
@@ -111,7 +111,7 @@ internal fun SettingsDestinationContent(
             store = store,
             goBack = onNavigateBack,
         )
-        SettingsDestination.MINK_ASSISTANT -> MinkAssistantSettingsPage(
+        SettingsDestination.MINDY_ASSISTANT -> MindyAssistantSettingsPage(
             assistantRoleHeld = permissionState.assistantRoleHeld,
             showAssistantDisclosure = permissionActions.showAssistantSetup,
             onOpenQuickApps = onPickDrawer,
@@ -137,7 +137,7 @@ internal fun SettingsDestinationContent(
             onRemoveFolder = onRemoveFolder,
             goBack = onNavigateBack,
         )
-        SettingsDestination.MINK_DAY -> MinkDaySettingsPage(
+        SettingsDestination.MINDY_DAY -> MindyDaySettingsPage(
             store = store,
             usageAccessGranted = permissionState.usageAccessGranted,
             onPickSocialApps = onPickSocialApps,

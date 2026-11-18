@@ -27,8 +27,8 @@ import androidx.compose.ui.window.Dialog
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.model.AndroidContactPhone
 import com.katoaapps.openminilaunch.model.FavoriteAndroidContact
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
 
@@ -40,9 +40,9 @@ internal fun FavoritePhonePickerDialog(
     onPhone: (AndroidContactPhone) -> Unit,
     onDismiss: () -> Unit,
 ) {
-    Dialog(onDismissRequest = onDismiss, properties = MinkDialogDefaults.properties) {
+    Dialog(onDismissRequest = onDismiss, properties = MindyDialogDefaults.properties) {
         Surface(
-            modifier = Modifier.minkDialogWidth().fillMaxHeight(.82f),
+            modifier = Modifier.mindyDialogWidth().fillMaxHeight(.82f),
             shape = RoundedCornerShape(Dimens.dp24),
             color = MaterialTheme.colorScheme.background,
         ) {

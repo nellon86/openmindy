@@ -1,13 +1,13 @@
 package com.katoaapps.openminilaunch.model
 
 enum class IconSource {
-    MINK,
+    MINDY,
     SYSTEM,
     ICON_PACK,
 }
 
 data class IconAppearance(
-    val source: IconSource = IconSource.MINK,
+    val source: IconSource = IconSource.MINDY,
     val iconPackPackage: String? = null,
-    val minkIconColorArgb: Int? = null,
+    val mindyIconColorArgb: Int? = null,
 )

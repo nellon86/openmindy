@@ -148,28 +148,28 @@ class UsageInsightsTest {
 
     @Test
     fun stateIsDrivenOnlyByTrackedSocialBehavior() {
-        assertEquals(MinkState.PURPOSEFUL, chooseMinkState(14, 0, 60, 0, 0))
-        assertEquals(MinkState.PHONE, chooseMinkState(14, 60 * MINUTE, 60, 0, 0))
-        assertEquals(MinkState.DISTRACTED, chooseMinkState(14, 5 * MINUTE, 60, 8, 0))
-        assertEquals(MinkState.RESTING, chooseMinkState(14, 20 * MINUTE, 60, 2, 30 * MINUTE))
-        assertEquals(MinkState.WALKING, chooseMinkState(14, 5 * MINUTE, 60, 2, 5 * MINUTE))
+        assertEquals(MindyState.PURPOSEFUL, chooseMindyState(14, 0, 60, 0, 0))
+        assertEquals(MindyState.PHONE, chooseMindyState(14, 60 * MINUTE, 60, 0, 0))
+        assertEquals(MindyState.DISTRACTED, chooseMindyState(14, 5 * MINUTE, 60, 8, 0))
+        assertEquals(MindyState.RESTING, chooseMindyState(14, 20 * MINUTE, 60, 2, 30 * MINUTE))
+        assertEquals(MindyState.WALKING, chooseMindyState(14, 5 * MINUTE, 60, 2, 5 * MINUTE))
     }
 
     @Test
     fun attentionIsReservedForActionableOrFailedInsights() {
-        assertTrue(summary(MinkState.PHONE).needsAttention())
-        assertTrue(summary(MinkState.DISTRACTED).needsAttention())
-        assertTrue(summary(MinkState.RESTING).needsAttention())
-        assertFalse(summary(MinkState.PURPOSEFUL).needsAttention())
-        assertFalse(summary(MinkState.WALKING, accessGranted = false).needsAttention())
-        assertTrue(summary(MinkState.WALKING, errorMessage = "Unavailable").needsAttention())
+        assertTrue(summary(MindyState.PHONE).needsAttention())
+        assertTrue(summary(MindyState.DISTRACTED).needsAttention())
+        assertTrue(summary(MindyState.RESTING).needsAttention())
+        assertFalse(summary(MindyState.PURPOSEFUL).needsAttention())
+        assertFalse(summary(MindyState.WALKING, accessGranted = false).needsAttention())
+        assertTrue(summary(MindyState.WALKING, errorMessage = "Unavailable").needsAttention())
     }
 
     private fun summary(
-        state: MinkState,
+        state: MindyState,
         accessGranted: Boolean = true,
         errorMessage: String? = null,
-    ) = MinkDaySummary(
+    ) = MindyDaySummary(
         accessGranted = accessGranted,
         state = state,
         headline = "Headline",

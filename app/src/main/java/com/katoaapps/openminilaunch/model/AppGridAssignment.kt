@@ -71,7 +71,7 @@ internal fun AppGridAssignment.targetKeyOrNull(): String? =
 /**
  * Best-effort representation for builds that predate folders.
  *
- * Older OpenMink versions only understand one target per App Grid slot, so a
+ * Older OpenMindy versions only understand one target per App Grid slot, so a
  * folder is represented by its first item instead of disappearing entirely.
  */
 internal fun AppGridAssignment.legacyTargetKey(

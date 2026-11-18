@@ -35,7 +35,7 @@ internal class MagicBoxSessionState private constructor(
     val expanded: Boolean
         get() = expandedState.value
 
-    /** Starts a message draft with the person already selected by another Mink surface. */
+    /** Starts a message draft with the person already selected by another Mindy surface. */
     fun prepareMessage(
         recipient: CommunicationRecipient,
         providerPackage: String?,

@@ -1,8 +1,8 @@
 <resources>
     <string name="home_spotlight_folders_title">创建文件夹</string>
     <string name="home_spotlight_folders_description">长按任意应用，再添加另一个应用，即可将图块变成文件夹。</string>
-    <string name="home_spotlight_minkspace_title">迷你应用在这里</string>
-    <string name="home_spotlight_minkspace_description">在 MinkSpace 中上下滑动以切换迷你应用。点按支持的应用可展开。</string>
+    <string name="home_spotlight_mindyspace_title">迷你应用在这里</string>
+    <string name="home_spotlight_mindyspace_description">在 MindySpace 中上下滑动以切换迷你应用。点按支持的应用可展开。</string>
     <string name="home_spotlight_magic_title">开始输入</string>
     <string name="home_spotlight_magic_description">使用普通文字或 Magic Box 热键进行搜索、发消息、通话、记笔记和启动操作。</string>
     <string name="home_spotlight_keyboard_title">不只是键盘</string>

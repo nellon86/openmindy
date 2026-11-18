@@ -44,8 +44,8 @@ import com.katoaapps.openminilaunch.features.ai.AiHandoffMode
 import com.katoaapps.openminilaunch.features.ai.AiProviderOption
 import com.katoaapps.openminilaunch.features.ai.matchesSelectedPackage
 import com.katoaapps.openminilaunch.ui.components.AppIcon
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
 
@@ -66,9 +66,9 @@ internal fun AiProviderPickerDialog(
     val visibleOptions = remember(options, showUnavailable) {
         options.filter { showUnavailable || it.installed }
     }
-    Dialog(onDismissRequest = onDismiss, properties = MinkDialogDefaults.properties) {
+    Dialog(onDismissRequest = onDismiss, properties = MindyDialogDefaults.properties) {
         Surface(
-            modifier = Modifier.minkDialogWidth().fillMaxHeight(.96f),
+            modifier = Modifier.mindyDialogWidth().fillMaxHeight(.96f),
             shape = RoundedCornerShape(Dimens.dp24),
             color = MaterialTheme.colorScheme.background,
         ) {

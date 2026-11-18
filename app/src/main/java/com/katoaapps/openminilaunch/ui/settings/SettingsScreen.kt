@@ -286,7 +286,7 @@ internal fun SettingsScreen(
                 onPickAi = { picker = SettingsPicker.CuratedAiApp },
                 onPickMessagingApp = { picker = SettingsPicker.MessagingApp },
                 onPickCallingApp = { picker = SettingsPicker.CallingApp },
-                onPickSocialApps = { picker = SettingsPicker.MinkDayApps },
+                onPickSocialApps = { picker = SettingsPicker.MindyDayApps },
                 onAddFolder = { folderPicker.launch(null) },
                 onRemoveFolder = { folder ->
                     runCatching {

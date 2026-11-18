@@ -46,8 +46,8 @@ import com.katoaapps.openminilaunch.ui.launcher.layout.LauncherHomePager
 import com.katoaapps.openminilaunch.ui.launcher.layout.WIDGET_PAGE
 import com.katoaapps.openminilaunch.ui.magic.rememberMagicBoxSessionState
 import com.katoaapps.openminilaunch.ui.magic.AssistantActivity
-import com.katoaapps.openminilaunch.ui.minkspace.core.rememberMinkSpacePresentationState
-import com.katoaapps.openminilaunch.ui.minkspace.todo.TodosScreen
+import com.katoaapps.openminilaunch.ui.mindyspace.core.rememberMindySpacePresentationState
+import com.katoaapps.openminilaunch.ui.mindyspace.todo.TodosScreen
 import com.katoaapps.openminilaunch.ui.onboarding.HomeFeatureTour
 import com.katoaapps.openminilaunch.ui.onboarding.LocalHomeTourTargetRegistry
 import com.katoaapps.openminilaunch.ui.onboarding.OnboardingScreen
@@ -56,8 +56,8 @@ import com.katoaapps.openminilaunch.ui.onboarding.rememberHomeTourTargetRegistry
 import com.katoaapps.openminilaunch.ui.settings.SettingsDestination
 import com.katoaapps.openminilaunch.ui.settings.SettingsScreen
 import com.katoaapps.openminilaunch.ui.theme.FontAppearanceTheme
-import com.katoaapps.openminilaunch.ui.theme.MinkLauncherTheme
-import com.katoaapps.openminilaunch.ui.theme.MinkTransparent
+import com.katoaapps.openminilaunch.ui.theme.MindyLauncherTheme
+import com.katoaapps.openminilaunch.ui.theme.MindyTransparent
 import com.katoaapps.openminilaunch.ui.theme.shouldUseDarkForeground
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
@@ -87,7 +87,7 @@ internal fun MiniLaunchApp(
     var tutorialRun by rememberSaveable { mutableIntStateOf(0) }
     val homeMagicBoxSessionState = rememberMagicBoxSessionState()
     val homeTourTargetRegistry = rememberHomeTourTargetRegistry()
-    val minkSpacePresentation = rememberMinkSpacePresentationState()
+    val mindySpacePresentation = rememberMindySpacePresentationState()
     var animateHomeEntrance by remember { mutableStateOf(false) }
     var focusedLauncherPage by rememberSaveable { mutableIntStateOf(HOME_PAGE) }
     var twoPanelActive by remember { mutableStateOf(false) }
@@ -125,10 +125,10 @@ internal fun MiniLaunchApp(
     val context = LocalContext.current
     val view = LocalView.current
 
-    val transparent = MinkTransparent
+    val transparent = MindyTransparent
     val hideHomeStatusBar = store.hideStatusBar && screen == Screen.HOME && !showTutorial
 
-    MinkLauncherTheme(store) {
+    MindyLauncherTheme(store) {
         val homeVisible = screen == Screen.HOME && !showTutorial
         val statusBarBackground = if (homeVisible) {
             launcherBackgroundColor(store, header = true)
@@ -170,7 +170,7 @@ internal fun MiniLaunchApp(
         val revealSystemWallpaper = !showTutorial && screen == Screen.HOME && store.useSystemHomeWallpaper
         Surface(
             Modifier.fillMaxSize(),
-            color = if (revealSystemWallpaper) MinkTransparent else MaterialTheme.colorScheme.background,
+            color = if (revealSystemWallpaper) MindyTransparent else MaterialTheme.colorScheme.background,
         ) {
             if (showTutorial) {
                 key(tutorialRun) {
@@ -215,7 +215,7 @@ internal fun MiniLaunchApp(
                                             !showHomeFeatureTour,
                                     homeRequestToken = homeRequestToken,
                                     magicBoxSessionState = homeMagicBoxSessionState,
-                                    minkSpacePresentation = minkSpacePresentation,
+                                    mindySpacePresentation = mindySpacePresentation,
                                     openSettings = { destination ->
                                         settingsDestination = destination
                                         screen = Screen.SETTINGS
@@ -282,7 +282,7 @@ internal fun MiniLaunchApp(
                             store = store,
                             actions = actions,
                             onComposeMessage = { recipient, route ->
-                                minkSpacePresentation.collapse()
+                                mindySpacePresentation.collapse()
                                 val providerPackage = (route as? ContactAppRoute.Package)?.packageName
                                 homeMagicBoxSessionState.prepareMessage(
                                     recipient = recipient,
@@ -294,7 +294,7 @@ internal fun MiniLaunchApp(
                                 screen = Screen.HOME
                             },
                             onComposeConversationMessage = { conversation ->
-                                minkSpacePresentation.collapse()
+                                mindySpacePresentation.collapse()
                                 homeMagicBoxSessionState.prepareConversationMessage(conversation)
                                 focusedLauncherPage = HOME_PAGE
                                 homePageRequestToken++

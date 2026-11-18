@@ -8,7 +8,7 @@
     <string name="message">Message</string>
     <string name="call">Call</string>
     <string name="open_contact">Open in Contacts</string>
-    <string name="change_favorite_in_contacts">Star or unstar this person in Android Contacts. Mink does not keep a separate favourites list.</string>
+    <string name="change_favorite_in_contacts">Star or unstar this person in Android Contacts. Mindy does not keep a separate favourites list.</string>
     <string name="choose_phone_number">Choose a phone number</string>
     <string name="preferred_number">Preferred number</string>
     <string name="ask_every_time">Ask every time</string>

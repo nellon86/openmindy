@@ -156,7 +156,7 @@ internal class LauncherShortcutRepository private constructor(context: Context) 
         }.getOrDefault(false)
     }
 
-    /** Keeps app-published dynamic shortcuts alive while they occupy a Mink slot. */
+    /** Keeps app-published dynamic shortcuts alive while they occupy a Mindy slot. */
     fun syncPinnedSelections(selectionKeys: Collection<String>) {
         val service = launcherApps ?: return
         if (!hasHostPermission()) return

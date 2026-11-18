@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Generate Android launcher icon assets from the checked-in Mink source artwork."""
+"""Generate Android launcher icon assets from the checked-in Mindy source artwork."""
 
 from pathlib import Path
 from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "artwork" / "mink-launcher-logo-source.png"
+SOURCE = ROOT / "artwork" / "mindy-launcher-logo-source.png"
 RES = ROOT / "app" / "src" / "main" / "res"
 
 DENSITIES = {
@@ -87,7 +87,7 @@ def main() -> None:
     background = tuple(round(sum(pixel[channel] for pixel in corners) / len(corners)) for channel in range(3))
     mark = isolated_mark(source)
 
-    save(legacy_icon(mark, 512, background, False), ROOT / "artwork" / "mink-launcher-play-store-512.png")
+    save(legacy_icon(mark, 512, background, False), ROOT / "artwork" / "mindy-launcher-play-store-512.png")
 
     for density, scale in DENSITIES.items():
         legacy_size = round(48 * scale)

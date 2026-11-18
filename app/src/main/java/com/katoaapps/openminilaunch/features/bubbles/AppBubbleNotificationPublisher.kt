@@ -91,9 +91,9 @@ internal class AppBubbleNotificationPublisher(context: Context) {
             .setKey(target.selectionKey)
             .setIcon(bubbleIcon)
             .build()
-        val minkPerson = Person.Builder()
+        val mindyPerson = Person.Builder()
             .setName(appContext.getString(R.string.app_name))
-            .setKey(MINK_PERSON_KEY)
+            .setKey(MINDY_PERSON_KEY)
             .build()
         val bubble = Notification.BubbleMetadata.Builder(bubbleIntent, bubbleIcon)
             .setDesiredHeight(
@@ -120,7 +120,7 @@ internal class AppBubbleNotificationPublisher(context: Context) {
             .setContentIntent(bubbleIntent)
             .setBubbleMetadata(bubble)
             .setStyle(
-                Notification.MessagingStyle(minkPerson)
+                Notification.MessagingStyle(mindyPerson)
                     .setConversationTitle(target.label)
                     .addMessage(notificationText, System.currentTimeMillis(), appPerson),
             )
@@ -199,8 +199,8 @@ internal class AppBubbleNotificationPublisher(context: Context) {
         const val MIN_EXPANDED_BUBBLE_HEIGHT_DP = 720
         const val SHORT_LABEL_LENGTH = 40
         const val LONG_LABEL_LENGTH = 80
-        const val MINK_PERSON_KEY = "mink-app-bubbles"
+        const val MINDY_PERSON_KEY = "mink-app-bubbles"
     }
 }
 
-internal const val APP_BUBBLE_LOG_TAG = "MinkAppBubbles"
+internal const val APP_BUBBLE_LOG_TAG = "MindyAppBubbles"

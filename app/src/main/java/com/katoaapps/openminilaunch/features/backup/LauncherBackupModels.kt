@@ -1,8 +1,8 @@
 package com.katoaapps.openminilaunch.features.backup
 
-import com.katoaapps.openminilaunch.features.minkspace.MinkSpaceMiniApp
+import com.katoaapps.openminilaunch.features.mindyspace.MindySpaceMiniApp
 import com.katoaapps.openminilaunch.features.contacts.AndroidFavoriteAttentionTransfer
-import com.katoaapps.openminilaunch.features.minkspace.todo.TodoItem
+import com.katoaapps.openminilaunch.features.mindyspace.todo.TodoItem
 import com.katoaapps.openminilaunch.model.AppFolderConfig
 import com.katoaapps.openminilaunch.model.AppFolderAnimationStyle
 import com.katoaapps.openminilaunch.model.AppFolderIndicatorStyle
@@ -11,7 +11,7 @@ import com.katoaapps.openminilaunch.model.AppGridSlot
 import com.katoaapps.openminilaunch.model.FontAppearance
 import com.katoaapps.openminilaunch.model.FavoriteIntegratedContact
 import com.katoaapps.openminilaunch.model.IconAppearance
-import com.katoaapps.openminilaunch.model.MinkAppPauseMode
+import com.katoaapps.openminilaunch.model.MindyAppPauseMode
 import com.katoaapps.openminilaunch.model.LauncherKeyboardPreferences
 import com.katoaapps.openminilaunch.model.PalettePreference
 import com.katoaapps.openminilaunch.model.QuickDrawerConfig
@@ -19,13 +19,13 @@ import com.katoaapps.openminilaunch.model.ThemePreference
 import com.katoaapps.openminilaunch.model.WidgetRestoreRecipe
 
 internal const val LAUNCHER_BACKUP_FORMAT = "minklauncher-open-backup"
-// Keep schema 3 while new fields remain optional. OpenMink 1.5.5 ignores unknown JSON keys,
+// Keep schema 3 while new fields remain optional. OpenMindy 1.5.5 ignores unknown JSON keys,
 // which lets a 2.0 export restore there without losing fields that version understands.
 internal const val LAUNCHER_BACKUP_SCHEMA_VERSION = 3
 // Interim 2.0 development builds wrote schema 4 before downgrade compatibility was restored.
 internal const val LAUNCHER_BACKUP_MAX_READABLE_SCHEMA_VERSION = 4
 
-/** Portable state that is safe to move between OpenMink distributions on the same device. */
+/** Portable state that is safe to move between OpenMindy distributions on the same device. */
 internal data class LauncherBackup(
     val sourceAppVersion: String,
     val exportedAtMillis: Long,
@@ -33,9 +33,9 @@ internal data class LauncherBackup(
     val settings: LauncherBackupSettings,
     val todos: List<TodoItem>,
     val widgetRecipes: List<WidgetRestoreRecipe> = emptyList(),
-    /** Null means this backup predates portable Mink-created Favorites. */
+    /** Null means this backup predates portable Mindy-created Favorites. */
     val integratedContacts: List<FavoriteIntegratedContact>? = null,
-    /** Relative order for portable Mink-created Favorites; Android contact IDs stay local. */
+    /** Relative order for portable Mindy-created Favorites; Android contact IDs stay local. */
     val integratedContactOrder: List<String>? = null,
     /** Null means this backup predates portable favorite attention colors. */
     val favoriteAttentionColors: Map<String, Int>? = null,
@@ -54,7 +54,7 @@ internal data class LauncherBackupLayout(
 
 internal data class LauncherBackupSettings(
     val themePreference: ThemePreference,
-    val palettePreference: PalettePreference = PalettePreference.MINK,
+    val palettePreference: PalettePreference = PalettePreference.MINDY,
     val hideStatusBar: Boolean,
     val alignHomePanelBottom: Boolean,
     /** Null means this backup predates the two-panel preference. */
@@ -74,12 +74,12 @@ internal data class LauncherBackupSettings(
     val launcherKeyboardPreferences: LauncherKeyboardPreferences? = null,
     val includeAppShortcutsInDiscovery: Boolean,
     val automaticAppBubbleTargets: List<String>,
-    /** Null means this backup predates portable MinkSpace preferences. */
-    val minkSpaceMiniAppOrder: List<MinkSpaceMiniApp>?,
-    /** Null means this backup predates portable MinkSpace preferences. */
-    val enabledMinkSpaceMiniApps: Set<MinkSpaceMiniApp>?,
+    /** Null means this backup predates portable MindySpace preferences. */
+    val mindySpaceMiniAppOrder: List<MindySpaceMiniApp>?,
+    /** Null means this backup predates portable MindySpace preferences. */
+    val enabledMindySpaceMiniApps: Set<MindySpaceMiniApp>?,
     /** Null wrapper means this backup predates the shortcut; a null mini-app means explicit Off. */
-    val minkSpaceTotalScreenShortcut: MinkSpaceTotalScreenShortcutBackup? = null,
+    val mindySpaceTotalScreenShortcut: MindySpaceTotalScreenShortcutBackup? = null,
     val sendMessagesAutomatically: Boolean,
     val preferredMessagingPackage: String?,
     val callAutomatically: Boolean = false,
@@ -89,7 +89,7 @@ internal data class LauncherBackupSettings(
     val usesAutomaticSocialApps: Boolean,
     val socialPackages: List<String>,
     val socialGoalHours: Int,
-    val minkAppPauseMode: MinkAppPauseMode,
+    val mindyAppPauseMode: MindyAppPauseMode,
     val githubUpdateChecksEnabled: Boolean,
     val fontAppearance: FontAppearance = FontAppearance(),
     /** Null means this backup predates Quick Drawer appearance and control preferences. */
@@ -100,6 +100,6 @@ internal data class LauncherBackupSettings(
     val folderAnimationStyle: AppFolderAnimationStyle? = null,
 )
 
-internal data class MinkSpaceTotalScreenShortcutBackup(
-    val miniApp: MinkSpaceMiniApp?,
+internal data class MindySpaceTotalScreenShortcutBackup(
+    val miniApp: MindySpaceMiniApp?,
 )

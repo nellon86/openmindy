@@ -137,17 +137,17 @@ private fun SearchAppCard(
 }
 
 @Composable
-internal fun MinkAssistantSettingsPage(
+internal fun MindyAssistantSettingsPage(
     assistantRoleHeld: Boolean,
     showAssistantDisclosure: () -> Unit,
     onOpenQuickApps: () -> Unit,
     goBack: () -> Unit,
 ) {
-    SettingsPage(stringResource(R.string.mink_assistant), goBack) {
+    SettingsPage(stringResource(R.string.mindy_assistant), goBack) {
         Text(stringResource(R.string.assistant_settings_description), color = Muted, fontSize = Dimens.sp13)
         SettingsRow(
             title = stringResource(
-                if (assistantRoleHeld) R.string.manage_mink_assistant else R.string.choose_mink_assistant,
+                if (assistantRoleHeld) R.string.manage_mindy_assistant else R.string.choose_mindy_assistant,
             ),
             subtitle = stringResource(
                 if (assistantRoleHeld) R.string.assistant_active_description else R.string.assistant_inactive_description,

@@ -34,8 +34,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.katoaapps.openminilaunch.R
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
 import com.katoaapps.openminilaunch.ui.theme.Rust
@@ -47,9 +47,9 @@ internal fun FileSearchScopeDialog(
 ) {
     val appName = stringResource(R.string.app_name)
     AlertDialog(
-        modifier = Modifier.minkDialogWidth(),
+        modifier = Modifier.mindyDialogWidth(),
         onDismissRequest = onSkip,
-        properties = MinkDialogDefaults.properties,
+        properties = MindyDialogDefaults.properties,
         icon = { Icon(Icons.Default.FolderOpen, null, tint = Rust) },
         title = { Text(stringResource(R.string.file_scope_title, appName)) },
         text = {
@@ -95,9 +95,9 @@ private fun UpdatePoint(icon: ImageVector, title: String, description: String) {
 internal fun UsageAccessDisclosureDialog(onContinue: () -> Unit, onDismiss: () -> Unit) {
     val appName = stringResource(R.string.app_name)
     AlertDialog(
-        modifier = Modifier.minkDialogWidth(),
+        modifier = Modifier.mindyDialogWidth(),
         onDismissRequest = onDismiss,
-        properties = MinkDialogDefaults.properties,
+        properties = MindyDialogDefaults.properties,
         icon = { Icon(Icons.Default.Pets, null, tint = Rust) },
         title = { Text(stringResource(R.string.usage_disclosure_title)) },
         text = {

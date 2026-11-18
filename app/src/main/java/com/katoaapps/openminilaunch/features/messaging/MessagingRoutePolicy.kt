@@ -4,7 +4,7 @@ import com.katoaapps.openminilaunch.model.CommunicationRecipient
 import com.katoaapps.openminilaunch.model.looksLikePhoneRecipient
 
 /**
- * "Automatically" skips Mink's provider picker. Only System Messages can send in the
+ * "Automatically" skips Mindy's provider picker. Only System Messages can send in the
  * background; every other integrated provider still opens its own draft composer.
  */
 internal fun messagingSendRoute(

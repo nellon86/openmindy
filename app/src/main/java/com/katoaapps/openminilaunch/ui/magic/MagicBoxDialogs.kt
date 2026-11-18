@@ -24,12 +24,12 @@ import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.features.messaging.MessageDraft
 import com.katoaapps.openminilaunch.model.CommunicationRecipient
 import com.katoaapps.openminilaunch.model.looksLikePhoneRecipient
-import com.katoaapps.openminilaunch.ui.components.MinkDialogDefaults
-import com.katoaapps.openminilaunch.ui.components.minkDialogWidth
+import com.katoaapps.openminilaunch.ui.components.MindyDialogDefaults
+import com.katoaapps.openminilaunch.ui.components.mindyDialogWidth
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.MagicCallColor
 import com.katoaapps.openminilaunch.ui.theme.MagicTextColor
-import com.katoaapps.openminilaunch.ui.theme.MinkWhite
+import com.katoaapps.openminilaunch.ui.theme.MindyWhite
 import com.katoaapps.openminilaunch.ui.theme.Muted
 
 @Composable
@@ -41,9 +41,9 @@ internal fun MagicDiscardDialog(
     onDismiss: () -> Unit,
 ) {
     AlertDialog(
-        modifier = Modifier.minkDialogWidth(),
+        modifier = Modifier.mindyDialogWidth(),
         onDismissRequest = onDismiss,
-        properties = MinkDialogDefaults.properties,
+        properties = MindyDialogDefaults.properties,
         icon = { Icon(Icons.Default.DeleteOutline, null) },
         title = { Text(title) },
         text = { Text(description) },
@@ -69,9 +69,9 @@ internal fun CallConfirmationDialog(
     val requiresCallingApp = recipient.userEntered &&
         !recipient.address.looksLikePhoneRecipient()
     AlertDialog(
-        modifier = Modifier.minkDialogWidth(),
+        modifier = Modifier.mindyDialogWidth(),
         onDismissRequest = onDismiss,
-        properties = MinkDialogDefaults.properties,
+        properties = MindyDialogDefaults.properties,
         icon = { Icon(Icons.Default.Phone, null, tint = MagicCallColor) },
         title = { Text(stringResource(R.string.call_recipient, recipient.displayName)) },
         text = { Text(stringResource(R.string.phone_type_and_number, recipient.detail, recipient.address)) },
@@ -80,7 +80,7 @@ internal fun CallConfirmationDialog(
                 onClick = onCallNow,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MagicCallColor,
-                    contentColor = MinkWhite,
+                    contentColor = MindyWhite,
                 ),
             ) {
                 Text(
@@ -116,9 +116,9 @@ internal fun DirectSmsConfirmationDialog(
     onDismiss: () -> Unit,
 ) {
     AlertDialog(
-        modifier = Modifier.minkDialogWidth(),
+        modifier = Modifier.mindyDialogWidth(),
         onDismissRequest = onDismiss,
-        properties = MinkDialogDefaults.properties,
+        properties = MindyDialogDefaults.properties,
         icon = { Icon(Icons.AutoMirrored.Filled.Send, null, tint = MagicTextColor) },
         title = { Text(stringResource(R.string.send_message_to_recipient, draft.recipient.displayName)) },
         text = {
@@ -145,7 +145,7 @@ internal fun DirectSmsConfirmationDialog(
                 onClick = onSend,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MagicTextColor,
-                    contentColor = MinkWhite,
+                    contentColor = MindyWhite,
                 ),
             ) {
                 Text(stringResource(if (assistantActive) R.string.send_sms_now else R.string.choose_assistant))

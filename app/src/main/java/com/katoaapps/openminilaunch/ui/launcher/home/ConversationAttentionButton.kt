@@ -32,7 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.ui.components.rememberLauncherVisible
-import com.katoaapps.openminilaunch.ui.theme.MinkFeatureColors
+import com.katoaapps.openminilaunch.ui.theme.MindyFeatureColors
 import com.katoaapps.openminilaunch.ui.theme.readableContentColor
 import kotlinx.coroutines.delay
 
@@ -85,8 +85,8 @@ internal fun ConversationAttentionButton(
                 badge = {
                     if (conversationCount > 0) {
                         Badge(
-                            containerColor = MinkFeatureColors.ConversationCount,
-                            contentColor = readableContentColor(MinkFeatureColors.ConversationCount),
+                            containerColor = MindyFeatureColors.ConversationCount,
+                            contentColor = readableContentColor(MindyFeatureColors.ConversationCount),
                         ) {
                             Text(
                                 if (conversationCount > 99) {

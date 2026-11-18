@@ -106,8 +106,8 @@ class SettingsNavigationTest {
 
     @Test fun assistantMessagingAndCallingAreTopLevelDestinations() {
         assertEquals(
-            listOf(SettingsDestination.OVERVIEW, SettingsDestination.MINK_ASSISTANT),
-            settingsPathTo(SettingsDestination.MINK_ASSISTANT),
+            listOf(SettingsDestination.OVERVIEW, SettingsDestination.MINDY_ASSISTANT),
+            settingsPathTo(SettingsDestination.MINDY_ASSISTANT),
         )
         assertEquals(
             listOf(SettingsDestination.OVERVIEW, SettingsDestination.MESSAGING),
@@ -123,21 +123,21 @@ class SettingsNavigationTest {
         assertEquals(SettingsSection.HOME, settingsSectionFor(SettingsDestination.MESSAGING))
         assertEquals(SettingsSection.HOME, settingsSectionFor(SettingsDestination.CALLING))
         assertEquals(SettingsSection.HOME, settingsSectionFor(SettingsDestination.QUICK_DRAWER))
-        assertEquals(SettingsSection.MINI_APPS, settingsSectionFor(SettingsDestination.MINK_SPACE))
+        assertEquals(SettingsSection.MINI_APPS, settingsSectionFor(SettingsDestination.MINDY_SPACE))
         assertEquals(SettingsSection.MAGIC_BOX, settingsSectionFor(SettingsDestination.FILE_SEARCH))
         assertEquals(SettingsSection.MAGIC_BOX, settingsSectionFor(SettingsDestination.KEYBOARD))
-        assertEquals(SettingsSection.ADVANCED, settingsSectionFor(SettingsDestination.MINK_DAY))
+        assertEquals(SettingsSection.ADVANCED, settingsSectionFor(SettingsDestination.MINDY_DAY))
         assertEquals(SettingsSection.MORE, settingsSectionFor(SettingsDestination.PERMISSIONS))
     }
 
-    @Test fun minkSpaceSettingsOpenAtTheMiniAppsSectionRoot() {
+    @Test fun mindySpaceSettingsOpenAtTheMiniAppsSectionRoot() {
         assertEquals(
             listOf(SettingsDestination.OVERVIEW),
-            settingsPathTo(SettingsDestination.MINK_SPACE),
+            settingsPathTo(SettingsDestination.MINDY_SPACE),
         )
         assertEquals(
             listOf(SettingsRoute(SettingsSection.MINI_APPS, SettingsDestination.OVERVIEW)),
-            settingsRoutesTo(SettingsDestination.MINK_SPACE),
+            settingsRoutesTo(SettingsDestination.MINDY_SPACE),
         )
     }
 
@@ -145,17 +145,17 @@ class SettingsNavigationTest {
         assertEquals(
             listOf(
                 SettingsRoute(SettingsSection.ADVANCED, SettingsDestination.OVERVIEW),
-                SettingsRoute(SettingsSection.ADVANCED, SettingsDestination.MINK_DAY),
+                SettingsRoute(SettingsSection.ADVANCED, SettingsDestination.MINDY_DAY),
             ),
-            settingsRoutesTo(SettingsDestination.MINK_DAY),
+            settingsRoutesTo(SettingsDestination.MINDY_DAY),
         )
     }
 
     @Test fun sectionChangesParticipateInBackNavigation() {
         val home = SettingsRoute(SettingsSection.HOME, SettingsDestination.OVERVIEW)
         val advanced = SettingsRoute(SettingsSection.ADVANCED, SettingsDestination.OVERVIEW)
-        val minkDay = SettingsRoute(SettingsSection.ADVANCED, SettingsDestination.MINK_DAY)
-        val stack = pushSettingsRoute(pushSettingsRoute(listOf(home), advanced), minkDay)
+        val mindyDay = SettingsRoute(SettingsSection.ADVANCED, SettingsDestination.MINDY_DAY)
+        val stack = pushSettingsRoute(pushSettingsRoute(listOf(home), advanced), mindyDay)
 
         assertEquals(listOf(home, advanced), popSettingsRoute(stack))
         assertEquals(listOf(home), popSettingsRoute(popSettingsRoute(stack)))

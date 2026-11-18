@@ -27,7 +27,7 @@ internal data class FavoriteContactActionRoutes(
     val preferredPhoneFingerprint: String? = null,
 )
 
-/** One-way correlation token; no phone number is copied into Mink's route store. */
+/** One-way correlation token; no phone number is copied into Mindy's route store. */
 internal fun favoritePhoneFingerprint(
     contactId: FavoriteContactId.Android,
     normalizedNumber: String,

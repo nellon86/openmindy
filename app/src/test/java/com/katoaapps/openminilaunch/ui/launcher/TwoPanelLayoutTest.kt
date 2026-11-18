@@ -3,7 +3,7 @@ package com.katoaapps.openminilaunch.ui.launcher
 import android.content.res.Configuration
 import com.katoaapps.openminilaunch.ui.launcher.layout.FoldLayoutFeature
 import com.katoaapps.openminilaunch.ui.launcher.layout.HOME_PAGE
-import com.katoaapps.openminilaunch.ui.launcher.layout.MINK_DAY_PAGE
+import com.katoaapps.openminilaunch.ui.launcher.layout.MINDY_DAY_PAGE
 import com.katoaapps.openminilaunch.ui.launcher.layout.TwoPanelGeometry
 import com.katoaapps.openminilaunch.ui.launcher.layout.WIDGET_PAGE
 import com.katoaapps.openminilaunch.ui.launcher.layout.newlyRevealedPage
@@ -96,9 +96,9 @@ class TwoPanelLayoutTest {
         )
     }
 
-    @Test fun pageMappingKeepsMinkWhenUnfoldingAndFolding() {
-        assertEquals(0, pairForFocusedPage(MINK_DAY_PAGE))
-        assertEquals(MINK_DAY_PAGE, newlyRevealedPage(0))
+    @Test fun pageMappingKeepsMindyWhenUnfoldingAndFolding() {
+        assertEquals(0, pairForFocusedPage(MINDY_DAY_PAGE))
+        assertEquals(MINDY_DAY_PAGE, newlyRevealedPage(0))
         assertEquals(1, pairForFocusedPage(HOME_PAGE))
         assertEquals(1, pairForFocusedPage(WIDGET_PAGE))
         assertEquals(WIDGET_PAGE, newlyRevealedPage(1))

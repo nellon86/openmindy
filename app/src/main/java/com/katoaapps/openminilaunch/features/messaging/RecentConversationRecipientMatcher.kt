@@ -9,7 +9,7 @@ import java.util.Locale
  * Safely bridges a conversation shortcut label to an Android phone contact.
  *
  * LauncherApps deliberately hides a shortcut's intent and recipient identifier. An exact,
- * unique display-name match is therefore the only provider-independent recipient mapping Mink
+ * unique display-name match is therefore the only provider-independent recipient mapping Mindy
  * can make without guessing. Multiple phone rows remain ambiguous and are not selected.
  */
 internal fun uniqueContactForConversation(
@@ -40,7 +40,7 @@ internal sealed interface RecentConversationSelection {
     ) : RecentConversationSelection
 }
 
-/** Chooses draft mode only when Mink can identify and address the recipient without guessing. */
+/** Chooses draft mode only when Mindy can identify and address the recipient without guessing. */
 internal fun resolveRecentConversationSelection(
     shortcut: LauncherShortcutTarget,
     canSearchContacts: Boolean,

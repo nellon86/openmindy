@@ -17,9 +17,9 @@ import com.katoaapps.openminilaunch.model.MAX_DRAWER_APPS
 import com.katoaapps.openminilaunch.model.PinShortcutDestination
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.components.applyLargeDisplayOrientation
-import com.katoaapps.openminilaunch.ui.theme.MinkLauncherTheme
+import com.katoaapps.openminilaunch.ui.theme.MindyLauncherTheme
 
-/** Receives Add to Home requests while MinkLauncher holds Android's Home role. */
+/** Receives Add to Home requests while MindyLauncher holds Android's Home role. */
 class PinShortcutActivity : ComponentActivity() {
     private lateinit var store: LauncherStore
     private lateinit var actions: DeviceActions
@@ -35,7 +35,7 @@ class PinShortcutActivity : ComponentActivity() {
         val pending = requestHandler.read(intent)
 
         setContent {
-            MinkLauncherTheme(store) {
+            MindyLauncherTheme(store) {
                 val view = LocalView.current
                 val useDarkSystemIcons = MaterialTheme.colorScheme.background.luminance() > .5f
                 SideEffect {

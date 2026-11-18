@@ -1,8 +1,8 @@
 <resources>
     <string name="home_spotlight_folders_title">Créer un dossier</string>
     <string name="home_spotlight_folders_description">Appuyez longuement sur une app, puis ajoutez-en une autre pour transformer la tuile en dossier.</string>
-    <string name="home_spotlight_minkspace_title">Les mini-apps sont ici</string>
-    <string name="home_spotlight_minkspace_description">Balayez vers le haut ou le bas dans MinkSpace pour parcourir les mini-apps. Touchez les apps compatibles pour les agrandir.</string>
+    <string name="home_spotlight_mindyspace_title">Les mini-apps sont ici</string>
+    <string name="home_spotlight_mindyspace_description">Balayez vers le haut ou le bas dans MindySpace pour parcourir les mini-apps. Touchez les apps compatibles pour les agrandir.</string>
     <string name="home_spotlight_magic_title">Commencez à saisir</string>
     <string name="home_spotlight_magic_description">Recherchez, envoyez des messages, appelez, créez des notes et lancez des actions avec du texte ou les raccourcis Magic Box.</string>
     <string name="home_spotlight_keyboard_title">Plus qu’un clavier</string>

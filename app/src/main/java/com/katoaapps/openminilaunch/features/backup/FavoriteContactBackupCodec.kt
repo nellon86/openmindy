@@ -12,7 +12,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 /**
- * Portable JSON representation for Mink-created Favorites.
+ * Portable JSON representation for Mindy-created Favorites.
  *
  * This deliberately excludes Android contacts and contact photos. Android contacts remain owned by
  * the system Contacts provider, while the exported fields here are shown to the user as readable

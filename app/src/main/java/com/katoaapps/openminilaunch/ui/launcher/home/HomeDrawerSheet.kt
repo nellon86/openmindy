@@ -30,7 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
-import com.katoaapps.openminilaunch.features.wellbeing.MinkAppAccessState
+import com.katoaapps.openminilaunch.features.wellbeing.MindyAppAccessState
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.quickdrawer.QuickAppsFolderDialog
 import com.katoaapps.openminilaunch.ui.quickdrawer.QuickDrawerDestination
@@ -47,7 +47,7 @@ import com.katoaapps.openminilaunch.ui.theme.readableContentColor
 internal fun HomeDrawerSheet(
     store: LauncherStore,
     actions: DeviceActions,
-    appAccessState: MinkAppAccessState,
+    appAccessState: MindyAppAccessState,
     onDismiss: () -> Unit,
     onManageQuickApps: () -> Unit,
     onPausedApp: (String) -> Unit,

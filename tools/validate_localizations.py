@@ -30,11 +30,11 @@ LOCALE_DIRECTORIES = (
 )
 PROTECTED_TERMS = (
     "OpenMindy",
-    "Mink’s Day",
-    "Mink's Day",
-    "Mink",
+    "Mindy’s Day",
+    "Mindy's Day",
+    "Mindy",
     "Magic Box",
-    "MinkSpace",
+    "MindySpace",
 )
 COMMAND_SYMBOLS = ("@", "#", "+")
 COMMAND_RESOURCE_NAMES = {

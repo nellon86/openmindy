@@ -10,8 +10,8 @@ else
   exit 1
 fi
 SERIAL="${1:-emulator-5554}"
-FIXTURE="$(cd "$(dirname "$0")" && pwd)/fixtures/minklauncher-test-contacts.vcf"
-DEVICE_FILE="/sdcard/Download/minklauncher-test-contacts.vcf"
+FIXTURE="$(cd "$(dirname "$0")" && pwd)/fixtures/mindylauncher-test-contacts.vcf"
+DEVICE_FILE="/sdcard/Download/mindylauncher-test-contacts.vcf"
 
 if ! "$ADB_BIN" -s "$SERIAL" get-state >/dev/null 2>&1; then
   echo "No connected Android device found with serial: $SERIAL" >&2

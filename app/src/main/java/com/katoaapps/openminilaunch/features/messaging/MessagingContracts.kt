@@ -7,7 +7,7 @@ import com.katoaapps.openminilaunch.model.ProviderAddressType
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
-/** Describes how much information Mink can carry into a provider-owned composer. */
+/** Describes how much information Mindy can carry into a provider-owned composer. */
 internal enum class MessagingSupportTier {
     CONTACT_AND_DRAFT,
     RECIPIENT_IN_APP,
@@ -72,7 +72,7 @@ internal data class MessagingProviderOption(
     val systemDefault: Boolean = false,
     val supportsRecentChatDrafts: Boolean = false,
     val addressTypes: Set<ProviderAddressType> = emptySet(),
-    /** Installed, but Mink could not pre-verify this provider's current draft route. */
+    /** Installed, but Mindy could not pre-verify this provider's current draft route. */
     val betaCompatibility: Boolean = false,
 )
 

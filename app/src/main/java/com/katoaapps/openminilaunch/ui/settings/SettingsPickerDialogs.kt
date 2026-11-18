@@ -140,7 +140,7 @@ internal fun SettingsPickerDialogs(
             resetLabel = stringResource(R.string.use_system_calling_app),
             onDismiss = { onPickerChange(null) },
         )
-        SettingsPicker.MinkDayApps -> SocialAppsDialog(store, usageInsights) {
+        SettingsPicker.MindyDayApps -> SocialAppsDialog(store, usageInsights) {
             onPickerChange(null)
         }
         null -> Unit

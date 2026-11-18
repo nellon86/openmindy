@@ -14,7 +14,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 
 internal enum class HomeTourTarget {
     APP_GRID,
-    MINK_SPACE,
+    MINDY_SPACE,
     MAGIC_BOX,
     KEYBOARD_ACTION,
     HEADER,

@@ -39,7 +39,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.features.magic.MagicBoxRoute
-import com.katoaapps.openminilaunch.ui.theme.MinkTransparent
+import com.katoaapps.openminilaunch.ui.theme.MindyTransparent
 import kotlinx.coroutines.awaitCancellation
 
 private val SEND_IME_ROUTES = setOf(
@@ -82,10 +82,10 @@ internal fun MagicInputField(
     var preferredVerticalX by remember { mutableStateOf<Float?>(null) }
     val interactionSource = remember { MutableInteractionSource() }
     val colors = TextFieldDefaults.colors(
-        focusedContainerColor = MinkTransparent,
-        unfocusedContainerColor = MinkTransparent,
-        focusedIndicatorColor = MinkTransparent,
-        unfocusedIndicatorColor = MinkTransparent,
+        focusedContainerColor = MindyTransparent,
+        unfocusedContainerColor = MindyTransparent,
+        focusedIndicatorColor = MindyTransparent,
+        unfocusedIndicatorColor = MindyTransparent,
     )
     val updateValue: (TextFieldValue) -> Unit = { updated ->
         preferredVerticalX = null
