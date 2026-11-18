@@ -19,7 +19,7 @@ import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.appgrid.AppFolderContentsDialog
 import com.katoaapps.openminilaunch.ui.appgrid.UnavailableLauncherTargetDialog
 
-/** Reuses the Home folder surface for the system-owned Quick Apps collection. */
+/** Reuses the Home folder surface for the system-owned Quick Apps collection (the Quick Drawer). */
 @Composable
 internal fun QuickAppsFolderDialog(
     store: LauncherStore,
@@ -29,6 +29,7 @@ internal fun QuickAppsFolderDialog(
     onLaunch: () -> Unit,
     onPausedApp: (String) -> Unit,
     onDismiss: () -> Unit,
+    footer: (@Composable () -> Unit)? = null,
 ) {
     val context = LocalContext.current
     val demoModeEnabled = store.demoModeEnabled
@@ -74,6 +75,7 @@ internal fun QuickAppsFolderDialog(
             titleOverride = title,
             targetsOverride = demoTargets,
             appearanceEditable = false,
+            footer = footer,
         )
     }
 

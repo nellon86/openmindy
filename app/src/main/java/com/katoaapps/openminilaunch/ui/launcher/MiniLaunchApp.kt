@@ -48,7 +48,6 @@ import com.katoaapps.openminilaunch.ui.magic.rememberMagicBoxSessionState
 import com.katoaapps.openminilaunch.ui.magic.AssistantActivity
 import com.katoaapps.openminilaunch.ui.minkspace.core.rememberMinkSpacePresentationState
 import com.katoaapps.openminilaunch.ui.minkspace.todo.TodosScreen
-import com.katoaapps.openminilaunch.ui.onboarding.FeatureUpdateDialog
 import com.katoaapps.openminilaunch.ui.onboarding.HomeFeatureTour
 import com.katoaapps.openminilaunch.ui.onboarding.LocalHomeTourTargetRegistry
 import com.katoaapps.openminilaunch.ui.onboarding.OnboardingScreen
@@ -63,7 +62,6 @@ import com.katoaapps.openminilaunch.ui.theme.shouldUseDarkForeground
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 
-private const val FEATURE_UPDATE_ID = "v320_whats_new_v1"
 private const val HOME_FEATURE_TOUR_ID = "home_spotlight_tour_v2"
 private const val PACKAGE_REMOVAL_CONFIRMATION_MS = 750L
 
@@ -78,9 +76,6 @@ internal fun MiniLaunchApp(
     var screen by rememberSaveable { mutableStateOf(Screen.HOME) }
     var settingsDestination by rememberSaveable { mutableStateOf(SettingsDestination.OVERVIEW) }
     var showTutorial by rememberSaveable { mutableStateOf(!store.onboardingComplete) }
-    var showUpdateNotice by rememberSaveable {
-        mutableStateOf(store.onboardingComplete && !store.hasSeenUpdate(FEATURE_UPDATE_ID))
-    }
     var showHomeFeatureTour by rememberSaveable {
         mutableStateOf(
             shouldShowHomeFeatureTour(
@@ -185,7 +180,6 @@ internal fun MiniLaunchApp(
                         requestHomeRole = requestHomeRole,
                         onFinish = {
                             store.completeOnboarding()
-                            store.markUpdateSeen(FEATURE_UPDATE_ID)
                             showTutorial = false
                             screen = Screen.HOME
                             focusedLauncherPage = HOME_PAGE
@@ -217,7 +211,7 @@ internal fun MiniLaunchApp(
                                     homePageRequestToken = homePageRequestToken,
                                     keyboardInputEnabled =
                                         (twoPanelActive || launcherPagerState.currentPage == HOME_PAGE) &&
-                                            !showTutorial && !showUpdateNotice &&
+                                            !showTutorial &&
                                             !showHomeFeatureTour,
                                     homeRequestToken = homeRequestToken,
                                     magicBoxSessionState = homeMagicBoxSessionState,
@@ -313,27 +307,7 @@ internal fun MiniLaunchApp(
             }
         }
 
-        if (showUpdateNotice && !showTutorial) {
-            FeatureUpdateDialog(
-                onOpenSettings = {
-                    store.markUpdateSeen(FEATURE_UPDATE_ID)
-                    showUpdateNotice = false
-                    screen = Screen.SETTINGS
-                    settingsDestination = SettingsDestination.OVERVIEW
-                },
-                onReviewTutorial = {
-                    store.markUpdateSeen(FEATURE_UPDATE_ID)
-                    showUpdateNotice = false
-                    tutorialRun++
-                    showTutorial = true
-                },
-                onNotNow = {
-                    store.markUpdateSeen(FEATURE_UPDATE_ID)
-                    showUpdateNotice = false
-                },
-            )
-        }
-        if (showHomeFeatureTour && !showTutorial && !showUpdateNotice) {
+        if (showHomeFeatureTour && !showTutorial) {
             HomeFeatureTour(
                 registry = homeTourTargetRegistry,
                 onComplete = {

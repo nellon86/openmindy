@@ -72,6 +72,8 @@ internal fun AppFolderContentsDialog(
     titleOverride: String? = null,
     targetsOverride: List<LauncherTarget>? = null,
     appearanceEditable: Boolean = true,
+    /** Optional content pinned below the app grid, such as Quick Drawer navigation. */
+    footer: (@Composable () -> Unit)? = null,
 ) {
     val targets = targetsOverride ?: folder.orderedTargetKeys.map(actions::resolveLauncherSelection)
     var draftName by remember(folder.id) { mutableStateOf(folder.customName.orEmpty()) }
@@ -211,6 +213,7 @@ internal fun AppFolderContentsDialog(
                             }
                         }
                     }
+                    footer?.invoke()
                 }
             }
         }

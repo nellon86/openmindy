@@ -1,5 +1,3 @@
-@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
-
 package com.katoaapps.openminilaunch.ui.launcher.home
 
 
@@ -14,22 +12,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.BusinessCenter
-import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,7 +31,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
 import com.katoaapps.openminilaunch.features.wellbeing.MinkAppAccessState
-import com.katoaapps.openminilaunch.model.MAX_DRAWER_APPS
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.quickdrawer.QuickAppsFolderDialog
 import com.katoaapps.openminilaunch.ui.quickdrawer.QuickDrawerDestination
@@ -49,6 +38,11 @@ import com.katoaapps.openminilaunch.ui.quickdrawer.quickDrawerDestinations
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.readableContentColor
 
+/**
+ * The Quick Drawer opens straight into the Quick Apps folder. Navigation sits below the apps:
+ * All Apps on the left, the right cell intentionally empty for now, and Private or Work Space
+ * on an extra row only when the user enabled them and they exist on this device.
+ */
 @Composable
 internal fun HomeDrawerSheet(
     store: LauncherStore,
@@ -59,7 +53,6 @@ internal fun HomeDrawerSheet(
     onPausedApp: (String) -> Unit,
 ) {
     val context = LocalContext.current
-    var quickAppsOpen by remember { mutableStateOf(false) }
     val demoModeEnabled = store.demoModeEnabled
     val showDemoPreview = {
         Toast.makeText(context, R.string.demo_preview_action, Toast.LENGTH_SHORT).show()
@@ -73,124 +66,68 @@ internal fun HomeDrawerSheet(
         showWorkSpace = store.showWorkProfileInQuickDrawer,
         workSpaceAvailable = store.demoModeEnabled || actions.workProfileAvailable(),
     )
-
-    ModalBottomSheet(
-        onDismissRequest = onDismiss,
-        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-        containerColor = drawerColor,
-        contentColor = drawerContentColor,
-    ) {
-        Text(
-            stringResource(R.string.your_drawer),
-            Modifier.padding(horizontal = Dimens.dp24),
-            fontWeight = FontWeight.Black,
-            letterSpacing = Dimens.sp1,
-        )
-        ManageQuickAppsRow(
-            selectedCount = if (demoModeEnabled) 4 else store.drawerTargets.size,
-            contentColor = drawerContentColor,
-            onClick = { quickAppsOpen = true },
-        )
-        QuickDrawerNavigationGrid(
-            destinations = destinations,
-            contentColor = drawerContentColor,
-            onDestination = { destination ->
-                if (!demoModeEnabled) {
-                    onDismiss()
-                    when (destination) {
-                        QuickDrawerDestination.ALL_APPS -> actions.openAllApps()
-                        QuickDrawerDestination.PRIVATE_SPACE -> actions.openPrivateApps()
-                        QuickDrawerDestination.WORK_SPACE -> actions.openWorkApps()
-                    }
-                } else {
-                    showDemoPreview()
-                }
-            },
-        )
-        Spacer(Modifier.height(Dimens.dp28))
-    }
-
-    if (quickAppsOpen) {
-        QuickAppsFolderDialog(
-            store = store,
-            actions = actions,
-            appAccessState = appAccessState,
-            onEdit = {
-                quickAppsOpen = false
-                onDismiss()
-                onManageQuickApps()
-            },
-            onLaunch = {
-                quickAppsOpen = false
-                onDismiss()
-            },
-            onPausedApp = { packageName ->
-                quickAppsOpen = false
-                onDismiss()
-                onPausedApp(packageName)
-            },
-            onDismiss = { quickAppsOpen = false },
-        )
-    }
-}
-
-@Composable
-private fun ManageQuickAppsRow(
-    selectedCount: Int,
-    contentColor: Color,
-    onClick: () -> Unit,
-) {
-    Surface(
-        onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = Dimens.dp18, vertical = Dimens.dp12),
-        shape = RoundedCornerShape(Dimens.dp18),
-        color = contentColor.copy(alpha = .09f),
-        contentColor = contentColor,
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(Dimens.dp16),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Dimens.dp12),
-        ) {
-            Icon(Icons.Default.GridView, null)
-            Column(Modifier.weight(1f)) {
-                Text(
-                    stringResource(R.string.quick_apps),
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Text(
-                    stringResource(R.string.quick_drawer_apps_description),
-                    color = contentColor.copy(alpha = .68f),
-                    fontSize = Dimens.sp12,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
+    val openDestination: (QuickDrawerDestination) -> Unit = { destination ->
+        if (!demoModeEnabled) {
+            onDismiss()
+            when (destination) {
+                QuickDrawerDestination.ALL_APPS -> actions.openAllApps()
+                QuickDrawerDestination.PRIVATE_SPACE -> actions.openPrivateApps()
+                QuickDrawerDestination.WORK_SPACE -> actions.openWorkApps()
             }
-            Text(
-                stringResource(R.string.count_of_max, selectedCount, MAX_DRAWER_APPS),
-                color = contentColor.copy(alpha = .68f),
-                fontWeight = FontWeight.Bold,
-            )
-            Icon(Icons.AutoMirrored.Filled.ArrowForward, null)
+        } else {
+            showDemoPreview()
         }
     }
+
+    QuickAppsFolderDialog(
+        store = store,
+        actions = actions,
+        appAccessState = appAccessState,
+        onEdit = {
+            onDismiss()
+            onManageQuickApps()
+        },
+        onLaunch = onDismiss,
+        onPausedApp = { packageName ->
+            onDismiss()
+            onPausedApp(packageName)
+        },
+        onDismiss = onDismiss,
+        footer = {
+            QuickDrawerFooter(
+                destinations = destinations,
+                contentColor = drawerContentColor,
+                onDestination = openDestination,
+            )
+        },
+    )
 }
 
 @Composable
-private fun QuickDrawerNavigationGrid(
+private fun QuickDrawerFooter(
     destinations: List<QuickDrawerDestination>,
     contentColor: Color,
     onDestination: (QuickDrawerDestination) -> Unit,
 ) {
+    val spaces = destinations.filterNot { it == QuickDrawerDestination.ALL_APPS }
     Column(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = Dimens.dp18),
+        modifier = Modifier.fillMaxWidth().padding(top = Dimens.dp8),
         verticalArrangement = Arrangement.spacedBy(Dimens.dp8),
     ) {
-        destinations.chunked(2).forEach { rowDestinations ->
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(Dimens.dp8),
+        ) {
+            QuickDrawerNavigationButton(
+                destination = QuickDrawerDestination.ALL_APPS,
+                contentColor = contentColor,
+                onClick = { onDestination(QuickDrawerDestination.ALL_APPS) },
+                modifier = Modifier.weight(1f),
+            )
+            // Reserved for a future shortcut; intentionally empty.
+            Spacer(Modifier.weight(1f))
+        }
+        spaces.chunked(2).forEach { rowDestinations ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(Dimens.dp8),
@@ -203,9 +140,7 @@ private fun QuickDrawerNavigationGrid(
                         modifier = Modifier.weight(1f),
                     )
                 }
-                if (rowDestinations.size == 1) {
-                    Spacer(Modifier.weight(1f))
-                }
+                if (rowDestinations.size == 1) Spacer(Modifier.weight(1f))
             }
         }
     }

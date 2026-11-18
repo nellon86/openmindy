@@ -138,7 +138,6 @@
     <string name="send_sms_now">立即发送 SMS</string>
     <string name="choose_assistant">选择助手</string>
     <string name="choose_messaging_app">通过...发送</string>
-    <string name="your_drawer">QUICK DRAWER</string>
     <string name="all_apps">所有应用程序</string>
     <string name="app_info">应用程序信息</string>
     <string name="app_info_unavailable">无法打开该项目的应用程序信息</string>
@@ -268,7 +267,6 @@
     <string name="reply_unavailable">无法回复</string>
     <string name="send_reply">发送回复</string>
     <string name="settings">设置</string>
-    <string name="whats_new">最新消息</string>
     <string name="update_notice_two_panel_heading">当你需要时，一个更广阔的家</string>
     <string name="update_notice_two_panel_title">用于大型显示器的两个面板</string>
     <string name="update_notice_two_panel_description">在外观中将其打开。平板电脑横向使用它；展开的书本式可折叠设备也可以在更宽的纵向姿势中使用它。在 Mink’s Day + Home 和 Home + Widgets 之间滑动。向后折叠可以保留您的位置。</string>
@@ -294,7 +292,6 @@
     <string name="update_notice_work_profiles_title">工作资料支持</string>
     <string name="update_notice_work_profiles_description">工作应用程序及其发布的快捷方式可以显示在带有工作徽章的个人应用程序旁边。 Mink’s Day 暂停规则仍然仅限于个人应用程序。</string>
     <string name="update_notice_app_shortcuts_title">快捷方式中的应用程序操作</string>
-    <string name="update_notice_app_shortcuts_description">Home slot 和 Quick Drawer 可以打开应用程序发布的操作，例如特定对话或列表。</string>
     <string name="update_notice_pin_shortcuts_title">选择新快捷方式的去向</string>
     <string name="update_notice_pin_shortcuts_description">当另一个应用程序请求“添加到主屏幕”时，使其快捷方式可搜索，将其放置在“主屏幕”插槽中，或将其添加到“Quick Drawer”。</string>
     <string name="update_notice_reachability_title">更触手可及的家</string>
@@ -332,8 +329,6 @@
     <string name="update_notice_notes_description">多行笔记模式在编辑器扩展时保持物理键盘焦点。</string>
     <string name="update_notice_widgets_title">可滚动小部件表现正常</string>
     <string name="update_notice_widgets_description">垂直手势可到达管理自身滚动的小部件。</string>
-    <string name="update_notice_keyboard_title">触摸键盘是可选的</string>
-    <string name="update_notice_keyboard_description">仅触控手机默认在主屏幕上打开软件键盘；可在“Magic Box”→“键盘”中将其关闭。</string>
     <string name="update_notice_github_title">更新等你来</string>
     <string name="update_notice_github_description">当 GitHub 有更新版本时，会出现清晰的更新卡和小主页标题图标。在您批准浏览器移交之前，不会下载任何内容。</string>
     <string name="update_notice_integrated_apps_title">集成消息应用程序</string>
@@ -349,7 +344,6 @@
     <string name="update_notice_pause_apps_description">始终或在限制之后将它们隐藏在 Magic Box 和应用程序抽屉中。快捷方式图块保持可见并带有提醒。</string>
     <string name="update_notice_home_browser_title">更多主页和浏览器控制</string>
     <string name="update_notice_home_browser_description">隐藏主页状态栏，并从 Android 公开的用于搜索和网页的更多浏览器中进行选择。</string>
-    <string name="review_updated_tutorial">查看更新的教程</string>
     <string name="choose_your_shortcut_apps">选择您的快捷方式</string>
     <string name="shortcut_setup_description">这六个插槽将保留其内置默认设置，直到您更换它们为止。选择已安装的应用程序或应用程序发布的操作，或明确保留您想要的默认值。</string>
     <string name="keep_built_in_defaults_remaining">保留剩余的内置默认值</string>

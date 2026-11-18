@@ -138,7 +138,6 @@
     <string name="send_sms_now">立即發送 SMS</string>
     <string name="choose_assistant">揀助理</string>
     <string name="choose_messaging_app">透過 ... 發送</string>
-    <string name="your_drawer">QUICK DRAWER</string>
     <string name="all_apps">所有應用程式</string>
     <string name="app_info">應用程式資訊</string>
     <string name="app_info_unavailable">開唔到呢個項目嘅應用程式資料</string>
@@ -268,7 +267,6 @@
     <string name="reply_unavailable">回覆唔到</string>
     <string name="send_reply">發送回覆</string>
     <string name="settings">設定</string>
-    <string name="whats_new">有咩新嘢</string>
     <string name="update_notice_two_panel_heading">更廣闊嘅家，當你想要嘅時候</string>
     <string name="update_notice_two_panel_title">兩個面板用於大型顯示器</string>
     <string name="update_notice_two_panel_description">喺外觀入面開佢。平板電腦會喺風景中使用佢；展開嘅書式摺疊機亦都可以用喺佢哋更闊嘅人像姿勢。喺 Mink’s Day + 主頁同主頁 + 小工具之間滑動。摺返嚟保留你嘅位置。</string>
@@ -294,7 +292,6 @@
     <string name="update_notice_work_profiles_title">工作個人檔案支援</string>
     <string name="update_notice_work_profiles_description">工作應用程式同埋佢哋發佈嘅捷徑可以喺帶有工作徽章嘅個人應用程式旁邊顯示。 Mink’s Day 暫停規則仍然限於個人應用程式。</string>
     <string name="update_notice_app_shortcuts_title">你嘅捷徑入面嘅應用程式動作</string>
-    <string name="update_notice_app_shortcuts_description">主頁插槽同 Quick Drawer 可以打開由應用程式發佈嘅動作，例如特定嘅對話或者清單。</string>
     <string name="update_notice_pin_shortcuts_title">揀新捷徑去邊</string>
     <string name="update_notice_pin_shortcuts_description">當另一個應用程式要求加入主畫面嗰陣，將佢嘅捷徑設定為可搜尋，將佢放入主頁插槽，或者將佢加入Quick Drawer。</string>
     <string name="update_notice_reachability_title">更易到達嘅家</string>
@@ -332,8 +329,6 @@
     <string name="update_notice_notes_description">多行筆記模式會喺編輯器展開嗰陣保持實體鍵盤對焦。</string>
     <string name="update_notice_widgets_title">可捲動嘅小工具行為正常</string>
     <string name="update_notice_widgets_description">垂直手勢會到達管理自己捲動嘅小工具。</string>
-    <string name="update_notice_keyboard_title">觸控鍵盤係選擇性嘅</string>
-    <string name="update_notice_keyboard_description">純觸控手機預設會喺主畫面開啟軟件鍵盤；可以喺「Magic Box」→「鍵盤」關閉。</string>
     <string name="update_notice_github_title">更新等緊你</string>
     <string name="update_notice_github_description">當 GitHub 有較新嘅版本嗰陣，會出現一張清晰嘅更新卡同埋一個小型嘅主頁標題圖示。喺你批准瀏覽器交接之前，冇嘢會下載。</string>
     <string name="update_notice_integrated_apps_title">綜合短訊應用程式</string>
@@ -349,7 +344,6 @@
     <string name="update_notice_pause_apps_description">一直或者喺限制之後，將佢哋隱藏喺 Magic Box 同埋應用程式抽屜入面。捷徑圖塊會保持顯示，並且有提醒。</string>
     <string name="update_notice_home_browser_title">更多主頁同瀏覽器控制</string>
     <string name="update_notice_home_browser_description">隱藏主頁狀態列，然後喺 Android 公開嘅更多瀏覽器入面揀嚟搜尋同網頁。</string>
-    <string name="review_updated_tutorial">睇返更新咗嘅教學課程</string>
     <string name="choose_your_shortcut_apps">揀你嘅捷徑</string>
     <string name="shortcut_setup_description">呢六個插槽會保留佢哋嘅內置預設，直至你更換佢哋為止。揀安裝咗嘅應用程式或者應用程式發佈嘅操作，或者明確保留你想要嘅預設值。</string>
     <string name="keep_built_in_defaults_remaining">保留剩餘嘅內置預設</string>

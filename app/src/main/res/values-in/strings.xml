@@ -138,7 +138,6 @@
     <string name="send_sms_now">Kirim SMS sekarang</string>
     <string name="choose_assistant">Pilih asisten</string>
     <string name="choose_messaging_app">Kirim melalui…</string>
-    <string name="your_drawer">QUICK DRAWER</string>
     <string name="all_apps">Semua aplikasi</string>
     <string name="app_info">Informasi aplikasi</string>
     <string name="app_info_unavailable">Tidak dapat membuka info Aplikasi untuk item ini</string>
@@ -268,7 +267,6 @@
     <string name="reply_unavailable">Balasan tidak tersedia</string>
     <string name="send_reply">Kirim balasan</string>
     <string name="settings">Pengaturan</string>
-    <string name="whats_new">Apa yang baru</string>
     <string name="update_notice_two_panel_heading">Rumah yang lebih luas, kapan pun Anda menginginkannya</string>
     <string name="update_notice_two_panel_title">Dua panel untuk tampilan besar</string>
     <string name="update_notice_two_panel_description">Aktifkan di Penampilan. Tablet menggunakannya dalam lanskap; perangkat lipat bergaya buku yang tidak dilipat juga dapat menggunakannya dalam postur potret yang lebih lebar. Geser antara Mink’s Day + Beranda dan Beranda + Widget. Lipat kembali menjaga tempat Anda.</string>
@@ -294,7 +292,6 @@
     <string name="update_notice_work_profiles_title">Dukungan profil kerja</string>
     <string name="update_notice_work_profiles_description">Aplikasi kerja dan pintasan yang dipublikasikan dapat muncul di samping aplikasi pribadi dengan lencana kerja. Aturan jeda Mink’s Day tetap terbatas pada aplikasi pribadi.</string>
     <string name="update_notice_app_shortcuts_title">Tindakan aplikasi di pintasan Anda</string>
-    <string name="update_notice_app_shortcuts_description">Slot beranda dan Quick Drawer dapat membuka tindakan yang dipublikasikan oleh aplikasi, seperti percakapan atau daftar tertentu.</string>
     <string name="update_notice_pin_shortcuts_title">Pilih ke mana pintasan baru akan dituju</string>
     <string name="update_notice_pin_shortcuts_description">Saat aplikasi lain meminta Tambahkan ke layar Utama, buat pintasannya dapat dicari, letakkan di slot Beranda, atau tambahkan ke Quick Drawer.</string>
     <string name="update_notice_reachability_title">Rumah yang lebih mudah dijangkau</string>
@@ -332,8 +329,6 @@
     <string name="update_notice_notes_description">Mode catatan multiline menjaga fokus keyboard fisik sementara editornya berkembang.</string>
     <string name="update_notice_widgets_title">Widget yang dapat digulir berperilaku normal</string>
     <string name="update_notice_widgets_description">Isyarat vertikal menjangkau widget yang mengatur penggulirannya sendiri.</string>
-    <string name="update_notice_keyboard_title">Keyboard sentuh bersifat opsional</string>
-    <string name="update_notice_keyboard_description">Ponsel layar sentuh membuka keyboard layar di Beranda secara default; nonaktifkan di Magic Box → Keyboard.</string>
     <string name="update_notice_github_title">Pembaruan menunggu Anda</string>
     <string name="update_notice_github_description">Kartu pembaruan yang jelas dan ikon header Beranda kecil muncul ketika GitHub memiliki rilis yang lebih baru. Tidak ada yang diunduh sampai Anda menyetujui handoff browser.</string>
     <string name="update_notice_integrated_apps_title">Aplikasi perpesanan terintegrasi</string>
@@ -349,7 +344,6 @@
     <string name="update_notice_pause_apps_description">Sembunyikan dari Magic Box dan laci aplikasi sepanjang waktu atau setelah batasnya. Ubin pintasan tetap terlihat dengan pengingat.</string>
     <string name="update_notice_home_browser_title">Lebih banyak kontrol Rumah dan browser</string>
     <string name="update_notice_home_browser_description">Sembunyikan bilah status Beranda dan pilih dari lebih banyak browser yang Android tampilkan untuk penelusuran dan halaman web.</string>
-    <string name="review_updated_tutorial">Tinjau tutorial yang diperbarui</string>
     <string name="choose_your_shortcut_apps">Pilih pintasan Anda</string>
     <string name="shortcut_setup_description">Keenam slot tetap mempertahankan default bawaannya sampai Anda menggantinya. Pilih aplikasi terinstal atau tindakan yang dipublikasikan oleh aplikasi, atau pertahankan default yang Anda inginkan secara eksplisit.</string>
     <string name="keep_built_in_defaults_remaining">Pertahankan default bawaan untuk sisanya</string>

@@ -138,7 +138,6 @@
     <string name="send_sms_now">أرسل SMS الآن</string>
     <string name="choose_assistant">اختر مساعد</string>
     <string name="choose_messaging_app">أرسل عبر…</string>
-    <string name="your_drawer">QUICK DRAWER</string>
     <string name="all_apps">جميع التطبيقات</string>
     <string name="app_info">معلومات التطبيق</string>
     <string name="app_info_unavailable">تعذر فتح معلومات التطبيق لهذا العنصر</string>
@@ -268,7 +267,6 @@
     <string name="reply_unavailable">الرد غير متاح</string>
     <string name="send_reply">إرسال الرد</string>
     <string name="settings">الإعدادات</string>
-    <string name="whats_new">ما هو الجديد</string>
     <string name="update_notice_two_panel_heading">منزل أوسع، عندما تريد ذلك</string>
     <string name="update_notice_two_panel_title">لوحتان للشاشات الكبيرة</string>
     <string name="update_notice_two_panel_description">قم بتشغيله في المظهر. تستخدمه الأجهزة اللوحية في المناظر الطبيعية؛ يمكن أيضًا للأجهزة القابلة للطي على شكل كتاب استخدامها في وضع الصورة الأوسع. اسحب بين Mink’s Day + الصفحة الرئيسية والصفحة الرئيسية + الأدوات. ظهر قابل للطي يحافظ على مكانك.</string>
@@ -294,7 +292,6 @@
     <string name="update_notice_work_profiles_title">دعم ملف تعريف العمل</string>
     <string name="update_notice_work_profiles_description">يمكن أن تظهر تطبيقات العمل واختصاراتها المنشورة بجانب التطبيقات الشخصية مع شارة العمل. تظل قواعد الإيقاف المؤقت Mink’s Day مقتصرة على التطبيقات الشخصية.</string>
     <string name="update_notice_app_shortcuts_title">إجراءات التطبيق في اختصاراتك</string>
-    <string name="update_notice_app_shortcuts_description">يمكن للفتحات الرئيسية وQuick Drawer فتح الإجراءات التي تنشرها التطبيقات، مثل محادثة أو قائمة معينة.</string>
     <string name="update_notice_pin_shortcuts_title">اختر أين تذهب الاختصارات الجديدة</string>
     <string name="update_notice_pin_shortcuts_description">عندما يطلب تطبيق آخر إضافة إلى الشاشة الرئيسية، اجعل الاختصار الخاص به قابلاً للبحث، أو ضعه في فتحة الصفحة الرئيسية، أو أضفه إلى Quick Drawer.</string>
     <string name="update_notice_reachability_title">منزل يسهل الوصول إليه أكثر</string>
@@ -332,8 +329,6 @@
     <string name="update_notice_notes_description">يحافظ وضع الملاحظة المتعددة الأسطر على تركيز لوحة المفاتيح الفعلية أثناء توسيع محررها.</string>
     <string name="update_notice_widgets_title">تعمل الأدوات القابلة للتمرير بشكل طبيعي</string>
     <string name="update_notice_widgets_description">تصل الإيماءات الرأسية إلى عناصر واجهة المستخدم التي تدير التمرير الخاص بها.</string>
-    <string name="update_notice_keyboard_title">لوحات المفاتيح التي تعمل باللمس اختيارية</string>
-    <string name="update_notice_keyboard_description">تفتح الهواتف التي تعمل باللمس فقط لوحة المفاتيح البرمجية على الشاشة الرئيسية افتراضيًا، ويمكن إيقافها من Magic Box ← لوحة المفاتيح.</string>
     <string name="update_notice_github_title">التحديثات في انتظاركم</string>
     <string name="update_notice_github_description">تظهر بطاقة تحديث واضحة وأيقونة صغيرة لرأس الصفحة الرئيسية عندما يكون لدى GitHub إصدار أحدث. لا يتم تنزيل أي شيء حتى توافق على تسليم المتصفح.</string>
     <string name="update_notice_integrated_apps_title">تطبيقات المراسلة المتكاملة</string>
@@ -349,7 +344,6 @@
     <string name="update_notice_pause_apps_description">قم بإخفائها من Magic Box وأدراج التطبيق طوال الوقت أو بعد انتهاء الحد. تظل مربعات الاختصار مرئية مع التذكير.</string>
     <string name="update_notice_home_browser_title">مزيد من التحكم في الصفحة الرئيسية والمتصفح</string>
     <string name="update_notice_home_browser_description">قم بإخفاء شريط الحالة الرئيسي واختر من بين المزيد من المتصفحات التي يعرضها Android لعمليات البحث وصفحات الويب.</string>
-    <string name="review_updated_tutorial">قم بمراجعة البرنامج التعليمي المحدث</string>
     <string name="choose_your_shortcut_apps">اختر الاختصارات الخاصة بك</string>
     <string name="shortcut_setup_description">تحتفظ الفتحات الست بالإعدادات الافتراضية المضمنة بها حتى تقوم باستبدالها. اختر تطبيقًا مثبتًا أو إجراءً تم نشره بواسطة أحد التطبيقات، أو احتفظ بالإعدادات الافتراضية التي تريدها بشكل صريح.</string>
     <string name="keep_built_in_defaults_remaining">احتفظ بالإعدادات الافتراضية المضمنة للباقي</string>

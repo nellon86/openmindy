@@ -138,7 +138,6 @@
     <string name="send_sms_now">अभी SMS भेजें</string>
     <string name="choose_assistant">सहायक चुनें</string>
     <string name="choose_messaging_app">के माध्यम से भेजें…</string>
-    <string name="your_drawer">QUICK DRAWER</string>
     <string name="all_apps">सभी ऐप्स</string>
     <string name="app_info">ऐप की जानकारी</string>
     <string name="app_info_unavailable">इस आइटम के लिए ऐप जानकारी नहीं खोली जा सकी</string>
@@ -268,7 +267,6 @@
     <string name="reply_unavailable">उत्तर अनुपलब्ध</string>
     <string name="send_reply">उत्तर भेजें</string>
     <string name="settings">सेटिंग्स</string>
-    <string name="whats_new">नया क्या है</string>
     <string name="update_notice_two_panel_heading">एक विस्तृत घर, जब आप चाहें</string>
     <string name="update_notice_two_panel_title">बड़े डिस्प्ले के लिए दो पैनल</string>
     <string name="update_notice_two_panel_description">इसे Appearance में चालू करें. टेबलेट इसका उपयोग परिदृश्य में करते हैं; अनफोल्डेड बुक-स्टाइल फोल्डेबल्स इसे अपने व्यापक पोर्ट्रेट आसन में भी उपयोग कर सकते हैं। Mink’s Day + होम और होम + विजेट्स के बीच स्वाइप करें। पीछे की ओर मुड़ने से आपकी जगह सुरक्षित रहती है।</string>
@@ -294,7 +292,6 @@
     <string name="update_notice_work_profiles_title">कार्य प्रोफ़ाइल समर्थन</string>
     <string name="update_notice_work_profiles_description">कार्य ऐप्स और उनके प्रकाशित शॉर्टकट व्यक्तिगत ऐप्स के बगल में कार्य बैज के साथ दिखाई दे सकते हैं। Mink’s Day ठहराव नियम व्यक्तिगत ऐप्स तक ही सीमित हैं।</string>
     <string name="update_notice_app_shortcuts_title">आपके शॉर्टकट में ऐप क्रियाएँ</string>
-    <string name="update_notice_app_shortcuts_description">होम स्लॉट और Quick Drawer ऐप्स द्वारा प्रकाशित गतिविधियाँ खोल सकते हैं, जैसे कोई विशिष्ट वार्तालाप या सूची।</string>
     <string name="update_notice_pin_shortcuts_title">चुनें कि नए शॉर्टकट कहाँ जाते हैं</string>
     <string name="update_notice_pin_shortcuts_description">जब कोई अन्य ऐप होम स्क्रीन में जोड़ें का अनुरोध करता है, तो उसके शॉर्टकट को खोजने योग्य बनाएं, उसे होम स्लॉट में रखें, या Quick Drawer में जोड़ें।</string>
     <string name="update_notice_reachability_title">एक अधिक पहुंच योग्य घर</string>
@@ -332,8 +329,6 @@
     <string name="update_notice_notes_description">मल्टीलाइन नोट मोड भौतिक-कीबोर्ड फोकस बनाए रखता है जबकि इसका संपादक विस्तारित होता है।</string>
     <string name="update_notice_widgets_title">स्क्रॉल करने योग्य विजेट सामान्य रूप से व्यवहार करते हैं</string>
     <string name="update_notice_widgets_description">वर्टिकल जेस्चर उन विजेट्स तक पहुंचते हैं जो अपनी स्क्रॉलिंग को प्रबंधित करते हैं।</string>
-    <string name="update_notice_keyboard_title">टच कीबोर्ड वैकल्पिक हैं</string>
-    <string name="update_notice_keyboard_description">केवल टच वाले फ़ोन डिफ़ॉल्ट रूप से होम पर सॉफ़्टवेयर कीबोर्ड खोलते हैं; इसे Magic Box → कीबोर्ड में बंद किया जा सकता है।</string>
     <string name="update_notice_github_title">अपडेट आपका इंतजार करते हैं</string>
     <string name="update_notice_github_description">जब GitHub की नई रिलीज़ होती है तो एक स्पष्ट अपडेट कार्ड और एक छोटा होम हेडर आइकन दिखाई देता है। जब तक आप ब्राउज़र हैंडऑफ़ को मंजूरी नहीं देते तब तक कुछ भी डाउनलोड नहीं होता।</string>
     <string name="update_notice_integrated_apps_title">एकीकृत मैसेजिंग ऐप्स</string>
@@ -349,7 +344,6 @@
     <string name="update_notice_pause_apps_description">उन्हें Magic Box और ऐप ड्रॉअर से हर समय या सीमा के बाद छुपाएं। शॉर्टकट टाइलें अनुस्मारक के साथ दृश्यमान रहती हैं।</string>
     <string name="update_notice_home_browser_title">अधिक होम और ब्राउज़र नियंत्रण</string>
     <string name="update_notice_home_browser_description">होम स्टेटस बार छुपाएं और अधिक ब्राउज़रों में से चुनें जो Android खोजों और वेब पेजों के लिए उजागर करता है।</string>
-    <string name="review_updated_tutorial">अद्यतन ट्यूटोरियल की समीक्षा करें</string>
     <string name="choose_your_shortcut_apps">अपने शॉर्टकट चुनें</string>
     <string name="shortcut_setup_description">जब तक आप उन्हें बदल नहीं देते, छह स्लॉट अपनी अंतर्निहित डिफ़ॉल्ट बनाए रखते हैं। एक इंस्टॉल किया गया ऐप या किसी ऐप द्वारा प्रकाशित कोई कार्रवाई चुनें, या जो डिफ़ॉल्ट आप चाहते हैं उसे स्पष्ट रूप से रखें।</string>
     <string name="keep_built_in_defaults_remaining">शेष के लिए अंतर्निहित डिफ़ॉल्ट रखें</string>

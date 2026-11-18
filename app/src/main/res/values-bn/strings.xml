@@ -138,7 +138,6 @@
     <string name="send_sms_now">এখনই SMS পাঠান</string>
     <string name="choose_assistant">সহকারী নির্বাচন করুন</string>
     <string name="choose_messaging_app">এর মাধ্যমে পাঠান...</string>
-    <string name="your_drawer">QUICK DRAWER</string>
     <string name="all_apps">সব অ্যাপ</string>
     <string name="app_info">অ্যাপের তথ্য</string>
     <string name="app_info_unavailable">এই আইটেমের জন্য অ্যাপের তথ্য খোলা যায়নি</string>
@@ -268,7 +267,6 @@
     <string name="reply_unavailable">উত্তর অনুপলব্ধ</string>
     <string name="send_reply">উত্তর পাঠান</string>
     <string name="settings">সেটিংস</string>
-    <string name="whats_new">নতুন কি</string>
     <string name="update_notice_two_panel_heading">একটি বিস্তৃত বাড়ি, যখন আপনি এটি চান</string>
     <string name="update_notice_two_panel_title">বড় প্রদর্শনের জন্য দুটি প্যানেল</string>
     <string name="update_notice_two_panel_description">চেহারাতে এটি চালু করুন। ট্যাবলেট ল্যান্ডস্কেপ এটি ব্যবহার; উন্মোচিত বই-শৈলী ফোল্ডেবলগুলি তাদের বিস্তৃত প্রতিকৃতি ভঙ্গিতেও এটি ব্যবহার করতে পারে। Mink’s Day + হোম এবং হোম + উইজেটগুলির মধ্যে সোয়াইপ করুন। ফিরে ভাঁজ আপনার জায়গা রাখে.</string>
@@ -294,7 +292,6 @@
     <string name="update_notice_work_profiles_title">কাজের প্রোফাইল সমর্থন</string>
     <string name="update_notice_work_profiles_description">কাজের অ্যাপ্লিকেশানগুলি এবং তাদের প্রকাশিত শর্টকাটগুলি একটি কাজের ব্যাজ সহ ব্যক্তিগত অ্যাপগুলির পাশে উপস্থিত হতে পারে৷ Mink’s Day বিরতি নিয়ম ব্যক্তিগত অ্যাপে সীমাবদ্ধ থাকে।</string>
     <string name="update_notice_app_shortcuts_title">আপনার শর্টকাটে অ্যাপ অ্যাকশন</string>
-    <string name="update_notice_app_shortcuts_description">হোম স্লট এবং Quick Drawer অ্যাপগুলি দ্বারা প্রকাশিত ক্রিয়াগুলি খুলতে পারে, যেমন একটি নির্দিষ্ট কথোপকথন বা তালিকা৷</string>
     <string name="update_notice_pin_shortcuts_title">নতুন শর্টকাট কোথায় যাবে তা বেছে নিন</string>
     <string name="update_notice_pin_shortcuts_description">যখন অন্য একটি অ্যাপ হোম স্ক্রিনে যোগ করার অনুরোধ করে, তখন এটির শর্টকাট অনুসন্ধানযোগ্য করুন, এটিকে একটি হোম স্লটে রাখুন বা Quick Drawer-এ যোগ করুন।</string>
     <string name="update_notice_reachability_title">একটি আরো সহজলভ্য হোম</string>
@@ -332,8 +329,6 @@
     <string name="update_notice_notes_description">মাল্টিলাইন নোট মোড ফিজিক্যাল-কীবোর্ড ফোকাস রাখে যখন এর সম্পাদক প্রসারিত হয়।</string>
     <string name="update_notice_widgets_title">স্ক্রোলযোগ্য উইজেটগুলি স্বাভাবিকভাবে আচরণ করে</string>
     <string name="update_notice_widgets_description">উল্লম্ব অঙ্গভঙ্গি উইজেটগুলিতে পৌঁছায় যা তাদের নিজস্ব স্ক্রোলিং পরিচালনা করে।</string>
-    <string name="update_notice_keyboard_title">টাচ কীবোর্ড ঐচ্ছিক</string>
-    <string name="update_notice_keyboard_description">শুধু টাচ-ভিত্তিক ফোনে ডিফল্টভাবে হোমে সফ্টওয়্যার কীবোর্ড খোলে; Magic Box → কীবোর্ড থেকে এটি বন্ধ করা যায়।</string>
     <string name="update_notice_github_title">আপডেট আপনার জন্য অপেক্ষা করছে</string>
     <string name="update_notice_github_description">একটি পরিষ্কার আপডেট কার্ড এবং একটি ছোট হোম হেডার আইকন প্রদর্শিত হয় যখন GitHub একটি নতুন রিলিজ হয়। আপনি ব্রাউজার হ্যান্ডঅফ অনুমোদন না করা পর্যন্ত কিছুই ডাউনলোড হবে না।</string>
     <string name="update_notice_integrated_apps_title">ইন্টিগ্রেটেড মেসেজিং অ্যাপ</string>
@@ -349,7 +344,6 @@
     <string name="update_notice_pause_apps_description">এগুলিকে Magic Box এবং অ্যাপ ড্রয়ার থেকে সব সময় বা সীমার পরে লুকান৷ শর্টকাট টাইলস একটি অনুস্মারক সঙ্গে দৃশ্যমান থাকে.</string>
     <string name="update_notice_home_browser_title">আরও হোম এবং ব্রাউজার নিয়ন্ত্রণ</string>
     <string name="update_notice_home_browser_description">হোম স্ট্যাটাস বার লুকান এবং আরও ব্রাউজার থেকে বেছে নিন যেগুলি Android অনুসন্ধান এবং ওয়েব পৃষ্ঠাগুলির জন্য প্রকাশ করে৷</string>
-    <string name="review_updated_tutorial">আপডেট করা টিউটোরিয়াল পর্যালোচনা করুন</string>
     <string name="choose_your_shortcut_apps">আপনার শর্টকাট চয়ন করুন</string>
     <string name="shortcut_setup_description">আপনি তাদের প্রতিস্থাপন না করা পর্যন্ত ছয়টি স্লট তাদের অন্তর্নির্মিত ডিফল্ট রাখে। একটি ইনস্টল করা অ্যাপ্লিকেশন বা একটি অ্যাপ্লিকেশন দ্বারা প্রকাশিত একটি কর্ম চয়ন করুন, অথবা স্পষ্টভাবে আপনি চান ডিফল্ট রাখুন.</string>
     <string name="keep_built_in_defaults_remaining">অবশিষ্টের জন্য বিল্ট-ইন ডিফল্ট রাখুন</string>

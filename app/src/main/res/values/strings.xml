@@ -139,7 +139,6 @@
     <string name="send_sms_now">Send SMS now</string>
     <string name="choose_assistant">Choose assistant</string>
     <string name="choose_messaging_app">Send via…</string>
-    <string name="your_drawer">QUICK DRAWER</string>
     <string name="all_apps">All apps</string>
     <string name="app_info">App info</string>
     <string name="app_info_unavailable">Couldn’t open App info for this item</string>
@@ -279,7 +278,6 @@
     <string name="settings">Settings</string>
 
     <!-- Generic shortcut update and setup -->
-    <string name="whats_new">What’s new</string>
     <string name="update_notice_two_panel_heading">A wider Home, when you want it</string>
     <string name="update_notice_two_panel_title">Two panels for large displays</string>
     <string name="update_notice_two_panel_description">Turn it on in Appearance. Tablets use it in landscape; unfolded book-style foldables can also use it in their wider portrait posture. Swipe between Mink’s Day + Home and Home + Widgets. Folding back keeps your place.</string>
@@ -305,7 +303,6 @@
     <string name="update_notice_work_profiles_title">Work profile support</string>
     <string name="update_notice_work_profiles_description">Work apps and their published shortcuts can appear beside personal apps with a work badge. Mink’s Day pause rules remain limited to personal apps.</string>
     <string name="update_notice_app_shortcuts_title">App actions in your shortcuts</string>
-    <string name="update_notice_app_shortcuts_description">Home slots and Quick Drawer can open actions published by apps, such as a specific conversation or list.</string>
     <string name="update_notice_pin_shortcuts_title">Choose where new shortcuts go</string>
     <string name="update_notice_pin_shortcuts_description">When another app requests Add to Home screen, make its shortcut searchable, place it in a Home slot, or add it to Quick Drawer.</string>
     <string name="update_notice_reachability_title">A more reachable Home</string>
@@ -343,8 +340,6 @@
     <string name="update_notice_notes_description">Multiline note mode keeps physical-keyboard focus while its editor expands.</string>
     <string name="update_notice_widgets_title">Scrollable widgets behave normally</string>
     <string name="update_notice_widgets_description">Vertical gestures reach widgets that manage their own scrolling.</string>
-    <string name="update_notice_keyboard_title">Touch keyboards are optional</string>
-    <string name="update_notice_keyboard_description">Touch-only phones open the software keyboard on Home by default, with an off switch in Magic Box → Keyboard.</string>
     <string name="update_notice_github_title">Updates wait for you</string>
     <string name="update_notice_github_description">A clear update card and a small Home header icon appear when GitHub has a newer release. Nothing downloads until you approve the browser handoff.</string>
     <string name="update_notice_integrated_apps_title">Integrated messaging apps</string>
@@ -360,7 +355,6 @@
     <string name="update_notice_pause_apps_description">Hide them from Magic Box and the app drawers all the time or after the limit. Shortcut tiles stay visible with a reminder.</string>
     <string name="update_notice_home_browser_title">More Home and browser control</string>
     <string name="update_notice_home_browser_description">Hide the Home status bar and choose from more browsers that Android exposes for searches and web pages.</string>
-    <string name="review_updated_tutorial">Review the updated tutorial</string>
     <string name="choose_your_shortcut_apps">Choose your shortcuts</string>
     <string name="shortcut_setup_description">The six slots keep their built-in defaults until you replace them. Choose an installed app or an action published by an app, or explicitly keep the defaults you want.</string>
     <string name="keep_built_in_defaults_remaining">Keep built-in defaults for remaining</string>

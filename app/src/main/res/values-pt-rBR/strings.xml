@@ -138,7 +138,6 @@
     <string name="send_sms_now">Envie SMS agora</string>
     <string name="choose_assistant">Escolha assistente</string>
     <string name="choose_messaging_app">Enviar por…</string>
-    <string name="your_drawer">QUICK DRAWER</string>
     <string name="all_apps">Todos os aplicativos</string>
     <string name="app_info">Informações do aplicativo</string>
     <string name="app_info_unavailable">Não foi possível abrir as informações do aplicativo para este item</string>
@@ -268,7 +267,6 @@
     <string name="reply_unavailable">Resposta indisponível</string>
     <string name="send_reply">Enviar resposta</string>
     <string name="settings">Configurações</string>
-    <string name="whats_new">O que há de novo</string>
     <string name="update_notice_two_panel_heading">Uma casa mais ampla, quando você quiser</string>
     <string name="update_notice_two_panel_title">Dois painéis para displays grandes</string>
     <string name="update_notice_two_panel_description">Ative-o em Aparência. Os tablets usam-no em paisagem; dobráveis ​​tipo livro desdobrados também podem usá-lo em sua postura de retrato mais ampla. Deslize entre Mink’s Day + Home e Home + Widgets. Dobrar para trás mantém o seu lugar.</string>
@@ -294,7 +292,6 @@
     <string name="update_notice_work_profiles_title">Suporte para perfil de trabalho</string>
     <string name="update_notice_work_profiles_description">Os aplicativos de trabalho e seus atalhos publicados podem aparecer ao lado dos aplicativos pessoais com um crachá de trabalho. As regras de pausa Mink’s Day permanecem limitadas a aplicativos pessoais.</string>
     <string name="update_notice_app_shortcuts_title">Ações de aplicativos em seus atalhos</string>
-    <string name="update_notice_app_shortcuts_description">Os slots Home e Quick Drawer podem abrir ações publicadas por aplicativos, como uma conversa ou lista específica.</string>
     <string name="update_notice_pin_shortcuts_title">Escolha para onde vão os novos atalhos</string>
     <string name="update_notice_pin_shortcuts_description">Quando outro aplicativo solicitar Adicionar à tela inicial, torne seu atalho pesquisável, coloque-o em um slot inicial ou adicione-o ao Quick Drawer.</string>
     <string name="update_notice_reachability_title">Uma casa mais acessível</string>
@@ -332,8 +329,6 @@
     <string name="update_notice_notes_description">O modo de nota multilinha mantém o foco do teclado físico enquanto seu editor se expande.</string>
     <string name="update_notice_widgets_title">Widgets roláveis se comportam normalmente</string>
     <string name="update_notice_widgets_description">Gestos verticais alcançam widgets que gerenciam sua própria rolagem.</string>
-    <string name="update_notice_keyboard_title">Teclados sensíveis ao toque são opcionais</string>
-    <string name="update_notice_keyboard_description">Em celulares somente com tela sensível ao toque, o teclado virtual abre por padrão na tela inicial; desative-o em Magic Box → Teclado.</string>
     <string name="update_notice_github_title">Atualizações esperam por você</string>
     <string name="update_notice_github_description">Um cartão de atualização claro e um pequeno ícone de cabeçalho inicial aparecem quando GitHub tem uma versão mais recente. Nada é baixado até que você aprove a transferência do navegador.</string>
     <string name="update_notice_integrated_apps_title">Aplicativos de mensagens integrados</string>
@@ -349,7 +344,6 @@
     <string name="update_notice_pause_apps_description">Oculte-os do Magic Box e das gavetas de aplicativos o tempo todo ou após o limite. Os blocos de atalho permanecem visíveis com um lembrete.</string>
     <string name="update_notice_home_browser_title">Mais controle da página inicial e do navegador</string>
     <string name="update_notice_home_browser_description">Oculte a barra de status inicial e escolha entre mais navegadores que o Android expõe para pesquisas e páginas da web.</string>
-    <string name="review_updated_tutorial">Revise o tutorial atualizado</string>
     <string name="choose_your_shortcut_apps">Escolha seus atalhos</string>
     <string name="shortcut_setup_description">Os seis slots mantêm seus padrões integrados até você substituí-los. Escolha um aplicativo instalado ou uma ação publicada por um aplicativo ou mantenha explicitamente os padrões desejados.</string>
     <string name="keep_built_in_defaults_remaining">Mantenha os padrões integrados para o restante</string>

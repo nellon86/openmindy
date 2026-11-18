@@ -138,7 +138,6 @@
     <string name="send_sms_now">지금 SMS 보내기</string>
     <string name="choose_assistant">어시스턴트 선택</string>
     <string name="choose_messaging_app">다음을 통해 보내기…</string>
-    <string name="your_drawer">QUICK DRAWER</string>
     <string name="all_apps">모든 앱</string>
     <string name="app_info">앱 정보</string>
     <string name="app_info_unavailable">이 항목에 대한 앱 정보를 열 수 없습니다.</string>
@@ -268,7 +267,6 @@
     <string name="reply_unavailable">답장할 수 없음</string>
     <string name="send_reply">답장 보내기</string>
     <string name="settings">설정</string>
-    <string name="whats_new">새로운 소식</string>
     <string name="update_notice_two_panel_heading">원할 때 더 넓은 집</string>
     <string name="update_notice_two_panel_title">대형 디스플레이용 패널 2개</string>
     <string name="update_notice_two_panel_description">모양새에서 켜세요. 태블릿은 가로 방향으로 사용합니다. 펼쳐진 책 스타일 폴더블은 더 넓은 세로 자세에서도 사용할 수 있습니다. Mink’s Day + 홈과 홈 + 위젯 사이를 스와이프하세요. 뒤로 접어서 자리를 유지하세요.</string>
@@ -294,7 +292,6 @@
     <string name="update_notice_work_profiles_title">직장 프로필 지원</string>
     <string name="update_notice_work_profiles_description">직장 앱과 게시된 바로가기는 직장 배지와 함께 개인 앱 옆에 표시될 수 있습니다. Mink’s Day 일시 중지 규칙은 개인 앱으로 제한됩니다.</string>
     <string name="update_notice_app_shortcuts_title">바로가기의 앱 작업</string>
-    <string name="update_notice_app_shortcuts_description">홈 슬롯 및 Quick Drawer는 특정 대화 또는 목록과 같이 앱에서 게시한 작업을 열 수 있습니다.</string>
     <string name="update_notice_pin_shortcuts_title">새로운 바로가기가 어디로 갈지 선택하세요</string>
     <string name="update_notice_pin_shortcuts_description">다른 앱이 홈 화면에 추가를 요청하면 해당 바로가기를 검색 가능하게 만들고 홈 슬롯에 배치하거나 Quick Drawer에 추가하세요.</string>
     <string name="update_notice_reachability_title">더 쉽게 다가갈 수 있는 집</string>
@@ -332,8 +329,6 @@
     <string name="update_notice_notes_description">여러 줄 노트 모드는 편집기가 확장되는 동안 실제 키보드 초점을 유지합니다.</string>
     <string name="update_notice_widgets_title">스크롤 가능한 위젯이 정상적으로 작동함</string>
     <string name="update_notice_widgets_description">수직 동작은 자체 스크롤을 관리하는 위젯에 도달합니다.</string>
-    <string name="update_notice_keyboard_title">터치 키보드는 선택 사항입니다.</string>
-    <string name="update_notice_keyboard_description">터치 전용 휴대전화는 기본적으로 홈에서 소프트웨어 키보드를 엽니다. Magic Box → 키보드에서 끌 수 있습니다.</string>
     <string name="update_notice_github_title">업데이트가 당신을 기다립니다</string>
     <string name="update_notice_github_description">GitHub에 최신 릴리스가 있으면 명확한 업데이트 카드와 작은 홈 헤더 아이콘이 나타납니다. 브라우저 핸드오프를 승인할 때까지 아무 것도 다운로드되지 않습니다.</string>
     <string name="update_notice_integrated_apps_title">통합 메시징 앱</string>
@@ -349,7 +344,6 @@
     <string name="update_notice_pause_apps_description">Magic Box 및 앱 서랍에서 항상 또는 제한 이후에 숨길 수 있습니다. 바로가기 타일은 알림과 함께 계속 표시됩니다.</string>
     <string name="update_notice_home_browser_title">홈 및 브라우저 제어</string>
     <string name="update_notice_home_browser_description">홈 상태 표시줄을 숨기고 Android가 검색 및 웹 페이지에 표시하는 더 많은 브라우저 중에서 선택하세요.</string>
-    <string name="review_updated_tutorial">업데이트된 튜토리얼 검토</string>
     <string name="choose_your_shortcut_apps">바로가기를 선택하세요</string>
     <string name="shortcut_setup_description">6개 슬롯은 교체할 때까지 내장된 기본값을 유지합니다. 설치된 앱이나 앱에서 게시한 작업을 선택하거나 원하는 기본값을 명시적으로 유지하세요.</string>
     <string name="keep_built_in_defaults_remaining">나머지 부분에 대해서는 기본 제공 기본값을 유지합니다.</string>

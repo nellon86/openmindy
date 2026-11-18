@@ -138,7 +138,6 @@
     <string name="send_sms_now">Envoyer SMS maintenant</string>
     <string name="choose_assistant">Choisir un assistant</string>
     <string name="choose_messaging_app">Envoyer par…</string>
-    <string name="your_drawer">QUICK DRAWER</string>
     <string name="all_apps">Toutes les applications</string>
     <string name="app_info">Informations sur l\'application</string>
     <string name="app_info_unavailable">Impossible d\'ouvrir les informations sur l\'application pour cet élément</string>
@@ -268,7 +267,6 @@
     <string name="reply_unavailable">Réponse indisponible</string>
     <string name="send_reply">Envoyer la réponse</string>
     <string name="settings">Paramètres</string>
-    <string name="whats_new">Quoi de neuf</string>
     <string name="update_notice_two_panel_heading">Une maison plus grande, quand vous le souhaitez</string>
     <string name="update_notice_two_panel_title">Deux panneaux pour les grands écrans</string>
     <string name="update_notice_two_panel_description">Activez-le dans Apparence. Les tablettes l\'utilisent en mode paysage ; les pliables dépliés de style livre peuvent également l\'utiliser dans leur posture de portrait plus large. Faites glisser votre doigt entre Mink’s Day + Accueil et Accueil + Widgets. Le repliage garde votre place.</string>
@@ -294,7 +292,6 @@
     <string name="update_notice_work_profiles_title">Prise en charge du profil professionnel</string>
     <string name="update_notice_work_profiles_description">Les applications professionnelles et leurs raccourcis publiés peuvent apparaître à côté des applications personnelles avec un badge professionnel. Les règles de pause Mink’s Day restent limitées aux applications personnelles.</string>
     <string name="update_notice_app_shortcuts_title">Actions de l\'application dans vos raccourcis</string>
-    <string name="update_notice_app_shortcuts_description">Les emplacements d\'accueil et Quick Drawer peuvent ouvrir des actions publiées par des applications, telles qu\'une conversation ou une liste spécifique.</string>
     <string name="update_notice_pin_shortcuts_title">Choisissez où vont les nouveaux raccourcis</string>
     <string name="update_notice_pin_shortcuts_description">Lorsqu\'une autre application demande Ajouter à l\'écran d\'accueil, rendez son raccourci consultable, placez-le dans un emplacement d\'accueil ou ajoutez-le au Quick Drawer.</string>
     <string name="update_notice_reachability_title">Une maison plus accessible</string>
@@ -332,8 +329,6 @@
     <string name="update_notice_notes_description">Le mode note multiligne conserve le focus sur le clavier physique pendant que son éditeur se développe.</string>
     <string name="update_notice_widgets_title">Les widgets défilants se comportent normalement</string>
     <string name="update_notice_widgets_description">Les gestes verticaux atteignent les widgets qui gèrent leur propre défilement.</string>
-    <string name="update_notice_keyboard_title">Les claviers tactiles sont facultatifs</string>
-    <string name="update_notice_keyboard_description">Les téléphones entièrement tactiles ouvrent le clavier à l’écran sur l’accueil par défaut ; vous pouvez le désactiver dans Magic Box → Clavier.</string>
     <string name="update_notice_github_title">Les mises à jour vous attendent</string>
     <string name="update_notice_github_description">Une carte de mise à jour claire et une petite icône d\'en-tête Accueil apparaissent lorsque GitHub dispose d\'une version plus récente. Rien n\'est téléchargé tant que vous n\'avez pas approuvé le transfert du navigateur.</string>
     <string name="update_notice_integrated_apps_title">Applications de messagerie intégrées</string>
@@ -349,7 +344,6 @@
     <string name="update_notice_pause_apps_description">Cachez-les de Magic Box et des tiroirs d\'applications à tout moment ou après la limite. Les vignettes de raccourci restent visibles avec un rappel.</string>
     <string name="update_notice_home_browser_title">Plus de contrôle sur la maison et le navigateur</string>
     <string name="update_notice_home_browser_description">Masquez la barre d\'état d\'accueil et choisissez parmi davantage de navigateurs exposés par Android pour les recherches et les pages Web.</string>
-    <string name="review_updated_tutorial">Consultez le didacticiel mis à jour</string>
     <string name="choose_your_shortcut_apps">Choisissez vos raccourcis</string>
     <string name="shortcut_setup_description">Les six emplacements conservent leurs valeurs par défaut intégrées jusqu\'à ce que vous les remplaciez. Choisissez une application installée ou une action publiée par une application, ou conservez explicitement les valeurs par défaut souhaitées.</string>
     <string name="keep_built_in_defaults_remaining">Conserver les valeurs par défaut intégrées pour le reste</string>

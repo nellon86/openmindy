@@ -138,7 +138,6 @@
     <string name="send_sms_now">ابھی SMS بھیجیں۔</string>
     <string name="choose_assistant">اسسٹنٹ کا انتخاب کریں۔</string>
     <string name="choose_messaging_app">کے ذریعے بھیجیں…</string>
-    <string name="your_drawer">QUICK DRAWER</string>
     <string name="all_apps">تمام ایپس</string>
     <string name="app_info">ایپ کی معلومات</string>
     <string name="app_info_unavailable">اس آئٹم کے لیے ایپ کی معلومات نہیں کھولی جا سکی</string>
@@ -268,7 +267,6 @@
     <string name="reply_unavailable">جواب دستیاب نہیں ہے۔</string>
     <string name="send_reply">جواب بھیجیں۔</string>
     <string name="settings">ترتیبات</string>
-    <string name="whats_new">نیا کیا ہے۔</string>
     <string name="update_notice_two_panel_heading">ایک وسیع تر گھر، جب آپ چاہیں۔</string>
     <string name="update_notice_two_panel_title">بڑے ڈسپلے کے لیے دو پینل</string>
     <string name="update_notice_two_panel_description">اسے ظاہری شکل میں آن کریں۔ گولیاں اسے زمین کی تزئین میں استعمال کرتی ہیں۔ کھولے ہوئے کتابی طرز کے فولڈ ایبلز بھی اسے اپنے وسیع پورٹریٹ کرنسی میں استعمال کر سکتے ہیں۔ Mink’s Day + ہوم اور ہوم + وجیٹس کے درمیان سوائپ کریں۔ پیچھے جوڑنا آپ کی جگہ رکھتا ہے۔</string>
@@ -294,7 +292,6 @@
     <string name="update_notice_work_profiles_title">ورک پروفائل سپورٹ</string>
     <string name="update_notice_work_profiles_description">ورک ایپس اور ان کے شائع شدہ شارٹ کٹ ذاتی ایپس کے ساتھ کام کے بیج کے ساتھ ظاہر ہو سکتے ہیں۔ Mink’s Day توقف کے اصول ذاتی ایپس تک محدود ہیں۔</string>
     <string name="update_notice_app_shortcuts_title">آپ کے شارٹ کٹس میں ایپ کی کارروائیاں</string>
-    <string name="update_notice_app_shortcuts_description">ہوم سلاٹس اور Quick Drawer ایپس کے ذریعہ شائع کردہ کارروائیوں کو کھول سکتے ہیں، جیسے کہ ایک مخصوص گفتگو یا فہرست۔</string>
     <string name="update_notice_pin_shortcuts_title">منتخب کریں کہ نئے شارٹ کٹ کہاں جاتے ہیں۔</string>
     <string name="update_notice_pin_shortcuts_description">جب کوئی اور ایپ ہوم اسکرین میں شامل کرنے کی درخواست کرتی ہے، تو اس کے شارٹ کٹ کو قابل تلاش بنائیں، اسے ہوم سلاٹ میں رکھیں، یا اسے Quick Drawer میں شامل کریں۔</string>
     <string name="update_notice_reachability_title">ایک زیادہ قابل رسائی گھر</string>
@@ -332,8 +329,6 @@
     <string name="update_notice_notes_description">ملٹی لائن نوٹ موڈ فزیکل کی بورڈ فوکس رکھتا ہے جب کہ اس کا ایڈیٹر پھیلتا ہے۔</string>
     <string name="update_notice_widgets_title">سکرول کے قابل ویجٹ عام طور پر برتاؤ کرتے ہیں۔</string>
     <string name="update_notice_widgets_description">عمودی اشارے ویجٹ تک پہنچتے ہیں جو اپنی اسکرولنگ کا انتظام کرتے ہیں۔</string>
-    <string name="update_notice_keyboard_title">ٹچ کی بورڈز اختیاری ہیں۔</string>
-    <string name="update_notice_keyboard_description">صرف ٹچ والے فونز میں ہوم پر سافٹ ویئر کی بورڈ بطور ڈیفالٹ کھلتا ہے؛ اسے Magic Box ← کی بورڈ میں بند کیا جا سکتا ہے۔</string>
     <string name="update_notice_github_title">اپڈیٹس آپ کے منتظر ہیں۔</string>
     <string name="update_notice_github_description">جب GitHub کی نئی ریلیز ہوتی ہے تو ایک واضح اپ ڈیٹ کارڈ اور ایک چھوٹا ہوم ہیڈر آئیکن ظاہر ہوتا ہے۔ جب تک آپ براؤزر ہینڈ آف کو منظور نہیں کرتے تب تک کچھ بھی ڈاؤن لوڈ نہیں ہوتا ہے۔</string>
     <string name="update_notice_integrated_apps_title">انٹیگریٹڈ میسجنگ ایپس</string>
@@ -349,7 +344,6 @@
     <string name="update_notice_pause_apps_description">انہیں Magic Box اور ایپ دراز سے ہر وقت یا حد کے بعد چھپائیں۔ شارٹ کٹ ٹائلیں یاد دہانی کے ساتھ نظر آتی رہتی ہیں۔</string>
     <string name="update_notice_home_browser_title">مزید ہوم اور براؤزر کنٹرول</string>
     <string name="update_notice_home_browser_description">ہوم اسٹیٹس بار کو چھپائیں اور مزید براؤزرز میں سے انتخاب کریں جو Android تلاشوں اور ویب صفحات کے لیے ظاہر کرتے ہیں۔</string>
-    <string name="review_updated_tutorial">اپ ڈیٹ کردہ ٹیوٹوریل کا جائزہ لیں۔</string>
     <string name="choose_your_shortcut_apps">اپنے شارٹ کٹس کا انتخاب کریں۔</string>
     <string name="shortcut_setup_description">چھ سلاٹس اپنے پہلے سے طے شدہ کو برقرار رکھتے ہیں جب تک کہ آپ انہیں تبدیل نہیں کرتے ہیں۔ انسٹال کردہ ایپ یا کسی ایپ کے ذریعہ شائع کردہ ایکشن کا انتخاب کریں، یا واضح طور پر اپنے مطلوبہ ڈیفالٹس رکھیں۔</string>
     <string name="keep_built_in_defaults_remaining">بقیہ کے لیے پہلے سے طے شدہ رکھیں</string>

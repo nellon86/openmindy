@@ -138,7 +138,6 @@
     <string name="send_sms_now">Envía SMS ahora</string>
     <string name="choose_assistant">Elige asistente</string>
     <string name="choose_messaging_app">Enviar vía…</string>
-    <string name="your_drawer">QUICK DRAWER</string>
     <string name="all_apps">Todas las aplicaciones</string>
     <string name="app_info">Información de la aplicación</string>
     <string name="app_info_unavailable">No se pudo abrir la información de la aplicación para este artículo</string>
@@ -268,7 +267,6 @@
     <string name="reply_unavailable">Respuesta no disponible</string>
     <string name="send_reply">Enviar respuesta</string>
     <string name="settings">Configuración</string>
-    <string name="whats_new">¿Qué hay de nuevo?</string>
     <string name="update_notice_two_panel_heading">Un Hogar más amplio, cuando lo desees</string>
     <string name="update_notice_two_panel_title">Dos paneles para pantallas grandes</string>
     <string name="update_notice_two_panel_description">Actívalo en Apariencia. Las tabletas lo utilizan en formato horizontal; Los plegables estilo libro desplegados también pueden usarlo en su postura vertical más amplia. Desliza el dedo entre Mink’s Day + Inicio y Inicio + Widgets. El respaldo plegable mantiene tu lugar.</string>
@@ -294,7 +292,6 @@
     <string name="update_notice_work_profiles_title">Soporte de perfil de trabajo</string>
     <string name="update_notice_work_profiles_description">Las aplicaciones de trabajo y sus accesos directos publicados pueden aparecer junto a las aplicaciones personales con una insignia de trabajo. Las reglas de pausa Mink’s Day siguen estando limitadas a aplicaciones personales.</string>
     <string name="update_notice_app_shortcuts_title">Acciones de aplicaciones en tus atajos</string>
-    <string name="update_notice_app_shortcuts_description">Los espacios de inicio y Quick Drawer pueden abrir acciones publicadas por aplicaciones, como una conversación o lista específica.</string>
     <string name="update_notice_pin_shortcuts_title">Elige dónde van los nuevos atajos</string>
     <string name="update_notice_pin_shortcuts_description">Cuando otra aplicación solicite Agregar a la pantalla de inicio, haga que se pueda buscar su acceso directo, colóquelo en una ranura de Inicio o agréguelo al Quick Drawer.</string>
     <string name="update_notice_reachability_title">Un hogar más accesible</string>
@@ -332,8 +329,6 @@
     <string name="update_notice_notes_description">El modo de notas multilínea mantiene el enfoque en el teclado físico mientras se expande su editor.</string>
     <string name="update_notice_widgets_title">Los widgets desplazables se comportan normalmente</string>
     <string name="update_notice_widgets_description">Los gestos verticales llegan a los widgets que gestionan su propio desplazamiento.</string>
-    <string name="update_notice_keyboard_title">Los teclados táctiles son opcionales</string>
-    <string name="update_notice_keyboard_description">Los teléfonos solo táctiles abren el teclado en pantalla en Inicio de forma predeterminada; puedes desactivarlo en Magic Box → Teclado.</string>
     <string name="update_notice_github_title">Las actualizaciones te esperan</string>
     <string name="update_notice_github_description">Aparece una tarjeta de actualización clara y un pequeño ícono de encabezado de Inicio cuando GitHub tiene una versión más reciente. No se descarga nada hasta que apruebes la transferencia del navegador.</string>
     <string name="update_notice_integrated_apps_title">Aplicaciones de mensajería integradas</string>
@@ -349,7 +344,6 @@
     <string name="update_notice_pause_apps_description">Ocultarlos de Magic Box y de los cajones de aplicaciones todo el tiempo o después del límite. Los mosaicos de accesos directos permanecen visibles con un recordatorio.</string>
     <string name="update_notice_home_browser_title">Más control de inicio y navegador</string>
     <string name="update_notice_home_browser_description">Oculte la barra de estado de Inicio y elija entre más navegadores que Android expone para búsquedas y páginas web.</string>
-    <string name="review_updated_tutorial">Revisa el tutorial actualizado</string>
     <string name="choose_your_shortcut_apps">Elige tus atajos</string>
     <string name="shortcut_setup_description">Las seis ranuras mantienen sus valores predeterminados incorporados hasta que las reemplace. Elija una aplicación instalada o una acción publicada por una aplicación, o mantenga explícitamente los valores predeterminados que desee.</string>
     <string name="keep_built_in_defaults_remaining">Mantener los valores predeterminados integrados para el resto</string>

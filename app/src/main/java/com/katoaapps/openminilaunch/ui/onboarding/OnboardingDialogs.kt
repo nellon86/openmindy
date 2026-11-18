@@ -41,57 +41,6 @@ import com.katoaapps.openminilaunch.ui.theme.Muted
 import com.katoaapps.openminilaunch.ui.theme.Rust
 
 @Composable
-internal fun FeatureUpdateDialog(
-    onOpenSettings: () -> Unit,
-    onReviewTutorial: () -> Unit,
-    onNotNow: () -> Unit,
-) {
-    AlertDialog(
-        modifier = Modifier.minkDialogWidth(),
-        onDismissRequest = onNotNow,
-        properties = MinkDialogDefaults.properties,
-        icon = { Icon(Icons.Default.Pets, null, tint = Rust) },
-        title = { Text(stringResource(R.string.whats_new)) },
-        text = {
-            Column(
-                Modifier.heightIn(max = Dimens.dp560).verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(Dimens.dp14),
-            ) {
-                UpdatePoint(
-                    Icons.Default.Apps,
-                    stringResource(R.string.app_grid),
-                    stringResource(R.string.update_notice_app_shortcuts_description),
-                )
-                UpdatePoint(
-                    Icons.Default.ContactPage,
-                    stringResource(R.string.favorites),
-                    stringResource(R.string.conversation_tour_favorites_description),
-                )
-                UpdatePoint(
-                    Icons.Default.Keyboard,
-                    stringResource(R.string.update_notice_keyboard_title),
-                    stringResource(R.string.update_notice_keyboard_description),
-                )
-                UpdatePoint(
-                    Icons.Default.Widgets,
-                    stringResource(R.string.widgets),
-                    stringResource(R.string.your_widget_page_description),
-                )
-                TextButton(onClick = onReviewTutorial, contentPadding = PaddingValues(Dimens.dp0)) {
-                    Text(stringResource(R.string.review_updated_tutorial))
-                }
-            }
-        },
-        confirmButton = {
-            Button(onClick = onOpenSettings) {
-                Text(stringResource(R.string.open_settings))
-            }
-        },
-        dismissButton = { TextButton(onClick = onNotNow) { Text(stringResource(R.string.not_now)) } },
-    )
-}
-
-@Composable
 internal fun FileSearchScopeDialog(
     onChooseFolder: () -> Unit,
     onSkip: () -> Unit,

@@ -138,7 +138,6 @@
     <string name="send_sms_now">Отправьте SMS прямо сейчас</string>
     <string name="choose_assistant">Выбрать помощника</string>
     <string name="choose_messaging_app">Отправить через…</string>
-    <string name="your_drawer">QUICK DRAWER</string>
     <string name="all_apps">Все приложения</string>
     <string name="app_info">Информация о приложении</string>
     <string name="app_info_unavailable">Не удалось открыть информацию о приложении для этого объекта.</string>
@@ -268,7 +267,6 @@
     <string name="reply_unavailable">Ответ недоступен</string>
     <string name="send_reply">Отправить ответ</string>
     <string name="settings">Настройки</string>
-    <string name="whats_new">Что нового</string>
     <string name="update_notice_two_panel_heading">Более широкий дом, когда вы этого хотите</string>
     <string name="update_notice_two_panel_title">Две панели для больших дисплеев</string>
     <string name="update_notice_two_panel_description">Включите его в разделе «Внешний вид». Таблетки используют его в альбомной ориентации; развернутые складные книжные модели также могут использовать его в более широкой портретной позе. Проведите пальцем между Mink’s Day + Домой и Домой + Виджеты. Складывание назад сохраняет ваше место.</string>
@@ -294,7 +292,6 @@
     <string name="update_notice_work_profiles_title">Поддержка рабочего профиля</string>
     <string name="update_notice_work_profiles_description">Рабочие приложения и их опубликованные ярлыки могут отображаться рядом с личными приложениями со значком работы. Правила паузы Mink’s Day по-прежнему ограничиваются личными приложениями.</string>
     <string name="update_notice_app_shortcuts_title">Действия приложения в ваших ярлыках</string>
-    <string name="update_notice_app_shortcuts_description">Домашние слоты и Quick Drawer могут открывать действия, опубликованные приложениями, например определенный разговор или список.</string>
     <string name="update_notice_pin_shortcuts_title">Выберите, куда будут идти новые ярлыки</string>
     <string name="update_notice_pin_shortcuts_description">Когда другое приложение запрашивает «Добавить на главный экран», сделайте его ярлык доступным для поиска, поместите его в главный слот или добавьте в Quick Drawer.</string>
     <string name="update_notice_reachability_title">Более доступный дом</string>
@@ -332,8 +329,6 @@
     <string name="update_notice_notes_description">В режиме многострочных заметок сохраняется фокус физической клавиатуры, пока ее редактор расширяется.</string>
     <string name="update_notice_widgets_title">Прокручиваемые виджеты ведут себя нормально</string>
     <string name="update_notice_widgets_description">Вертикальные жесты достигают виджетов, которые управляют собственной прокруткой.</string>
-    <string name="update_notice_keyboard_title">Сенсорные клавиатуры не являются обязательными</string>
-    <string name="update_notice_keyboard_description">На телефонах только с сенсорным управлением экранная клавиатура по умолчанию открывается на главном экране. Ее можно отключить в разделе «Magic Box» → «Клавиатура».</string>
     <string name="update_notice_github_title">Обновления ждут вас</string>
     <string name="update_notice_github_description">Когда GitHub выходит более новая версия, появляется четкая карточка обновления и небольшой значок в заголовке «Главная». Ничего не загружается, пока вы не одобрите передачу браузера.</string>
     <string name="update_notice_integrated_apps_title">Интегрированные приложения для обмена сообщениями</string>
@@ -349,7 +344,6 @@
     <string name="update_notice_pause_apps_description">Скрывайте их от Magic Box и ящиков приложений постоянно или после ограничения. Плитки ярлыков остаются видимыми с напоминанием.</string>
     <string name="update_notice_home_browser_title">Больше управления домом и браузером</string>
     <string name="update_notice_home_browser_description">Скройте строку состояния «Домой» и выберите один из других браузеров, которые Android предоставляет для поиска и веб-страниц.</string>
-    <string name="review_updated_tutorial">Просмотрите обновленное руководство</string>
     <string name="choose_your_shortcut_apps">Выберите ярлыки</string>
     <string name="shortcut_setup_description">Шесть слотов сохраняют свои встроенные настройки по умолчанию до тех пор, пока вы их не замените. Выберите установленное приложение или действие, опубликованное приложением, или явно оставьте нужные значения по умолчанию.</string>
     <string name="keep_built_in_defaults_remaining">Сохраните встроенные настройки по умолчанию для остальных</string>

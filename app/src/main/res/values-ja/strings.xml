@@ -138,7 +138,6 @@
     <string name="send_sms_now">今すぐSMSを送信してください</string>
     <string name="choose_assistant">アシスタントを選択</string>
     <string name="choose_messaging_app">送信方法…</string>
-    <string name="your_drawer">QUICK DRAWER</string>
     <string name="all_apps">すべてのアプリ</string>
     <string name="app_info">アプリ情報</string>
     <string name="app_info_unavailable">このアイテムのアプリ情報を開けませんでした</string>
@@ -268,7 +267,6 @@
     <string name="reply_unavailable">返信不可</string>
     <string name="send_reply">返信を送信</string>
     <string name="settings">設定</string>
-    <string name="whats_new">新機能</string>
     <string name="update_notice_two_panel_heading">必要なときに、より広い家を</string>
     <string name="update_notice_two_panel_title">大型ディスプレイ用の 2 つのパネル</string>
     <string name="update_notice_two_panel_description">「外観」でオンにします。タブレットでは横向きで使用します。広げたブックスタイルの折り畳み式の場合は、より広い縦向きの姿勢でも使用できます。 Mink’s Day + ホームとホーム + ウィジェット間をスワイプします。折り返すと場所を確保できます。</string>
@@ -294,7 +292,6 @@
     <string name="update_notice_work_profiles_title">仕事用プロファイルのサポート</string>
     <string name="update_notice_work_profiles_description">仕事用アプリとその公開ショートカットは、仕事用バッジ付きの個人用アプリの横に表示されます。 Mink’s Day 一時停止ルールは引き続き個人アプリに限定されます。</string>
     <string name="update_notice_app_shortcuts_title">ショートカット内のアプリのアクション</string>
-    <string name="update_notice_app_shortcuts_description">ホーム スロットとQuick Drawer では、特定の会話やリストなど、アプリによって公開されたアクションを開くことができます。</string>
     <string name="update_notice_pin_shortcuts_title">新しいショートカットの移動先を選択する</string>
     <string name="update_notice_pin_shortcuts_description">別のアプリが「ホーム画面に追加」を要求した場合、そのショートカットを検索可能にし、ホーム スロットに配置するか、Quick Drawer に追加します。</string>
     <string name="update_notice_reachability_title">よりアクセスしやすい家へ</string>
@@ -332,8 +329,6 @@
     <string name="update_notice_notes_description">マルチラインノートモードでは、エディターが展開されている間、物理キーボードのフォーカスが維持されます。</string>
     <string name="update_notice_widgets_title">スクロール可能なウィジェットは通常どおりに動作します</string>
     <string name="update_notice_widgets_description">垂直ジェスチャは、独自のスクロールを管理するウィジェットに到達します。</string>
-    <string name="update_notice_keyboard_title">タッチキーボードはオプションです</string>
-    <string name="update_notice_keyboard_description">タッチ操作のみのスマートフォンでは、ホームでソフトウェア キーボードがデフォルトで開きます。Magic Box → キーボードでオフにできます。</string>
     <string name="update_notice_github_title">アップデートがあなたを待っています</string>
     <string name="update_notice_github_description">GitHub に新しいリリースがある場合は、透明なアップデート カードと小さなホーム ヘッダー アイコンが表示されます。ブラウザーのハンドオフを承認するまでは何もダウンロードされません。</string>
     <string name="update_notice_integrated_apps_title">統合されたメッセージング アプリ</string>
@@ -349,7 +344,6 @@
     <string name="update_notice_pause_apps_description">Magic Box とアプリのドロワーから常に、または制限が終了した後は非表示にします。ショートカット タイルはリマインダーとともに表示されたままになります。</string>
     <string name="update_notice_home_browser_title">ホームとブラウザのコントロールの詳細</string>
     <string name="update_notice_home_browser_description">ホーム ステータス バーを非表示にし、Android が検索や Web ページ用に公開するより多くのブラウザーから選択します。</string>
-    <string name="review_updated_tutorial">更新されたチュートリアルを確認する</string>
     <string name="choose_your_shortcut_apps">ショートカットを選択してください</string>
     <string name="shortcut_setup_description">6 つのスロットは、交換するまで組み込みのデフォルトを維持します。インストールされているアプリまたはアプリによって公開されたアクションを選択するか、必要なデフォルトを明示的に保持します。</string>
     <string name="keep_built_in_defaults_remaining">残りについては組み込みのデフォルトを維持します</string>
