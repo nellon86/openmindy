@@ -647,7 +647,7 @@
     <string name="demo_profile_fresh_description">Fondo de salvia, panel de carbón y tareas de liberación.</string>
     <string name="light_mode">Modo de luz</string>
     <string name="hide_status_bar">Ocultar barra de estado</string>
-    <string name="hide_status_bar_description">Desliza hacia abajo en la pantalla de inicio para revelar el tono de notificación.</string>
+    <string name="hide_status_bar_description">Desliza hacia abajo en el lado izquierdo de la pantalla de inicio para ver las notificaciones, o en el lado derecho para los ajustes rápidos.</string>
     <string name="align_pill_to_bottom">Alinear la pastilla con la parte inferior</string>
     <string name="align_pill_to_bottom_description">Mantenga la pastilla Home al alcance de la mano encima del Magic Box.</string>
     <string name="reset_system_default">Restablecer los valores predeterminados del sistema</string>

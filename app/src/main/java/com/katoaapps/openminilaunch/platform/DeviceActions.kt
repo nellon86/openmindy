@@ -631,11 +631,22 @@ class DeviceActions(private val context: Context) {
     )
 
     fun expandNotificationShade() {
-        runCatching {
-            val statusBar = context.getSystemService("statusbar")
-            statusBar.javaClass.getMethod("expandNotificationsPanel").invoke(statusBar)
-        }
+        invokeStatusBar("expandNotificationsPanel")
     }
+
+    /**
+     * Opens quick settings (the control center), matching Android's split shade where a swipe on
+     * the right side of the status bar opens it. Falls back to the notification shade.
+     */
+    fun expandQuickSettings() {
+        if (!invokeStatusBar("expandSettingsPanel")) expandNotificationShade()
+    }
+
+    private fun invokeStatusBar(methodName: String): Boolean = runCatching {
+        val statusBar = context.getSystemService("statusbar")
+        statusBar.javaClass.getMethod(methodName).invoke(statusBar)
+        true
+    }.getOrDefault(false)
 
     private fun canResolve(intent: Intent): Boolean = intent.resolveActivity(context.packageManager) != null
 

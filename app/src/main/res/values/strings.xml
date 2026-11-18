@@ -723,7 +723,7 @@
     <!-- Settings dialogs and pickers -->
     <string name="light_mode">Light Mode</string>
     <string name="hide_status_bar">Hide Status Bar</string>
-    <string name="hide_status_bar_description">Swipe down on home screen to reveal notification shade.</string>
+    <string name="hide_status_bar_description">Swipe down on the left side of the home screen for notifications, or on the right side for quick settings.</string>
     <string name="align_pill_to_bottom">Align Pill to Bottom</string>
     <string name="align_pill_to_bottom_description">Keep the Home pill within easier reach above the Magic Box.</string>
     <string name="reset_system_default">Reset to system default</string>
