@@ -868,6 +868,27 @@ internal fun MagicBoxContent(
         onHotkey = ::beginCollapsedHardwareInput,
     )
 
+    MagicUnhandledKeyEffect(
+        enabled = captureActivityCommandHotkeys &&
+            keyboardInputEnabled &&
+            !smsFlow.sentConfirmationVisible &&
+            !todoCompletionPending,
+        onPrintableKey = { typedText, keyCode ->
+            if (!expanded) {
+                beginCollapsedHardwareInput(typedText, keyCode)
+            } else {
+                // The bar was just opened (or focus wandered off the editor): keep the key
+                // and hand focus back to the editor without raising a software keyboard.
+                val updatedText = text.text + typedText
+                updateEditorValue(
+                    TextFieldValue(updatedText, selection = TextRange(updatedText.length)),
+                    correctHardwareInput = false,
+                )
+                refocus(showSoftwareKeyboard = false)
+            }
+        },
+    )
+
     val resolvedLauncherKeyboardHeight = resolveLauncherKeyboardHeightDp(
         preferences = store.launcherKeyboardPreferences,
         screenWidthDp = configuration.screenWidthDp,

@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity(), MagicHardwareHotkeyHost {
         private set
     private lateinit var actions: DeviceActions
     private var magicHardwareHotkeyHandler: ((KeyEvent) -> Boolean)? = null
+    private var magicUnhandledKeyHandler: ((KeyEvent) -> Boolean)? = null
     internal val appWidgetHost by lazy {
         InteractiveAppWidgetHost(this, MINDY_WIDGET_HOST_ID)
     }
@@ -52,7 +53,8 @@ class MainActivity : ComponentActivity(), MagicHardwareHotkeyHost {
     @SuppressLint("RestrictedApi")
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         if (magicHardwareHotkeyHandler?.invoke(event) == true) return true
-        return super.dispatchKeyEvent(event)
+        if (super.dispatchKeyEvent(event)) return true
+        return magicUnhandledKeyHandler?.invoke(event) == true
     }
 
     override fun registerMagicHardwareHotkeyHandler(
@@ -61,6 +63,15 @@ class MainActivity : ComponentActivity(), MagicHardwareHotkeyHost {
         magicHardwareHotkeyHandler = handler
         return {
             if (magicHardwareHotkeyHandler === handler) magicHardwareHotkeyHandler = null
+        }
+    }
+
+    override fun registerMagicUnhandledKeyHandler(
+        handler: (KeyEvent) -> Boolean,
+    ): () -> Unit {
+        magicUnhandledKeyHandler = handler
+        return {
+            if (magicUnhandledKeyHandler === handler) magicUnhandledKeyHandler = null
         }
     }
 
