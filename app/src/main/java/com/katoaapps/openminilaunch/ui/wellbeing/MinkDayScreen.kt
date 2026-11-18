@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -60,7 +59,7 @@ internal fun MinkDayScreen(store: LauncherStore, isActive: Boolean, goHome: () -
 
     LazyColumn(
         Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)
-            .statusBarsPadding().navigationBarsPadding(),
+            .statusBarsAndCutoutPadding().navigationBarsPadding(),
         contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = Dimens.dp22, vertical = Dimens.dp12),
         verticalArrangement = Arrangement.spacedBy(Dimens.dp14),
     ) {

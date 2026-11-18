@@ -1,5 +1,6 @@
 package com.katoaapps.openminilaunch.ui.widgets
 
+import com.katoaapps.openminilaunch.ui.components.statusBarsAndCutoutPadding
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProviderInfo
 import android.os.Bundle
@@ -11,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Widgets
@@ -179,7 +179,7 @@ internal fun WidgetPage(store: LauncherStore, actions: DeviceActions, goHome: ()
     }
 
     Column(
-        Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding()
+        Modifier.fillMaxSize().statusBarsAndCutoutPadding().navigationBarsPadding()
             .onSizeChanged { paneWidthPx = it.width },
     ) {
         Row(

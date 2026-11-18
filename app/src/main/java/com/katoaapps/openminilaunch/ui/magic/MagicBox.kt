@@ -904,7 +904,7 @@ internal fun MagicBoxContent(
         Box(
             modifier = Modifier
                 .matchParentSize()
-                .statusBarsPadding()
+                .statusBarsAndCutoutPadding()
                 .then(
                     if (!useMinkKeyboard) {
                         Modifier.imePadding()
