@@ -56,7 +56,6 @@
     <string name="command_todo">Tarefas</string>
     <string name="command_note">Nota</string>
     <string name="command_event">Evento</string>
-    <string name="command_app">Aplicativo</string>
     <string name="clear_command">Limpar</string>
     <string name="sms_no_compatible_fallback">Não foi possível enviar SMS ou encontrar um aplicativo de mensagens compatível</string>
     <string name="choose_sim_in_messaging_app">Escolha um SIM em um aplicativo de mensagens para enviar</string>
@@ -67,6 +66,8 @@
     <string name="document_search_not_set_up">A pesquisa de documentos não está configurada</string>
     <string name="choose_document_search_folder">Escolha uma pasta para pesquisa de documentos locais.</string>
     <string name="web">Rede</string>
+    <string name="magic_search_web_hint">Pesquisar na web</string>
+    <string name="search_web_for_query">Pesquisar “%1$s” na web</string>
     <string name="search_browser">Navegador de pesquisa</string>
     <string name="ai">IA</string>
     <string name="choose_an_app">Escolha um aplicativo</string>

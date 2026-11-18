@@ -8,6 +8,7 @@ import androidx.compose.runtime.saveable.mapSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
+import com.katoaapps.openminilaunch.features.magic.MAGIC_DEFAULT_ROUTE
 import com.katoaapps.openminilaunch.features.magic.MagicBoxRoute
 import com.katoaapps.openminilaunch.model.CommunicationRecipient
 import com.katoaapps.openminilaunch.model.LauncherShortcutTarget
@@ -70,7 +71,7 @@ internal class MagicBoxSessionState private constructor(
     fun resetForDemoHome() {
         textState.value = TextFieldValue()
         selectedRecipientState.value = null
-        routeState.value = MagicBoxRoute.SEARCH
+        routeState.value = MAGIC_DEFAULT_ROUTE
         expandedState.value = false
     }
 
@@ -86,7 +87,7 @@ internal class MagicBoxSessionState private constructor(
         fun empty(initiallyExpanded: Boolean = false): MagicBoxSessionState = MagicBoxSessionState(
             text = TextFieldValue(),
             selectedRecipient = null,
-            route = MagicBoxRoute.SEARCH,
+            route = MAGIC_DEFAULT_ROUTE,
             expanded = initiallyExpanded,
         )
 
@@ -116,7 +117,7 @@ internal class MagicBoxSessionState private constructor(
                         ?.takeIf { it >= 0 }
                         ?.toChar()
                         ?.let(MagicBoxRoute::fromTrigger)
-                    ?: MagicBoxRoute.SEARCH
+                    ?: MAGIC_DEFAULT_ROUTE
                 MagicBoxSessionState(
                     text = TextFieldValue(
                         text = text,

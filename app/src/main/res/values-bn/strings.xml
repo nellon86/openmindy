@@ -56,7 +56,6 @@
     <string name="command_todo">করণীয়</string>
     <string name="command_note">দ্রষ্টব্য</string>
     <string name="command_event">ঘটনা</string>
-    <string name="command_app">অ্যাপ</string>
     <string name="clear_command">পরিষ্কার</string>
     <string name="sms_no_compatible_fallback">SMS পাঠাতে বা একটি সামঞ্জস্যপূর্ণ মেসেজিং অ্যাপ খুঁজে পাওয়া যায়নি</string>
     <string name="choose_sim_in_messaging_app">পাঠানোর জন্য একটি মেসেজিং অ্যাপে একটি সিম বেছে নিন</string>
@@ -67,6 +66,8 @@
     <string name="document_search_not_set_up">নথি অনুসন্ধান সেট আপ করা হয় না</string>
     <string name="choose_document_search_folder">স্থানীয় নথি অনুসন্ধানের জন্য একটি ফোল্ডার চয়ন করুন৷</string>
     <string name="web">ওয়েব</string>
+    <string name="magic_search_web_hint">ওয়েবে খুঁজুন</string>
+    <string name="search_web_for_query">ওয়েবে “%1$s” খুঁজুন</string>
     <string name="search_browser">সার্চ ব্রাউজার</string>
     <string name="ai">এআই</string>
     <string name="choose_an_app">একটি অ্যাপ বেছে নিন</string>

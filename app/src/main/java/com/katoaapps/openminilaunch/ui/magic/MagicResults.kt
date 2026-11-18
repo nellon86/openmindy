@@ -37,6 +37,8 @@ import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
 import com.katoaapps.openminilaunch.features.files.FileSearchRepository
 import com.katoaapps.openminilaunch.features.apps.launcherDiscoveryLabel
+import com.katoaapps.openminilaunch.features.magic.MAGIC_DEFAULT_ROUTE
+import com.katoaapps.openminilaunch.features.magic.MAGIC_FILE_SEARCH_ENABLED
 import com.katoaapps.openminilaunch.features.magic.MagicBoxRoute
 import com.katoaapps.openminilaunch.model.ContactResult
 import com.katoaapps.openminilaunch.model.FileSearchResult
@@ -75,6 +77,7 @@ internal fun MagicResultsPanel(
     onRequestMedia: () -> Unit,
     onRequestFolder: () -> Unit,
     onSubmitWeb: () -> Unit,
+    onSearchWebFallback: () -> Unit,
     onSubmitAi: () -> Unit,
     onOpenTodos: (() -> Unit)?,
     onSelectContact: (ContactResult) -> Unit,
@@ -115,6 +118,7 @@ internal fun MagicResultsPanel(
                 onRequestMedia = onRequestMedia,
                 onRequestFolder = onRequestFolder,
                 onSubmitWeb = onSubmitWeb,
+                onSearchWebFallback = onSearchWebFallback,
                 onSubmitAi = onSubmitAi,
                 onOpenTodos = onOpenTodos,
                 onSelectContact = onSelectContact,
@@ -166,6 +170,7 @@ internal fun MagicResultsContent(
     onRequestMedia: () -> Unit,
     onRequestFolder: () -> Unit,
     onSubmitWeb: () -> Unit,
+    onSearchWebFallback: () -> Unit,
     onSubmitAi: () -> Unit,
     onOpenTodos: (() -> Unit)?,
     onSelectContact: (ContactResult) -> Unit,
@@ -183,7 +188,7 @@ internal fun MagicResultsContent(
             onClick = onOpenTodos,
         )
     }
-    if (rawText.isBlank() && route == MagicBoxRoute.SEARCH && store.searchHistory.isNotEmpty()) {
+    if (rawText.isBlank() && route == MAGIC_DEFAULT_ROUTE && store.searchHistory.isNotEmpty()) {
         SearchHistoryList(
             queries = store.searchHistory,
             onSelect = onSelectHistory,
@@ -191,7 +196,7 @@ internal fun MagicResultsContent(
             onClearAll = store::clearSearchHistory,
         )
     }
-    if (plainQuery.isNotBlank() && fileSearchLoading) {
+    if (MAGIC_FILE_SEARCH_ENABLED && plainQuery.isNotBlank() && fileSearchLoading) {
         Column(verticalArrangement = Arrangement.spacedBy(Dimens.dp6)) {
             Text(
                 text = stringResource(R.string.searching_this_device),
@@ -204,13 +209,13 @@ internal fun MagicResultsContent(
     if (fileResults.isNotEmpty()) {
         FileResultsGrid(fileResults, fileSearchRepository, onOpenFile)
     }
-    if (plainQuery.length >= 2 && !hasMediaAccess && !store.demoModeEnabled) {
+    if (MAGIC_FILE_SEARCH_ENABLED && plainQuery.length >= 2 && !hasMediaAccess && !store.demoModeEnabled) {
         FilledTonalButton(onClick = onRequestMedia) {
             Icon(Icons.Default.PhotoLibrary, null, Modifier.size(Dimens.dp18))
             Text(stringResource(R.string.search_media_filenames), Modifier.padding(start = Dimens.dp8))
         }
     }
-    if (plainQuery.isNotBlank() && store.searchFolders.isEmpty() && !store.demoModeEnabled) {
+    if (MAGIC_FILE_SEARCH_ENABLED && plainQuery.isNotBlank() && store.searchFolders.isEmpty() && !store.demoModeEnabled) {
         Surface(
             onClick = onRequestFolder,
             shape = RoundedCornerShape(Dimens.dp14),
@@ -280,7 +285,7 @@ internal fun MagicResultsContent(
             icon = Icons.Default.Person,
         ) { onSelectForcedRecipient(identifier) }
     }
-    if (route == MagicBoxRoute.APP) {
+    if (route == MagicBoxRoute.APP && rawText.isNotBlank()) {
         Row(
             Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End,
@@ -295,6 +300,13 @@ internal fun MagicResultsContent(
                 onCheckedChange = onIncludeAppShortcutsChange,
             )
         }
+    }
+    if (route == MagicBoxRoute.APP && rawText.isNotBlank() && appResults.isEmpty()) {
+        SuggestionRow(
+            text = stringResource(R.string.search_web_for_query, rawText.trim()),
+            icon = Icons.Default.Public,
+            onClick = onSearchWebFallback,
+        )
     }
     appResults.forEach { app ->
         SuggestionRow(

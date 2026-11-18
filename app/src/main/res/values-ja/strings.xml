@@ -56,7 +56,6 @@
     <string name="command_todo">やるべきこと</string>
     <string name="command_note">注記</string>
     <string name="command_event">イベント</string>
-    <string name="command_app">アプリ</string>
     <string name="clear_command">クリア</string>
     <string name="sms_no_compatible_fallback">SMS を送信できなかったか、互換性のあるメッセージング アプリが見つかりませんでした</string>
     <string name="choose_sim_in_messaging_app">メッセージアプリで送信するSIMを選択してください</string>
@@ -67,6 +66,8 @@
     <string name="document_search_not_set_up">ドキュメント検索が設定されていません</string>
     <string name="choose_document_search_folder">ローカルドキュメント検索用のフォルダーを選択します。</string>
     <string name="web">ウェブ</string>
+    <string name="magic_search_web_hint">ウェブを検索</string>
+    <string name="search_web_for_query">「%1$s」をウェブで検索</string>
     <string name="search_browser">検索ブラウザ</string>
     <string name="ai">AI</string>
     <string name="choose_an_app">アプリを選択してください</string>

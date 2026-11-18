@@ -56,7 +56,6 @@
     <string name="command_todo">À faire</string>
     <string name="command_note">Remarque</string>
     <string name="command_event">Événement</string>
-    <string name="command_app">Application</string>
     <string name="clear_command">Effacer</string>
     <string name="sms_no_compatible_fallback">Impossible d\'envoyer SMS ou de trouver une application de messagerie compatible</string>
     <string name="choose_sim_in_messaging_app">Choisissez une carte SIM dans une application de messagerie pour envoyer</string>
@@ -67,6 +66,8 @@
     <string name="document_search_not_set_up">La recherche de documents n\'est pas configurée</string>
     <string name="choose_document_search_folder">Choisissez un dossier pour la recherche de documents locaux.</string>
     <string name="web">Web</string>
+    <string name="magic_search_web_hint">Rechercher sur le web</string>
+    <string name="search_web_for_query">Rechercher « %1$s » sur le web</string>
     <string name="search_browser">Navigateur de recherche</string>
     <string name="ai">IA</string>
     <string name="choose_an_app">Choisissez une application</string>

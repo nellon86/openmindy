@@ -227,7 +227,7 @@ internal fun MagicBoxLegend(activePrefix: Char?, enabled: Boolean = true, onSele
         MagicCommand('-', R.string.command_todo, MagicTodoColor),
         MagicCommand(MAGIC_NOTE_TRIGGER, R.string.command_note, MagicNoteColor),
         MagicCommand('+', R.string.command_event, MagicEventColor),
-        MagicCommand('?', R.string.command_app, MagicAppColor),
+        MagicCommand(MAGIC_WEB_TRIGGER, R.string.web, MagicAppColor),
     )
     Surface(
         shape = RoundedCornerShape(Dimens.dp18),

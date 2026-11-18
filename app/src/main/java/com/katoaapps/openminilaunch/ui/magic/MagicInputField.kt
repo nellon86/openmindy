@@ -108,13 +108,13 @@ internal fun MagicInputField(
         PlatformTextInputInterceptor { _, _ -> awaitCancellation() }
     }
     val placeholderRes = when (route) {
-        MagicBoxRoute.SEARCH -> R.string.magic_box_hotkey_hint
+        MagicBoxRoute.SEARCH -> R.string.magic_search_web_hint
         MagicBoxRoute.MESSAGE -> R.string.command_text
         MagicBoxRoute.CALL -> R.string.command_call
         MagicBoxRoute.TODO -> R.string.command_todo
         MagicBoxRoute.NOTE -> R.string.command_note
         MagicBoxRoute.EVENT -> R.string.command_event
-        MagicBoxRoute.APP -> R.string.search_apps
+        MagicBoxRoute.APP -> R.string.magic_box_hotkey_hint
         MagicBoxRoute.ASSISTANT -> R.string.ai
     }
 

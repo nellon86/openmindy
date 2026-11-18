@@ -56,7 +56,6 @@
     <string name="command_todo">할 일</string>
     <string name="command_note">참고</string>
     <string name="command_event">이벤트</string>
-    <string name="command_app">앱</string>
     <string name="clear_command">지우기</string>
     <string name="sms_no_compatible_fallback">SMS를 보낼 수 없거나 호환되는 메시지 앱을 찾을 수 없습니다</string>
     <string name="choose_sim_in_messaging_app">보낼 메시지 앱에서 SIM을 선택하세요.</string>
@@ -67,6 +66,8 @@
     <string name="document_search_not_set_up">문서 검색이 설정되지 않았습니다</string>
     <string name="choose_document_search_folder">로컬 문서 검색을 위한 폴더를 선택하세요.</string>
     <string name="web">웹</string>
+    <string name="magic_search_web_hint">웹 검색</string>
+    <string name="search_web_for_query">웹에서 “%1$s” 검색</string>
     <string name="search_browser">검색 브라우저</string>
     <string name="ai">AI</string>
     <string name="choose_an_app">앱을 선택하세요</string>

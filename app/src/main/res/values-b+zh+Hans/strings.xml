@@ -56,7 +56,6 @@
     <string name="command_todo">待办事项</string>
     <string name="command_note">注意事项</string>
     <string name="command_event">活动</string>
-    <string name="command_app">应用程序</string>
     <string name="clear_command">清除</string>
     <string name="sms_no_compatible_fallback">无法发送 SMS 或找不到兼容的消息应用程序</string>
     <string name="choose_sim_in_messaging_app">在消息应用程序中选择要发送的 SIM 卡</string>
@@ -67,6 +66,8 @@
     <string name="document_search_not_set_up">未设置文档搜索</string>
     <string name="choose_document_search_folder">选择用于本地文档搜索的文件夹。</string>
     <string name="web">网络</string>
+    <string name="magic_search_web_hint">搜索网页</string>
+    <string name="search_web_for_query">在网页中搜索“%1$s”</string>
     <string name="search_browser">搜索浏览器</string>
     <string name="ai">人工智能</string>
     <string name="choose_an_app">选择一个应用程序</string>

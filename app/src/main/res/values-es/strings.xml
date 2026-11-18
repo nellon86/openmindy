@@ -56,7 +56,6 @@
     <string name="command_todo">Tareas pendientes</string>
     <string name="command_note">Nota</string>
     <string name="command_event">Evento</string>
-    <string name="command_app">Aplicación</string>
     <string name="clear_command">Borrar</string>
     <string name="sms_no_compatible_fallback">No se pudo enviar SMS o encontrar una aplicación de mensajería compatible</string>
     <string name="choose_sim_in_messaging_app">Elija una SIM en una aplicación de mensajería para enviar</string>
@@ -67,6 +66,8 @@
     <string name="document_search_not_set_up">La búsqueda de documentos no está configurada</string>
     <string name="choose_document_search_folder">Elija una carpeta para la búsqueda de documentos locales.</string>
     <string name="web">Web</string>
+    <string name="magic_search_web_hint">Buscar en la web</string>
+    <string name="search_web_for_query">Buscar «%1$s» en la web</string>
     <string name="search_browser">Navegador de búsqueda</string>
     <string name="ai">IA</string>
     <string name="choose_an_app">Elige una aplicación</string>
@@ -383,7 +384,7 @@
     <string name="just_start_typing">Simplemente empieza a escribir</string>
     <string name="just_start_typing_description">En un teléfono con teclado físico, presione cualquier tecla de texto desde Inicio. El Magic Box aparece con ese primer carácter ya ingresado.</string>
     <string name="everything_reachable">Todo todavía es accesible</string>
-    <string name="everything_reachable_description">Usa ? para buscar aplicaciones instaladas y accesos directos guardados, o abre Quick Drawer y elige Ver todo. Incluir accesos directos de aplicaciones es opcional y se recuerda tu elección. También puedes deslizar hacia arriba desde Inicio para abrir Ver todo.</string>
+    <string name="everything_reachable_description">Escribe el nombre de una aplicación en Inicio para encontrar aplicaciones instaladas y accesos directos guardados, o abre Quick Drawer y elige Ver todo. Incluir accesos directos de aplicaciones es opcional y se recuerda tu elección. También puedes deslizar hacia arriba desde Inicio para abrir Ver todo.</string>
     <string name="magic_box_ready_description">El Magic Box está listo desde el momento en que se abre Home. No es necesario tocar un teclado físico.</string>
     <string name="magic_text_contact">Abrir una conversación reciente o enviar un mensaje de texto a un contacto</string>
     <string name="magic_call_contact">Llamar a un contacto, número o nombre de usuario</string>
@@ -401,11 +402,11 @@
     <string name="take_list_with_you_description">Exporte la lista de verificación actual a una aplicación de notas o guárdela como PDF.</string>
     <string name="keep_context">Mantenga el contexto</string>
     <string name="keep_context_description">Las nuevas tareas de Magic Box permanecen en la lista completa de tareas pendientes, incluso cuando Tareas está oculto en MinkSpace.</string>
-    <string name="search_onboarding_intro">Escriba normalmente Magic Box para buscar archivos locales, buscar en la web o entregar la consulta a una aplicación de inteligencia artificial que elija.</string>
+    <string name="search_onboarding_intro">Escribe en la Magic Box para encontrar aplicaciones, empieza con ? para buscar en la web o envía la consulta a la aplicación de IA que elijas.</string>
     <string name="links_stay_links">Los enlaces permanecen enlaces</string>
     <string name="links_stay_links_description">Escriba una dirección web para abrirla directamente; el resto del texto sin formato sigue siendo una consulta web o de IA.</string>
     <string name="recent_activity">Actividad reciente</string>
-    <string name="recent_activity_description">¿Tus últimas cinco búsquedas exitosas y? Los lanzamientos de aplicaciones permanecen en este dispositivo. Reutilice uno, elimine uno o bórrelos todos del Magic Box vacío.</string>
+    <string name="recent_activity_description">Tus cinco últimas aperturas de aplicaciones y búsquedas web se quedan en este dispositivo. Reutiliza una, elimina una o bórralas todas desde la Magic Box vacía.</string>
     <string name="ai_optional">La IA es opcional</string>
     <string name="ai_optional_description">%1$s entrega su consulta solo después de tocar AI. Las aplicaciones que no comparten texto Android, como Lumo, están claramente etiquetadas y utilizan el portapapeles del sistema para que pueda pegar la consulta usted mismo.</string>
     <string name="ai_optional_first_use">Opcional. Omita esto y %1$s le preguntará la primera vez que toque AI.</string>
@@ -417,7 +418,7 @@
     <string name="never_sent_to_us_description">%1$s no recibe sus consultas, nombres de archivos ni ubicaciones de carpetas seleccionadas.</string>
     <string name="assistant_onboarding_intro">%1$s también es un asistente digital con teclado, que coloca el Magic Box detrás del gesto de asistente de su teléfono.</string>
     <string name="keyboard_first">Teclado primero</string>
-    <string name="keyboard_first_description">Invócalo sobre cualquier aplicación y comienza a escribir inmediatamente. Las mismas teclas de acceso rápido, búsqueda de archivos locales, transferencias web y de IA siguen estando disponibles.</string>
+    <string name="keyboard_first_description">Invócalo sobre cualquier aplicación y empieza a escribir al momento. Siguen disponibles las mismas teclas de acceso rápido, la búsqueda de aplicaciones y el envío a la web y a la IA.</string>
     <string name="deliberate_choice">Una elección deliberada</string>
     <string name="deliberate_choice_description">Esto reemplaza a Gemini, Bixby o su asistente predeterminado actual hasta que lo vuelva a cambiar en la configuración de Android.</string>
     <string name="no_screen_inspection">Sin inspección de pantalla</string>
@@ -532,7 +533,7 @@
     <string name="home_shortcuts">ATAJOS Y CARPETAS DE INICIO</string>
     <string name="selected_apps">Aplicaciones seleccionadas</string>
     <string name="count_of_max">%1$d de %2$d</string>
-    <string name="magic_box_find_other_apps">¿Usar? en Magic Box para encontrar cualquier otra aplicación instalada.</string>
+    <string name="magic_box_find_other_apps">Escribe en la Magic Box para encontrar cualquier otra aplicación instalada.</string>
     <string name="search">BUSCAR</string>
     <string name="web_app">aplicación web</string>
     <string name="system_browser">Navegador del sistema</string>
@@ -674,7 +675,7 @@
     <string name="choose_shortcut_destination">¿Adónde debería ir este atajo?</string>
     <string name="choose_shortcut_destination_description">Hágalo apto para búsquedas, elija un espacio de Inicio o colóquelo en Quick Drawer.</string>
     <string name="add_to_search_and_all_apps">Buscar y todas las aplicaciones</string>
-    <string name="add_to_search_and_all_apps_description">Encuentra este atajo con ? o búsquelo en Todas las aplicaciones</string>
+    <string name="add_to_search_and_all_apps_description">Encuentra este atajo escribiendo su nombre en Inicio, o búscalo en Todas las aplicaciones</string>
     <string name="add_to_quick_drawer">Añadir a Quick Drawer</string>
     <string name="replace_quick_drawer_item">Reemplazar el elemento %1$d de Quick Drawer</string>
     <string name="replace_drawer_item_title">Reemplazar un elemento de Quick Drawer</string>

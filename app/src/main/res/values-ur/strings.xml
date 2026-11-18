@@ -56,7 +56,6 @@
     <string name="command_todo">کرنا</string>
     <string name="command_note">نوٹ</string>
     <string name="command_event">واقعہ</string>
-    <string name="command_app">ایپ</string>
     <string name="clear_command">صاف</string>
     <string name="sms_no_compatible_fallback">SMS نہیں بھیج سکا یا ہم آہنگ میسجنگ ایپ نہیں مل سکی</string>
     <string name="choose_sim_in_messaging_app">بھیجنے کے لیے میسجنگ ایپ میں ایک سم کا انتخاب کریں۔</string>
@@ -67,6 +66,8 @@
     <string name="document_search_not_set_up">دستاویز کی تلاش ترتیب نہیں دی گئی ہے۔</string>
     <string name="choose_document_search_folder">مقامی دستاویز کی تلاش کے لیے ایک فولڈر منتخب کریں۔</string>
     <string name="web">ویب</string>
+    <string name="magic_search_web_hint">ویب پر تلاش کریں</string>
+    <string name="search_web_for_query">ویب پر “%1$s” تلاش کریں</string>
     <string name="search_browser">براؤزر تلاش کریں۔</string>
     <string name="ai">اے آئی</string>
     <string name="choose_an_app">ایک ایپ منتخب کریں۔</string>

@@ -56,7 +56,6 @@
     <string name="command_todo">Agenda</string>
     <string name="command_note">Catatan</string>
     <string name="command_event">Acara</string>
-    <string name="command_app">Aplikasi</string>
     <string name="clear_command">Jelas</string>
     <string name="sms_no_compatible_fallback">Tidak dapat mengirim SMS atau menemukan aplikasi perpesanan yang kompatibel</string>
     <string name="choose_sim_in_messaging_app">Pilih SIM di aplikasi perpesanan untuk dikirim</string>
@@ -67,6 +66,8 @@
     <string name="document_search_not_set_up">Pencarian dokumen belum diatur</string>
     <string name="choose_document_search_folder">Pilih folder untuk pencarian dokumen lokal.</string>
     <string name="web">jaring</string>
+    <string name="magic_search_web_hint">Telusuri web</string>
+    <string name="search_web_for_query">Telusuri “%1$s” di web</string>
     <string name="search_browser">Peramban pencarian</string>
     <string name="ai">AI</string>
     <string name="choose_an_app">Pilih aplikasi</string>

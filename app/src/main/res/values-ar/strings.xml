@@ -56,7 +56,6 @@
     <string name="command_todo">المهام</string>
     <string name="command_note">ملاحظة</string>
     <string name="command_event">حدث</string>
-    <string name="command_app">التطبيق</string>
     <string name="clear_command">واضح</string>
     <string name="sms_no_compatible_fallback">تعذر إرسال SMS أو العثور على تطبيق مراسلة متوافق</string>
     <string name="choose_sim_in_messaging_app">اختر شريحة SIM في تطبيق المراسلة لإرسالها</string>
@@ -67,6 +66,8 @@
     <string name="document_search_not_set_up">لم يتم إعداد البحث في المستندات</string>
     <string name="choose_document_search_folder">اختر مجلدًا للبحث في المستندات المحلية.</string>
     <string name="web">ويب</string>
+    <string name="magic_search_web_hint">البحث في الويب</string>
+    <string name="search_web_for_query">البحث عن “%1$s” في الويب</string>
     <string name="search_browser">متصفح البحث</string>
     <string name="ai">منظمة العفو الدولية</string>
     <string name="choose_an_app">اختر تطبيقًا</string>

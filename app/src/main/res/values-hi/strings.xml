@@ -56,7 +56,6 @@
     <string name="command_todo">करने योग्य</string>
     <string name="command_note">नोट</string>
     <string name="command_event">घटना</string>
-    <string name="command_app">ऐप</string>
     <string name="clear_command">स्पष्ट</string>
     <string name="sms_no_compatible_fallback">SMS नहीं भेज सका या कोई संगत मैसेजिंग ऐप नहीं ढूंढ सका</string>
     <string name="choose_sim_in_messaging_app">भेजने के लिए मैसेजिंग ऐप में एक सिम चुनें</string>
@@ -67,6 +66,8 @@
     <string name="document_search_not_set_up">दस्तावेज़ खोज सेट नहीं है</string>
     <string name="choose_document_search_folder">स्थानीय दस्तावेज़ खोज के लिए एक फ़ोल्डर चुनें.</string>
     <string name="web">वेब</string>
+    <string name="magic_search_web_hint">वेब पर खोजें</string>
+    <string name="search_web_for_query">वेब पर “%1$s” खोजें</string>
     <string name="search_browser">ब्राउज़र खोजें</string>
     <string name="ai">ऐ</string>
     <string name="choose_an_app">एक ऐप चुनें</string>

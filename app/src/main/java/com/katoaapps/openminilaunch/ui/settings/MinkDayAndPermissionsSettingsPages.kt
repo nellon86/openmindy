@@ -1,5 +1,6 @@
 package com.katoaapps.openminilaunch.ui.settings
 
+import com.katoaapps.openminilaunch.features.magic.MAGIC_FILE_SEARCH_ENABLED
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
 import com.katoaapps.openminilaunch.ui.components.SectionLabel
@@ -135,14 +136,16 @@ internal fun PermissionsSettingsPage(
                 enabled = false,
             ) { }
         }
-        PermissionCard(
-            title = stringResource(R.string.photos_videos_audio),
-            description = stringResource(R.string.media_permission_description, appName),
-            granted = state.mediaGranted,
-            icon = Icons.Default.PhotoLibrary,
-            onGrant = actions.requestMedia,
-            onManage = actions.manageAppPermissions,
-        )
+        if (MAGIC_FILE_SEARCH_ENABLED) {
+            PermissionCard(
+                title = stringResource(R.string.photos_videos_audio),
+                description = stringResource(R.string.media_permission_description, appName),
+                granted = state.mediaGranted,
+                icon = Icons.Default.PhotoLibrary,
+                onGrant = actions.requestMedia,
+                onManage = actions.manageAppPermissions,
+            )
+        }
         if (state.appBubblesSupported) {
             PermissionCard(
                 title = stringResource(R.string.app_bubbles_beta),

@@ -56,7 +56,6 @@
     <string name="command_todo">To-do</string>
     <string name="command_note">Note</string>
     <string name="command_event">Event</string>
-    <string name="command_app">App</string>
     <string name="clear_command">Clear</string>
     <string name="sms_no_compatible_fallback">Couldn’t send SMS or find a compatible messaging app</string>
     <string name="choose_sim_in_messaging_app">Choose a SIM in a messaging app to send</string>
@@ -67,6 +66,8 @@
     <string name="document_search_not_set_up">Document search isn’t set up</string>
     <string name="choose_document_search_folder">Choose a folder for local document search.</string>
     <string name="web">Web</string>
+    <string name="magic_search_web_hint">Search the web</string>
+    <string name="search_web_for_query">Search the web for “%1$s”</string>
     <string name="search_browser">Search browser</string>
     <string name="ai">AI</string>
     <string name="choose_an_app">Choose an app</string>
@@ -396,7 +397,7 @@
     <string name="just_start_typing">Just start typing</string>
     <string name="just_start_typing_description">On a physical-keyboard phone, press any text key from Home. The Magic Box appears with that first character already entered.</string>
     <string name="everything_reachable">Everything is still reachable</string>
-    <string name="everything_reachable_description">Use ? to find installed apps and saved shortcuts, or open Quick Drawer and choose See all. Include app shortcuts is optional and remembers your choice. You can also swipe up from Home to open See all.</string>
+    <string name="everything_reachable_description">Type an app’s name on Home to find installed apps and saved shortcuts, or open Quick Drawer and choose See all. Include app shortcuts is optional and remembers your choice. You can also swipe up from Home to open See all.</string>
     <string name="magic_box_ready_description">The Magic Box is ready from the moment Home opens. No tap is required on a physical keyboard.</string>
     <string name="magic_text_contact">Open a recent conversation or text a contact</string>
     <string name="magic_call_contact">Call a contact, number, or username</string>
@@ -414,11 +415,11 @@
     <string name="take_list_with_you_description">Export the current checklist to a notes app or save it as a PDF.</string>
     <string name="keep_context">Keep the context</string>
     <string name="keep_context_description">New Magic Box tasks stay in your full To-dos list, even when To-dos is hidden from MinkSpace.</string>
-    <string name="search_onboarding_intro">Type normally in the Magic Box to find local files, search the web, or hand the query to an AI app you choose.</string>
+    <string name="search_onboarding_intro">Type in the Magic Box to find apps, start with ? to search the web, or hand the query to an AI app you choose.</string>
     <string name="links_stay_links">Links stay links</string>
     <string name="links_stay_links_description">Type a web address to open it directly; other plain text remains a web or AI query.</string>
     <string name="recent_activity">Recent activity</string>
-    <string name="recent_activity_description">Your last five successful searches and ? app launches stay on this device. Reuse one, delete one, or clear them all from the empty Magic Box.</string>
+    <string name="recent_activity_description">Your last five app launches and web searches stay on this device. Reuse one, delete one, or clear them all from the empty Magic Box.</string>
     <string name="ai_optional">AI is optional</string>
     <string name="ai_optional_description">%1$s hands off your query only after you tap AI. Apps without Android text sharing, such as Lumo, are clearly labeled and use the system clipboard so you can paste the query yourself.</string>
     <string name="ai_optional_first_use">Optional. Skip this and %1$s will ask the first time you tap AI.</string>
@@ -430,7 +431,7 @@
     <string name="never_sent_to_us_description">%1$s does not receive your queries, filenames, or selected folder locations.</string>
     <string name="assistant_onboarding_intro">%1$s is also a keyboard-first digital assistant, putting the Magic Box behind your phone’s assistant gesture.</string>
     <string name="keyboard_first">Keyboard first</string>
-    <string name="keyboard_first_description">Invoke it over any app and start typing immediately. The same hotkeys, local file search, Web, and AI handoffs remain available.</string>
+    <string name="keyboard_first_description">Invoke it over any app and start typing immediately. The same hotkeys, app search, Web, and AI handoffs remain available.</string>
     <string name="deliberate_choice">A deliberate choice</string>
     <string name="deliberate_choice_description">This replaces Gemini, Bixby, or your current default assistant until you change it back in Android settings.</string>
     <string name="no_screen_inspection">No screen inspection</string>
@@ -560,7 +561,7 @@
     <string name="home_shortcuts">HOME SHORTCUTS &amp; FOLDERS</string>
     <string name="selected_apps">Selected apps</string>
     <string name="count_of_max">%1$d of %2$d</string>
-    <string name="magic_box_find_other_apps">Use ? in the Magic Box to find any other installed app.</string>
+    <string name="magic_box_find_other_apps">Type in the Magic Box to find any other installed app.</string>
     <string name="search">SEARCH</string>
     <string name="web_app">Web app</string>
     <string name="system_browser">System browser</string>
@@ -752,7 +753,7 @@
     <string name="choose_shortcut_destination">Where should this shortcut go?</string>
     <string name="choose_shortcut_destination_description">Make it searchable, choose a Home slot, or place it in Quick Drawer.</string>
     <string name="add_to_search_and_all_apps">Search &amp; All Apps</string>
-    <string name="add_to_search_and_all_apps_description">Find this shortcut with ? or browse to it in All Apps</string>
+    <string name="add_to_search_and_all_apps_description">Find this shortcut by typing its name on Home, or browse to it in All Apps</string>
     <string name="add_to_quick_drawer">Add to Quick Drawer</string>
     <string name="replace_quick_drawer_item">Replace Quick Drawer item %1$d</string>
     <string name="replace_drawer_item_title">Replace a Quick Drawer item</string>

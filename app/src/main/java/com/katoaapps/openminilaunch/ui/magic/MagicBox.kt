@@ -347,7 +347,7 @@ internal fun MagicBoxContent(
         selectedRecipient != null &&
         text.text.isNotBlank()
     val fileSearchState = rememberMagicFileSearchState(
-        query = plainQuery,
+        query = if (MAGIC_FILE_SEARCH_ENABLED) plainQuery else "",
         store = store,
         repository = fileSearchRepository,
         hasMediaAccess = hasMediaAccess,
@@ -383,7 +383,7 @@ internal fun MagicBoxContent(
         initialHardwareKeyCorrection.clear()
         text = TextFieldValue()
         selectedRecipient = null
-        route = MagicBoxRoute.SEARCH
+        route = MAGIC_DEFAULT_ROUTE
         pendingCalendarReview = null
     }
 
@@ -475,7 +475,7 @@ internal fun MagicBoxContent(
     }
 
     fun completeAppHandoff(target: LauncherAppTarget) {
-        store.addSearchQuery("?${target.label}")
+        store.addSearchQuery(target.label)
         clearCommand()
         keyboard?.hide()
         expanded = false
@@ -531,7 +531,7 @@ internal fun MagicBoxContent(
                 Toast.LENGTH_LONG,
             ).show()
         }
-        store.addSearchQuery(query)
+        store.addSearchQuery("$MAGIC_WEB_TRIGGER$query")
         dismiss()
     }
 
@@ -621,7 +621,7 @@ internal fun MagicBoxContent(
         } else if (app is LauncherAppTarget && appBubbleFlow.opensAutomatically(app)) {
             appBubbleFlow.launchInBubble(app)
         } else if (actions.launchLauncherTarget(app)) {
-            store.addSearchQuery("?${app.label}")
+            store.addSearchQuery(app.label)
             dismiss()
         } else {
             val displayLabel = launcherDiscoveryLabel(app, actions::appLabel)
@@ -667,6 +667,20 @@ internal fun MagicBoxContent(
         return false
     }
 
+    /** Default-route fallback: no installed app matches, so hand the typed text to the browser. */
+    fun submitWebFallback() {
+        val query = text.text.trim()
+        if (query.isBlank()) return
+        if (store.demoModeEnabled) {
+            Toast.makeText(context, R.string.demo_preview_action, Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (actions.webSearch(query, store.preferredWebPackage)) {
+            store.addSearchQuery("$MAGIC_WEB_TRIGGER$query")
+            dismiss()
+        }
+    }
+
     fun submit() {
         if (onOpenTodos != null && isOpenTodosCommand(text.text, route)) {
             openTodos()
@@ -677,6 +691,10 @@ internal fun MagicBoxContent(
             return
         }
         if (selectFirstCommandResult()) return
+        if (route == MagicBoxRoute.APP) {
+            submitWebFallback()
+            return
+        }
         if (route == MagicBoxRoute.ASSISTANT) {
             submitAi()
             return
@@ -803,7 +821,7 @@ internal fun MagicBoxContent(
     LaunchedEffect(homeRequestToken, shouldAutoOpenOnHome, keyboardInputEnabled, useMinkKeyboard) {
         if (homeRequestToken > 0 && shouldAutoOpenOnHome && keyboardInputEnabled &&
             !expanded && text.text.isBlank() &&
-            route == MagicBoxRoute.SEARCH && selectedRecipient == null
+            route == MAGIC_DEFAULT_ROUTE && selectedRecipient == null
         ) {
             // Android can redeliver the launcher's Home intent while a fold changes displays.
             // Re-arm an idle field, but never erase an expanded draft as a side effect.
@@ -953,7 +971,7 @@ internal fun MagicBoxContent(
                                     Toast.LENGTH_SHORT,
                                 ).show()
                             } else {
-                                store.addSearchQuery(plainQuery)
+                                store.addSearchQuery("$MAGIC_WEB_TRIGGER$plainQuery")
                                 actions.openFile(file)
                                 dismiss()
                             }
@@ -961,6 +979,7 @@ internal fun MagicBoxContent(
                         onRequestMedia = { mediaPermissionLauncher.launch(mediaReadPermissions()) },
                         onRequestFolder = { showFileScopeChoice = true },
                         onSubmitWeb = ::submit,
+                        onSearchWebFallback = ::submitWebFallback,
                         onSubmitAi = {
                             if (store.demoModeEnabled) {
                                 Toast.makeText(
@@ -1018,7 +1037,7 @@ internal fun MagicBoxContent(
 
             if (
                 !noteMode && expanded && text.text.isBlank() &&
-                route == MagicBoxRoute.SEARCH
+                route == MAGIC_DEFAULT_ROUTE
             ) {
                 if (appBubbleHost == MagicAppBubbleHost.ASSISTANT) {
                     QuickAppsPanel(

@@ -4,6 +4,13 @@ import android.content.res.Configuration
 
 internal const val MAGIC_NOTE_TRIGGER = '/'
 internal const val MAGIC_AI_TRIGGER = '*'
+internal const val MAGIC_WEB_TRIGGER = '?'
+
+/**
+ * OpenMindy: typing without a hotkey searches installed apps; `?` hands the text to the browser.
+ * Local file-name search is disabled in the Magic Box.
+ */
+internal const val MAGIC_FILE_SEARCH_ENABLED = false
 
 /**
  * The active Magic Box capability.
@@ -12,13 +19,15 @@ internal const val MAGIC_AI_TRIGGER = '*'
  * from user-authored text prevents routing characters from leaking into drafts and searches.
  */
 internal enum class MagicBoxRoute(val trigger: Char?) {
-    SEARCH(null),
+    /** Web search in the system or preferred browser (`?`). */
+    SEARCH(MAGIC_WEB_TRIGGER),
     MESSAGE('@'),
     CALL('#'),
     TODO('-'),
     NOTE(MAGIC_NOTE_TRIGGER),
     EVENT('+'),
-    APP('?'),
+    /** Default route: installed apps and app shortcuts. */
+    APP(null),
     ASSISTANT(MAGIC_AI_TRIGGER),
     ;
 
@@ -27,6 +36,9 @@ internal enum class MagicBoxRoute(val trigger: Char?) {
             entries.firstOrNull { it.trigger == trigger }
     }
 }
+
+/** The route the Magic Box returns to whenever it is idle or cleared. */
+internal val MAGIC_DEFAULT_ROUTE: MagicBoxRoute = MagicBoxRoute.APP
 
 internal val MAGIC_HOTKEY_TRIGGERS: Set<Char> =
     MagicBoxRoute.entries.mapNotNull(MagicBoxRoute::trigger).toSet()
@@ -39,7 +51,7 @@ internal data class MagicBoxInput(
 
 internal fun parseMagicBoxInput(
     text: String,
-    route: MagicBoxRoute = MagicBoxRoute.SEARCH,
+    route: MagicBoxRoute = MAGIC_DEFAULT_ROUTE,
 ): MagicBoxInput = MagicBoxInput(
     route = route,
     searchTerm = text.trim().takeIf {

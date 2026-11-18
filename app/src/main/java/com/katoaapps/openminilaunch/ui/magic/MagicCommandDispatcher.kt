@@ -1,6 +1,7 @@
 package com.katoaapps.openminilaunch.ui.magic
 
 import com.katoaapps.openminilaunch.data.LauncherStore
+import com.katoaapps.openminilaunch.features.magic.MAGIC_WEB_TRIGGER
 import com.katoaapps.openminilaunch.features.magic.MagicBoxRoute
 import com.katoaapps.openminilaunch.features.messaging.MessageDraft
 import com.katoaapps.openminilaunch.features.messaging.ConversationShortcutDraft
@@ -73,7 +74,7 @@ internal fun dispatchMagicCommand(
         MagicBoxRoute.ASSISTANT,
         -> false
         MagicBoxRoute.SEARCH -> rawText.isNotBlank() && actions.webSearch(rawText, store.preferredWebPackage).also {
-            if (it) store.addSearchQuery(rawText)
+            if (it) store.addSearchQuery("$MAGIC_WEB_TRIGGER${rawText.trim()}")
         }
     }
     // Todo completion is owned by the UI host. Home can dismiss immediately while its

@@ -56,7 +56,6 @@
     <string name="command_todo">Дела</string>
     <string name="command_note">Примечание</string>
     <string name="command_event">Событие</string>
-    <string name="command_app">Приложение</string>
     <string name="clear_command">Очистить</string>
     <string name="sms_no_compatible_fallback">Не удалось отправить SMS или найти совместимое приложение для обмена сообщениями.</string>
     <string name="choose_sim_in_messaging_app">Выберите SIM-карту в приложении для обмена сообщениями для отправки</string>
@@ -67,6 +66,8 @@
     <string name="document_search_not_set_up">Поиск документов не настроен.</string>
     <string name="choose_document_search_folder">Выберите папку для локального поиска документов.</string>
     <string name="web">Интернет</string>
+    <string name="magic_search_web_hint">Искать в интернете</string>
+    <string name="search_web_for_query">Искать «%1$s» в интернете</string>
     <string name="search_browser">Поисковый браузер</string>
     <string name="ai">ИИ</string>
     <string name="choose_an_app">Выберите приложение</string>

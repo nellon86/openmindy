@@ -56,7 +56,6 @@
     <string name="command_todo">待辦事項</string>
     <string name="command_note">注意</string>
     <string name="command_event">事件</string>
-    <string name="command_app">應用程式</string>
     <string name="clear_command">清楚</string>
     <string name="sms_no_compatible_fallback">發送唔到 SMS 或者搵唔到兼容嘅短訊應用程式</string>
     <string name="choose_sim_in_messaging_app">喺短訊應用程式入面揀一張要傳送嘅 SIM 卡</string>
@@ -67,6 +66,8 @@
     <string name="document_search_not_set_up">未設定文件搜尋</string>
     <string name="choose_document_search_folder">揀一個用嚟搜尋本地文件嘅資料夾。</string>
     <string name="web">網絡</string>
+    <string name="magic_search_web_hint">搜尋網頁</string>
+    <string name="search_web_for_query">喺網上搜尋「%1$s」</string>
     <string name="search_browser">搜尋瀏覽器</string>
     <string name="ai">人工智能</string>
     <string name="choose_an_app">揀個應用程式</string>
