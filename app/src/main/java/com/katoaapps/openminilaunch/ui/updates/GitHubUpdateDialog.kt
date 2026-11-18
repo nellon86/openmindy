@@ -29,7 +29,6 @@ internal fun GitHubUpdateDialog(
     currentVersion: String,
     availableVersion: String,
     onOpenGitHub: () -> Unit,
-    onOpenFdroid: () -> Unit,
     onDismiss: () -> Unit,
 ) {
     Dialog(
@@ -72,12 +71,6 @@ internal fun GitHubUpdateDialog(
                     stringResource(R.string.github_update_description),
                     modifier = Modifier.fillMaxWidth().padding(top = Dimens.dp18),
                 )
-                Text(
-                    stringResource(R.string.github_update_fdroid_note),
-                    modifier = Modifier.fillMaxWidth().padding(top = Dimens.dp10),
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = .64f),
-                    fontSize = Dimens.sp12,
-                )
                 Button(
                     onClick = onOpenGitHub,
                     modifier = Modifier.fillMaxWidth().padding(top = Dimens.dp18),
@@ -85,16 +78,6 @@ internal fun GitHubUpdateDialog(
                     Icon(Icons.Default.OpenInBrowser, null)
                     Text(
                         stringResource(R.string.download_from_github),
-                        Modifier.padding(start = Dimens.dp8),
-                    )
-                }
-                FilledTonalButton(
-                    onClick = onOpenFdroid,
-                    modifier = Modifier.fillMaxWidth().padding(top = Dimens.dp8),
-                ) {
-                    Icon(Icons.Default.OpenInBrowser, null)
-                    Text(
-                        stringResource(R.string.download_from_fdroid),
                         Modifier.padding(start = Dimens.dp8),
                     )
                 }

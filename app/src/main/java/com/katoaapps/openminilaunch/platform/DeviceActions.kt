@@ -25,7 +25,7 @@ import com.katoaapps.openminilaunch.features.messaging.ConversationShortcutDraft
 import com.katoaapps.openminilaunch.features.messaging.PreferredMessageDraftResult
 import com.katoaapps.openminilaunch.features.updates.GITHUB_LATEST_APK_URL
 import com.katoaapps.openminilaunch.features.updates.GITHUB_RELEASES_URL
-import com.katoaapps.openminilaunch.features.updates.FDROID_PACKAGE_URL
+import com.katoaapps.openminilaunch.features.updates.PRIVACY_POLICY_URL
 import com.katoaapps.openminilaunch.model.*
 import com.katoaapps.openminilaunch.ui.apps.AllAppsActivity
 import com.katoaapps.openminilaunch.ui.apps.PrivateAppsActivity
@@ -583,26 +583,13 @@ class DeviceActions(private val context: Context) {
         return start(intent)
     }
 
-    fun emailSupport() = start(Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:contact@katoaapps.com")))
-
-    fun openPrivacyPolicy() = start(Intent(Intent.ACTION_VIEW, Uri.parse("https://minklauncher.com/privacy")))
-
-    fun openTermsOfUse() = start(Intent(Intent.ACTION_VIEW, Uri.parse("https://minklauncher.com/terms")))
+    fun openPrivacyPolicy() = start(Intent(Intent.ACTION_VIEW, Uri.parse(PRIVACY_POLICY_URL)))
 
     fun openLatestGitHubReleaseDownload(): Boolean =
         start(Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_LATEST_APK_URL)))
 
     fun openGitHubReleasesPage(): Boolean =
         start(Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_RELEASES_URL)))
-
-    fun openFdroidPackagePage(): Boolean =
-        start(Intent(Intent.ACTION_VIEW, Uri.parse(FDROID_PACKAGE_URL)))
-
-    fun openMinkLauncherSubreddit(): Boolean =
-        start(Intent(Intent.ACTION_VIEW, Uri.parse(MINKLAUNCHER_SUBREDDIT_URL)))
-
-    fun openGooglePlayBetaPage(): Boolean =
-        start(Intent(Intent.ACTION_VIEW, Uri.parse(MINKLAUNCHER_BETA_URL)))
 
     fun webSearch(query: String, preferredPackage: String? = null): Boolean {
         val clean = query.trim()
@@ -670,8 +657,6 @@ class DeviceActions(private val context: Context) {
 
     private companion object {
         const val EXTRA_SETTINGS_FRAGMENT_ARG_KEY = ":settings:fragment_args_key"
-        const val MINKLAUNCHER_BETA_URL = "https://minklauncher.com/beta"
-        const val MINKLAUNCHER_SUBREDDIT_URL = "https://reddit.com/r/minklauncher"
         const val SAMSUNG_CLOCK_PACKAGE = "com.sec.android.app.clockpackage"
         val CLOCK_PACKAGES = listOf(
             SAMSUNG_CLOCK_PACKAGE,

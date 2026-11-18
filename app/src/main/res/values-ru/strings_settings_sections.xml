@@ -6,6 +6,4 @@
     <string name="settings_tab_advanced">Ещё</string>
     <string name="settings_section_more">Ещё</string>
     <string name="settings_launcher_home_summary">Главный экран, оформление и язык</string>
-    <string name="minklauncher_community">Сообщество MinkLauncher</string>
-    <string name="minklauncher_community_summary">Присоединиться к r/minklauncher на Reddit</string>
 </resources>

@@ -7,5 +7,5 @@
     <string name="demo_invoice_number">انوائس نمبر: %1$s</string>
     <string name="demo_invoice_services">ڈیمو خدمات اور مواد</string>
     <string name="demo_invoice_total">کل: %1$s</string>
-    <string name="demo_invoice_footer">MinkLauncher OpenSource کے ذریعے تیار کردہ نمونہ دستاویز</string>
+    <string name="demo_invoice_footer">OpenMindy کے ذریعے تیار کردہ نمونہ دستاویز</string>
 </resources>

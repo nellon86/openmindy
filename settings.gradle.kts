@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "OpenMiniLaunch"
+rootProject.name = "OpenMindy"
 include(":app")

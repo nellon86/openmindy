@@ -30,11 +30,12 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.katoaapps.openminilaunch"
+        // OpenMindy keeps the upstream Kotlin namespace but installs as its own app.
+        applicationId = "io.github.nellon86.openmindy"
         minSdk = 26
         targetSdk = 35
-        versionCode = 35
-        versionName = "3.2.2"
+        versionCode = 1
+        versionName = "1.0.0"
     }
 
     androidResources {
@@ -65,7 +66,7 @@ android {
 
     signingConfigs {
         if (hasReleaseSigning) {
-            create("upstreamRelease") {
+            create("openMindyRelease") {
                 storeFile = rootProject.file(checkNotNull(releaseStorePath))
                 storePassword = releaseStorePassword
                 keyAlias = releaseKeyAlias
@@ -79,7 +80,7 @@ android {
             isPseudoLocalesEnabled = true
         }
         getByName("release") {
-            signingConfig = signingConfigs.findByName("upstreamRelease")
+            signingConfig = signingConfigs.findByName("openMindyRelease")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(

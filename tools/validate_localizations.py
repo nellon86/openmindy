@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate OpenMink locale resources against the US English source catalog."""
+"""Validate OpenMindy locale resources against the US English source catalog."""
 
 from __future__ import annotations
 
@@ -29,16 +29,12 @@ LOCALE_DIRECTORIES = (
     "values-ar",
 )
 PROTECTED_TERMS = (
-    "MinkLauncher OpenSource",
-    "MinkLauncher",
-    "Mink Launcher",
-    "OpenMink",
+    "OpenMindy",
     "Mink’s Day",
     "Mink's Day",
     "Mink",
     "Magic Box",
     "MinkSpace",
-    "Katoa Apps",
 )
 COMMAND_SYMBOLS = ("@", "#", "+")
 COMMAND_RESOURCE_NAMES = {

@@ -7,7 +7,6 @@ package com.katoaapps.openminilaunch.ui.launcher
 
 import android.app.Activity
 import android.content.Intent
-import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -50,7 +49,6 @@ import com.katoaapps.openminilaunch.ui.magic.AssistantActivity
 import com.katoaapps.openminilaunch.ui.minkspace.core.rememberMinkSpacePresentationState
 import com.katoaapps.openminilaunch.ui.minkspace.todo.TodosScreen
 import com.katoaapps.openminilaunch.ui.onboarding.FeatureUpdateDialog
-import com.katoaapps.openminilaunch.ui.onboarding.GooglePlayBetaDialog
 import com.katoaapps.openminilaunch.ui.onboarding.HomeFeatureTour
 import com.katoaapps.openminilaunch.ui.onboarding.LocalHomeTourTargetRegistry
 import com.katoaapps.openminilaunch.ui.onboarding.OnboardingScreen
@@ -68,7 +66,6 @@ import kotlinx.coroutines.flow.collect
 
 private const val FEATURE_UPDATE_ID = "v320_whats_new_v1"
 private const val HOME_FEATURE_TOUR_ID = "home_spotlight_tour_v2"
-private const val GOOGLE_PLAY_BETA_NOTICE_ID = "google_play_beta_v1"
 private const val PACKAGE_REMOVAL_CONFIRMATION_MS = 750L
 
 @Composable
@@ -92,9 +89,6 @@ internal fun MiniLaunchApp(
                 currentTourSeen = store.hasSeenUpdate(HOME_FEATURE_TOUR_ID),
             ),
         )
-    }
-    var showGooglePlayBetaNotice by rememberSaveable {
-        mutableStateOf(store.onboardingComplete && !store.hasSeenUpdate(GOOGLE_PLAY_BETA_NOTICE_ID))
     }
     var tutorialRun by rememberSaveable { mutableIntStateOf(0) }
     val homeMagicBoxSessionState = rememberMagicBoxSessionState()
@@ -225,8 +219,7 @@ internal fun MiniLaunchApp(
                                     keyboardInputEnabled =
                                         (twoPanelActive || launcherPagerState.currentPage == HOME_PAGE) &&
                                             !showTutorial && !showUpdateNotice &&
-                                            !showHomeFeatureTour &&
-                                            !showGooglePlayBetaNotice,
+                                            !showHomeFeatureTour,
                                     homeRequestToken = homeRequestToken,
                                     magicBoxSessionState = homeMagicBoxSessionState,
                                     minkSpacePresentation = minkSpacePresentation,
@@ -350,25 +343,6 @@ internal fun MiniLaunchApp(
                 onComplete = {
                     store.markUpdateSeen(HOME_FEATURE_TOUR_ID)
                     showHomeFeatureTour = false
-                },
-            )
-        }
-        if (
-            showGooglePlayBetaNotice && !showTutorial && !showUpdateNotice &&
-            !showHomeFeatureTour
-        ) {
-            GooglePlayBetaDialog(
-                onOpenBeta = {
-                    if (actions.openGooglePlayBetaPage()) {
-                        store.markUpdateSeen(GOOGLE_PLAY_BETA_NOTICE_ID)
-                        showGooglePlayBetaNotice = false
-                    } else {
-                        Toast.makeText(context, R.string.no_browser_available, Toast.LENGTH_SHORT).show()
-                    }
-                },
-                onDismiss = {
-                    store.markUpdateSeen(GOOGLE_PLAY_BETA_NOTICE_ID)
-                    showGooglePlayBetaNotice = false
                 },
             )
         }

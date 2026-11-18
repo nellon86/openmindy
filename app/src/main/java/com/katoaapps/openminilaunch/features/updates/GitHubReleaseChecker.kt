@@ -4,14 +4,14 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 internal const val GITHUB_LATEST_APK_URL =
-    "https://github.com/katoaapps/openminilaunch/releases/latest/download/MinkLauncher-OpenSource.apk"
+    "https://github.com/nellon86/openmindy/releases/latest/download/OpenMindy.apk"
 internal const val GITHUB_RELEASES_URL =
-    "https://github.com/katoaapps/openminilaunch/releases"
-internal const val FDROID_PACKAGE_URL =
-    "https://f-droid.org/en/packages/com.katoaapps.openminilaunch/"
+    "https://github.com/nellon86/openmindy/releases"
+internal const val PRIVACY_POLICY_URL =
+    "https://github.com/nellon86/openmindy/blob/main/PRIVACY.md"
 
 private const val GITHUB_LATEST_RELEASE_API =
-    "https://api.github.com/repos/katoaapps/openminilaunch/releases/latest"
+    "https://api.github.com/repos/nellon86/openmindy/releases/latest"
 
 /** Reads only the latest public release tag. APK downloads remain browser-owned. */
 internal class GitHubReleaseChecker {
@@ -27,7 +27,7 @@ internal class GitHubReleaseChecker {
             connection.instanceFollowRedirects = true
             connection.setRequestProperty("Accept", "application/vnd.github+json")
             connection.setRequestProperty("X-GitHub-Api-Version", "2022-11-28")
-            connection.setRequestProperty("User-Agent", "MinkLauncher-OpenSource")
+            connection.setRequestProperty("User-Agent", "OpenMindy")
 
             if (connection.responseCode != HttpURLConnection.HTTP_OK) {
                 null

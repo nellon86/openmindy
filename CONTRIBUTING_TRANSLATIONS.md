@@ -41,7 +41,7 @@ The following brand names always remain exactly in plain English in every locale
 - Mink Launcher
 - Mink's Day
 
-Also preserve the established spellings of `MinkLauncher`, `OpenMink`, `MinkLauncher OpenSource`, `Magic Box`, and `Katoa Apps` wherever they appear. Do not translate product or provider names.
+Also preserve the established spellings of `OpenMindy`, `Magic Box`, `MinkSpace`, and `Mink’s Day` wherever they appear. Do not translate product or provider names.
 
 Keep `@`, `#`, `-`, `/`, `+`, and `?` unchanged. Translate the explanation beside each command symbol, not the symbol itself. Preserve URLs, email addresses, package names, file extensions, and Android permission identifiers.
 

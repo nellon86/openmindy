@@ -7,5 +7,5 @@
     <string name="demo_invoice_number">Номер счета: %1$s</string>
     <string name="demo_invoice_services">Демонстрационные услуги и материалы</string>
     <string name="demo_invoice_total">Итого: %1$s</string>
-    <string name="demo_invoice_footer">Образец документа, созданный MinkLauncher OpenSource</string>
+    <string name="demo_invoice_footer">Образец документа, созданный OpenMindy</string>
 </resources>

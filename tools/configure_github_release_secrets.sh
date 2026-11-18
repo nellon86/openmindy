@@ -2,9 +2,9 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "$0")/.." && pwd)"
-repository="katoaapps/openminilaunch"
+repository="nellon86/openmindy"
 properties="$repo_root/.signing/release.properties"
-keystore="$repo_root/.signing/openminilaunch-release.jks"
+keystore="$repo_root/.signing/openmindy-release.jks"
 
 if [[ ! -f "$properties" || ! -f "$keystore" ]]; then
   print -u2 "Missing local release signing material in $repo_root/.signing."
@@ -12,9 +12,9 @@ if [[ ! -f "$properties" || ! -f "$keystore" ]]; then
 fi
 
 login="$(gh api user --jq .login)"
-if [[ "${login:l}" != "katoaapps" ]]; then
+if [[ "${login:l}" != "nellon86" ]]; then
   print -u2 "Refusing to configure secrets while GitHub CLI is logged in as $login."
-  print -u2 "Authenticate the Katoa Apps account first with: gh auth login --web"
+  print -u2 "Authenticate the nellon86 account first with: gh auth login --web"
   exit 1
 fi
 

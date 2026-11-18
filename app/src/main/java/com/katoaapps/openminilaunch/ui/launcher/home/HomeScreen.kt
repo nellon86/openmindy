@@ -305,14 +305,6 @@ internal fun HomeScreen(
                     Toast.makeText(context, R.string.no_browser_available, Toast.LENGTH_SHORT).show()
                 }
             },
-            onOpenFdroid = {
-                if (actions.openFdroidPackagePage()) {
-                    store.latestGitHubReleaseTag?.let(store::snoozeGitHubUpdateReminder)
-                    showUpdateConfirmation = false
-                } else {
-                    Toast.makeText(context, R.string.no_browser_available, Toast.LENGTH_SHORT).show()
-                }
-            },
             onDismiss = {
                 store.latestGitHubReleaseTag?.let(store::snoozeGitHubUpdateReminder)
                 showUpdateConfirmation = false
