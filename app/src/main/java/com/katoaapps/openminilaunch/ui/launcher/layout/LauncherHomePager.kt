@@ -3,7 +3,10 @@ package com.katoaapps.openminilaunch.ui.launcher.layout
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -198,16 +201,32 @@ internal fun LauncherHomePager(
             // pager physics LTR avoids RTL settle oscillation while each page still renders using
             // the locale's real layout direction.
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                // Smooth page transitions:
+                // - Neighbouring pages stay composed, so starting a swipe no longer builds Mindy's
+                //   Day or inflates every widget view in the first frames of the gesture.
+                // - Pages learn they are active only once the pager settles, so crossing the
+                //   halfway point mid-swipe does not recompose Home or start refresh work.
+                // - A shorter release distance and a stiffer settle spring make the pager follow
+                //   the finger and finish promptly instead of drifting into place.
                 HorizontalPager(
                     state = pagerState,
                     modifier = Modifier.fillMaxSize(),
+                    beyondViewportPageCount = 1,
+                    flingBehavior = PagerDefaults.flingBehavior(
+                        state = pagerState,
+                        snapPositionalThreshold = PAGE_SNAP_THRESHOLD,
+                        snapAnimationSpec = spring(
+                            dampingRatio = Spring.DampingRatioNoBouncy,
+                            stiffness = Spring.StiffnessMedium,
+                        ),
+                    ),
                     userScrollEnabled = !magicBoxExpanded && !mindySpaceExpanded,
                 ) { page ->
                     CompositionLocalProvider(LocalLayoutDirection provides contentLayoutDirection) {
                         when (page) {
                             MINDY_DAY_PAGE -> MindyDayScreen(
                                 store = store,
-                                isActive = pagerState.currentPage == MINDY_DAY_PAGE,
+                                isActive = pagerState.settledPage == MINDY_DAY_PAGE,
                                 goHome = goHome,
                             )
                             HOME_PAGE -> homeStateHolder.SaveableStateProvider("home") {
@@ -218,7 +237,7 @@ internal fun LauncherHomePager(
                                     openTodos = openTodos,
                                     openConversations = openConversations,
                                     openMindyDay = goToMindyDay,
-                                    mindyStatusActive = pagerState.currentPage == HOME_PAGE,
+                                    mindyStatusActive = pagerState.settledPage == HOME_PAGE,
                                     onMagicExpandedChange = {},
                                     onMindySpaceExpandedChange = { mindySpaceExpanded = it },
                                     keyboardInputEnabled = keyboardInputEnabled,
@@ -255,3 +274,6 @@ internal fun LauncherHomePager(
         }
     }
 }
+
+/** Fraction of a page a slow drag must cover before releasing moves to the next page. */
+private const val PAGE_SNAP_THRESHOLD = 0.3f
