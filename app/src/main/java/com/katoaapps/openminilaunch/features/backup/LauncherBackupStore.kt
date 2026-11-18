@@ -3,12 +3,10 @@ package com.katoaapps.openminilaunch.features.backup
 import com.katoaapps.openminilaunch.data.LauncherStore
 import com.katoaapps.openminilaunch.data.WidgetRecipeImportResult
 import com.katoaapps.openminilaunch.features.appearance.BundledHomeThemeCatalog
-import com.katoaapps.openminilaunch.features.profile.ProfileState
 import com.katoaapps.openminilaunch.model.FontSource
 import com.katoaapps.openminilaunch.model.IconSource
 
 internal fun LauncherStore.createPortableBackup(appVersion: String): LauncherBackup {
-    val profile = profileRepository.state as? ProfileState.Ready
     return LauncherBackup(
         sourceAppVersion = appVersion,
         exportedAtMillis = System.currentTimeMillis(),
@@ -62,8 +60,6 @@ internal fun LauncherStore.createPortableBackup(appVersion: String): LauncherBac
             fontAppearance = fontAppearance,
         ),
         todos = savedTodosForBackup,
-        profile = profile?.card?.copy(hasPortrait = false),
-        profileLinks = profile?.links.orEmpty(),
         widgetRecipes = portableWidgetRestoreRecipes(),
         integratedContacts = favoriteIntegratedContactStore.contacts(),
         integratedContactOrder = favoriteIntegratedContactStore.contacts()
@@ -93,7 +89,6 @@ internal fun LauncherStore.restorePortableBackup(
         libraryShortcutTargets = backup.launcher.libraryShortcutTargets,
     )
     replaceTodosFromBackup(backup.todos)
-    profileRepository.replaceFromBackup(backup.profile, backup.profileLinks)
 
     setTheme(settings.themePreference)
     setPalette(settings.palettePreference)

@@ -173,12 +173,6 @@
             android:launchMode="singleTop"
             android:theme="@style/Theme.MiniLaunch" />
         <activity
-            android:name=".ui.minkspace.media.MediaLabActivity"
-            android:excludeFromRecents="false"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:theme="@style/Theme.MiniLaunch" />
-        <activity
             android:name=".ui.shortcuts.PinShortcutActivity"
             android:excludeFromRecents="true"
             android:exported="true"
@@ -197,14 +191,6 @@
                 <action android:name="com.android.launcher.action.INSTALL_SHORTCUT" />
             </intent-filter>
         </receiver>
-        <activity
-            android:name=".ui.profile.VirtualContactCardActivity"
-            android:excludeFromRecents="false"
-            android:exported="false"
-            android:label="@string/profile"
-            android:launchMode="singleTop"
-            android:taskAffinity="${applicationId}.vcard"
-            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.launcher.LauncherEntryActivity"
             android:excludeFromRecents="true"

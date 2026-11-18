@@ -3,8 +3,6 @@ package com.katoaapps.openminilaunch.features.backup
 import com.katoaapps.openminilaunch.features.minkspace.MinkSpaceMiniApp
 import com.katoaapps.openminilaunch.features.contacts.AndroidFavoriteAttentionTransfer
 import com.katoaapps.openminilaunch.features.minkspace.todo.TodoItem
-import com.katoaapps.openminilaunch.features.profile.ProfileCard
-import com.katoaapps.openminilaunch.features.profile.ProfileLink
 import com.katoaapps.openminilaunch.model.AppFolderConfig
 import com.katoaapps.openminilaunch.model.AppFolderAnimationStyle
 import com.katoaapps.openminilaunch.model.AppFolderIndicatorStyle
@@ -34,8 +32,6 @@ internal data class LauncherBackup(
     val launcher: LauncherBackupLayout,
     val settings: LauncherBackupSettings,
     val todos: List<TodoItem>,
-    val profile: ProfileCard?,
-    val profileLinks: List<ProfileLink>,
     val widgetRecipes: List<WidgetRestoreRecipe> = emptyList(),
     /** Null means this backup predates portable Mink-created Favorites. */
     val integratedContacts: List<FavoriteIntegratedContact>? = null,

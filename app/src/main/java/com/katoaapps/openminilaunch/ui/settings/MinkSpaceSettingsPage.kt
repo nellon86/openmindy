@@ -39,7 +39,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.zIndex
@@ -55,7 +54,6 @@ import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpaceMiniAppCatalog
 import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpaceMiniAppManifest
 import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpaceMiniAppSettingsTarget
 import com.katoaapps.openminilaunch.ui.minkspace.widget.MinkSpaceWidgetSetup
-import com.katoaapps.openminilaunch.ui.profile.openVirtualContactCard
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
 import com.katoaapps.openminilaunch.ui.theme.Rust
@@ -69,8 +67,9 @@ internal fun MinkSpaceSettingsPage(
     openTodos: () -> Unit,
     goBack: () -> Unit,
 ) {
-    val context = LocalContext.current
-    var showWidgetSetup by rememberSaveable { mutableStateOf(false) }
+    // Stable ID of the Quick Widget slot whose picker is open; null when closed.
+    var widgetSetupSlotId by rememberSaveable { mutableStateOf<String?>(null) }
+    val widgetSetupSlot = widgetSetupSlotId?.let(MinkSpaceMiniApp::fromStableId)
     val listState = rememberLazyListState()
     var draggedMiniApp by remember { mutableStateOf<MinkSpaceMiniApp?>(null) }
     val visibleMiniApps = remember {
@@ -108,7 +107,7 @@ internal fun MinkSpaceSettingsPage(
                 color = Muted,
             )
         }
-        item(key = "mink-space-total-screen-shortcut") {
+        if (MinkSpaceMiniAppCatalog.totalScreenMiniApps.isNotEmpty()) item(key = "mink-space-total-screen-shortcut") {
             Column(verticalArrangement = Arrangement.spacedBy(Dimens.dp8)) {
                 SectionLabel(stringResource(R.string.full_screen_shortcut))
                 val totalScreenApps = MinkSpaceMiniAppCatalog.totalScreenMiniApps
@@ -146,9 +145,7 @@ internal fun MinkSpaceSettingsPage(
             val spec = MinkSpaceMiniAppCatalog.get(miniApp)
             val onSettingsClick: (() -> Unit)? = when (spec.settingsTarget) {
                 MinkSpaceMiniAppSettingsTarget.TODOS -> openTodos
-                MinkSpaceMiniAppSettingsTarget.MEDIA -> actions::openMediaLab
-                MinkSpaceMiniAppSettingsTarget.WIDGET -> ({ showWidgetSetup = true })
-                MinkSpaceMiniAppSettingsTarget.VCARD -> ({ openVirtualContactCard(context) })
+                MinkSpaceMiniAppSettingsTarget.WIDGET -> ({ widgetSetupSlotId = miniApp.stableId })
                 null -> null
             }
             ReorderableItem(reorderableState, key = miniApp.stableId) { isDragging ->
@@ -179,10 +176,10 @@ internal fun MinkSpaceSettingsPage(
                     spec = spec,
                     shown = miniApp in store.enabledMinkSpaceMiniApps,
                     onShownChange = { shown ->
-                        if (shown && miniApp == MinkSpaceMiniApp.WIDGET &&
-                            store.minkSpaceWidgetId == null
+                        if (shown && miniApp.isQuickWidget &&
+                            store.minkSpaceWidgetId(miniApp) == null
                         ) {
-                            showWidgetSetup = true
+                            widgetSetupSlotId = miniApp.stableId
                         } else {
                             store.setMinkSpaceMiniAppEnabled(miniApp, shown)
                         }
@@ -224,11 +221,12 @@ internal fun MinkSpaceSettingsPage(
         }
     }
     MinkSpaceWidgetSetup(
-        visible = showWidgetSetup,
+        slot = widgetSetupSlot ?: MinkSpaceMiniApp.WIDGET,
+        visible = widgetSetupSlot != null,
         store = store,
         actions = actions,
-        onDismiss = { showWidgetSetup = false },
-        onComplete = { showWidgetSetup = false },
+        onDismiss = { widgetSetupSlotId = null },
+        onComplete = { widgetSetupSlotId = null },
     )
 }
 

@@ -6,9 +6,6 @@ import com.katoaapps.openminilaunch.features.contacts.AndroidFavoriteAttentionTr
 import com.katoaapps.openminilaunch.features.contacts.AndroidFavoriteIdentityCandidate
 import com.katoaapps.openminilaunch.features.contacts.AndroidFavoriteIdentityKind
 import com.katoaapps.openminilaunch.features.minkspace.MinkSpaceMiniApp
-import com.katoaapps.openminilaunch.features.profile.ProfileCard
-import com.katoaapps.openminilaunch.features.profile.ProfileLink
-import com.katoaapps.openminilaunch.features.profile.ProfileLinkType
 import com.katoaapps.openminilaunch.model.AppFolderConfig
 import com.katoaapps.openminilaunch.model.AppFolderAnimationStyle
 import com.katoaapps.openminilaunch.model.AppFolderColorMode
@@ -149,7 +146,7 @@ class LauncherBackupCodecTest {
         val original = sample.copy(
             settings = sample.settings.copy(
                 minkSpaceTotalScreenShortcut = MinkSpaceTotalScreenShortcutBackup(
-                    MinkSpaceMiniApp.MEDIA,
+                    MinkSpaceMiniApp.CALCULATOR,
                 ),
             ),
         )
@@ -162,7 +159,7 @@ class LauncherBackupCodecTest {
                 MinkSpaceMiniApp.MUSIC,
                 MinkSpaceMiniApp.TODO,
                 MinkSpaceMiniApp.CALCULATOR,
-                MinkSpaceMiniApp.VCARD,
+                MinkSpaceMiniApp.WIDGET_2,
             ),
             restored.settings.minkSpaceMiniAppOrder,
         )
@@ -171,7 +168,7 @@ class LauncherBackupCodecTest {
             restored.settings.enabledMinkSpaceMiniApps,
         )
         assertEquals(
-            MinkSpaceTotalScreenShortcutBackup(MinkSpaceMiniApp.MEDIA),
+            MinkSpaceTotalScreenShortcutBackup(MinkSpaceMiniApp.CALCULATOR),
             restored.settings.minkSpaceTotalScreenShortcut,
         )
     }
@@ -507,32 +504,20 @@ class LauncherBackupCodecTest {
         assertEquals(com.katoaapps.openminilaunch.model.AppGridSlot.DRAWER, restored.launcher.appGridOrder.last())
     }
 
-    @Test fun minkSpaceBackupFromBeforeVCardEnablesVCardDuringMigration() {
+    @Test fun removedMemoriesAndVCardMiniAppsAreIgnoredOnImport() {
         val json = JSONObject(LauncherBackupCodec.encode(sampleBackup(twoPanelMode = true)))
         json.getJSONObject("settings").getJSONObject("minkSpace").apply {
-            put("order", org.json.JSONArray(listOf("todo", "music", "calculator")))
-            put("enabled", org.json.JSONArray(listOf("todo", "music")))
+            put("order", org.json.JSONArray(listOf("todo", "media", "music", "vcard")))
+            put("enabled", org.json.JSONArray(listOf("todo", "media", "vcard")))
         }
 
         val restored = LauncherBackupCodec.decode(json.toString())
 
         assertEquals(
-            setOf(MinkSpaceMiniApp.TODO, MinkSpaceMiniApp.MUSIC, MinkSpaceMiniApp.VCARD),
-            restored.settings.enabledMinkSpaceMiniApps,
+            listOf(MinkSpaceMiniApp.TODO, MinkSpaceMiniApp.MUSIC),
+            restored.settings.minkSpaceMiniAppOrder,
         )
-    }
-
-    @Test fun profileTextAndLinksSurviveBackupWithoutPortrait() {
-        val original = sampleBackup(twoPanelMode = true).copy(
-            profile = ProfileCard("Mink User", selectedLinkIds = listOf("site"), hasPortrait = true),
-            profileLinks = listOf(ProfileLink("site", ProfileLinkType.WEBSITE, "Site", "minklauncher.com")),
-        )
-
-        val restored = LauncherBackupCodec.decode(LauncherBackupCodec.encode(original))
-
-        assertEquals("Mink User", restored.profile?.fullName)
-        assertEquals(false, restored.profile?.hasPortrait)
-        assertEquals("site", restored.profileLinks.single().id)
+        assertEquals(setOf(MinkSpaceMiniApp.TODO), restored.settings.enabledMinkSpaceMiniApps)
     }
 
     @Test fun widgetRestoreRecipesSurvivePortableBackupRoundTrip() {
@@ -835,7 +820,7 @@ class LauncherBackupCodecTest {
                 MinkSpaceMiniApp.MUSIC,
                 MinkSpaceMiniApp.TODO,
                 MinkSpaceMiniApp.CALCULATOR,
-                MinkSpaceMiniApp.VCARD,
+                MinkSpaceMiniApp.WIDGET_2,
             ),
             enabledMinkSpaceMiniApps = setOf(MinkSpaceMiniApp.TODO, MinkSpaceMiniApp.MUSIC),
             sendMessagesAutomatically = false,
@@ -849,7 +834,5 @@ class LauncherBackupCodecTest {
             githubUpdateChecksEnabled = true,
         ),
         todos = emptyList(),
-        profile = null,
-        profileLinks = emptyList(),
     )
 }

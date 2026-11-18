@@ -15,27 +15,13 @@ cropped Home wallpaper, widget configuration, Mink’s Day preferences, app-bubb
 MinkSpace mini-app preferences, launcher-keyboard preferences, and onboarding state in app-private
 storage. Android cloud backup is disabled for OpenMindy.
 
-MinkSpace stores calculator history locally, up to its visible history limit. Memories stores the
-content URI, display name, MIME type, order, and Android read grant for media the user explicitly
-selects. It does not copy the underlying image, GIF, or video into OpenMindy storage. Removing a
-Memories item removes OpenMindy’s saved reference and releases its grant when Android permits;
-it does not delete the original file.
+MinkSpace stores calculator history locally, up to its visible history limit. Each of the three
+Quick Widget slots stores only the Android widget ID it hosts.
 
 The Music mini-app reads Android’s currently active media-session metadata, artwork, playback state,
 position, provider identity, and advertised control capabilities while the feature is being used.
 This state is kept in memory rather than recorded as listening history. OpenMindy does not record
 audio and does not request microphone permission.
-
-## Virtual Contact Card
-
-The optional Virtual Contact Card stores contact details, selected links, link order, and an optional
-processed photo in AES-GCM encrypted app-private files backed by Android Keystore. It is a contact
-card, not an app account or tracking profile, and it is not sent to Mink servers or used for account
-management.
-
-vCard QR codes are generated entirely on-device and contain only the identity fields and links the
-user selects. The contact photo and fallback Mink icon are not embedded. The system Photo Picker
-provides an optional photo without granting OpenMindy broad photo-library access.
 
 ## Favorites
 
@@ -53,7 +39,7 @@ They are not uploaded or used to create an account.
 
 An explicit portable backup is readable JSON. It includes portable launcher layout and settings,
 App Grid folders, Quick Drawer choices, launcher-keyboard preferences, MinkSpace order and
-enablement, to-dos, Virtual Contact Card details and links, Mink-created integrated Favorites and
+enablement, to-dos, Mink-created integrated Favorites and
 their ordering, and widget restore recipes so a user can move between distributions. The export
 screen warns that readable contact details may be present. For Mink-created Favorites, that can
 include display names, phone numbers, usernames, provider routes, and app shortcut identifiers.
@@ -66,10 +52,9 @@ device.
 
 Portable backup excludes Android permissions and roles, accessibility and notification access,
 Android widget IDs and live widget state, Android Contacts, contact photos, document-folder grants,
-wallpaper images, recent-query history, calculator history, selected MinkSpace media and URI grants,
+wallpaper images, recent-query history, calculator history,
 active media sessions, Work and Privacy Space state, device-specific private-area gateways, active
-bubble notifications, demo data, the Virtual Contact Card photo, and update caches or reminders.
-Restoring a card therefore returns to the Mink icon until another photo is selected.
+bubble notifications, demo data, and update caches or reminders.
 
 ## Apps, shortcuts, work profiles, and private areas
 
@@ -94,15 +79,14 @@ launcher barrier does not require Usage Access; pausing after a daily limit does
 ## Handoffs to other apps
 
 When the user launches another app, opens selected media, composes a message, creates a note or event,
-opens a file, delegates a Web or AI query, or shares a vCard QR, the chosen content leaves
-OpenMindy through Android or the user’s camera/recipient. The receiving app, service, person, or
+opens a file, or delegates a Web or AI query, the chosen content leaves
+OpenMindy through Android or the recipient. The receiving app, service, person, or
 device then controls that copy under its own privacy terms. OpenMindy does not receive the
 provider’s response.
 
 ## Deletion
 
-Users can delete to-dos, query history, calculator history, Memories selections, Virtual Contact
-Card fields and links, app-bubble choices, approved folders, widgets, and other supported items from
+Users can delete to-dos, query history, calculator history, app-bubble choices, approved folders, widgets, and other supported items from
 their relevant screens. Permissions and special access can be revoked in Android Settings. Clearing
 OpenMindy storage or uninstalling it removes its local app data, subject to files or exports the
 user deliberately saved elsewhere.

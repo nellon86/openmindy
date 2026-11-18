@@ -7,16 +7,22 @@ internal enum class MinkSpaceMiniApp(
 ) {
     TODO("todo", readyForHome = true),
     CALCULATOR("calculator", readyForHome = true),
-    MEDIA("media", readyForHome = true),
     RECORDER("recorder", readyForHome = false),
     MUSIC("music", readyForHome = true),
+    /** Quick Widget 1 keeps the upstream "widget" ID so existing placements survive. */
     WIDGET("widget", readyForHome = true),
-    VCARD("vcard", readyForHome = true),
+    WIDGET_2("widget_2", readyForHome = true),
+    WIDGET_3("widget_3", readyForHome = true),
     ;
 
+    /** Quick Widget slots hold an installation-local Android widget binding. */
+    val isQuickWidget: Boolean get() = this in quickWidgets
+
     companion object {
+        /** OpenMindy removed the upstream "media" (Memories, Adrift) and "vcard" mini-apps. */
+        val quickWidgets: List<MinkSpaceMiniApp> = listOf(WIDGET, WIDGET_2, WIDGET_3)
         val defaultOrder: List<MinkSpaceMiniApp> = entries
-        val defaultEnabled: Set<MinkSpaceMiniApp> = setOf(TODO, VCARD)
+        val defaultEnabled: Set<MinkSpaceMiniApp> = setOf(TODO)
 
         fun fromStableId(stableId: String): MinkSpaceMiniApp? =
             entries.firstOrNull { it.stableId == stableId }

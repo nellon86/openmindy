@@ -17,9 +17,10 @@ import com.katoaapps.openminilaunch.ui.widgets.WidgetProviderDialog
 import com.katoaapps.openminilaunch.ui.widgets.homeScreenProviders
 import com.katoaapps.openminilaunch.ui.widgets.rememberWidgetBindingController
 
-/** Reusable picker and Android bind flow for the single optional MinkSpace placement. */
+/** Reusable picker and Android bind flow for one Quick Widget slot. */
 @Composable
 internal fun MinkSpaceWidgetSetup(
+    slot: MinkSpaceMiniApp,
     visible: Boolean,
     store: LauncherStore,
     actions: DeviceActions,
@@ -34,9 +35,9 @@ internal fun MinkSpaceWidgetSetup(
     val viewport = rememberMinkSpaceWidgetViewport(store.twoPanelModeForLargeDisplays)
     val binding = rememberWidgetBindingController(
         onBound = { newId, _ ->
-            val oldId = store.minkSpaceWidgetId
-            store.setMinkSpaceWidget(newId)
-            store.setMinkSpaceMiniAppEnabled(MinkSpaceMiniApp.WIDGET, true)
+            val oldId = store.minkSpaceWidgetId(slot)
+            store.setMinkSpaceWidget(slot, newId)
+            store.setMinkSpaceMiniAppEnabled(slot, true)
             if (oldId != null && oldId != newId) {
                 runCatching { activity.appWidgetHost.deleteAppWidgetId(oldId) }
             }
@@ -53,7 +54,7 @@ internal fun MinkSpaceWidgetSetup(
             providers = providers,
             actions = actions,
             presentation = WidgetPickerPresentation(
-                titleRes = if (store.minkSpaceWidgetId == null) {
+                titleRes = if (store.minkSpaceWidgetId(slot) == null) {
                     R.string.add_widget
                 } else {
                     R.string.replace_widget

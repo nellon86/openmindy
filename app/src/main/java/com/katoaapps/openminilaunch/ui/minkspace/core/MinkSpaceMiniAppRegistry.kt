@@ -13,14 +13,13 @@ internal data class MinkSpaceHostDependencies(
     val todoJumpToken: Int,
     val todoItemsPerPage: Int,
     val todoTextMetrics: HomeTodoTextMetrics,
-    val openMediaLab: () -> Unit,
-    val openVCardSettings: () -> Unit,
 )
 
-/** Dependencies available to a mini-app rendered above the complete launcher surface. */
-internal data class MinkSpaceTotalScreenDependencies(
-    val openMediaLab: () -> Unit,
-)
+/**
+ * Dependencies available to a mini-app rendered above the complete launcher surface.
+ * OpenMindy currently ships no total-screen mini-app; the platform shell is kept for future ones.
+ */
+internal class MinkSpaceTotalScreenDependencies
 
 /** One catalog entry: static metadata plus an optional runtime implementation factory. */
 internal data class MinkSpaceMiniAppRegistration(

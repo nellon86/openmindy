@@ -30,7 +30,6 @@ import com.katoaapps.openminilaunch.model.*
 import com.katoaapps.openminilaunch.ui.apps.AllAppsActivity
 import com.katoaapps.openminilaunch.ui.apps.PrivateAppsActivity
 import com.katoaapps.openminilaunch.ui.apps.work.WorkAppsActivity
-import com.katoaapps.openminilaunch.ui.minkspace.media.MediaLabActivity
 
 import android.Manifest
 import android.app.ActivityOptions
@@ -286,8 +285,6 @@ class DeviceActions(private val context: Context) {
     fun openPrivateApps() = start(Intent(context, PrivateAppsActivity::class.java))
 
     fun openWorkApps() = start(Intent(context, WorkAppsActivity::class.java))
-
-    fun openMediaLab() = start(Intent(context, MediaLabActivity::class.java))
 
     internal fun workProfileSnapshot(): WorkProfileSnapshot = workProfileRepository.snapshot()
 

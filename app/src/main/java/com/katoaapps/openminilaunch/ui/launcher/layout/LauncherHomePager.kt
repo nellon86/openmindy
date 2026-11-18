@@ -57,7 +57,6 @@ internal fun LauncherHomePager(
     minkSpacePresentation: MinkSpacePresentationState,
     openSettings: (SettingsDestination) -> Unit,
     openTodos: () -> Unit,
-    openVCardSettings: () -> Unit,
     openConversations: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -190,7 +189,6 @@ internal fun LauncherHomePager(
                 onGoHome = goHome,
                 openSettings = openSettings,
                 openTodos = openTodos,
-                openVCardSettings = openVCardSettings,
                 openConversations = openConversations,
                 onMinkSpaceExpandedChange = { minkSpaceExpanded = it },
                 modifier = Modifier.fillMaxSize(),
@@ -218,7 +216,6 @@ internal fun LauncherHomePager(
                                     actions = actions,
                                     openSettings = openSettings,
                                     openTodos = openTodos,
-                                    openVCardSettings = openVCardSettings,
                                     openConversations = openConversations,
                                     openMinkDay = goToMinkDay,
                                     minkStatusActive = pagerState.currentPage == HOME_PAGE,
@@ -239,7 +236,7 @@ internal fun LauncherHomePager(
 
         minkSpacePresentation.totalScreenMiniApp?.let { miniApp ->
             val dependencies = remember(actions) {
-                MinkSpaceTotalScreenDependencies(openMediaLab = actions::openMediaLab)
+                MinkSpaceTotalScreenDependencies()
             }
             val totalScreenApp = remember(miniApp, dependencies) {
                 MinkSpaceMiniAppCatalog.createTotalScreenApp(miniApp, dependencies)

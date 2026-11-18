@@ -85,7 +85,6 @@ internal object LauncherBackupCodec {
             ?.let { transfer ->
                 put("androidFavoriteAttention", encodeAndroidFavoriteAttention(transfer))
             }
-        backup.profile?.let { put("profile", ProfileBackupCodec.encode(it, backup.profileLinks)) }
         put("notIncluded", PORTABILITY_EXCLUSIONS.stringsJsonArray())
     }.toString(2)
 
@@ -95,7 +94,6 @@ internal object LauncherBackupCodec {
         require(root.optInt("schemaVersion", -1) in 1..LAUNCHER_BACKUP_MAX_READABLE_SCHEMA_VERSION) {
             "Unsupported OpenMink backup version"
         }
-        val profile = root.optJSONObject("profile")?.let(ProfileBackupCodec::decode)
         val launcher = decodeLauncher(root.getJSONObject("launcher"))
 
         return LauncherBackup(
@@ -104,8 +102,6 @@ internal object LauncherBackupCodec {
             launcher = launcher,
             settings = decodeSettings(root.getJSONObject("settings"), launcher.drawerTargets),
             todos = decodeTodos(root.optJSONArray("todos") ?: JSONArray()),
-            profile = profile?.first,
-            profileLinks = profile?.second.orEmpty(),
             widgetRecipes = decodeWidgetRecipes(root.optJSONArray("widgets")),
             integratedContacts = if (root.has("favoriteContacts")) {
                 FavoriteContactBackupCodec.decodeContacts(root.optJSONArray("favoriteContacts"))
@@ -425,13 +421,6 @@ internal object LauncherBackupCodec {
         val enabledMinkSpaceMiniApps = minkSpace?.optJSONArray("enabled")
             ?.minkSpaceMiniApps()
             ?.toSet()
-            ?.let { enabled ->
-                if (minkSpaceOrder != null && MinkSpaceMiniApp.VCARD !in minkSpaceOrder) {
-                    enabled + MinkSpaceMiniApp.VCARD
-                } else {
-                    enabled
-                }
-            }
         val minkSpaceTotalScreenShortcut = minkSpace
             ?.takeIf { it.has("totalScreenShortcut") }
             ?.optString("totalScreenShortcut")
@@ -666,9 +655,7 @@ internal object LauncherBackupCodec {
         "wallpaperImage",
         "recentQueryHistory",
         "demoData",
-        "profilePhoto",
         "minkSpaceCalculatorHistory",
-        "minkSpaceMediaSelectionsAndUriGrants",
         "activeMediaSessions",
         "workAndPrivateProfileState",
         "devicePrivateAreaGateway",

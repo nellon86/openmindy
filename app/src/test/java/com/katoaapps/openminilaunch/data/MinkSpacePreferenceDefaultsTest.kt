@@ -6,10 +6,26 @@ import org.junit.Test
 
 class MinkSpacePreferenceDefaultsTest {
     @Test
-    fun missingPreferenceStartsWithTodoAndVCardEnabled() {
+    fun missingPreferenceStartsWithTodoEnabled() {
         assertEquals(
-            setOf(MinkSpaceMiniApp.TODO, MinkSpaceMiniApp.VCARD),
+            setOf(MinkSpaceMiniApp.TODO),
             enabledMinkSpaceMiniAppsFromStableIds(null),
+        )
+    }
+
+    @Test
+    fun removedUpstreamMemoriesAndVCardIdsAreIgnored() {
+        assertEquals(
+            setOf(MinkSpaceMiniApp.TODO, MinkSpaceMiniApp.WIDGET),
+            enabledMinkSpaceMiniAppsFromStableIds(setOf("todo", "media", "vcard", "widget")),
+        )
+    }
+
+    @Test
+    fun threeQuickWidgetSlotsHaveStableIds() {
+        assertEquals(
+            listOf("widget", "widget_2", "widget_3"),
+            MinkSpaceMiniApp.quickWidgets.map(MinkSpaceMiniApp::stableId),
         )
     }
 
@@ -43,11 +59,11 @@ class MinkSpacePreferenceDefaultsTest {
             listOf(
                 MinkSpaceMiniApp.WIDGET,
                 MinkSpaceMiniApp.TODO,
-                MinkSpaceMiniApp.CALCULATOR,
                 MinkSpaceMiniApp.RECORDER,
-                MinkSpaceMiniApp.MEDIA,
+                MinkSpaceMiniApp.CALCULATOR,
                 MinkSpaceMiniApp.MUSIC,
-                MinkSpaceMiniApp.VCARD,
+                MinkSpaceMiniApp.WIDGET_2,
+                MinkSpaceMiniApp.WIDGET_3,
             ),
             mergeVisibleMinkSpaceMiniAppOrder(
                 currentOrder = MinkSpaceMiniApp.defaultOrder,
@@ -55,43 +71,41 @@ class MinkSpacePreferenceDefaultsTest {
                     MinkSpaceMiniApp.WIDGET,
                     MinkSpaceMiniApp.TODO,
                     MinkSpaceMiniApp.CALCULATOR,
-                    MinkSpaceMiniApp.MEDIA,
                     MinkSpaceMiniApp.MUSIC,
-                    MinkSpaceMiniApp.VCARD,
+                    MinkSpaceMiniApp.WIDGET_2,
+                    MinkSpaceMiniApp.WIDGET_3,
                 ),
             ),
         )
     }
 
     @Test
-    fun portableRestoreKeepsWidgetInItsCurrentSlot() {
+    fun portableRestoreKeepsEveryQuickWidgetInItsCurrentSlot() {
         val currentOrder = listOf(
             MinkSpaceMiniApp.TODO,
             MinkSpaceMiniApp.WIDGET,
             MinkSpaceMiniApp.CALCULATOR,
             MinkSpaceMiniApp.RECORDER,
-            MinkSpaceMiniApp.MEDIA,
+            MinkSpaceMiniApp.WIDGET_3,
             MinkSpaceMiniApp.MUSIC,
-            MinkSpaceMiniApp.VCARD,
+            MinkSpaceMiniApp.WIDGET_2,
         )
 
         assertEquals(
             listOf(
-                MinkSpaceMiniApp.VCARD,
-                MinkSpaceMiniApp.WIDGET,
                 MinkSpaceMiniApp.MUSIC,
-                MinkSpaceMiniApp.RECORDER,
-                MinkSpaceMiniApp.MEDIA,
+                MinkSpaceMiniApp.WIDGET,
                 MinkSpaceMiniApp.CALCULATOR,
+                MinkSpaceMiniApp.RECORDER,
+                MinkSpaceMiniApp.WIDGET_3,
                 MinkSpaceMiniApp.TODO,
+                MinkSpaceMiniApp.WIDGET_2,
             ),
             mergePortableMinkSpaceMiniAppOrder(
                 currentOrder = currentOrder,
                 restoredOrder = listOf(
-                    MinkSpaceMiniApp.WIDGET,
-                    MinkSpaceMiniApp.VCARD,
+                    MinkSpaceMiniApp.WIDGET_2,
                     MinkSpaceMiniApp.MUSIC,
-                    MinkSpaceMiniApp.MEDIA,
                     MinkSpaceMiniApp.CALCULATOR,
                     MinkSpaceMiniApp.TODO,
                 ),
@@ -102,9 +116,13 @@ class MinkSpacePreferenceDefaultsTest {
     @Test
     fun portableRestoreKeepsConfiguredWidgetEnabled() {
         assertEquals(
-            setOf(MinkSpaceMiniApp.MUSIC, MinkSpaceMiniApp.WIDGET),
+            setOf(MinkSpaceMiniApp.MUSIC, MinkSpaceMiniApp.WIDGET, MinkSpaceMiniApp.WIDGET_3),
             mergePortableMinkSpaceEnabledMiniApps(
-                currentEnabledMiniApps = setOf(MinkSpaceMiniApp.TODO, MinkSpaceMiniApp.WIDGET),
+                currentEnabledMiniApps = setOf(
+                    MinkSpaceMiniApp.TODO,
+                    MinkSpaceMiniApp.WIDGET,
+                    MinkSpaceMiniApp.WIDGET_3,
+                ),
                 restoredEnabledMiniApps = setOf(MinkSpaceMiniApp.MUSIC),
             ),
         )

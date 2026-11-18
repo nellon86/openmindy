@@ -38,7 +38,5 @@ internal data class MinkSpaceMiniAppManifest(
 
 internal enum class MinkSpaceMiniAppSettingsTarget {
     TODOS,
-    MEDIA,
     WIDGET,
-    VCARD,
 }

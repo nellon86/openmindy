@@ -68,26 +68,11 @@ internal class MinkSpacePreferenceStore(private val prefs: SharedPreferences) {
         return saved + MinkSpaceMiniApp.defaultOrder.filterNot(saved::contains)
     }
 
-    private fun loadEnabledMiniApps(): Set<MinkSpaceMiniApp> {
-        val savedStableIds = prefs.getStringSet(KEY_ENABLED, null)
-        val enabled = enabledMinkSpaceMiniAppsFromStableIds(savedStableIds)
-        if (savedStableIds == null) {
-            prefs.edit { putBoolean(KEY_VCARD_MINI_APP_MIGRATED, true) }
-            return enabled
-        }
-        if (!prefs.getBoolean(KEY_VCARD_MINI_APP_MIGRATED, false)) {
-            val migrated = enabled + MinkSpaceMiniApp.VCARD
-            prefs.edit {
-                putStringSet(KEY_ENABLED, migrated.mapTo(mutableSetOf()) { it.stableId })
-                putBoolean(KEY_VCARD_MINI_APP_MIGRATED, true)
-            }
-            return migrated
-        }
-        return enabled
-    }
+    private fun loadEnabledMiniApps(): Set<MinkSpaceMiniApp> =
+        enabledMinkSpaceMiniAppsFromStableIds(prefs.getStringSet(KEY_ENABLED, null))
 
     private fun loadTotalScreenShortcut(): MinkSpaceMiniApp? {
-        if (!prefs.contains(KEY_TOTAL_SCREEN_SHORTCUT)) return MinkSpaceMiniApp.MEDIA
+        if (!prefs.contains(KEY_TOTAL_SCREEN_SHORTCUT)) return null
         return prefs.getString(KEY_TOTAL_SCREEN_SHORTCUT, null)
             ?.takeUnless { it == TOTAL_SCREEN_OFF }
             ?.let(MinkSpaceMiniApp::fromStableId)
@@ -106,7 +91,6 @@ internal class MinkSpacePreferenceStore(private val prefs: SharedPreferences) {
     private companion object {
         const val KEY_ORDER = "mink_space_mini_app_order"
         const val KEY_ENABLED = "mink_space_enabled_mini_apps"
-        const val KEY_VCARD_MINI_APP_MIGRATED = "mink_space_vcard_migration_complete"
         const val KEY_TOTAL_SCREEN_SHORTCUT = "mink_space_total_screen_shortcut"
         const val TOTAL_SCREEN_OFF = "off"
     }
@@ -133,7 +117,7 @@ internal fun mergeVisibleMinkSpaceMiniAppOrder(
 /**
  * Restores portable MinkSpace ordering without changing installation-local mini-apps.
  *
- * The Widget mini-app owns an Android AppWidget binding that cannot travel in a backup.
+ * Quick Widget mini-apps own Android AppWidget bindings that cannot travel in a backup.
  * It therefore keeps both its current position and its current visibility on import.
  */
 internal fun mergePortableMinkSpaceMiniAppOrder(
@@ -143,17 +127,17 @@ internal fun mergePortableMinkSpaceMiniAppOrder(
     val completeCurrentOrder = currentOrder.distinct() +
         MinkSpaceMiniApp.entries.filterNot(currentOrder::contains)
     val requestedPortableOrder = restoredOrder
-        .filter { it.readyForHome && it != MinkSpaceMiniApp.WIDGET }
+        .filter { it.readyForHome && !it.isQuickWidget }
         .distinct()
     val completePortableOrder = requestedPortableOrder + MinkSpaceMiniApp.entries.filter { miniApp ->
         miniApp.readyForHome &&
-            miniApp != MinkSpaceMiniApp.WIDGET &&
+            !miniApp.isQuickWidget &&
             miniApp !in requestedPortableOrder
     }
     val portableIterator = completePortableOrder.iterator()
 
     return completeCurrentOrder.map { miniApp ->
-        if (miniApp.readyForHome && miniApp != MinkSpaceMiniApp.WIDGET) {
+        if (miniApp.readyForHome && !miniApp.isQuickWidget) {
             portableIterator.next()
         } else {
             miniApp
@@ -167,12 +151,10 @@ internal fun mergePortableMinkSpaceEnabledMiniApps(
 ): Set<MinkSpaceMiniApp> = buildSet {
     addAll(
         restoredEnabledMiniApps.filter { miniApp ->
-            miniApp.readyForHome && miniApp != MinkSpaceMiniApp.WIDGET
+            miniApp.readyForHome && !miniApp.isQuickWidget
         },
     )
-    if (MinkSpaceMiniApp.WIDGET in currentEnabledMiniApps) {
-        add(MinkSpaceMiniApp.WIDGET)
-    }
+    addAll(currentEnabledMiniApps.filter(MinkSpaceMiniApp::isQuickWidget))
 }
 
 internal fun enabledMinkSpaceMiniAppsFromStableIds(

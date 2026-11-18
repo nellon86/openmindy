@@ -30,8 +30,6 @@ internal fun MinkSpaceHost(
     contentColor: Color,
     mutedContentColor: Color,
     insetColor: Color,
-    openMediaLab: () -> Unit,
-    openVCardSettings: () -> Unit,
     openMinkSpaceSettings: () -> Unit,
     presentationState: MinkSpacePresentationState,
     expandedPresentation: Boolean,
@@ -44,8 +42,6 @@ internal fun MinkSpaceHost(
         todoJumpToken,
         todoItemsPerPage,
         todoTextMetrics,
-        openMediaLab,
-        openVCardSettings,
     ) {
         MinkSpaceHostDependencies(
             store = store,
@@ -54,8 +50,6 @@ internal fun MinkSpaceHost(
             todoJumpToken = todoJumpToken,
             todoItemsPerPage = todoItemsPerPage,
             todoTextMetrics = todoTextMetrics,
-            openMediaLab = openMediaLab,
-            openVCardSettings = openVCardSettings,
         )
     }
     val registry = remember(dependencies) {

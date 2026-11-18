@@ -31,12 +31,13 @@ import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpaceMiniAppManifest
 import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpaceMiniAppSettingsTarget
 import com.katoaapps.openminilaunch.ui.minkspace.core.MinkSpaceScope
 
-/** Widget implementation registered with the MinkSpace platform. */
+/** One Quick Widget slot registered with the MinkSpace platform; each slot hosts its own widget. */
 internal class WidgetMinkSpaceApp(
     private val store: LauncherStore,
     private val actions: DeviceActions,
+    private val slot: MinkSpaceMiniApp = MinkSpaceMiniApp.WIDGET,
 ) : MinkSpaceApp {
-    override val manifest: MinkSpaceMiniAppManifest = Manifest
+    override val manifest: MinkSpaceMiniAppManifest = manifestFor(slot)
 
     @Composable
     override fun Content(scope: MinkSpaceScope, modifier: Modifier) {
@@ -44,7 +45,7 @@ internal class WidgetMinkSpaceApp(
         val activity = context as MainActivity
         val manager = remember(context) { AppWidgetManager.getInstance(context) }
         val appRevision by actions.launcherAppsRevision.collectAsState()
-        val appWidgetId = store.minkSpaceWidgetId
+        val appWidgetId = store.minkSpaceWidgetId(slot)
         val info = remember(appWidgetId, appRevision) {
             appWidgetId?.let(manager::getAppWidgetInfo)
         }
@@ -54,7 +55,7 @@ internal class WidgetMinkSpaceApp(
             when {
                 appWidgetId == null -> CenteredActionPrompt(
                     icon = Icons.Default.Widgets,
-                    title = stringResource(R.string.quick_widget),
+                    title = stringResource(manifest.labelRes),
                     description = stringResource(R.string.mink_space_widget_description),
                     actionLabel = stringResource(R.string.add_widget),
                     actionIcon = Icons.Default.Add,
@@ -71,7 +72,7 @@ internal class WidgetMinkSpaceApp(
                     actionLabel = stringResource(R.string.remove),
                     actionIcon = Icons.Default.Delete,
                     onAction = {
-                        store.clearMinkSpaceWidget()
+                        store.clearMinkSpaceWidget(slot)
                         runCatching { activity.appWidgetHost.deleteAppWidgetId(appWidgetId) }
                     },
                     contentColor = scope.contentColor,
@@ -94,6 +95,7 @@ internal class WidgetMinkSpaceApp(
                         }
                     }
                     WidgetMiniAppContent(
+                        title = stringResource(manifest.labelRes),
                         appWidgetId = appWidgetId,
                         infoLabel = infoLabel,
                         compact = scope.compact,
@@ -118,7 +120,7 @@ internal class WidgetMinkSpaceApp(
                         },
                         onRemove = {
                             scope.expansion.collapse()
-                            store.clearMinkSpaceWidget()
+                            store.clearMinkSpaceWidget(slot)
                             runCatching { activity.appWidgetHost.deleteAppWidgetId(appWidgetId) }
                         },
                     )
@@ -127,6 +129,7 @@ internal class WidgetMinkSpaceApp(
         }
 
         MinkSpaceWidgetSetup(
+            slot = slot,
             visible = showSetup,
             store = store,
             actions = actions,
@@ -136,13 +139,25 @@ internal class WidgetMinkSpaceApp(
     }
 
     companion object {
-        val Manifest = MinkSpaceMiniAppManifest(
-            miniApp = MinkSpaceMiniApp.WIDGET,
-            labelRes = R.string.quick_widget,
-            icon = Icons.Default.Widgets,
-            supportsExpansion = true,
-            showExpansionButton = true,
-            settingsTarget = MinkSpaceMiniAppSettingsTarget.WIDGET,
-        )
+        val Manifest = quickWidgetManifest(MinkSpaceMiniApp.WIDGET, R.string.quick_widget)
+        val Manifest2 = quickWidgetManifest(MinkSpaceMiniApp.WIDGET_2, R.string.quick_widget_2)
+        val Manifest3 = quickWidgetManifest(MinkSpaceMiniApp.WIDGET_3, R.string.quick_widget_3)
+
+        fun manifestFor(slot: MinkSpaceMiniApp): MinkSpaceMiniAppManifest = when (slot) {
+            MinkSpaceMiniApp.WIDGET -> Manifest
+            MinkSpaceMiniApp.WIDGET_2 -> Manifest2
+            MinkSpaceMiniApp.WIDGET_3 -> Manifest3
+            else -> error("${slot.stableId} is not a Quick Widget slot")
+        }
+
+        private fun quickWidgetManifest(slot: MinkSpaceMiniApp, labelRes: Int) =
+            MinkSpaceMiniAppManifest(
+                miniApp = slot,
+                labelRes = labelRes,
+                icon = Icons.Default.Widgets,
+                supportsExpansion = true,
+                showExpansionButton = true,
+                settingsTarget = MinkSpaceMiniAppSettingsTarget.WIDGET,
+            )
     }
 }

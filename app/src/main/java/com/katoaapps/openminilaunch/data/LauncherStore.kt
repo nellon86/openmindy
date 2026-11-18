@@ -24,7 +24,6 @@ import com.katoaapps.openminilaunch.features.contacts.FavoriteIntegratedContactS
 import com.katoaapps.openminilaunch.features.minkspace.MinkSpaceMiniApp
 import com.katoaapps.openminilaunch.features.minkspace.todo.TodoItem
 import com.katoaapps.openminilaunch.features.minkspace.todo.TodoStore
-import com.katoaapps.openminilaunch.features.profile.ProfileRepository
 import com.katoaapps.openminilaunch.model.*
 
 class LauncherStore private constructor(context: Context) {
@@ -60,7 +59,6 @@ class LauncherStore private constructor(context: Context) {
     private val customFontRepository = CustomFontRepository(appContext)
     var customFontRevision by mutableIntStateOf(0)
         private set
-    internal val profileRepository = ProfileRepository(appContext)
     internal val favoriteIntegratedContactStore = FavoriteIntegratedContactStore(appContext)
     internal val favoriteContactOrderStore = FavoriteContactOrderStore(appContext)
     internal val favoriteAttentionColorStore = FavoriteAttentionColorStore(appContext)
@@ -170,7 +168,7 @@ class LauncherStore private constructor(context: Context) {
     internal val minkSpaceMiniAppOrder get() = minkSpacePreferences.order
     internal val enabledMinkSpaceMiniApps get() = minkSpacePreferences.enabledMiniApps
     internal val minkSpaceTotalScreenShortcut get() = minkSpacePreferences.totalScreenShortcut
-    internal val minkSpaceWidgetId get() = minkSpaceWidgetStore.appWidgetId
+    internal fun minkSpaceWidgetId(slot: MinkSpaceMiniApp): Int? = minkSpaceWidgetStore.appWidgetId(slot)
     val effectiveHomePanelColorArgb: Int
         get() = demoModeStore.effectivePanelColor(
             homePanelColorArgb,
@@ -564,12 +562,12 @@ class LauncherStore private constructor(context: Context) {
         minkSpacePreferences.replaceFromBackup(order, enabledMiniApps)
     }
 
-    internal fun setMinkSpaceWidget(appWidgetId: Int) {
-        minkSpaceWidgetStore.replace(appWidgetId)
+    internal fun setMinkSpaceWidget(slot: MinkSpaceMiniApp, appWidgetId: Int) {
+        minkSpaceWidgetStore.replace(slot, appWidgetId)
     }
 
-    internal fun clearMinkSpaceWidget() {
-        minkSpaceWidgetStore.clear()
+    internal fun clearMinkSpaceWidget(slot: MinkSpaceMiniApp) {
+        minkSpaceWidgetStore.clear(slot)
     }
 
     fun setHomePanelColor(argb: Int) {

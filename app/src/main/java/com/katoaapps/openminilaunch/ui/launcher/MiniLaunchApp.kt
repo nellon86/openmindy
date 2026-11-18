@@ -60,7 +60,6 @@ import com.katoaapps.openminilaunch.ui.theme.FontAppearanceTheme
 import com.katoaapps.openminilaunch.ui.theme.MinkLauncherTheme
 import com.katoaapps.openminilaunch.ui.theme.MinkTransparent
 import com.katoaapps.openminilaunch.ui.theme.shouldUseDarkForeground
-import com.katoaapps.openminilaunch.ui.profile.openVirtualContactCard
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 
@@ -228,9 +227,6 @@ internal fun MiniLaunchApp(
                                         screen = Screen.SETTINGS
                                     },
                                     openTodos = { screen = Screen.TODOS },
-                                    openVCardSettings = {
-                                        openVirtualContactCard(context)
-                                    },
                                     openConversations = { screen = Screen.CONVERSATIONS },
                                     modifier = Modifier.fillMaxSize(),
                                 )

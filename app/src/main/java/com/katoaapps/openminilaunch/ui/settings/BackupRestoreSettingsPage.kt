@@ -34,7 +34,6 @@ import com.katoaapps.openminilaunch.features.backup.LauncherBackup
 import com.katoaapps.openminilaunch.features.backup.LauncherBackupFile
 import com.katoaapps.openminilaunch.features.backup.createPortableBackup
 import com.katoaapps.openminilaunch.features.backup.restorePortableBackup
-import com.katoaapps.openminilaunch.features.profile.ProfileState
 import com.katoaapps.openminilaunch.ui.components.SettingsRow
 import com.katoaapps.openminilaunch.ui.theme.Dimens
 import com.katoaapps.openminilaunch.ui.theme.Muted
@@ -116,7 +115,6 @@ internal fun BackupRestoreSettingsPage(
             icon = Icons.Default.FileUpload,
             onClick = {
                 if (
-                    store.profileRepository.state is ProfileState.Ready ||
                     includesMinkFavoriteContacts ||
                     includesFavoriteAttentionColors
                 ) {

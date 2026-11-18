@@ -3,7 +3,6 @@ package com.katoaapps.openminilaunch.ui.settings
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Chat
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Assistant
 import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.Home
@@ -14,13 +13,11 @@ import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.katoaapps.openminilaunch.BuildConfig
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.data.LauncherStore
 import com.katoaapps.openminilaunch.platform.DeviceActions
-import com.katoaapps.openminilaunch.ui.profile.openVirtualContactCard
 import com.katoaapps.openminilaunch.ui.theme.socialGoalLabel
 
 @Composable
@@ -107,7 +104,6 @@ private fun AdvancedSettingsSection(
     onNavigate: (SettingsDestination) -> Unit,
     goBack: () -> Unit,
 ) {
-    val context = LocalContext.current
     SettingsPage(stringResource(R.string.settings_section_advanced), goBack) {
         SettingsCategoryRow(
             title = stringResource(R.string.mink_assistant),
@@ -128,11 +124,6 @@ private fun AdvancedSettingsSection(
             ),
             icon = Icons.Default.Pets,
         ) { onNavigate(SettingsDestination.MINK_DAY) }
-        SettingsCategoryRow(
-            title = stringResource(R.string.profile),
-            subtitle = stringResource(R.string.vcard_settings_summary),
-            icon = Icons.Default.AccountCircle,
-        ) { openVirtualContactCard(context) }
     }
 }
 

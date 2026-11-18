@@ -1,5 +1,7 @@
 package com.katoaapps.openminilaunch.ui.minkspace.core
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Widgets
 import com.katoaapps.openminilaunch.R
 import com.katoaapps.openminilaunch.features.minkspace.MinkSpaceMiniApp
 import org.junit.Assert.assertEquals
@@ -21,20 +23,23 @@ class MinkSpacePresentationStateTest {
     @Test fun catalogDeclaresExpansionCapability() {
         assertFalse(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.TODO).supportsExpansion)
         assertFalse(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.CALCULATOR).supportsExpansion)
-        assertTrue(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.MEDIA).supportsExpansion)
         assertTrue(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.MUSIC).supportsExpansion)
         assertTrue(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.WIDGET).supportsExpansion)
-        assertTrue(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.VCARD).supportsExpansion)
-        assertTrue(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.MEDIA).showExpansionButton)
+        assertTrue(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.WIDGET_2).supportsExpansion)
+        assertTrue(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.WIDGET_3).supportsExpansion)
         assertTrue(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.WIDGET).showExpansionButton)
+        assertTrue(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.WIDGET_3).showExpansionButton)
         assertFalse(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.MUSIC).showExpansionButton)
-        assertFalse(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.VCARD).showExpansionButton)
     }
 
-    @Test fun catalogDeclaresOnlyMemoriesAsTotalScreenCapable() {
-        assertEquals(listOf(MinkSpaceMiniApp.MEDIA), MinkSpaceMiniAppCatalog.totalScreenMiniApps)
-        assertTrue(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.MEDIA).supportsTotalScreen)
+    @Test fun catalogDeclaresNoTotalScreenMiniAppsAfterMemoriesRemoval() {
+        assertEquals(emptyList<MinkSpaceMiniApp>(), MinkSpaceMiniAppCatalog.totalScreenMiniApps)
         assertFalse(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.MUSIC).supportsTotalScreen)
+    }
+
+    @Test fun eachQuickWidgetSlotHasItsOwnLabel() {
+        val labels = MinkSpaceMiniApp.quickWidgets.map { MinkSpaceMiniAppCatalog.get(it).labelRes }
+        assertEquals(3, labels.toSet().size)
     }
 
     @Test fun expandedPresentationLastsThroughTheCollapseAnimation() {
@@ -108,7 +113,7 @@ class MinkSpacePresentationStateTest {
     }
 
     @Test fun leavingExpandedPageRestoresCollapsedShell() {
-        val state = MinkSpacePresentationState(MinkSpaceMiniApp.VCARD)
+        val state = MinkSpacePresentationState(MinkSpaceMiniApp.WIDGET_2)
 
         state.retainOnly(MinkSpaceMiniApp.MUSIC)
 
@@ -118,14 +123,14 @@ class MinkSpacePresentationStateTest {
     @Test fun totalScreenRequestTransfersShellOwnership() {
         val state = MinkSpacePresentationState()
         val music = state.expansionController(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.MUSIC))
-        val media = state.expansionController(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.MEDIA))
+        val media = state.expansionController(totalScreenTestManifest)
 
         music.expand()
         media.showTotalScreen()
 
         assertFalse(music.expanded)
         assertTrue(media.totalScreen)
-        assertEquals(MinkSpaceMiniApp.MEDIA, state.totalScreenMiniApp)
+        assertEquals(totalScreenTestManifest.miniApp, state.totalScreenMiniApp)
         assertNull(state.expandedMiniApp)
     }
 
@@ -141,11 +146,20 @@ class MinkSpacePresentationStateTest {
 
     @Test fun pagerChangesDoNotDismissTotalScreenPresentation() {
         val state = MinkSpacePresentationState()
-        val media = state.expansionController(MinkSpaceMiniAppCatalog.get(MinkSpaceMiniApp.MEDIA))
+        val media = state.expansionController(totalScreenTestManifest)
 
         media.showTotalScreen()
         state.retainOnly(MinkSpaceMiniApp.TODO)
 
-        assertEquals(MinkSpaceMiniApp.MEDIA, state.totalScreenMiniApp)
+        assertEquals(totalScreenTestManifest.miniApp, state.totalScreenMiniApp)
     }
+
+    /** The shell stays generic; this stand-in exercises it now that no built-in app uses it. */
+    private val totalScreenTestManifest = MinkSpaceMiniAppManifest(
+        miniApp = MinkSpaceMiniApp.CALCULATOR,
+        labelRes = 0,
+        icon = Icons.Default.Widgets,
+        supportsExpansion = true,
+        supportsTotalScreen = true,
+    )
 }

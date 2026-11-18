@@ -54,6 +54,7 @@ private class WidgetSizeReportCache {
 /** Renders one bound widget and switches gesture ownership in explicit interaction mode. */
 @Composable
 internal fun WidgetMiniAppContent(
+    title: String,
     appWidgetId: Int,
     infoLabel: String,
     compact: Boolean,
@@ -89,7 +90,7 @@ internal fun WidgetMiniAppContent(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             MinkSpaceTitle(
-                title = stringResource(R.string.quick_widget),
+                title = title,
                 icon = Icons.Default.Widgets,
                 contentColor = contentColor,
             )
