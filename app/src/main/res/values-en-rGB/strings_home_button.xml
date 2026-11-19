@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_button">Home button</string>
+    <string name="home_button_summary">Tap, hold or swipe up on the round button of the search bar</string>
+    <string name="home_button_tap">Tap</string>
+    <string name="home_button_long_press">Press and hold</string>
+    <string name="home_button_swipe_up">Swipe up</string>
+    <string name="home_button_action_none">Do nothing</string>
+    <string name="home_button_action_voice">Voice input</string>
+    <string name="home_button_action_web">Web search</string>
+    <string name="home_button_magic_route">Magic Box · %1$s</string>
+    <string name="home_button_action_mindy_space">MindySpace full screen</string>
+    <string name="home_button_action_notifications">Notifications</string>
+    <string name="home_button_action_quick_settings">Quick settings</string>
+    <string name="home_button_action_camera">Camera</string>
+    <string name="home_button_action_flashlight">Torch</string>
+    <string name="home_button_action_lock">Lock screen</string>
+    <string name="home_button_action_launch_app">Open an app</string>
+    <string name="home_button_action_launch_app_named">Open %1$s</string>
+    <string name="home_button_voice_unavailable">No voice input app found</string>
+    <string name="home_button_action_failed">This action is not available on this device</string>
+</resources>

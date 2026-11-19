@@ -642,6 +642,50 @@ class DeviceActions(private val context: Context) {
         if (!invokeStatusBar("expandSettingsPanel")) expandNotificationShade()
     }
 
+    /** Opens the camera ready to shoot, like the system double-press shortcut. */
+    fun openCamera(): Boolean =
+        start(Intent(android.provider.MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA)) ||
+            start(Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE))
+
+    private val cameraManager by lazy {
+        context.getSystemService(android.hardware.camera2.CameraManager::class.java)
+    }
+    private val torchCameraId: String? by lazy {
+        runCatching {
+            cameraManager?.cameraIdList?.firstOrNull { id ->
+                cameraManager?.getCameraCharacteristics(id)
+                    ?.get(android.hardware.camera2.CameraCharacteristics.FLASH_INFO_AVAILABLE) == true
+            }
+        }.getOrNull()
+    }
+    @Volatile private var torchEnabled = false
+    private var torchCallbackRegistered = false
+
+    /** Toggles the flashlight without opening any app. Needs no permission. */
+    fun toggleFlashlight(): Boolean {
+        val manager = cameraManager ?: return false
+        val cameraId = torchCameraId ?: return false
+        if (!torchCallbackRegistered) {
+            torchCallbackRegistered = true
+            // Keeps the state right when the torch is switched from quick settings too.
+            runCatching {
+                manager.registerTorchCallback(
+                    object : android.hardware.camera2.CameraManager.TorchCallback() {
+                        override fun onTorchModeChanged(id: String, enabled: Boolean) {
+                            if (id == cameraId) torchEnabled = enabled
+                        }
+                    },
+                    android.os.Handler(android.os.Looper.getMainLooper()),
+                )
+            }
+        }
+        return runCatching {
+            manager.setTorchMode(cameraId, !torchEnabled)
+            torchEnabled = !torchEnabled
+            true
+        }.getOrDefault(false)
+    }
+
     private fun invokeStatusBar(methodName: String): Boolean = runCatching {
         val statusBar = context.getSystemService("statusbar")
         statusBar.javaClass.getMethod(methodName).invoke(statusBar)

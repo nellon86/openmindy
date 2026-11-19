@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_button">زر الشاشة الرئيسية</string>
+    <string name="home_button_summary">انقر على الزر الدائري في شريط البحث أو اضغط عليه مطولاً أو اسحبه للأعلى</string>
+    <string name="home_button_tap">نقر</string>
+    <string name="home_button_long_press">ضغط مطوّل</string>
+    <string name="home_button_swipe_up">السحب للأعلى</string>
+    <string name="home_button_action_none">عدم فعل أي شيء</string>
+    <string name="home_button_action_voice">الإدخال الصوتي</string>
+    <string name="home_button_action_web">البحث على الويب</string>
+    <string name="home_button_magic_route">Magic Box · %1$s</string>
+    <string name="home_button_action_mindy_space">MindySpace بملء الشاشة</string>
+    <string name="home_button_action_notifications">الإشعارات</string>
+    <string name="home_button_action_quick_settings">الإعدادات السريعة</string>
+    <string name="home_button_action_camera">الكاميرا</string>
+    <string name="home_button_action_flashlight">المصباح</string>
+    <string name="home_button_action_lock">قفل الشاشة</string>
+    <string name="home_button_action_launch_app">فتح تطبيق</string>
+    <string name="home_button_action_launch_app_named">فتح %1$s</string>
+    <string name="home_button_voice_unavailable">لم يتم العثور على تطبيق إدخال صوتي</string>
+    <string name="home_button_action_failed">هذا الإجراء غير متاح على هذا الجهاز</string>
+</resources>

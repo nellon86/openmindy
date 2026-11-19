@@ -3,6 +3,7 @@
 package com.katoaapps.openminilaunch.ui.magic
 
 import com.katoaapps.openminilaunch.R
+import androidx.compose.ui.res.stringResource
 import com.katoaapps.openminilaunch.data.*
 import com.katoaapps.openminilaunch.model.*
 import com.katoaapps.openminilaunch.platform.*
@@ -84,6 +85,10 @@ internal fun MagicBoxContent(
     onOpenTodos: (() -> Unit)? = null,
     onOpenKeyboardSettings: () -> Unit = {},
     onOpenTotalScreen: (() -> Unit)? = null,
+    /** Runs Home button actions that live outside the Magic Box (drawer, shade, apps…). */
+    onKeyboardButtonAction: ((HomeKeyboardButtonBinding) -> Unit)? = null,
+    /** Double tap on the Home button: locks the screen, like double-tapping empty Home. */
+    onKeyboardButtonDoubleTap: (() -> Unit)? = null,
     onSessionComplete: () -> Unit = {},
     onBubblePublished: () -> Unit = {},
     appBubbleHost: MagicAppBubbleHost = MagicAppBubbleHost.HOME,
@@ -426,18 +431,73 @@ internal fun MagicBoxContent(
         if (!expanded && correctedValue.text.isNotEmpty()) expanded = true
     }
 
-    fun beginCollapsedHardwareInput(typedText: String, keyCode: Int) {
+    fun beginCollapsedHardwareInput(
+        typedText: String,
+        keyCode: Int,
+        alternates: Set<String> = emptySet(),
+    ) {
         if (expanded) return
         clearCommand()
         val hotkeyRoute = typedText.singleOrNull()?.let(MagicBoxRoute::fromTrigger)
         if (hotkeyRoute != null) {
             route = hotkeyRoute
         } else {
-            initialHardwareKeyCorrection.begin(typedText, keyCode)
+            initialHardwareKeyCorrection.begin(typedText, keyCode, alternates)
             text = TextFieldValue(typedText, selection = TextRange(typedText.length))
         }
         expanded = true
         refocus(showSoftwareKeyboard = false)
+    }
+
+    val voiceInputLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+    ) { result ->
+        val spoken = result.data
+            ?.getStringArrayListExtra(android.speech.RecognizerIntent.EXTRA_RESULTS)
+            ?.firstOrNull()
+            ?.trim()
+            .orEmpty()
+        if (spoken.isNotEmpty()) {
+            clearCommand()
+            updateEditorValue(
+                TextFieldValue(spoken, selection = TextRange(spoken.length)),
+                correctHardwareInput = false,
+            )
+            expanded = true
+            refocus(showSoftwareKeyboard = false)
+        }
+    }
+
+    fun openMagicBoxFromButton() {
+        clearCommand()
+        expanded = true
+        refocus(showSoftwareKeyboard = !useMindyKeyboard)
+    }
+
+    fun startVoiceInput() {
+        val intent = android.content.Intent(android.speech.RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            .putExtra(
+                android.speech.RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                android.speech.RecognizerIntent.LANGUAGE_MODEL_FREE_FORM,
+            )
+            .putExtra(android.speech.RecognizerIntent.EXTRA_MAX_RESULTS, 1)
+        val launched = runCatching { voiceInputLauncher.launch(intent) }.isSuccess
+        if (!launched) {
+            Toast.makeText(context, R.string.home_button_voice_unavailable, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun keyboardButtonActionOrNull(binding: HomeKeyboardButtonBinding): (() -> Unit)? {
+        if (!binding.isActive) return null
+        val action = binding.action
+        val route = action.magicRoute
+        return when {
+            route == MagicBoxRoute.APP -> ::openMagicBoxFromButton
+            route != null -> { { activateRoute(route) } }
+            action == HomeKeyboardButtonAction.VOICE_INPUT -> ::startVoiceInput
+            action == HomeKeyboardButtonAction.MINDY_SPACE_FULL_SCREEN -> onOpenTotalScreen
+            else -> onKeyboardButtonAction?.let { external -> { external(binding) } }
+        }
     }
 
     fun requestClearMessageDraft() {
@@ -865,7 +925,7 @@ internal fun MagicBoxContent(
             !expanded &&
             !smsFlow.sentConfirmationVisible &&
             !todoCompletionPending,
-        onHotkey = ::beginCollapsedHardwareInput,
+        onHotkey = { trigger, keyCode -> beginCollapsedHardwareInput(trigger, keyCode) },
     )
 
     MagicUnhandledKeyEffect(
@@ -873,9 +933,9 @@ internal fun MagicBoxContent(
             keyboardInputEnabled &&
             !smsFlow.sentConfirmationVisible &&
             !todoCompletionPending,
-        onPrintableKey = { typedText, keyCode ->
+        onPrintableKey = { typedText, keyCode, alternates ->
             if (!expanded) {
-                beginCollapsedHardwareInput(typedText, keyCode)
+                beginCollapsedHardwareInput(typedText, keyCode, alternates)
             } else {
                 // The bar was just opened (or focus wandered off the editor): keep the key
                 // and hand focus back to the editor without raising a software keyboard.
@@ -1136,6 +1196,8 @@ internal fun MagicBoxContent(
         }
 
         if (!expanded && !smsFlow.sentConfirmationVisible && !todoCompletionPending) {
+            val buttonBindings = store.homeKeyboardButtonBindings
+            val buttonTapAction = keyboardButtonActionOrNull(buttonBindings.tap)
             CollapsedMagicBar(
                 modifier = collapsedModifier
                     .then(
@@ -1153,20 +1215,28 @@ internal fun MagicBoxContent(
                 minimumHeight = magicBoxMinimumHeight,
                 armedFocusRequester = armedFocusRequester,
                 onArmedPlaced = { armedTargetPlaced = true },
-                onPrintableKeyDown = { typedText, keyCode ->
+                onPrintableKeyDown = { typedText, keyCode, alternates ->
                     if (!expanded) {
-                        beginCollapsedHardwareInput(typedText, keyCode)
+                        beginCollapsedHardwareInput(typedText, keyCode, alternates)
                     } else {
                         val updatedText = text.text + typedText
                         text = TextFieldValue(updatedText, selection = TextRange(updatedText.length))
                     }
                 },
-                onOpen = {
-                    clearCommand()
-                    expanded = true
-                    refocus(showSoftwareKeyboard = !useMindyKeyboard)
-                },
-                onOpenTotalScreen = onOpenTotalScreen,
+                onOpen = ::openMagicBoxFromButton,
+                buttonIcon = buttonBindings.tap.action
+                    .takeIf { buttonTapAction != null }
+                    ?.icon
+                    ?: HomeKeyboardButtonAction.MAGIC_BOX.icon,
+                buttonLabel = buttonBindings.tap.action
+                    .takeIf { buttonTapAction != null }
+                    ?.label()
+                    ?: stringResource(R.string.open_magic_box),
+                // A tap always does something: without a usable action it opens the Magic Box.
+                onButtonTap = buttonTapAction ?: ::openMagicBoxFromButton,
+                onButtonDoubleTap = onKeyboardButtonDoubleTap,
+                onButtonLongPress = keyboardButtonActionOrNull(buttonBindings.longPress),
+                onButtonSwipeUp = keyboardButtonActionOrNull(buttonBindings.swipeUp),
             )
 
         }

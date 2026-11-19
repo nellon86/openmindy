@@ -9,7 +9,6 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -28,7 +27,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.DeleteOutline
-import androidx.compose.material.icons.filled.Keyboard
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -191,9 +189,14 @@ internal fun CollapsedMagicBar(
     minimumHeight: androidx.compose.ui.unit.Dp,
     armedFocusRequester: FocusRequester,
     onArmedPlaced: () -> Unit,
-    onPrintableKeyDown: (String, Int) -> Unit,
+    onPrintableKeyDown: (typedText: String, keyCode: Int, alternates: Set<String>) -> Unit,
     onOpen: () -> Unit,
-    onOpenTotalScreen: (() -> Unit)?,
+    buttonIcon: androidx.compose.ui.graphics.vector.ImageVector,
+    buttonLabel: String,
+    onButtonTap: () -> Unit,
+    onButtonDoubleTap: (() -> Unit)?,
+    onButtonLongPress: (() -> Unit)?,
+    onButtonSwipeUp: (() -> Unit)?,
 ) {
     val hapticFeedback = LocalHapticFeedback.current
     Row(
@@ -207,7 +210,11 @@ internal fun CollapsedMagicBar(
                     false
                 } else {
                     if (event.type == KeyEventType.KeyDown) {
-                        onPrintableKeyDown(typedText, event.nativeKeyEvent.keyCode)
+                        onPrintableKeyDown(
+                            typedText,
+                            event.nativeKeyEvent.keyCode,
+                            hardwareKeyAlternates(event.nativeKeyEvent, typedText),
+                        )
                     }
                     true
                 }
@@ -234,20 +241,32 @@ internal fun CollapsedMagicBar(
                 Modifier
                     .size(Dimens.dp40)
                     .homeTourTarget(HomeTourTarget.KEYBOARD_ACTION)
-                    .combinedClickable(
-                        onClick = onOpen,
-                        onLongClick = onOpenTotalScreen?.let { openTotalScreen ->
+                    .homeKeyboardButtonGestures(
+                        onTap = onButtonTap,
+                        onDoubleTap = onButtonDoubleTap?.let { doubleTap ->
                             {
                                 hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-                                openTotalScreen()
+                                doubleTap()
+                            }
+                        },
+                        onLongPress = onButtonLongPress?.let { longPress ->
+                            {
+                                hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                                longPress()
+                            }
+                        },
+                        onSwipeUp = onButtonSwipeUp?.let { swipeUp ->
+                            {
+                                hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                                swipeUp()
                             }
                         },
                     ),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
-                    Icons.Default.Keyboard,
-                    stringResource(R.string.open_magic_box),
+                    buttonIcon,
+                    buttonLabel,
                     tint = MaterialTheme.colorScheme.onPrimary,
                 )
             }

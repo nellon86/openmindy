@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_button">Tombol beranda</string>
+    <string name="home_button_summary">Ketuk, tahan, atau geser ke atas tombol bulat di bilah pencarian</string>
+    <string name="home_button_tap">Ketuk</string>
+    <string name="home_button_long_press">Tekan lama</string>
+    <string name="home_button_swipe_up">Geser ke atas</string>
+    <string name="home_button_action_none">Jangan lakukan apa pun</string>
+    <string name="home_button_action_voice">Input suara</string>
+    <string name="home_button_action_web">Penelusuran web</string>
+    <string name="home_button_magic_route">Magic Box · %1$s</string>
+    <string name="home_button_action_mindy_space">MindySpace layar penuh</string>
+    <string name="home_button_action_notifications">Notifikasi</string>
+    <string name="home_button_action_quick_settings">Setelan cepat</string>
+    <string name="home_button_action_camera">Kamera</string>
+    <string name="home_button_action_flashlight">Senter</string>
+    <string name="home_button_action_lock">Kunci layar</string>
+    <string name="home_button_action_launch_app">Buka aplikasi</string>
+    <string name="home_button_action_launch_app_named">Buka %1$s</string>
+    <string name="home_button_voice_unavailable">Aplikasi input suara tidak ditemukan</string>
+    <string name="home_button_action_failed">Tindakan ini tidak tersedia di perangkat ini</string>
+</resources>

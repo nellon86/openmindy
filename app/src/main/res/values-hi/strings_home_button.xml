@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_button">होम बटन</string>
+    <string name="home_button_summary">सर्च बार के गोल बटन पर टैप करें, दबाकर रखें या ऊपर स्वाइप करें</string>
+    <string name="home_button_tap">टैप</string>
+    <string name="home_button_long_press">दबाकर रखें</string>
+    <string name="home_button_swipe_up">ऊपर स्वाइप करें</string>
+    <string name="home_button_action_none">कुछ न करें</string>
+    <string name="home_button_action_voice">वॉइस इनपुट</string>
+    <string name="home_button_action_web">वेब खोज</string>
+    <string name="home_button_magic_route">Magic Box · %1$s</string>
+    <string name="home_button_action_mindy_space">MindySpace फ़ुल स्क्रीन</string>
+    <string name="home_button_action_notifications">सूचनाएं</string>
+    <string name="home_button_action_quick_settings">क्विक सेटिंग</string>
+    <string name="home_button_action_camera">कैमरा</string>
+    <string name="home_button_action_flashlight">फ़्लैशलाइट</string>
+    <string name="home_button_action_lock">स्क्रीन लॉक करें</string>
+    <string name="home_button_action_launch_app">कोई ऐप खोलें</string>
+    <string name="home_button_action_launch_app_named">%1$s खोलें</string>
+    <string name="home_button_voice_unavailable">कोई वॉइस इनपुट ऐप नहीं मिला</string>
+    <string name="home_button_action_failed">यह कार्रवाई इस डिवाइस पर उपलब्ध नहीं है</string>
+</resources>

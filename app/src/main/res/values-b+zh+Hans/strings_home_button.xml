@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_button">主屏幕按钮</string>
+    <string name="home_button_summary">点按、长按或向上滑动搜索栏的圆形按钮</string>
+    <string name="home_button_tap">点按</string>
+    <string name="home_button_long_press">长按</string>
+    <string name="home_button_swipe_up">向上滑动</string>
+    <string name="home_button_action_none">不执行任何操作</string>
+    <string name="home_button_action_voice">语音输入</string>
+    <string name="home_button_action_web">网页搜索</string>
+    <string name="home_button_magic_route">Magic Box · %1$s</string>
+    <string name="home_button_action_mindy_space">MindySpace 全屏</string>
+    <string name="home_button_action_notifications">通知</string>
+    <string name="home_button_action_quick_settings">快捷设置</string>
+    <string name="home_button_action_camera">相机</string>
+    <string name="home_button_action_flashlight">手电筒</string>
+    <string name="home_button_action_lock">锁定屏幕</string>
+    <string name="home_button_action_launch_app">打开应用</string>
+    <string name="home_button_action_launch_app_named">打开 %1$s</string>
+    <string name="home_button_voice_unavailable">未找到语音输入应用</string>
+    <string name="home_button_action_failed">此设备不支持该操作</string>
+</resources>

@@ -10,6 +10,7 @@ import com.katoaapps.openminilaunch.features.updates.GitHubReleaseChecker
 import com.katoaapps.openminilaunch.features.updates.isNewerRelease
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.magic.HomeMagicBox
+import com.katoaapps.openminilaunch.features.magic.HomeKeyboardButtonAction
 import com.katoaapps.openminilaunch.ui.magic.MagicBoxSessionState
 import com.katoaapps.openminilaunch.ui.mindyspace.core.MindySpaceMiniAppCatalog
 import com.katoaapps.openminilaunch.ui.mindyspace.core.MindySpacePresentationState
@@ -269,6 +270,26 @@ internal fun HomeScreen(
                     }
                 },
             onOpenTodos = openTodos,
+            onKeyboardButtonDoubleTap = ::lockFromHome,
+            onKeyboardButtonAction = { binding ->
+                val done = when (binding.action) {
+                    HomeKeyboardButtonAction.QUICK_APPS -> { drawerOpen = true; true }
+                    HomeKeyboardButtonAction.ALL_APPS -> actions.openAllAppsFromBottom()
+                    HomeKeyboardButtonAction.CONVERSATIONS -> { openConversations(); true }
+                    HomeKeyboardButtonAction.NOTIFICATIONS -> { actions.expandNotificationShade(); true }
+                    HomeKeyboardButtonAction.QUICK_SETTINGS -> { actions.expandQuickSettings(); true }
+                    HomeKeyboardButtonAction.CAMERA -> actions.openCamera()
+                    HomeKeyboardButtonAction.FLASHLIGHT -> actions.toggleFlashlight()
+                    HomeKeyboardButtonAction.LOCK_SCREEN -> { lockFromHome(); true }
+                    HomeKeyboardButtonAction.LAUNCH_APP ->
+                        binding.appTarget?.let(actions::launchLauncherSelection) == true
+                    // Magic Box actions are resolved inside the Magic Box.
+                    else -> true
+                }
+                if (!done) {
+                    Toast.makeText(context, R.string.home_button_action_failed, Toast.LENGTH_SHORT).show()
+                }
+            },
             appAccessState = appAccessState,
         )
         SnackbarHost(

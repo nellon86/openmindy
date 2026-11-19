@@ -36,6 +36,7 @@ class LauncherStore private constructor(context: Context) {
     private val widgetStore = WidgetStore(persistence, MAX_WIDGET_ENTRIES)
     private val generalPreferences = GeneralPreferenceStore(prefs)
     private val launcherKeyboardPreferenceStore = LauncherKeyboardPreferenceStore(prefs)
+    private val homeKeyboardButtonPreferences = HomeKeyboardButtonPreferenceStore(prefs)
     private val appearancePreferences = AppearancePreferenceStore(
         appContext,
         prefs,
@@ -99,6 +100,7 @@ class LauncherStore private constructor(context: Context) {
     val hasOpenedClockFromDate get() = generalPreferences.hasOpenedClockFromDate
     val openSoftwareKeyboardOnHome get() = generalPreferences.openSoftwareKeyboardOnHome
     internal val launcherKeyboardPreferences get() = launcherKeyboardPreferenceStore.preferences
+    internal val homeKeyboardButtonBindings get() = homeKeyboardButtonPreferences.bindings
     val themePreference get() = appearancePreferences.themePreference
     val palettePreference get() = appearancePreferences.palettePreference
     val hideStatusBar get() = appearancePreferences.hideStatusBar
@@ -419,6 +421,13 @@ class LauncherStore private constructor(context: Context) {
 
     internal fun updateLauncherKeyboardPreferences(preferences: LauncherKeyboardPreferences) {
         launcherKeyboardPreferenceStore.update(preferences)
+    }
+
+    internal fun updateHomeKeyboardButton(
+        gesture: com.katoaapps.openminilaunch.features.magic.HomeKeyboardButtonGesture,
+        binding: com.katoaapps.openminilaunch.features.magic.HomeKeyboardButtonBinding,
+    ) {
+        homeKeyboardButtonPreferences.update(gesture, binding)
     }
 
     fun setGitHubUpdateChecksEnabled(enabled: Boolean) {

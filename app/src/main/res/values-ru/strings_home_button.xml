@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_button">Кнопка главного экрана</string>
+    <string name="home_button_summary">Нажмите, удерживайте или проведите вверх по круглой кнопке строки поиска</string>
+    <string name="home_button_tap">Нажатие</string>
+    <string name="home_button_long_press">Долгое нажатие</string>
+    <string name="home_button_swipe_up">Свайп вверх</string>
+    <string name="home_button_action_none">Ничего не делать</string>
+    <string name="home_button_action_voice">Голосовой ввод</string>
+    <string name="home_button_action_web">Поиск в интернете</string>
+    <string name="home_button_magic_route">Magic Box · %1$s</string>
+    <string name="home_button_action_mindy_space">MindySpace на весь экран</string>
+    <string name="home_button_action_notifications">Уведомления</string>
+    <string name="home_button_action_quick_settings">Быстрые настройки</string>
+    <string name="home_button_action_camera">Камера</string>
+    <string name="home_button_action_flashlight">Фонарик</string>
+    <string name="home_button_action_lock">Заблокировать экран</string>
+    <string name="home_button_action_launch_app">Открыть приложение</string>
+    <string name="home_button_action_launch_app_named">Открыть %1$s</string>
+    <string name="home_button_voice_unavailable">Приложение голосового ввода не найдено</string>
+    <string name="home_button_action_failed">Это действие недоступно на этом устройстве</string>
+</resources>
