@@ -198,6 +198,12 @@ internal object ConversationHistoryStore {
         scheduleSave()
     }
 
+    fun conversationIdForShortcut(packageName: String, shortcutId: String): String? =
+        conversations.values
+            .filter { it.packageName == packageName && it.shortcutId == shortcutId }
+            .maxByOrNull(StoredConversation::updatedAt)
+            ?.id
+
     fun snapshots(): List<ConversationNotification> =
         conversations.values.map(StoredConversation::toConversationNotification)
 

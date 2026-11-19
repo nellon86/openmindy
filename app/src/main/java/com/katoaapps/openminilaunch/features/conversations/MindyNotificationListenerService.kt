@@ -196,6 +196,19 @@ class MindyNotificationListenerService : NotificationListenerService() {
             ?: extras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)
             ?: extras.getCharSequence(Notification.EXTRA_TITLE)
             ?: extras.getCharSequence(Notification.EXTRA_TITLE_BIG)
+        // Apps such as WhatsApp add the user's own replies as messages from a "You" person
+        // instead of leaving the sender empty. Without recognising them, a reply looked like an
+        // incoming message from someone called "You" and split the chat into a second thread.
+        val selfPerson = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) style?.user else null
+        val selfPersonName = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) selfPerson?.name else null
+        val selfName = (selfPersonName ?: extras.getCharSequence(Notification.EXTRA_SELF_DISPLAY_NAME))
+            ?.toString()
+            ?.takeIf(String::isNotBlank)
+        val selfKey = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            selfPerson?.key?.takeIf(String::isNotBlank)
+        } else {
+            null
+        }
         val styleMessages = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && style != null) {
             (style.historicMessages + style.messages).mapNotNull { message ->
                 val body = message.text?.toString()?.takeIf(String::isNotBlank) ?: return@mapNotNull null
@@ -206,12 +219,12 @@ class MindyNotificationListenerService : NotificationListenerService() {
                     timestamp = message.timestamp,
                     senderName = sender,
                     personUri = person?.uri,
-                    isOutgoing = sender == null,
+                    isOutgoing = isOwnMessage(sender, person?.key, selfName, selfKey),
                 )
             }
         } else {
-            extractLegacyMessages(extras, Notification.EXTRA_HISTORIC_MESSAGES) +
-                extractLegacyMessages(extras, Notification.EXTRA_MESSAGES)
+            extractLegacyMessages(extras, Notification.EXTRA_HISTORIC_MESSAGES, selfName) +
+                extractLegacyMessages(extras, Notification.EXTRA_MESSAGES, selfName)
         }
         if (
             !ConversationPreferences.forces(sbn.packageName) &&
@@ -348,7 +361,7 @@ class MindyNotificationListenerService : NotificationListenerService() {
         }
 
     @Suppress("DEPRECATION")
-    private fun extractLegacyMessages(extras: Bundle, key: String): List<ExtractedMessage> =
+    private fun extractLegacyMessages(extras: Bundle, key: String, selfName: String?): List<ExtractedMessage> =
         extras.getParcelableArray(key).orEmpty().mapNotNull { it as? Bundle }.mapNotNull { bundle ->
             val body = bundle.getCharSequence("text")?.toString()?.takeIf(String::isNotBlank)
                 ?: return@mapNotNull null
@@ -358,7 +371,7 @@ class MindyNotificationListenerService : NotificationListenerService() {
                 timestamp = bundle.getLong("time"),
                 senderName = sender,
                 personUri = null,
-                isOutgoing = sender == null,
+                isOutgoing = isOwnMessage(sender, null, selfName, null),
             )
         }
 
@@ -454,6 +467,12 @@ internal fun mayBeConversationNotification(category: String?, hasMessagePayload:
     hasMessagePayload ||
         category == Notification.CATEGORY_MESSAGE ||
         category == Notification.CATEGORY_EMAIL
+
+/** True for a message written by the device owner rather than the other side of the chat. */
+internal fun isOwnMessage(sender: String?, senderKey: String?, selfName: String?, selfKey: String?): Boolean =
+    sender == null ||
+        (selfKey != null && senderKey == selfKey) ||
+        (selfName != null && sender == selfName && (senderKey == null || selfKey == null || senderKey == selfKey))
 
 internal fun isDismissibleNotification(flags: Int): Boolean =
     flags and (Notification.FLAG_ONGOING_EVENT or Notification.FLAG_NO_CLEAR) == 0

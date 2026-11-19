@@ -1,3 +1,9 @@
+OpenMindy 1.0.4
+
+- **One thread per chat:** replies that WhatsApp and similar apps add to their notification as "You" are now recognised as your own messages, so they no longer create a second conversation named after you. A chat also keeps the same conversation when its contact match changes between notifications.
+
+---
+
 OpenMindy 1.0.3
 
 - **Cleaner @ results:** with automatic sending, the contacts section names the app it sends with (for example "Contacts · WhatsApp"), people who already have a chat in that app are not repeated as contacts, and Enter opens the existing chat first.

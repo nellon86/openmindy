@@ -185,8 +185,27 @@ object ConversationNotificationStore {
         }
         .sortedByDescending { it.latestMessage?.timestamp ?: it.latestNotification.postedAt }
 
+    /**
+     * One chat keeps one id. The contact match behind an id can change between two posts of the
+     * same chat (for example when the newest message is the user's own), but the app's
+     * conversation shortcut does not, so a known shortcut pins the id that chat already has.
+     */
+    private fun canonical(item: ConversationNotification): ConversationNotification {
+        val shortcutId = item.shortcutId ?: return item
+        val knownId = activeNotifications.firstOrNull {
+            it.packageName == item.packageName && it.shortcutId == shortcutId && it.key != item.key
+        }?.conversationId
+            ?: ConversationHistoryStore.conversationIdForShortcut(item.packageName, shortcutId)
+            ?: return item
+        if (knownId == item.conversationId) return item
+        return item.copy(
+            conversationId = knownId,
+            messages = item.messages.map { it.copy(conversationId = knownId) },
+        )
+    }
+
     internal fun replaceNotifications(items: List<ConversationNotification>) {
-        val reconciledItems = notificationReconciler.reconcile(items)
+        val reconciledItems = notificationReconciler.reconcile(items).map(::canonical)
         activeNotifications.clear()
         activeNotifications.addAll(
             reconciledItems.sortedByDescending(ConversationNotification::postedAt),
@@ -198,8 +217,9 @@ object ConversationNotificationStore {
         sentReplies.removeAll { it.conversationId !in activeConversationIds }
     }
 
-    internal fun upsertNotification(item: ConversationNotification) {
-        if (!notificationReconciler.shouldDisplay(item)) return
+    internal fun upsertNotification(incoming: ConversationNotification) {
+        if (!notificationReconciler.shouldDisplay(incoming)) return
+        val item = canonical(incoming)
         activeNotifications.removeAll { it.key == item.key }
         activeNotifications += item
         activeNotifications.sortByDescending(ConversationNotification::postedAt)
