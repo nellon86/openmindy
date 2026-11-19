@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conversation_delete">Supprimer</string>
+    <string name="conversation_history_reply_hint">La réponse rapide revient avec le prochain message. Ouvrez l’app pour écrire maintenant.</string>
+    <string name="conversation_list_title">CONVERSATIONS</string>
+    <string name="conversation_history_keep">Conserver l’historique</string>
+    <string name="conversation_history_keep_description">Les conversations restent jusqu’à ce que vous les balayiez. Enregistrées uniquement sur ce téléphone, jamais dans les sauvegardes.</string>
+    <string name="conversation_history_clear">Effacer l’historique</string>
+    <string name="conversation_history_clear_description">Supprime toutes les conversations enregistrées</string>
+    <string name="conversation_history_clear_confirm">Toutes les conversations enregistrées seront supprimées de ce téléphone.</string>
+    <string name="conversation_history_cleared">Historique effacé</string>
+    <string name="conversation_apps_only_selected">Seulement les apps choisies</string>
+    <string name="conversation_apps_only_selected_description">Désactivé : toutes les apps qui publient des notifications de messages. Activé : seulement les apps choisies, avec toutes leurs notifications.</string>
+    <string name="conversation_apps">Apps dans Conversations</string>
+    <string name="conversation_apps_automatic">Toutes les apps de messagerie</string>
+    <string name="conversation_apps_selected_count">Apps choisies : %1$d</string>
+</resources>

@@ -81,7 +81,7 @@ internal fun ConversationActionRow(
                     contentPadding = PaddingValues(horizontal = Dimens.dp12, vertical = Dimens.dp7),
                 ) {
                     Icon(Icons.Default.ClearAll, null, Modifier.size(Dimens.dp17))
-                    Text(stringResource(R.string.dismiss), Modifier.padding(start = Dimens.dp6))
+                    Text(stringResource(R.string.conversation_delete), Modifier.padding(start = Dimens.dp6))
                 }
             }
         }

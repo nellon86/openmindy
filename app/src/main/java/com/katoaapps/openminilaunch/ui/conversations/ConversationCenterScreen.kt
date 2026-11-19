@@ -201,6 +201,9 @@ internal fun ConversationCenterScreen(
                                 favoriteContacts = favoriteContactsByConversation,
                                 actions = actions,
                                 onConversation = { selectedConversationId = it.id },
+                                onDelete = { conversation ->
+                                    ConversationNotificationStore.dismissConversation(conversation)
+                                },
                             )
                         }
                     }
@@ -236,6 +239,7 @@ private fun ConversationList(
     favoriteContacts: Map<String, FavoriteContact>,
     actions: DeviceActions,
     onConversation: (NotificationConversation) -> Unit,
+    onDelete: (NotificationConversation) -> Unit,
 ) {
     LazyColumn(
         Modifier.fillMaxSize().padding(horizontal = Dimens.dp18),
@@ -243,7 +247,7 @@ private fun ConversationList(
     ) {
         item {
             Text(
-                stringResource(R.string.active_conversations),
+                stringResource(R.string.conversation_list_title),
                 Modifier.padding(top = Dimens.dp14, bottom = Dimens.dp2),
                 letterSpacing = Dimens.sp1,
                 fontWeight = FontWeight.Black,
@@ -251,13 +255,18 @@ private fun ConversationList(
             )
         }
         items(conversations, key = NotificationConversation::id) { conversation ->
-            ConversationCard(
-                conversation = conversation,
-                favoriteContact = favoriteContacts[conversation.id],
-                actions = actions,
-                favoriteStyle = favoriteRowStyles[conversation.id],
-                onOpen = { onConversation(conversation) },
-            )
+            SwipeToDeleteConversation(
+                modifier = Modifier.animateItem(),
+                onDelete = { onDelete(conversation) },
+            ) {
+                ConversationCard(
+                    conversation = conversation,
+                    favoriteContact = favoriteContacts[conversation.id],
+                    actions = actions,
+                    favoriteStyle = favoriteRowStyles[conversation.id],
+                    onOpen = { onConversation(conversation) },
+                )
+            }
         }
         item { Spacer(Modifier.height(Dimens.dp28)) }
     }

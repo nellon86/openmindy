@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conversation_delete">حذف کریں</string>
+    <string name="conversation_history_reply_hint">اگلا پیغام آنے پر فوری جواب دوبارہ دستیاب ہوگا۔ ابھی لکھنے کے لیے ایپ کھولیں۔</string>
+    <string name="conversation_list_title">گفتگو</string>
+    <string name="conversation_history_keep">تاریخچہ رکھیں</string>
+    <string name="conversation_history_keep_description">گفتگو تب تک رہتی ہے جب تک آپ سوائپ کر کے ہٹا نہ دیں۔ صرف اسی فون پر محفوظ، کبھی بیک اپ میں نہیں۔</string>
+    <string name="conversation_history_clear">تاریخچہ صاف کریں</string>
+    <string name="conversation_history_clear_description">تمام محفوظ گفتگو حذف کرتا ہے</string>
+    <string name="conversation_history_clear_confirm">تمام محفوظ گفتگو اس فون سے حذف ہو جائے گی۔</string>
+    <string name="conversation_history_cleared">تاریخچہ صاف ہو گیا</string>
+    <string name="conversation_apps_only_selected">صرف میری منتخب ایپس</string>
+    <string name="conversation_apps_only_selected_description">بند: پیغام کی اطلاعات بھیجنے والی تمام ایپس۔ آن: صرف آپ کی منتخب ایپس، ان کی تمام اطلاعات کے ساتھ۔</string>
+    <string name="conversation_apps">گفتگو میں ایپس</string>
+    <string name="conversation_apps_automatic">تمام میسجنگ ایپس</string>
+    <string name="conversation_apps_selected_count">منتخب ایپس: %1$d</string>
+</resources>

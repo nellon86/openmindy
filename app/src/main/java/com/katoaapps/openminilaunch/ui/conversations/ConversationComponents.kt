@@ -89,9 +89,7 @@ internal fun ConversationCard(
                         maxLines = 1,
                     )
                     Text(
-                        DateFormat.getTimeInstance(DateFormat.SHORT).format(
-                            Date(latest?.timestamp ?: conversation.latestNotification.postedAt),
-                        ),
+                        conversationTimeLabel(latest?.timestamp ?: conversation.latestNotification.postedAt),
                         color = if (favoriteStyle?.isUnread == true) secondaryContentColor else Muted,
                         fontSize = Dimens.sp11,
                     )
@@ -211,4 +209,13 @@ private fun DemoSourceIcon(icon: ImageVector, background: Color, size: Dp) {
     ) {
         Icon(icon, null, Modifier.size(size * .56f), tint = MindyWhite)
     }
+}
+
+/** Time for today's messages, the date for older ones kept in history. */
+internal fun conversationTimeLabel(timestamp: Long, now: Long = System.currentTimeMillis()): String {
+    val zone = java.util.TimeZone.getDefault()
+    val day = 86_400_000L
+    val sameDay = (timestamp + zone.getOffset(timestamp)) / day == (now + zone.getOffset(now)) / day
+    val format = if (sameDay) DateFormat.getTimeInstance(DateFormat.SHORT) else DateFormat.getDateInstance(DateFormat.SHORT)
+    return format.format(Date(timestamp))
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conversation_delete">Удалить</string>
+    <string name="conversation_history_reply_hint">Быстрый ответ вернётся со следующим сообщением. Откройте приложение, чтобы написать сейчас.</string>
+    <string name="conversation_list_title">БЕСЕДЫ</string>
+    <string name="conversation_history_keep">Хранить историю</string>
+    <string name="conversation_history_keep_description">Беседы остаются, пока вы не смахнёте их. Хранятся только на этом телефоне и не попадают в резервные копии.</string>
+    <string name="conversation_history_clear">Очистить историю</string>
+    <string name="conversation_history_clear_description">Удаляет все сохранённые беседы</string>
+    <string name="conversation_history_clear_confirm">Все сохранённые беседы будут удалены с этого телефона.</string>
+    <string name="conversation_history_cleared">История очищена</string>
+    <string name="conversation_apps_only_selected">Только выбранные приложения</string>
+    <string name="conversation_apps_only_selected_description">Выкл.: все приложения с уведомлениями о сообщениях. Вкл.: только выбранные приложения со всеми их уведомлениями.</string>
+    <string name="conversation_apps">Приложения в беседах</string>
+    <string name="conversation_apps_automatic">Все мессенджеры</string>
+    <string name="conversation_apps_selected_count">Выбрано приложений: %1$d</string>
+</resources>

@@ -187,6 +187,8 @@ internal fun MessagingSettingsPage(
             onCheckedChange = store::updateSendMessagesAutomatically,
         )
         Text(stringResource(R.string.messaging_behavior_description), color = Muted, fontSize = Dimens.sp13)
+        HorizontalDivider(color = Sage)
+        ConversationSettingsSection(actions)
     }
 }
 

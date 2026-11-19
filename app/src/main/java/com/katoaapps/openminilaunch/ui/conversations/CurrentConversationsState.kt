@@ -5,6 +5,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import com.katoaapps.openminilaunch.data.LauncherStore
+import com.katoaapps.openminilaunch.features.conversations.ConversationHistoryStore
 import com.katoaapps.openminilaunch.features.conversations.ConversationNotificationStore
 import com.katoaapps.openminilaunch.features.conversations.NotificationConversation
 
@@ -17,6 +18,8 @@ import com.katoaapps.openminilaunch.features.conversations.NotificationConversat
  */
 @Composable
 internal fun rememberCurrentConversations(store: LauncherStore): List<NotificationConversation> {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    remember(context) { ConversationHistoryStore.ensureLoaded(context) }
     val demoModeEnabled = store.demoModeEnabled
     val demoScenario = store.demoScenario
     val demoConversationState = store.demoConversationState

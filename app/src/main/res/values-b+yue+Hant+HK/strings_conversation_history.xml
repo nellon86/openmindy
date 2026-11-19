@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conversation_delete">刪除</string>
+    <string name="conversation_history_reply_hint">快速回覆會喺下一個訊息嚟嗰陣恢復。而家想寫就開個應用程式。</string>
+    <string name="conversation_list_title">對話</string>
+    <string name="conversation_history_keep">保留記錄</string>
+    <string name="conversation_history_keep_description">對話會一直保留，直到你掃走佢。只會儲存喺呢部手機，唔會入備份。</string>
+    <string name="conversation_history_clear">清除記錄</string>
+    <string name="conversation_history_clear_description">刪除所有已儲存嘅對話</string>
+    <string name="conversation_history_clear_confirm">所有已儲存嘅對話都會喺呢部手機刪除。</string>
+    <string name="conversation_history_cleared">已清除記錄</string>
+    <string name="conversation_apps_only_selected">只限我揀嘅應用程式</string>
+    <string name="conversation_apps_only_selected_description">關閉：所有發出訊息通知嘅應用程式。開啟：只限你揀嘅應用程式，包括佢哋所有通知。</string>
+    <string name="conversation_apps">對話入面嘅應用程式</string>
+    <string name="conversation_apps_automatic">所有訊息應用程式</string>
+    <string name="conversation_apps_selected_count">已揀應用程式：%1$d</string>
+</resources>

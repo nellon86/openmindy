@@ -330,6 +330,15 @@ class DeviceActions(private val context: Context) {
     fun launchPackage(packageName: String): Boolean =
         context.packageManager.getLaunchIntentForPackage(packageName)?.let(::start) ?: false
 
+    /** Opens the exact chat behind a conversation notification through its published shortcut. */
+    fun openConversationShortcut(packageName: String, shortcutId: String): Boolean = runCatching {
+        val launcherApps = context.getSystemService(android.content.pm.LauncherApps::class.java)
+            ?: return false
+        if (!launcherApps.hasShortcutHostPermission()) return false
+        launcherApps.startShortcut(packageName, shortcutId, null, null, android.os.Process.myUserHandle())
+        true
+    }.getOrDefault(false)
+
     fun openClock(): Boolean {
         if (Build.MANUFACTURER.equals("samsung", ignoreCase = true) && launchPackage(SAMSUNG_CLOCK_PACKAGE)) {
             return true

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conversation_delete">Delete</string>
+    <string name="conversation_history_reply_hint">Quick reply comes back with the next message. Open the app to write now.</string>
+    <string name="conversation_list_title">CONVERSATIONS</string>
+    <string name="conversation_history_keep">Keep conversation history</string>
+    <string name="conversation_history_keep_description">Conversations stay until you swipe them away. Saved only on this phone, never in backups.</string>
+    <string name="conversation_history_clear">Clear history</string>
+    <string name="conversation_history_clear_description">Deletes every saved conversation</string>
+    <string name="conversation_history_clear_confirm">All saved conversations will be deleted from this phone.</string>
+    <string name="conversation_history_cleared">History cleared</string>
+    <string name="conversation_apps_only_selected">Only apps I choose</string>
+    <string name="conversation_apps_only_selected_description">Off: every app that posts message notifications. On: only the apps you pick, with all their notifications.</string>
+    <string name="conversation_apps">Apps in Conversations</string>
+    <string name="conversation_apps_automatic">All messaging apps</string>
+    <string name="conversation_apps_selected_count">Selected apps: %1$d</string>
+</resources>

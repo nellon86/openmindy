@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conversation_delete">حذف</string>
+    <string name="conversation_history_reply_hint">يعود الرد السريع مع الرسالة التالية. افتح التطبيق للكتابة الآن.</string>
+    <string name="conversation_list_title">المحادثات</string>
+    <string name="conversation_history_keep">الاحتفاظ بالسجل</string>
+    <string name="conversation_history_keep_description">تبقى المحادثات حتى تسحبها لحذفها. تُحفظ على هذا الهاتف فقط ولا تدخل في النسخ الاحتياطية أبدًا.</string>
+    <string name="conversation_history_clear">مسح السجل</string>
+    <string name="conversation_history_clear_description">يحذف كل المحادثات المحفوظة</string>
+    <string name="conversation_history_clear_confirm">سيتم حذف كل المحادثات المحفوظة من هذا الهاتف.</string>
+    <string name="conversation_history_cleared">تم مسح السجل</string>
+    <string name="conversation_apps_only_selected">التطبيقات التي أختارها فقط</string>
+    <string name="conversation_apps_only_selected_description">إيقاف: كل التطبيقات التي ترسل إشعارات رسائل. تشغيل: التطبيقات التي تختارها فقط، مع كل إشعاراتها.</string>
+    <string name="conversation_apps">التطبيقات في المحادثات</string>
+    <string name="conversation_apps_automatic">كل تطبيقات المراسلة</string>
+    <string name="conversation_apps_selected_count">التطبيقات المختارة: %1$d</string>
+</resources>

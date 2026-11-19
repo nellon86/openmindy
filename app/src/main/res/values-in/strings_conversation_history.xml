@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conversation_delete">Hapus</string>
+    <string name="conversation_history_reply_hint">Balasan cepat kembali dengan pesan berikutnya. Buka aplikasinya untuk menulis sekarang.</string>
+    <string name="conversation_list_title">PERCAKAPAN</string>
+    <string name="conversation_history_keep">Simpan riwayat</string>
+    <string name="conversation_history_keep_description">Percakapan tetap ada sampai Anda menggesernya. Hanya disimpan di ponsel ini, tidak pernah di cadangan.</string>
+    <string name="conversation_history_clear">Hapus riwayat</string>
+    <string name="conversation_history_clear_description">Menghapus semua percakapan tersimpan</string>
+    <string name="conversation_history_clear_confirm">Semua percakapan tersimpan akan dihapus dari ponsel ini.</string>
+    <string name="conversation_history_cleared">Riwayat dihapus</string>
+    <string name="conversation_apps_only_selected">Hanya aplikasi pilihan saya</string>
+    <string name="conversation_apps_only_selected_description">Nonaktif: semua aplikasi yang mengirim notifikasi pesan. Aktif: hanya aplikasi pilihan Anda, dengan semua notifikasinya.</string>
+    <string name="conversation_apps">Aplikasi di Percakapan</string>
+    <string name="conversation_apps_automatic">Semua aplikasi pesan</string>
+    <string name="conversation_apps_selected_count">Aplikasi dipilih: %1$d</string>
+</resources>

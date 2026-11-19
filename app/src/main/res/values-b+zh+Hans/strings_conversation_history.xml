@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conversation_delete">删除</string>
+    <string name="conversation_history_reply_hint">快速回复会在下一条消息到来时恢复。现在要写请打开应用。</string>
+    <string name="conversation_list_title">对话</string>
+    <string name="conversation_history_keep">保留历史记录</string>
+    <string name="conversation_history_keep_description">对话会一直保留，直到你滑动删除。仅保存在此手机上，不会进入备份。</string>
+    <string name="conversation_history_clear">清除历史记录</string>
+    <string name="conversation_history_clear_description">删除所有已保存的对话</string>
+    <string name="conversation_history_clear_confirm">所有已保存的对话都将从此手机中删除。</string>
+    <string name="conversation_history_cleared">已清除历史记录</string>
+    <string name="conversation_apps_only_selected">仅限我选择的应用</string>
+    <string name="conversation_apps_only_selected_description">关闭：所有发送消息通知的应用。开启：仅限你选择的应用，包括其所有通知。</string>
+    <string name="conversation_apps">对话中的应用</string>
+    <string name="conversation_apps_automatic">所有消息应用</string>
+    <string name="conversation_apps_selected_count">已选应用：%1$d</string>
+</resources>

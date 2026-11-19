@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conversation_delete">हटाएं</string>
+    <string name="conversation_history_reply_hint">अगला संदेश आने पर क्विक रिप्लाई फिर मिलेगा। अभी लिखने के लिए ऐप खोलें।</string>
+    <string name="conversation_list_title">बातचीत</string>
+    <string name="conversation_history_keep">इतिहास रखें</string>
+    <string name="conversation_history_keep_description">बातचीत तब तक रहती है जब तक आप स्वाइप करके हटा न दें। सिर्फ़ इसी फ़ोन पर सेव होती है, बैकअप में कभी नहीं।</string>
+    <string name="conversation_history_clear">इतिहास साफ़ करें</string>
+    <string name="conversation_history_clear_description">सेव की गई सभी बातचीत हटाता है</string>
+    <string name="conversation_history_clear_confirm">सेव की गई सभी बातचीत इस फ़ोन से हटा दी जाएगी।</string>
+    <string name="conversation_history_cleared">इतिहास साफ़ किया गया</string>
+    <string name="conversation_apps_only_selected">सिर्फ़ मेरे चुने हुए ऐप</string>
+    <string name="conversation_apps_only_selected_description">बंद: संदेश सूचनाएं भेजने वाले सभी ऐप। चालू: सिर्फ़ आपके चुने हुए ऐप, उनकी सभी सूचनाओं के साथ।</string>
+    <string name="conversation_apps">बातचीत में ऐप</string>
+    <string name="conversation_apps_automatic">सभी मैसेजिंग ऐप</string>
+    <string name="conversation_apps_selected_count">चुने गए ऐप: %1$d</string>
+</resources>

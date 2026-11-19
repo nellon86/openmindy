@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conversation_delete">삭제</string>
+    <string name="conversation_history_reply_hint">빠른 답장은 다음 메시지가 오면 다시 사용할 수 있습니다. 지금 쓰려면 앱을 여세요.</string>
+    <string name="conversation_list_title">대화</string>
+    <string name="conversation_history_keep">기록 보관</string>
+    <string name="conversation_history_keep_description">스와이프해서 지울 때까지 대화가 남아 있습니다. 이 휴대전화에만 저장되며 백업에는 포함되지 않습니다.</string>
+    <string name="conversation_history_clear">기록 지우기</string>
+    <string name="conversation_history_clear_description">저장된 모든 대화를 삭제합니다</string>
+    <string name="conversation_history_clear_confirm">저장된 모든 대화가 이 휴대전화에서 삭제됩니다.</string>
+    <string name="conversation_history_cleared">기록을 지웠습니다</string>
+    <string name="conversation_apps_only_selected">선택한 앱만</string>
+    <string name="conversation_apps_only_selected_description">끔: 메시지 알림을 보내는 모든 앱. 켬: 선택한 앱만, 모든 알림 포함.</string>
+    <string name="conversation_apps">대화에 표시할 앱</string>
+    <string name="conversation_apps_automatic">모든 메시지 앱</string>
+    <string name="conversation_apps_selected_count">선택한 앱: %1$d</string>
+</resources>
