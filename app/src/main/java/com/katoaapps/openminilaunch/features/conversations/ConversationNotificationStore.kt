@@ -231,6 +231,12 @@ object ConversationNotificationStore {
         }.getOrDefault(false)
     }
 
+    /** The newest posted notification of that chat that still accepts an inline reply. */
+    fun liveReplyTarget(packageName: String, shortcutId: String): ConversationNotification? =
+        activeNotifications
+            .filter { it.packageName == packageName && it.shortcutId == shortcutId && it.replyAction != null }
+            .maxByOrNull(ConversationNotification::postedAt)
+
     fun sendReply(item: ConversationNotification, reply: String): Boolean {
         val clean = reply.trim()
         if (clean.isEmpty()) return false

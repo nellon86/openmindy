@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="magic_contacts_in_app">Контакты · %1$s</string>
+    <string name="message_unknown_recipient">Написать «%1$s»</string>
+    <string name="call_unknown_recipient">Позвонить «%1$s»</string>
+    <string name="unknown_recipient_hint_in_app">Нет в контактах · откроется в %1$s</string>
+    <string name="unknown_recipient_hint">Нет в контактах</string>
+</resources>

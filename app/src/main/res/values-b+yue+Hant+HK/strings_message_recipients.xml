@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="magic_contacts_in_app">聯絡人 · %1$s</string>
+    <string name="message_unknown_recipient">寫俾「%1$s」</string>
+    <string name="call_unknown_recipient">打俾「%1$s」</string>
+    <string name="unknown_recipient_hint_in_app">唔喺聯絡人入面 · 喺 %1$s 開啟</string>
+    <string name="unknown_recipient_hint">唔喺聯絡人入面</string>
+</resources>

@@ -3,6 +3,7 @@
 package com.katoaapps.openminilaunch.ui.magic
 
 import com.katoaapps.openminilaunch.R
+import com.katoaapps.openminilaunch.model.looksLikePhoneRecipient
 import androidx.compose.ui.res.stringResource
 import com.katoaapps.openminilaunch.data.*
 import com.katoaapps.openminilaunch.model.*
@@ -308,6 +309,15 @@ internal fun MagicBoxContent(
             recentConversations.filterNot(effectiveAppAccessState::isPaused)
         } else {
             recentConversations
+        }
+    }
+    // A person already listed as a chat of the messaging app is not repeated as a contact.
+    val visibleContactResults = remember(contactResults, visibleRecentConversations) {
+        if (visibleRecentConversations.isEmpty()) {
+            contactResults
+        } else {
+            val chatNames = visibleRecentConversations.map { normalizedPersonName(it.label) }.toSet()
+            contactResults.filterNot { normalizedPersonName(it.name) in chatNames }
         }
     }
     val alwaysVisibleTargetKeys = store.pinnedLauncherSelectionKeys
@@ -707,15 +717,16 @@ internal fun MagicBoxContent(
             MagicBoxRoute.MESSAGE,
             MagicBoxRoute.CALL,
             -> {
-                contactResults.firstOrNull()?.let {
-                    selectContact(it)
-                    return true
-                }
+                // An existing chat opens that exact conversation, so it wins over a contact.
                 if (route == MagicBoxRoute.MESSAGE) {
                     visibleRecentConversations.firstOrNull()?.let {
                         selectRecentConversation(it)
                         return true
                     }
+                }
+                visibleContactResults.firstOrNull()?.let {
+                    selectContact(it)
+                    return true
                 }
             }
             MagicBoxRoute.APP -> visibleAppResults.firstOrNull()?.let {
@@ -817,7 +828,12 @@ internal fun MagicBoxContent(
             },
             onConversationShortcutMessage = { draft ->
                 keyboard?.hide()
-                handleRecentConversationDraftSend(context, draft, actions) { refocus() }
+                handleRecentConversationDraftSend(
+                    context,
+                    draft,
+                    actions,
+                    sendAutomatically = store.sendMessagesAutomatically,
+                ) { refocus() }
             },
             onDismiss = ::dismiss,
         )
@@ -1026,12 +1042,18 @@ internal fun MagicBoxContent(
                         fileSearchRepository = fileSearchRepository,
                         hasMediaAccess = hasMediaAccess,
                         canSearchContacts = canSearchContacts,
-                        contactResults = contactResults,
+                        contactResults = visibleContactResults,
                         recentConversations = visibleRecentConversations,
+                        // Offered for numbers, or when nothing else matches; never next to real
+                        // matches for a name, where it only adds noise.
                         forcedRecipient = searchTerm.takeIf {
                             (route == MagicBoxRoute.MESSAGE || route == MagicBoxRoute.CALL) &&
                                 it.isNotBlank() &&
-                                selectedRecipient == null
+                                selectedRecipient == null &&
+                                (
+                                    it.trim().looksLikePhoneRecipient() ||
+                                        (visibleContactResults.isEmpty() && visibleRecentConversations.isEmpty())
+                                    )
                         },
                         appResults = visibleAppResults,
                         includeAppShortcuts = store.includeAppShortcutsInDiscovery,
@@ -1386,3 +1408,8 @@ internal fun MagicBoxContent(
         )
     }
 }
+
+internal fun normalizedPersonName(value: String): String =
+    java.text.Normalizer.normalize(value, java.text.Normalizer.Form.NFD)
+        .lowercase(java.util.Locale.ROOT)
+        .filter(Char::isLetterOrDigit)
