@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="magic_contacts_in_app">رابطے · %1$s</string>
+    <string name="message_unknown_recipient">“%1$s” کو لکھیں</string>
+    <string name="call_unknown_recipient">“%1$s” کو کال کریں</string>
+    <string name="unknown_recipient_hint_in_app">آپ کے رابطوں میں نہیں · %1$s میں کھلے گا</string>
+    <string name="unknown_recipient_hint">آپ کے رابطوں میں نہیں</string>
+</resources>

@@ -3,6 +3,7 @@ package com.katoaapps.openminilaunch.ui.magic
 import android.content.Context
 import android.widget.Toast
 import com.katoaapps.openminilaunch.R
+import com.katoaapps.openminilaunch.features.conversations.ConversationNotificationStore
 import com.katoaapps.openminilaunch.features.apps.launcherDiscoveryLabel
 import com.katoaapps.openminilaunch.features.messaging.ConversationShortcutDraft
 import com.katoaapps.openminilaunch.features.messaging.ConversationShortcutDraftResult
@@ -54,8 +55,21 @@ internal fun handleRecentConversationDraftSend(
     context: Context,
     draft: ConversationShortcutDraft,
     actions: DeviceActions,
+    sendAutomatically: Boolean,
     onFailure: () -> Unit,
 ) {
+    // While the chat has a notification with inline reply, the message can go out from here
+    // without opening the app, exactly like replying from the notification shade.
+    if (sendAutomatically) {
+        val live = ConversationNotificationStore.liveReplyTarget(
+            draft.shortcut.packageName,
+            draft.shortcut.shortcutId,
+        )
+        if (live != null && ConversationNotificationStore.sendReply(live, draft.body)) {
+            Toast.makeText(context, context.getString(R.string.sent), Toast.LENGTH_SHORT).show()
+            return
+        }
+    }
     when (actions.openConversationShortcutDraft(draft.shortcut, draft.body)) {
         ConversationShortcutDraftResult.DRAFT_OPENED -> Unit
         ConversationShortcutDraftResult.CONVERSATION_OPENED -> Toast.makeText(

@@ -1,3 +1,11 @@
+OpenMindy 1.0.3
+
+- **Cleaner @ results:** with automatic sending, the contacts section names the app it sends with (for example "Contacts · WhatsApp"), people who already have a chat in that app are not repeated as contacts, and Enter opens the existing chat first.
+- **No more BETA row for names:** "Write to …" only appears for phone numbers or when nothing else matches.
+- **Direct send when possible:** with automatic sending on, an @ message to a chat that has a notification with quick reply is sent from OpenMindy without opening the app.
+
+---
+
 OpenMindy 1.0.2
 
 - **Conversation history:** conversations stay after you reply or their notification goes away, until you swipe them away (or delete them inside the conversation). History is kept only on this phone, in a folder that is never backed up. Quick reply works while the app's notification is posted; otherwise the conversation opens the exact chat in its app.

@@ -252,8 +252,17 @@ internal fun MagicResultsContent(
             )
         }
     }
+    // With automatic sending every @ result goes to one app; say which.
+    val messagingAppLabel = if (route == MagicBoxRoute.MESSAGE && store.sendMessagesAutomatically) {
+        (store.preferredMessagingPackage ?: actions.defaultMessagingPackage())?.let(actions::appLabel)
+    } else {
+        null
+    }
     if (route == MagicBoxRoute.MESSAGE && contactResults.isNotEmpty()) {
-        MagicResultSectionTitle(stringResource(R.string.contacts))
+        MagicResultSectionTitle(
+            messagingAppLabel?.let { stringResource(R.string.magic_contacts_in_app, it) }
+                ?: stringResource(R.string.contacts),
+        )
     }
     contactResults.forEach { contact ->
         SuggestionRow(
@@ -272,16 +281,14 @@ internal fun MagicResultsContent(
         val isMessage = route == MagicBoxRoute.MESSAGE
         SuggestionRow(
             text = stringResource(
-                if (isMessage) R.string.try_message_recipient else R.string.try_call_recipient,
+                if (isMessage) R.string.message_unknown_recipient else R.string.call_unknown_recipient,
                 identifier,
             ),
-            supportingText = stringResource(
-                if (isMessage) {
-                    R.string.try_message_recipient_beta
-                } else {
-                    R.string.try_call_recipient_beta
-                },
-            ),
+            supportingText = when {
+                isMessage && messagingAppLabel != null ->
+                    stringResource(R.string.unknown_recipient_hint_in_app, messagingAppLabel)
+                else -> stringResource(R.string.unknown_recipient_hint)
+            },
             icon = Icons.Default.Person,
         ) { onSelectForcedRecipient(identifier) }
     }
