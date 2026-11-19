@@ -1,3 +1,11 @@
+OpenMindy 1.0.2
+
+- **Conversation history:** conversations stay after you reply or their notification goes away, until you swipe them away (or delete them inside the conversation). History is kept only on this phone, in a folder that is never backed up. Quick reply works while the app's notification is posted; otherwise the conversation opens the exact chat in its app.
+- **Choose the apps in Conversations:** Settings → Messaging → Conversations. Turn on "Only apps I choose" and pick apps; picked apps count with all their notifications, even those not marked as messages.
+- **Older messages show their date** in the conversation list.
+
+---
+
 OpenMindy 1.0.1
 
 - **Smoother Home pages:** the pager between Mindy's Day, Home and Widgets snaps faster and no longer feels stuck.

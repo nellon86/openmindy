@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conversation_delete">削除</string>
+    <string name="conversation_history_reply_hint">クイック返信は次のメッセージで再び使えます。今すぐ書くにはアプリを開いてください。</string>
+    <string name="conversation_list_title">会話</string>
+    <string name="conversation_history_keep">履歴を保存</string>
+    <string name="conversation_history_keep_description">スワイプで削除するまで会話は残ります。この端末にのみ保存され、バックアップには含まれません。</string>
+    <string name="conversation_history_clear">履歴を消去</string>
+    <string name="conversation_history_clear_description">保存したすべての会話を削除します</string>
+    <string name="conversation_history_clear_confirm">保存したすべての会話がこの端末から削除されます。</string>
+    <string name="conversation_history_cleared">履歴を消去しました</string>
+    <string name="conversation_apps_only_selected">選んだアプリのみ</string>
+    <string name="conversation_apps_only_selected_description">オフ: メッセージ通知を送るすべてのアプリ。オン: 選んだアプリのみ（すべての通知）。</string>
+    <string name="conversation_apps">会話に表示するアプリ</string>
+    <string name="conversation_apps_automatic">すべてのメッセージアプリ</string>
+    <string name="conversation_apps_selected_count">選択したアプリ: %1$d</string>
+</resources>

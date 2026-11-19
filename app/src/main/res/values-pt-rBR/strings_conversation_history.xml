@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conversation_delete">Excluir</string>
+    <string name="conversation_history_reply_hint">A resposta rápida volta com a próxima mensagem. Abra o app para escrever agora.</string>
+    <string name="conversation_list_title">CONVERSAS</string>
+    <string name="conversation_history_keep">Manter histórico</string>
+    <string name="conversation_history_keep_description">As conversas ficam até você deslizá-las para apagar. Salvas só neste celular, nunca nos backups.</string>
+    <string name="conversation_history_clear">Limpar histórico</string>
+    <string name="conversation_history_clear_description">Exclui todas as conversas salvas</string>
+    <string name="conversation_history_clear_confirm">Todas as conversas salvas serão excluídas deste celular.</string>
+    <string name="conversation_history_cleared">Histórico limpo</string>
+    <string name="conversation_apps_only_selected">Só os apps que eu escolher</string>
+    <string name="conversation_apps_only_selected_description">Desativado: todos os apps que mostram notificações de mensagens. Ativado: só os apps escolhidos, com todas as notificações deles.</string>
+    <string name="conversation_apps">Apps em Conversas</string>
+    <string name="conversation_apps_automatic">Todos os apps de mensagens</string>
+    <string name="conversation_apps_selected_count">Apps escolhidos: %1$d</string>
+</resources>

@@ -44,6 +44,7 @@ internal fun ConversationReplyBox(
     replyText: String,
     replyStatus: Int?,
     replyAvailable: Boolean,
+    unavailableMessage: Int = R.string.inline_reply_unavailable,
     onReplyTextChange: (String) -> Unit,
     onSendReply: () -> Unit,
 ) {
@@ -109,7 +110,7 @@ internal fun ConversationReplyBox(
                 },
             )
         } else {
-            Text(stringResource(R.string.inline_reply_unavailable), color = Muted, fontSize = Dimens.sp12)
+            Text(stringResource(unavailableMessage), color = Muted, fontSize = Dimens.sp12)
         }
     }
 }

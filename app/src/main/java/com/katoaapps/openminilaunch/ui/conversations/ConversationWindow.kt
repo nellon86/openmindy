@@ -107,7 +107,9 @@ internal fun ConversationWindow(
                 }
             },
             onDismiss = {
-                if (!ConversationNotificationStore.dismissConversation(conversation)) {
+                if (ConversationNotificationStore.dismissConversation(conversation)) {
+                    goBack()
+                } else {
                     Toast.makeText(
                         context,
                         context.getString(R.string.conversation_action_unavailable),
@@ -121,6 +123,11 @@ internal fun ConversationWindow(
             replyText = replyText,
             replyStatus = replyStatus,
             replyAvailable = replyTarget != null,
+            unavailableMessage = if (conversation.isLive) {
+                R.string.inline_reply_unavailable
+            } else {
+                R.string.conversation_history_reply_hint
+            },
             onReplyTextChange = { replyText = it },
             onSendReply = ::sendReply,
         )
@@ -155,6 +162,13 @@ private fun ConversationWindowHeader(
         OutlinedButton(
             onClick = {
                 val target = conversation.openTarget
+                val shortcut = conversation.shortcutTarget
+                if (
+                    target.contentIntent == null && shortcut != null &&
+                    actions.openConversationShortcut(shortcut.packageName, shortcut.shortcutId.orEmpty())
+                ) {
+                    return@OutlinedButton
+                }
                 if (!ConversationNotificationStore.openConversation(context, target)) {
                     if (!actions.launchPackage(target.packageName)) {
                         Toast.makeText(

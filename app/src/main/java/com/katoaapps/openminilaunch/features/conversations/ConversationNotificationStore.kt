@@ -49,6 +49,10 @@ data class ConversationNotification(
     val actions: List<ConversationNotificationAction> = emptyList(),
     val identityHints: Set<String> = emptySet(),
     val isDemo: Boolean = false,
+    /** Conversation shortcut published with the notification; opens that exact chat. */
+    val shortcutId: String? = null,
+    /** True for a conversation restored from history rather than a live notification. */
+    val isHistory: Boolean = false,
 ) {
     val canReply: Boolean get() = isDemo || replyAction != null
 }
@@ -94,6 +98,13 @@ data class NotificationConversation(
     val canDismiss: Boolean by lazy(LazyThreadSafetyMode.NONE) {
         notifications.any(ConversationNotification::isDismissible)
     }
+    /** True while at least one real notification of this conversation is still posted. */
+    val isLive: Boolean by lazy(LazyThreadSafetyMode.NONE) {
+        notifications.any { !it.isHistory }
+    }
+    val shortcutTarget: ConversationNotification? by lazy(LazyThreadSafetyMode.NONE) {
+        notifications.firstOrNull { !it.shortcutId.isNullOrBlank() }
+    }
 }
 
 internal fun latestConversationActivityAt(
@@ -137,7 +148,12 @@ object ConversationNotificationStore {
                     state = demoConversationState,
                 )
             } else {
-                activeNotifications
+                val history = if (ConversationPreferences.historyEnabled) {
+                    ConversationHistoryStore.snapshots()
+                } else {
+                    emptyList()
+                }
+                (activeNotifications + history).filter { ConversationPreferences.allows(it.packageName) }
             },
             replies = if (useDemoData) demoReplies else sentReplies,
         )
@@ -161,7 +177,8 @@ object ConversationNotificationStore {
                 .sortedBy(ConversationMessage::timestamp)
             NotificationConversation(
                 id = id,
-                name = orderedNotifications.first().conversationName,
+                name = (orderedNotifications.firstOrNull { !it.isHistory } ?: orderedNotifications.first())
+                    .conversationName,
                 notifications = orderedNotifications,
                 messages = messages,
             )
@@ -174,6 +191,7 @@ object ConversationNotificationStore {
         activeNotifications.addAll(
             reconciledItems.sortedByDescending(ConversationNotification::postedAt),
         )
+        reconciledItems.forEach(ConversationHistoryStore::record)
         val activeConversationIds = reconciledItems
             .map(ConversationNotification::conversationId)
             .toSet()
@@ -185,6 +203,7 @@ object ConversationNotificationStore {
         activeNotifications.removeAll { it.key == item.key }
         activeNotifications += item
         activeNotifications.sortByDescending(ConversationNotification::postedAt)
+        ConversationHistoryStore.record(item)
     }
 
     internal fun removeNotification(key: String) {
@@ -242,7 +261,7 @@ object ConversationNotificationStore {
             RemoteInput.addResultsToIntent(inputs, fillIn, results)
             action.actionIntent.send(MindyNotificationListenerService.connectedService, 0, fillIn)
             val now = System.currentTimeMillis()
-            sentReplies += ConversationMessage(
+            val sent = ConversationMessage(
                 id = "local|${item.conversationId}|$now|${System.nanoTime()}",
                 conversationId = item.conversationId,
                 notificationKey = item.key,
@@ -253,6 +272,8 @@ object ConversationNotificationStore {
                 senderName = null,
                 isOutgoing = true,
             )
+            sentReplies += sent
+            ConversationHistoryStore.recordReply(sent)
             true
         }.getOrDefault(false)
     }
@@ -305,11 +326,19 @@ object ConversationNotificationStore {
         true
     }.getOrDefault(false)
 
+    /**
+     * Deletes a conversation: clears its notifications and forgets its history. Messages that
+     * were already there never come back; a new message starts the conversation again.
+     */
     fun dismissConversation(conversation: NotificationConversation): Boolean {
-        val service = MindyNotificationListenerService.connectedService ?: return false
-        var dismissedAny = false
+        val hadHistory = ConversationHistoryStore.conversations.containsKey(conversation.id)
+        ConversationHistoryStore.delete(conversation.id, conversation.latestMessage?.timestamp)
+        sentReplies.removeAll { it.conversationId == conversation.id }
+        val service = MindyNotificationListenerService.connectedService
+            ?: return hadHistory || !conversation.isLive
+        var dismissedAny = hadHistory
         conversation.notifications
-            .filter(ConversationNotification::isDismissible)
+            .filter { it.isDismissible && !it.isHistory }
             .forEach { notification ->
                 val requested = runCatching {
                     service.cancelNotification(notification.key)

@@ -54,6 +54,7 @@ class MindyNotificationListenerService : NotificationListenerService() {
         super.onListenerConnected()
         generation++
         connectedService = this
+        ConversationHistoryStore.ensureLoaded(this)
         refreshActiveNotifications()
     }
 
@@ -140,8 +141,14 @@ class MindyNotificationListenerService : NotificationListenerService() {
     /** Cheap, allocation-free test using only fields that every real conversation must carry. */
     private fun mayBeConversation(sbn: StatusBarNotification): Boolean {
         if (sbn.packageName == packageName) return false
+        if (!ConversationPreferences.allows(sbn.packageName)) return false
         val notification = sbn.notification ?: return false
         if (notification.flags and Notification.FLAG_GROUP_SUMMARY != 0) return false
+        // Apps picked by the user count even when they do not mark notifications as messages;
+        // ongoing ones (uploads, calls, music) are never conversations.
+        if (ConversationPreferences.forces(sbn.packageName)) {
+            return notification.flags and Notification.FLAG_ONGOING_EVENT == 0
+        }
         val extras = notification.extras
         return mayBeConversationNotification(
             category = notification.category,
@@ -206,7 +213,10 @@ class MindyNotificationListenerService : NotificationListenerService() {
             extractLegacyMessages(extras, Notification.EXTRA_HISTORIC_MESSAGES) +
                 extractLegacyMessages(extras, Notification.EXTRA_MESSAGES)
         }
-        if (!isConversationNotification(notification.category, styleMessages.isNotEmpty())) return null
+        if (
+            !ConversationPreferences.forces(sbn.packageName) &&
+            !isConversationNotification(notification.category, styleMessages.isNotEmpty())
+        ) return null
         val latestIncoming = styleMessages.lastOrNull { !it.isOutgoing }
         val identityHints = buildSet {
             styleMessages.asSequence()
@@ -290,6 +300,7 @@ class MindyNotificationListenerService : NotificationListenerService() {
             replyAction = replyAction,
             actions = conversationActions,
             identityHints = identityHints,
+            shortcutId = notification.shortcutId?.takeIf(String::isNotBlank),
         )
     }
 

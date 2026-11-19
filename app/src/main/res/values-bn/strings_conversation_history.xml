@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="conversation_delete">মুছুন</string>
+    <string name="conversation_history_reply_hint">পরের বার্তা এলে দ্রুত উত্তর আবার পাওয়া যাবে। এখন লিখতে অ্যাপটি খুলুন।</string>
+    <string name="conversation_list_title">কথোপকথন</string>
+    <string name="conversation_history_keep">ইতিহাস রাখুন</string>
+    <string name="conversation_history_keep_description">সোয়াইপ করে মুছে না দেওয়া পর্যন্ত কথোপকথন থাকে। শুধু এই ফোনে সংরক্ষিত, কখনো ব্যাকআপে নয়।</string>
+    <string name="conversation_history_clear">ইতিহাস মুছুন</string>
+    <string name="conversation_history_clear_description">সংরক্ষিত সব কথোপকথন মুছে দেয়</string>
+    <string name="conversation_history_clear_confirm">সংরক্ষিত সব কথোপকথন এই ফোন থেকে মুছে যাবে।</string>
+    <string name="conversation_history_cleared">ইতিহাস মুছে ফেলা হয়েছে</string>
+    <string name="conversation_apps_only_selected">শুধু আমার বেছে নেওয়া অ্যাপ</string>
+    <string name="conversation_apps_only_selected_description">বন্ধ: বার্তার বিজ্ঞপ্তি পাঠানো সব অ্যাপ। চালু: শুধু আপনার বেছে নেওয়া অ্যাপ, তাদের সব বিজ্ঞপ্তিসহ।</string>
+    <string name="conversation_apps">কথোপকথনে অ্যাপ</string>
+    <string name="conversation_apps_automatic">সব মেসেজিং অ্যাপ</string>
+    <string name="conversation_apps_selected_count">বেছে নেওয়া অ্যাপ: %1$d</string>
+</resources>
