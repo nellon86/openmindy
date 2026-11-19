@@ -29,6 +29,8 @@ internal fun HomeMagicBox(
     onOpenTodos: () -> Unit,
     onOpenKeyboardSettings: () -> Unit,
     onOpenTotalScreen: (() -> Unit)?,
+    onKeyboardButtonAction: (com.katoaapps.openminilaunch.features.magic.HomeKeyboardButtonBinding) -> Unit,
+    onKeyboardButtonDoubleTap: () -> Unit,
     appAccessState: MindyAppAccessState,
     modifier: Modifier = Modifier,
     collapsedModifier: Modifier = Modifier,
@@ -50,6 +52,8 @@ internal fun HomeMagicBox(
         onOpenTodos = onOpenTodos,
         onOpenKeyboardSettings = onOpenKeyboardSettings,
         onOpenTotalScreen = onOpenTotalScreen,
+        onKeyboardButtonAction = onKeyboardButtonAction,
+        onKeyboardButtonDoubleTap = onKeyboardButtonDoubleTap,
         appAccessState = appAccessState,
     )
 }

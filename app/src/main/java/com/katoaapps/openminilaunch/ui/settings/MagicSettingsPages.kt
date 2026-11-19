@@ -75,6 +75,8 @@ internal fun MagicBoxSettingsPage(
             onClick = onOpenAppBubbles,
         )
         HorizontalDivider(color = Sage)
+        HomeKeyboardButtonSettingsSection(store, actions)
+        HorizontalDivider(color = Sage)
         SectionLabel(stringResource(R.string.search))
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(Dimens.dp8)) {
             SearchAppCard(

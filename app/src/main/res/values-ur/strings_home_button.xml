@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_button">ہوم بٹن</string>
+    <string name="home_button_summary">سرچ بار کے گول بٹن کو ٹیپ کریں، دبائے رکھیں یا اوپر سوائپ کریں</string>
+    <string name="home_button_tap">ٹیپ</string>
+    <string name="home_button_long_press">دبائے رکھیں</string>
+    <string name="home_button_swipe_up">اوپر سوائپ کریں</string>
+    <string name="home_button_action_none">کچھ نہ کریں</string>
+    <string name="home_button_action_voice">صوتی ان پٹ</string>
+    <string name="home_button_action_web">ویب تلاش</string>
+    <string name="home_button_magic_route">Magic Box · %1$s</string>
+    <string name="home_button_action_mindy_space">MindySpace فل اسکرین</string>
+    <string name="home_button_action_notifications">اطلاعات</string>
+    <string name="home_button_action_quick_settings">فوری ترتیبات</string>
+    <string name="home_button_action_camera">کیمرا</string>
+    <string name="home_button_action_flashlight">ٹارچ</string>
+    <string name="home_button_action_lock">اسکرین لاک کریں</string>
+    <string name="home_button_action_launch_app">کوئی ایپ کھولیں</string>
+    <string name="home_button_action_launch_app_named">%1$s کھولیں</string>
+    <string name="home_button_voice_unavailable">کوئی صوتی ان پٹ ایپ نہیں ملی</string>
+    <string name="home_button_action_failed">یہ کارروائی اس آلے پر دستیاب نہیں ہے</string>
+</resources>

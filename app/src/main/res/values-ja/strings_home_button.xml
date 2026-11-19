@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_button">ホームボタン</string>
+    <string name="home_button_summary">検索バーの丸いボタンをタップ、長押し、または上にスワイプ</string>
+    <string name="home_button_tap">タップ</string>
+    <string name="home_button_long_press">長押し</string>
+    <string name="home_button_swipe_up">上にスワイプ</string>
+    <string name="home_button_action_none">何もしない</string>
+    <string name="home_button_action_voice">音声入力</string>
+    <string name="home_button_action_web">ウェブ検索</string>
+    <string name="home_button_magic_route">Magic Box · %1$s</string>
+    <string name="home_button_action_mindy_space">MindySpace 全画面</string>
+    <string name="home_button_action_notifications">通知</string>
+    <string name="home_button_action_quick_settings">クイック設定</string>
+    <string name="home_button_action_camera">カメラ</string>
+    <string name="home_button_action_flashlight">ライト</string>
+    <string name="home_button_action_lock">画面をロック</string>
+    <string name="home_button_action_launch_app">アプリを開く</string>
+    <string name="home_button_action_launch_app_named">%1$s を開く</string>
+    <string name="home_button_voice_unavailable">音声入力アプリが見つかりません</string>
+    <string name="home_button_action_failed">この操作はこの端末では利用できません</string>
+</resources>

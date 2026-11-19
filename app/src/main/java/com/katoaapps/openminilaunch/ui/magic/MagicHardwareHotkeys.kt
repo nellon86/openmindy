@@ -29,7 +29,7 @@ interface MagicHardwareHotkeyHost {
 @Composable
 internal fun MagicUnhandledKeyEffect(
     enabled: Boolean,
-    onPrintableKey: (typedText: String, keyCode: Int) -> Unit,
+    onPrintableKey: (typedText: String, keyCode: Int, alternates: Set<String>) -> Unit,
 ) {
     val host = LocalContext.current as? MagicHardwareHotkeyHost
     val currentOnPrintableKey by rememberUpdatedState(onPrintableKey)
@@ -43,7 +43,9 @@ internal fun MagicUnhandledKeyEffect(
             if (event.action != KeyEvent.ACTION_DOWN || typedText == null || !plainTyping) {
                 false
             } else {
-                if (event.repeatCount == 0) currentOnPrintableKey(typedText, event.keyCode)
+                if (event.repeatCount == 0) {
+                    currentOnPrintableKey(typedText, event.keyCode, hardwareKeyAlternates(event, typedText))
+                }
                 true
             }
         }
@@ -76,4 +78,40 @@ internal fun MagicHardwareHotkeyEffect(
         }
         onDispose(unregister)
     }
+}
+
+private val ALTERNATE_META_STATES = intArrayOf(
+    0,
+    KeyEvent.META_SHIFT_ON,
+    KeyEvent.META_ALT_ON,
+    KeyEvent.META_ALT_ON or KeyEvent.META_SHIFT_ON,
+    KeyEvent.META_SYM_ON,
+)
+
+/**
+ * Every character the physical key behind [event] can produce: its case variants, the Shift,
+ * Alt and Sym layers of the key character map, and the label printed on the key. An IME
+ * long-press replacement always comes from this set, so it is the only text allowed to replace
+ * the first character captured on Home.
+ */
+internal fun hardwareKeyAlternates(event: KeyEvent, typedText: String): Set<String> {
+    val alternates = linkedSetOf(typedText.lowercase(), typedText.uppercase())
+    val characterMap = runCatching { event.keyCharacterMap }.getOrNull()
+    if (characterMap != null) {
+        ALTERNATE_META_STATES.forEach { metaState ->
+            val codePoint = runCatching { characterMap.get(event.keyCode, metaState) }.getOrDefault(0)
+            // Combining accents (dead keys) are not standalone characters.
+            if (codePoint and android.view.KeyCharacterMap.COMBINING_ACCENT == 0) {
+                printableHardwareText(codePoint)?.let(alternates::add)
+            }
+        }
+        runCatching { characterMap.getNumber(event.keyCode) }.getOrNull()
+            ?.takeIf { it != '\u0000' }
+            ?.let { alternates += it.toString() }
+        runCatching { characterMap.getDisplayLabel(event.keyCode) }.getOrNull()
+            ?.takeIf { it != '\u0000' }
+            ?.let { label -> alternates += label.toString(); alternates += label.lowercase() }
+    }
+    alternates -= typedText
+    return alternates
 }

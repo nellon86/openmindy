@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_button">Botón de inicio</string>
+    <string name="home_button_summary">Toca, mantén pulsado o desliza hacia arriba el botón redondo de la barra de búsqueda</string>
+    <string name="home_button_tap">Tocar</string>
+    <string name="home_button_long_press">Mantener pulsado</string>
+    <string name="home_button_swipe_up">Deslizar hacia arriba</string>
+    <string name="home_button_action_none">No hacer nada</string>
+    <string name="home_button_action_voice">Dictado por voz</string>
+    <string name="home_button_action_web">Búsqueda web</string>
+    <string name="home_button_magic_route">Magic Box · %1$s</string>
+    <string name="home_button_action_mindy_space">MindySpace a pantalla completa</string>
+    <string name="home_button_action_notifications">Notificaciones</string>
+    <string name="home_button_action_quick_settings">Ajustes rápidos</string>
+    <string name="home_button_action_camera">Cámara</string>
+    <string name="home_button_action_flashlight">Linterna</string>
+    <string name="home_button_action_lock">Bloquear pantalla</string>
+    <string name="home_button_action_launch_app">Abrir una app</string>
+    <string name="home_button_action_launch_app_named">Abrir %1$s</string>
+    <string name="home_button_voice_unavailable">No se encontró ninguna app de dictado</string>
+    <string name="home_button_action_failed">Esta acción no está disponible en este dispositivo</string>
+</resources>

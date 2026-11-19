@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_button">Bouton d’accueil</string>
+    <string name="home_button_summary">Touchez, maintenez ou balayez vers le haut le bouton rond de la barre de recherche</string>
+    <string name="home_button_tap">Toucher</string>
+    <string name="home_button_long_press">Appui long</string>
+    <string name="home_button_swipe_up">Balayer vers le haut</string>
+    <string name="home_button_action_none">Ne rien faire</string>
+    <string name="home_button_action_voice">Saisie vocale</string>
+    <string name="home_button_action_web">Recherche web</string>
+    <string name="home_button_magic_route">Magic Box · %1$s</string>
+    <string name="home_button_action_mindy_space">MindySpace en plein écran</string>
+    <string name="home_button_action_notifications">Notifications</string>
+    <string name="home_button_action_quick_settings">Réglages rapides</string>
+    <string name="home_button_action_camera">Appareil photo</string>
+    <string name="home_button_action_flashlight">Lampe torche</string>
+    <string name="home_button_action_lock">Verrouiller l’écran</string>
+    <string name="home_button_action_launch_app">Ouvrir une app</string>
+    <string name="home_button_action_launch_app_named">Ouvrir %1$s</string>
+    <string name="home_button_voice_unavailable">Aucune app de saisie vocale trouvée</string>
+    <string name="home_button_action_failed">Cette action n’est pas disponible sur cet appareil</string>
+</resources>

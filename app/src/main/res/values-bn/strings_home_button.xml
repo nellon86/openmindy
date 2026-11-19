@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_button">হোম বোতাম</string>
+    <string name="home_button_summary">সার্চ বারের গোল বোতামে ট্যাপ করুন, ধরে রাখুন বা উপরে সোয়াইপ করুন</string>
+    <string name="home_button_tap">ট্যাপ</string>
+    <string name="home_button_long_press">ধরে রাখুন</string>
+    <string name="home_button_swipe_up">উপরে সোয়াইপ</string>
+    <string name="home_button_action_none">কিছু করবেন না</string>
+    <string name="home_button_action_voice">ভয়েস ইনপুট</string>
+    <string name="home_button_action_web">ওয়েব সার্চ</string>
+    <string name="home_button_magic_route">Magic Box · %1$s</string>
+    <string name="home_button_action_mindy_space">MindySpace পূর্ণ স্ক্রিন</string>
+    <string name="home_button_action_notifications">বিজ্ঞপ্তি</string>
+    <string name="home_button_action_quick_settings">দ্রুত সেটিংস</string>
+    <string name="home_button_action_camera">ক্যামেরা</string>
+    <string name="home_button_action_flashlight">টর্চ</string>
+    <string name="home_button_action_lock">স্ক্রিন লক করুন</string>
+    <string name="home_button_action_launch_app">একটি অ্যাপ খুলুন</string>
+    <string name="home_button_action_launch_app_named">%1$s খুলুন</string>
+    <string name="home_button_voice_unavailable">কোনো ভয়েস ইনপুট অ্যাপ পাওয়া যায়নি</string>
+    <string name="home_button_action_failed">এই ডিভাইসে এই কাজটি উপলব্ধ নয়</string>
+</resources>

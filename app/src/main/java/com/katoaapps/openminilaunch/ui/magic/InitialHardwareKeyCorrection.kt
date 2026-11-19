@@ -17,18 +17,25 @@ internal class InitialHardwareKeyCorrection(
     private data class Candidate(
         val text: String,
         val keyCode: Int,
+        val alternates: Set<String>,
         val startedAt: Long,
     )
 
     private var candidate: Candidate? = null
 
-    fun begin(text: String, keyCode: Int) {
-        candidate = Candidate(text, keyCode, now())
+    /**
+     * [alternates] lists the characters the same physical key can produce (shifted, Alt/Sym
+     * layer, printed label). Only one of those may replace the captured character: anything
+     * else is a new key press and must be appended, never swapped in.
+     */
+    fun begin(text: String, keyCode: Int, alternates: Set<String> = emptySet()) {
+        candidate = Candidate(text, keyCode, alternates - text, now())
     }
 
     fun onHardwareKeyUp(keyCode: Int) {
         if (candidate?.keyCode == keyCode) clear()
     }
+
 
     fun correct(value: TextFieldValue): TextFieldValue {
         val pending = candidate ?: return value
@@ -50,6 +57,8 @@ internal class InitialHardwareKeyCorrection(
         // Do not mistake that separator for the IME replacing a long-pressed key.
         if (appendedText.all(Char::isWhitespace)) {
             clear()
+            // A letter or digit followed by a space is ordinary typing ("w " or "1 "): keep it.
+            if (pending.text.any(Char::isLetterOrDigit)) return value
             return TextFieldValue(
                 text = pending.text,
                 selection = TextRange(pending.text.length),
@@ -64,6 +73,10 @@ internal class InitialHardwareKeyCorrection(
         }
 
         clear()
+        // The KEY_UP of the first key is sometimes swallowed by the IME or lost while focus
+        // moves from Home to the editor. Without this check, typing "w" then "h" quickly
+        // would be read as a long-press of W and leave only "h" behind.
+        if (appendedText !in pending.alternates) return value
         return TextFieldValue(
             text = appendedText,
             selection = TextRange(appendedText.length),

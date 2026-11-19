@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_button">主畫面按鈕</string>
+    <string name="home_button_summary">輕按、長按或向上掃搜尋列嘅圓形按鈕</string>
+    <string name="home_button_tap">輕按</string>
+    <string name="home_button_long_press">長按</string>
+    <string name="home_button_swipe_up">向上掃</string>
+    <string name="home_button_action_none">唔做任何嘢</string>
+    <string name="home_button_action_voice">語音輸入</string>
+    <string name="home_button_action_web">網頁搜尋</string>
+    <string name="home_button_magic_route">Magic Box · %1$s</string>
+    <string name="home_button_action_mindy_space">MindySpace 全螢幕</string>
+    <string name="home_button_action_notifications">通知</string>
+    <string name="home_button_action_quick_settings">快速設定</string>
+    <string name="home_button_action_camera">相機</string>
+    <string name="home_button_action_flashlight">電筒</string>
+    <string name="home_button_action_lock">鎖定螢幕</string>
+    <string name="home_button_action_launch_app">開啟應用程式</string>
+    <string name="home_button_action_launch_app_named">開啟 %1$s</string>
+    <string name="home_button_voice_unavailable">搵唔到語音輸入應用程式</string>
+    <string name="home_button_action_failed">呢部裝置唔支援呢個操作</string>
+</resources>
