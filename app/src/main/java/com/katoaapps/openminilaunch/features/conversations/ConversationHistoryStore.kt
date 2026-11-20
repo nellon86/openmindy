@@ -119,13 +119,14 @@ internal fun StoredConversation.toConversationNotification(): ConversationNotifi
  */
 internal object ConversationHistoryStore {
     val conversations = mutableStateMapOf<String, StoredConversation>()
-    private val deletedThrough = HashMap<String, Long>()
+    private val deletedThrough = androidx.compose.runtime.mutableStateMapOf<String, Long>()
     private val mainHandler = Handler(Looper.getMainLooper())
     private val io = Executors.newSingleThreadExecutor { runnable ->
         Thread(runnable, "openmindy-history").apply { priority = Thread.MIN_PRIORITY }
     }
     private var file: File? = null
     private var loaded = false
+    private val loadedState = androidx.compose.runtime.mutableStateOf(false)
     private var savePending = false
     private val saveRunnable = Runnable { writeNow() }
 
@@ -143,6 +144,17 @@ internal object ConversationHistoryStore {
     private fun finishLoading(parsed: Pair<List<StoredConversation>, Map<String, Long>>?) {
         parsed?.let { (stored, deleted) ->
             deleted.forEach { (id, at) -> deletedThrough[id] = maxOf(deletedThrough[id] ?: 0L, at) }
+            // Notifications recorded while the file was still loading (right after an update or a
+            // restart) must respect deletions made before; otherwise deleted chats come back.
+            conversations.values.toList().forEach { inMemory ->
+                val cutoff = deletedThrough[inMemory.id] ?: return@forEach
+                val remaining = inMemory.messages.filter { it.timestamp > cutoff }
+                if (remaining.isEmpty()) {
+                    conversations.remove(inMemory.id)
+                } else if (remaining.size != inMemory.messages.size) {
+                    conversations[inMemory.id] = inMemory.copy(messages = remaining)
+                }
+            }
             stored.forEach { conversation ->
                 val cutoff = deletedThrough[conversation.id] ?: 0L
                 val inMemory = conversations[conversation.id]
@@ -159,6 +171,7 @@ internal object ConversationHistoryStore {
             }
         }
         loaded = true
+        loadedState.value = true
         if (savePending) scheduleSave()
     }
 
@@ -207,6 +220,12 @@ internal object ConversationHistoryStore {
         scheduleSave()
     }
 
+    /** Moment the user deleted [conversationId]; messages up to then stay hidden. */
+    fun deletedAt(conversationId: String): Long = deletedThrough[conversationId] ?: 0L
+
+    /** True until the file is read; deletions are not known yet, so nothing is shown from it. */
+    val isLoading: Boolean get() = !loadedState.value
+
     fun conversationIdForShortcut(packageName: String, shortcutId: String): String? =
         conversations.values
             .filter { it.packageName == packageName && it.shortcutId == shortcutId }
@@ -252,7 +271,7 @@ internal object ConversationHistoryStore {
         val target = file ?: return
         // Immutable snapshots are taken here; turning them into JSON happens off the main thread.
         val stored = conversations.values.toList()
-        val deleted = HashMap(deletedThrough)
+        val deleted = HashMap<String, Long>(deletedThrough)
         io.execute {
             runCatching {
                 val json = serialize(stored, deleted)

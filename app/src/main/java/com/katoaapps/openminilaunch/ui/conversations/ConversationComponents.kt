@@ -59,10 +59,9 @@ internal fun ConversationCard(
     onOpen: () -> Unit,
 ) {
     val latest = conversation.latestMessage
-    val unreadFavoriteColor = favoriteStyle?.color?.takeIf { favoriteStyle.isUnread }
-    val containerColor = unreadFavoriteColor ?: MaterialTheme.colorScheme.surfaceContainerLow
-    val contentColor = unreadFavoriteColor?.let { readableContentColor(it) }
-        ?: MaterialTheme.colorScheme.onSurface
+    // Favourites look like every other conversation here; they are only pinned to the top.
+    val containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+    val contentColor = MaterialTheme.colorScheme.onSurface
     val secondaryContentColor = contentColor.copy(alpha = .72f)
     Card(
         Modifier.fillMaxWidth().clickable(onClick = onOpen),
@@ -72,13 +71,11 @@ internal fun ConversationCard(
             contentColor = contentColor,
         ),
         // Every conversation is outlined: red while it has unread messages, the theme colour once
-        // it has been read. A favourite keeps its own colour, filled while unread.
-        border = when {
-            favoriteStyle != null && favoriteStyle.isUnread -> null
-            favoriteStyle != null -> BorderStroke(Dimens.dp2, favoriteStyle.color)
-            isUnread -> BorderStroke(Dimens.dp2, MindyFeatureColors.ConversationCount)
-            else -> BorderStroke(Dimens.dp2, MaterialTheme.colorScheme.primary)
-        },
+        // it has been read.
+        border = BorderStroke(
+            Dimens.dp2,
+            if (isUnread) MindyFeatureColors.ConversationCount else MaterialTheme.colorScheme.primary,
+        ),
     ) {
         Row(Modifier.fillMaxWidth().padding(Dimens.dp14), verticalAlignment = Alignment.CenterVertically) {
             ConversationParticipantIcon(

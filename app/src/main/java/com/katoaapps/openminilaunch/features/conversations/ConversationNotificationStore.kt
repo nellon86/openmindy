@@ -168,7 +168,7 @@ object ConversationNotificationStore {
             emptyList()
         }
         return groupConversationsReusing(
-            sourceNotifications = (activeNotifications + history)
+            sourceNotifications = (activeNotifications.filter(::isNewerThanDeletion) + history)
                 .filter { ConversationPreferences.allows(it.packageName) },
             replies = sentReplies,
         )
@@ -217,6 +217,20 @@ object ConversationNotificationStore {
                 }
             }
         }.sortedByDescending { it.latestMessage?.timestamp ?: it.latestNotification.postedAt }
+    }
+
+    /**
+     * A notification still posted for a conversation the user deleted (an app that keeps old
+     * notifications, or one re-posted after a restart) stays hidden until it brings a message
+     * newer than the deletion.
+     */
+    private fun isNewerThanDeletion(item: ConversationNotification): Boolean {
+        // Until the history file is read, deletions are unknown; wait instead of flashing them.
+        if (ConversationHistoryStore.isLoading) return false
+        val deletedAt = ConversationHistoryStore.deletedAt(item.conversationId)
+        if (deletedAt == 0L) return true
+        val newest = item.messages.maxOfOrNull(ConversationMessage::timestamp) ?: item.postedAt
+        return newest > deletedAt
     }
 
     private fun <T> List<T>.sameItems(other: List<T>): Boolean =

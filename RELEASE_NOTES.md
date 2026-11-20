@@ -1,3 +1,10 @@
+OpenMindy 1.0.9
+
+- **Favourites look like any other conversation** in the list (red outline while unread, theme colour once read); they stay pinned at the top.
+- **Deleted conversations stay deleted after an update or restart:** they come back only with a new message.
+
+---
+
 OpenMindy 1.0.8
 
 - **No conversation counter:** the Conversations button on Home lights up red when something is unread (favourites keep their own colour) instead of showing a number.
