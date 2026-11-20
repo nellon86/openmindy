@@ -228,9 +228,12 @@ internal object ConversationHistoryStore {
 
     private fun writeNow() {
         val target = file ?: return
-        val json = serialize(conversations.values.toList(), HashMap(deletedThrough))
+        // Immutable snapshots are taken here; turning them into JSON happens off the main thread.
+        val stored = conversations.values.toList()
+        val deleted = HashMap(deletedThrough)
         io.execute {
             runCatching {
+                val json = serialize(stored, deleted)
                 val temp = File(target.parentFile, "$FILE_NAME.tmp")
                 temp.writeText(json)
                 if (!temp.renameTo(target)) {
@@ -321,6 +324,6 @@ internal object ConversationHistoryStore {
     }
 
     private const val FILE_NAME = "conversation_history.json"
-    private const val SAVE_DELAY_MILLIS = 1_500L
+    private const val SAVE_DELAY_MILLIS = 5_000L
     private const val MAX_DELETED_MARKERS = 300
 }

@@ -22,8 +22,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import android.os.SystemClock
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -49,13 +51,21 @@ internal fun ConversationAttentionButton(
 ) {
     val palette = remember(attentionColors) { attentionColors.distinct() }
     var colorIndex by remember(palette) { mutableIntStateOf(0) }
+    var animating by remember { mutableStateOf(false) }
     val launcherVisible = rememberLauncherVisible()
-    LaunchedEffect(palette, launcherVisible) {
+    // The light blinks for a short while when activity arrives or Home comes back, then stays
+    // lit without animating: an endless blink redraws Home every frame for as long as it is open.
+    LaunchedEffect(palette, launcherVisible, conversationCount) {
         colorIndex = 0
-        while (launcherVisible && palette.size > 1) {
+        animating = launcherVisible && palette.isNotEmpty()
+        if (!animating) return@LaunchedEffect
+        val endAt = SystemClock.uptimeMillis() + ATTENTION_ANIMATION_MILLIS
+        while (SystemClock.uptimeMillis() < endAt) {
             delay(1_100L)
-            colorIndex = (colorIndex + 1) % palette.size
+            if (palette.size > 1) colorIndex = (colorIndex + 1) % palette.size
         }
+        colorIndex = 0
+        animating = false
     }
     val needsAttention = palette.isNotEmpty()
     val alertColor by animateColorAsState(
@@ -64,7 +74,7 @@ internal fun ConversationAttentionButton(
         label = "favorite attention color",
     )
     val alertContentColor = readableContentColor(alertColor)
-    val pulse = if (needsAttention) conversationAttentionPulse() else 0f
+    val pulse = if (needsAttention && animating) conversationAttentionPulse() else 0f
 
     Box(modifier.size(actionSize), contentAlignment = Alignment.Center) {
         if (needsAttention) {
@@ -125,3 +135,6 @@ private fun conversationAttentionPulse(): Float {
     )
     return pulse
 }
+
+/** How long the attention light blinks before it rests. */
+private const val ATTENTION_ANIMATION_MILLIS = 12_000L

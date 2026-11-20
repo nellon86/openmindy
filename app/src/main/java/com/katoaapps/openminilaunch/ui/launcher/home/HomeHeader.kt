@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import com.katoaapps.openminilaunch.R
+import com.katoaapps.openminilaunch.features.conversations.NotificationConversation
 import com.katoaapps.openminilaunch.data.LauncherStore
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.settings.SettingsDestination
@@ -152,7 +153,7 @@ internal fun HomeHeader(
                         }
                     }
                     ConversationAttentionButton(
-                        conversationCount = conversations.size,
+                        conversationCount = conversations.count(NotificationConversation::isLive),
                         attentionColors = favoriteAttention.map { Color(it.colorArgb) },
                         actionSize = actionSize,
                         iconSize = iconSize,

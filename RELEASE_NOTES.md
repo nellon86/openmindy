@@ -1,3 +1,10 @@
+OpenMindy 1.0.5
+
+- **Battery:** Mindy's breathing animation no longer runs on the hidden Mindy's Day page while Home is open; the conversation light blinks for 12 seconds and then stays lit without animating; MindySpace full screen keeps the display awake only while charging; conversation history is written less often and off the main thread.
+- **Conversation badge** counts conversations with a posted notification, not every saved conversation.
+
+---
+
 OpenMindy 1.0.4
 
 - **One thread per chat:** replies that WhatsApp and similar apps add to their notification as "You" are now recognised as your own messages, so they no longer create a second conversation named after you. A chat also keeps the same conversation when its contact match changes between notifications.
