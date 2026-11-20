@@ -139,24 +139,76 @@ object ConversationNotificationStore {
         demoScenario: DemoScenario = DemoScenario.PRODUCT_TOUR,
         demoConversationState: DemoConversationState = DemoConversationState.ACTIVE_INBOX,
         demoSessionStartedAt: Long = System.currentTimeMillis(),
-    ): List<NotificationConversation> =
-        groupConversations(
-            sourceNotifications = if (useDemoData) {
-                DemoConversationData.notifications(
+    ): List<NotificationConversation> {
+        if (useDemoData) {
+            return groupConversations(
+                sourceNotifications = DemoConversationData.notifications(
                     now = demoSessionStartedAt,
                     scenario = demoScenario,
                     state = demoConversationState,
-                )
-            } else {
-                val history = if (ConversationPreferences.historyEnabled) {
-                    ConversationHistoryStore.snapshots()
-                } else {
-                    emptyList()
-                }
-                (activeNotifications + history).filter { ConversationPreferences.allows(it.packageName) }
-            },
-            replies = if (useDemoData) demoReplies else sentReplies,
+                ),
+                replies = demoReplies,
+            )
+        }
+        val history = if (ConversationPreferences.historyEnabled) {
+            ConversationHistoryStore.snapshots()
+        } else {
+            emptyList()
+        }
+        return groupConversationsReusing(
+            sourceNotifications = (activeNotifications + history)
+                .filter { ConversationPreferences.allows(it.packageName) },
+            replies = sentReplies,
         )
+    }
+
+    /**
+     * Live conversations, computed once and shared by every screen (Home header, Conversations,
+     * MindySpace). Recomputed only when notifications, history, replies or app filters change.
+     */
+    val liveConversations: androidx.compose.runtime.State<List<NotificationConversation>> =
+        androidx.compose.runtime.derivedStateOf { currentConversations(useDemoData = false) }
+
+    private class GroupCacheEntry(
+        val notifications: List<ConversationNotification>,
+        val replies: List<ConversationMessage>,
+        val conversation: NotificationConversation,
+    )
+
+    // Main thread only (read through liveConversations during composition).
+    private val groupCache = HashMap<String, GroupCacheEntry>()
+
+    /**
+     * Same result as [groupConversations], but a conversation whose notifications and replies are
+     * the very same objects as last time is reused instead of rebuilt. A new message in one chat
+     * then costs one merge instead of re-sorting every message of the whole history.
+     */
+    private fun groupConversationsReusing(
+        sourceNotifications: List<ConversationNotification>,
+        replies: List<ConversationMessage>,
+    ): List<NotificationConversation> {
+        val repliesById = replies.groupBy(ConversationMessage::conversationId)
+        val grouped = sourceNotifications.groupBy(ConversationNotification::conversationId)
+        groupCache.keys.retainAll(grouped.keys)
+        return grouped.map { (id, notifications) ->
+            val conversationReplies = repliesById[id].orEmpty()
+            val cached = groupCache[id]
+            if (
+                cached != null &&
+                cached.notifications.sameItems(notifications) &&
+                cached.replies.sameItems(conversationReplies)
+            ) {
+                cached.conversation
+            } else {
+                groupConversations(notifications, conversationReplies).single().also { built ->
+                    groupCache[id] = GroupCacheEntry(notifications, conversationReplies, built)
+                }
+            }
+        }.sortedByDescending { it.latestMessage?.timestamp ?: it.latestNotification.postedAt }
+    }
+
+    private fun <T> List<T>.sameItems(other: List<T>): Boolean =
+        size == other.size && indices.all { this[it] === other[it] }
 
     internal fun groupConversations(
         sourceNotifications: List<ConversationNotification>,

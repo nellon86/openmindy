@@ -284,9 +284,12 @@ class MindyNotificationListenerService : NotificationListenerService() {
             val body = extras.getCharSequence(Notification.EXTRA_BIG_TEXT)
                 ?: extras.getCharSequence(Notification.EXTRA_TEXT)
                 ?: extras.getCharSequence(Notification.EXTRA_SUMMARY_TEXT)
+            // notification.when stays the same when an app re-posts an unchanged notification,
+            // unlike postTime, so a repost does not look like a new message.
+            val sentAt = notification.`when`.takeIf { it > 0 } ?: sbn.postTime
             listOfNotNull(body?.toString()?.takeIf(String::isNotBlank)?.let {
                 ConversationMessage(
-                    id = "${sbn.packageName}|${sbn.postTime}|$it",
+                    id = "$FALLBACK_MESSAGE_ID_PREFIX${sbn.packageName}|$sentAt|$it",
                     conversationId = conversationId,
                     notificationKey = sbn.key,
                     packageName = sbn.packageName,
@@ -453,6 +456,9 @@ class MindyNotificationListenerService : NotificationListenerService() {
         private const val CONTACT_IDENTITY_TTL_MILLIS = 10 * 60 * 1_000L
     }
 }
+
+/** Marks messages taken from a plain notification text rather than a chat-style payload. */
+internal const val FALLBACK_MESSAGE_ID_PREFIX = "fallback|"
 
 private class ParsedNotification(val postTime: Long, val item: ConversationNotification?)
 

@@ -4,7 +4,7 @@ Launcher para Android pensado para usarse con teclado, hecho en Kotlin y Jetpack
 
 OpenMindy es un fork personal de [MinkLauncher OpenSource](https://github.com/katoaapps/openminilaunch) 3.2.2 (Apache 2.0). No está afiliado a Katoa Apps ni cuenta con su respaldo.
 
-Versión actual: **1.0.5** · identificador de la app: `io.github.nellon86.openmindy`
+Versión actual: **1.0.6** · identificador de la app: `io.github.nellon86.openmindy`
 
 ## Diferencias con MinkLauncher OpenSource
 

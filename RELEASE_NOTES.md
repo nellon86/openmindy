@@ -1,3 +1,10 @@
+OpenMindy 1.0.6
+
+- **Lighter conversations:** the conversation list is computed once and shared by Home, Conversations and MindySpace, and a new message only rebuilds its own conversation instead of the whole history.
+- **No duplicate messages** when an app re-posts the same plain notification.
+
+---
+
 OpenMindy 1.0.5
 
 - **Battery:** Mindy's breathing animation no longer runs on the hidden Mindy's Day page while Home is open; the conversation light blinks for 12 seconds and then stays lit without animating; MindySpace full screen keeps the display awake only while charging; conversation history is written less often and off the main thread.
