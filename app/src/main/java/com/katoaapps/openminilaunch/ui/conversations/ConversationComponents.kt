@@ -55,6 +55,7 @@ internal fun ConversationCard(
     favoriteContact: FavoriteContact?,
     actions: DeviceActions,
     favoriteStyle: ConversationFavoriteRowStyle?,
+    isUnread: Boolean,
     onOpen: () -> Unit,
 ) {
     val latest = conversation.latestMessage
@@ -70,9 +71,14 @@ internal fun ConversationCard(
             containerColor = containerColor,
             contentColor = contentColor,
         ),
-        border = favoriteStyle
-            ?.takeUnless(ConversationFavoriteRowStyle::isUnread)
-            ?.let { BorderStroke(Dimens.dp2, it.color) },
+        // Every conversation is outlined: red while it has unread messages, the theme colour once
+        // it has been read. A favourite keeps its own colour, filled while unread.
+        border = when {
+            favoriteStyle != null && favoriteStyle.isUnread -> null
+            favoriteStyle != null -> BorderStroke(Dimens.dp2, favoriteStyle.color)
+            isUnread -> BorderStroke(Dimens.dp2, MindyFeatureColors.ConversationCount)
+            else -> BorderStroke(Dimens.dp2, MaterialTheme.colorScheme.primary)
+        },
     ) {
         Row(Modifier.fillMaxWidth().padding(Dimens.dp14), verticalAlignment = Alignment.CenterVertically) {
             ConversationParticipantIcon(

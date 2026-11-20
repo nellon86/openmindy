@@ -1,3 +1,11 @@
+OpenMindy 1.0.8
+
+- **No conversation counter:** the Conversations button on Home lights up red when something is unread (favourites keep their own colour) instead of showing a number.
+- **Read state in the list:** every conversation has an outline, red while it has unread messages and the theme colour once read. Favourites keep their own colour.
+- Favourite lights follow the same unread rule: answered conversations or ones whose notification went away no longer light up.
+
+---
+
 OpenMindy 1.0.7
 
 - **Conversation counter shows unread only:** the number on Home counts conversations with new messages you have not opened in OpenMindy. Conversations you opened, answered, or whose notification went away are not counted.

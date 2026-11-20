@@ -13,11 +13,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Forum
-import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -41,7 +38,7 @@ import kotlinx.coroutines.delay
 /** A persistent home action that becomes a software notification light for new activity. */
 @Composable
 internal fun ConversationAttentionButton(
-    conversationCount: Int,
+    hasUnread: Boolean,
     attentionColors: List<Color>,
     actionSize: Dp,
     iconSize: Dp,
@@ -49,13 +46,18 @@ internal fun ConversationAttentionButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val palette = remember(attentionColors) { attentionColors.distinct() }
+    // Favourites light up in their own colours; any other unread conversation lights it red.
+    val palette = remember(attentionColors, hasUnread) {
+        attentionColors.distinct().ifEmpty {
+            if (hasUnread) listOf(MindyFeatureColors.ConversationCount) else emptyList()
+        }
+    }
     var colorIndex by remember(palette) { mutableIntStateOf(0) }
     var animating by remember { mutableStateOf(false) }
     val launcherVisible = rememberLauncherVisible()
     // The light blinks for a short while when activity arrives or Home comes back, then stays
     // lit without animating: an endless blink redraws Home every frame for as long as it is open.
-    LaunchedEffect(palette, launcherVisible, conversationCount) {
+    LaunchedEffect(palette, launcherVisible) {
         colorIndex = 0
         animating = launcherVisible && palette.isNotEmpty()
         if (!animating) return@LaunchedEffect
@@ -91,31 +93,12 @@ internal fun ConversationAttentionButton(
             }
         }
         IconButton(onClick = onClick, modifier = Modifier.fillMaxSize()) {
-            BadgedBox(
-                badge = {
-                    if (conversationCount > 0) {
-                        Badge(
-                            containerColor = MindyFeatureColors.ConversationCount,
-                            contentColor = readableContentColor(MindyFeatureColors.ConversationCount),
-                        ) {
-                            Text(
-                                if (conversationCount > 99) {
-                                    stringResource(R.string.notification_count_overflow)
-                                } else {
-                                    conversationCount.toString()
-                                },
-                            )
-                        }
-                    }
-                },
-            ) {
-                Icon(
-                    Icons.Default.Forum,
-                    stringResource(R.string.conversations),
-                    Modifier.size(iconSize).scale(if (needsAttention) .9f + pulse * .24f else 1f),
-                    tint = if (needsAttention) alertContentColor else restingColor,
-                )
-            }
+            Icon(
+                Icons.Default.Forum,
+                stringResource(R.string.conversations),
+                Modifier.size(iconSize).scale(if (needsAttention) .9f + pulse * .24f else 1f),
+                tint = if (needsAttention) alertContentColor else restingColor,
+            )
         }
     }
 }

@@ -26,12 +26,7 @@ internal fun pendingFavoriteConversationAttention(
             .asSequence()
             .filterNot { it.id in claimedConversationIds }
             .filter(favorite::matchesConversation)
-            .filter { conversation ->
-                shouldShowConversationAttention(
-                    latestActivityAt = conversationActivityAt(conversation),
-                    acknowledgedThrough = acknowledgedThrough(conversation.id),
-                )
-            }
+            .filter { conversation -> isConversationUnread(conversation, acknowledgedThrough(conversation.id)) }
             .maxByOrNull(::conversationActivityAt)
             ?: return@forEach
         claimedConversationIds += conversation.id

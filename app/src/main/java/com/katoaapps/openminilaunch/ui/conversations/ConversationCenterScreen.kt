@@ -43,6 +43,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.katoaapps.openminilaunch.R
+import com.katoaapps.openminilaunch.features.conversations.isConversationUnread
 import com.katoaapps.openminilaunch.data.LauncherStore
 import com.katoaapps.openminilaunch.features.conversations.ConversationNotificationStore
 import com.katoaapps.openminilaunch.features.conversations.NotificationConversation
@@ -118,6 +119,11 @@ internal fun ConversationCenterScreen(
             }
         }
     }
+    val unreadConversationIds = remember(conversations, acknowledgedActivityByConversationId) {
+        conversations
+            .filter { isConversationUnread(it, acknowledgedActivityByConversationId[it.id] ?: 0L) }
+            .mapTo(HashSet(), NotificationConversation::id)
+    }
     val favoriteRowStyles = favoriteMatches.mapValues { (conversationId, match) ->
         ConversationFavoriteRowStyle(
             color = (if (demoModeEnabled) {
@@ -126,11 +132,7 @@ internal fun ConversationCenterScreen(
                 store.favoriteAttentionColorStore.color(match.favoriteId)
             })?.let(::Color)
                 ?: MindyFeatureColors.ConversationAttention,
-            isUnread = shouldShowConversationAttention(
-                latestActivityAt = conversationsById[conversationId]
-                    ?.let(::conversationActivityAt),
-                acknowledgedThrough = acknowledgedActivityByConversationId[conversationId] ?: 0L,
-            ),
+            isUnread = conversationId in unreadConversationIds,
         )
     }
     val selectedConversation = conversations.firstOrNull { it.id == selectedConversationId }
@@ -204,6 +206,7 @@ internal fun ConversationCenterScreen(
                                 onDelete = { conversation ->
                                     ConversationNotificationStore.dismissConversation(conversation)
                                 },
+                                unreadConversationIds = unreadConversationIds,
                             )
                         }
                     }
@@ -240,6 +243,7 @@ private fun ConversationList(
     actions: DeviceActions,
     onConversation: (NotificationConversation) -> Unit,
     onDelete: (NotificationConversation) -> Unit,
+    unreadConversationIds: Set<String>,
 ) {
     LazyColumn(
         Modifier.fillMaxSize().padding(horizontal = Dimens.dp18),
@@ -264,6 +268,7 @@ private fun ConversationList(
                     favoriteContact = favoriteContacts[conversation.id],
                     actions = actions,
                     favoriteStyle = favoriteRowStyles[conversation.id],
+                    isUnread = unreadConversationIds.contains(conversation.id),
                     onOpen = { onConversation(conversation) },
                 )
             }

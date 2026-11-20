@@ -219,7 +219,7 @@ internal fun MindySpaceTotalScreenHost(
 
         if (favoriteAttention.isNotEmpty()) {
             ConversationAttentionButton(
-                conversationCount = favoriteAttention.size,
+                hasUnread = true,
                 attentionColors = favoriteAttention.map { Color(it.colorArgb) },
                 actionSize = Dimens.dp56,
                 iconSize = Dimens.dp25,

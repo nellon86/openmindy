@@ -72,9 +72,9 @@ internal fun HomeHeader(
     CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides actionSize) {
         val conversations = rememberCurrentConversations(store)
         val demoMode = store.demoModeEnabled
-        val unreadConversationCount by remember(conversations, demoMode) {
+        val hasUnreadConversation by remember(conversations, demoMode) {
             derivedStateOf {
-                conversations.count { conversation ->
+                conversations.any { conversation ->
                     isConversationUnread(
                         conversation,
                         acknowledgedThrough = if (demoMode) 0L else store.acknowledgedConversationActivityAt(conversation.id),
@@ -167,7 +167,7 @@ internal fun HomeHeader(
                         }
                     }
                     ConversationAttentionButton(
-                        conversationCount = unreadConversationCount,
+                        hasUnread = hasUnreadConversation,
                         attentionColors = favoriteAttention.map { Color(it.colorArgb) },
                         actionSize = actionSize,
                         iconSize = iconSize,
