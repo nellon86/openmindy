@@ -89,4 +89,24 @@ class ConversationHistoryTest {
         val second = message("wa|61000|Ana|ok", "ok", 61_000)
         assertEquals(2, mergeMessages(listOf(first), listOf(second)).size)
     }
+
+    private fun live(vararg messages: ConversationMessage) =
+        ConversationNotificationStore.groupConversations(listOf(notification(*messages)), emptyList()).single()
+
+    @Test fun newIncomingMessageIsUnreadUntilOpened() {
+        val conversation = live(message("1", "hola", 1_000))
+        assertTrue(isConversationUnread(conversation, acknowledgedThrough = 0L))
+        assertEquals(false, isConversationUnread(conversation, acknowledgedThrough = 1_000L))
+    }
+
+    @Test fun answeredConversationIsNotUnread() {
+        val conversation = live(message("1", "hola", 1_000), message("2", "vale", 2_000, outgoing = true))
+        assertEquals(false, isConversationUnread(conversation, acknowledgedThrough = 0L))
+    }
+
+    @Test fun conversationKeptOnlyInHistoryIsNotUnread() {
+        val stored = mergeIntoHistory(null, notification(message("1", "hola", 1_000)))!!.toConversationNotification()
+        val conversation = ConversationNotificationStore.groupConversations(listOf(stored), emptyList()).single()
+        assertEquals(false, isConversationUnread(conversation, acknowledgedThrough = 0L))
+    }
 }

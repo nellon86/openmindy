@@ -34,8 +34,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import com.katoaapps.openminilaunch.R
-import com.katoaapps.openminilaunch.features.conversations.NotificationConversation
+import com.katoaapps.openminilaunch.features.conversations.isConversationUnread
 import com.katoaapps.openminilaunch.data.LauncherStore
 import com.katoaapps.openminilaunch.platform.DeviceActions
 import com.katoaapps.openminilaunch.ui.settings.SettingsDestination
@@ -68,6 +71,17 @@ internal fun HomeHeader(
     val groupGap = Dimens.dp6
     CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides actionSize) {
         val conversations = rememberCurrentConversations(store)
+        val demoMode = store.demoModeEnabled
+        val unreadConversationCount by remember(conversations, demoMode) {
+            derivedStateOf {
+                conversations.count { conversation ->
+                    isConversationUnread(
+                        conversation,
+                        acknowledgedThrough = if (demoMode) 0L else store.acknowledgedConversationActivityAt(conversation.id),
+                    )
+                }
+            }
+        }
         val favoriteAttention = rememberPendingFavoriteAttention(
             store = store,
             conversations = conversations,
@@ -153,7 +167,7 @@ internal fun HomeHeader(
                         }
                     }
                     ConversationAttentionButton(
-                        conversationCount = conversations.count(NotificationConversation::isLive),
+                        conversationCount = unreadConversationCount,
                         attentionColors = favoriteAttention.map { Color(it.colorArgb) },
                         actionSize = actionSize,
                         iconSize = iconSize,

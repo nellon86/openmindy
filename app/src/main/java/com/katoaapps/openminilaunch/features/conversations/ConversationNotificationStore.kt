@@ -117,6 +117,18 @@ internal fun conversationActivityAt(conversation: NotificationConversation): Lon
         .maxOfOrNull(ConversationMessage::timestamp)
         ?: 0L
 
+/**
+ * A conversation counts as unread while its notification is still posted, someone wrote after the
+ * last time it was opened in OpenMindy, and the newest message is not the user's own reply.
+ * A notification that went away means it was read or answered in its app.
+ */
+internal fun isConversationUnread(conversation: NotificationConversation, acknowledgedThrough: Long): Boolean {
+    if (!conversation.isLive) return false
+    val latest = conversation.latestMessage ?: return false
+    if (latest.isOutgoing) return false
+    return conversationActivityAt(conversation) > acknowledgedThrough
+}
+
 internal fun shouldShowConversationAttention(
     latestActivityAt: Long?,
     acknowledgedThrough: Long,

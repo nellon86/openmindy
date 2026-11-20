@@ -1,3 +1,9 @@
+OpenMindy 1.0.7
+
+- **Conversation counter shows unread only:** the number on Home counts conversations with new messages you have not opened in OpenMindy. Conversations you opened, answered, or whose notification went away are not counted.
+
+---
+
 OpenMindy 1.0.6
 
 - **Lighter conversations:** the conversation list is computed once and shared by Home, Conversations and MindySpace, and a new message only rebuilds its own conversation instead of the whole history.
