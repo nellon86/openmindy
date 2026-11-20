@@ -77,4 +77,16 @@ class ConversationHistoryTest {
         assertEquals(false, grouped.isLive)
         assertEquals("chat-ana", grouped.shortcutTarget?.shortcutId)
     }
+
+    @Test fun repostedPlainNotificationIsNotStoredTwice() {
+        val first = message("${FALLBACK_MESSAGE_ID_PREFIX}app|1000|Nuevo correo", "Nuevo correo", 1_000)
+        val repost = message("${FALLBACK_MESSAGE_ID_PREFIX}app|61000|Nuevo correo", "Nuevo correo", 61_000)
+        assertEquals(1, mergeMessages(listOf(first), listOf(repost)).size)
+    }
+
+    @Test fun chatMessagesWithTheSameTextAreKept() {
+        val first = message("wa|1000|Ana|ok", "ok", 1_000)
+        val second = message("wa|61000|Ana|ok", "ok", 61_000)
+        assertEquals(2, mergeMessages(listOf(first), listOf(second)).size)
+    }
 }

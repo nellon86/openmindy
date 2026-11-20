@@ -72,7 +72,7 @@ internal fun MindyDayScreen(store: LauncherStore, isActive: Boolean, goHome: () 
                 IconButton(onClick = goHome) { Icon(Icons.AutoMirrored.Filled.ArrowForward, stringResource(R.string.go_home)) }
             }
         }
-        item { MindyHero(summary) }
+        item { MindyHero(summary, animate = isActive) }
         if (summary.isLoading) {
             item {
                 Box(Modifier.fillMaxWidth().height(Dimens.dp84), contentAlignment = Alignment.Center) {

@@ -88,9 +88,32 @@ internal fun MindySpaceTotalScreenHost(
             null
         }
         val insetsController = window?.let { WindowInsetsControllerCompat(it, view) }
-        view.keepScreenOn = true
+        // Full screen works as a bedside / desk display: the screen only stays awake while the
+        // phone is charging. On battery the normal screen timeout applies, so a full screen left
+        // open by accident cannot keep the display lit until the battery runs out.
+        val powerReceiver = object : android.content.BroadcastReceiver() {
+            override fun onReceive(context: android.content.Context, intent: android.content.Intent) {
+                view.keepScreenOn = intent.action == android.content.Intent.ACTION_POWER_CONNECTED
+            }
+        }
+        // Plug and unplug events only; the battery-level broadcast would wake this every few
+        // seconds while charging.
+        androidx.core.content.ContextCompat.registerReceiver(
+            view.context,
+            powerReceiver,
+            android.content.IntentFilter().apply {
+                addAction(android.content.Intent.ACTION_POWER_CONNECTED)
+                addAction(android.content.Intent.ACTION_POWER_DISCONNECTED)
+            },
+            androidx.core.content.ContextCompat.RECEIVER_EXPORTED,
+        )
+        view.keepScreenOn = view.context.registerReceiver(
+            null,
+            android.content.IntentFilter(android.content.Intent.ACTION_BATTERY_CHANGED),
+        )?.isCharging() == true
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_USER
         onDispose {
+            runCatching { view.context.unregisterReceiver(powerReceiver) }
             view.keepScreenOn = previouslyKeptAwake
             if (previousOrientation != null) activity.requestedOrientation = previousOrientation
             insetsController?.apply {
@@ -218,3 +241,6 @@ private tailrec fun Context.findActivity(): Activity? = when (this) {
     is ContextWrapper -> baseContext.findActivity()
     else -> null
 }
+
+private fun android.content.Intent.isCharging(): Boolean =
+    getIntExtra(android.os.BatteryManager.EXTRA_PLUGGED, 0) != 0

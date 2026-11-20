@@ -188,15 +188,25 @@ internal fun rememberMindyDaySummary(
 /** Only decides whether the cached summary expired; the expensive read happens at most every 3 h. */
 private const val STALENESS_CHECK_INTERVAL_MILLIS = 15 * 60_000L
 
+/**
+ * [animate] is true only while Mindy's Day is the settled page. The pager keeps this page composed
+ * next to Home, and an always-running breathing loop there would redraw every frame while Home
+ * is on screen.
+ */
 @Composable
-internal fun MindyHero(summary: MindyDaySummary) {
-    val transition = rememberInfiniteTransition(label = "mink-breathe")
-    val bob by transition.animateFloat(
-        initialValue = 0f,
-        targetValue = if (summary.state == MindyState.SLEEPING) 1.5f else -5f,
-        animationSpec = infiniteRepeatable(tween(1_300), RepeatMode.Reverse),
-        label = "mink-bob",
-    )
+internal fun MindyHero(summary: MindyDaySummary, animate: Boolean = true) {
+    val bob = if (animate) {
+        val transition = rememberInfiniteTransition(label = "mink-breathe")
+        val value by transition.animateFloat(
+            initialValue = 0f,
+            targetValue = if (summary.state == MindyState.SLEEPING) 1.5f else -5f,
+            animationSpec = infiniteRepeatable(tween(1_300), RepeatMode.Reverse),
+            label = "mink-bob",
+        )
+        value
+    } else {
+        0f
+    }
     Surface(
         shape = RoundedCornerShape(Dimens.dp28),
         color = MaterialTheme.colorScheme.primaryContainer,

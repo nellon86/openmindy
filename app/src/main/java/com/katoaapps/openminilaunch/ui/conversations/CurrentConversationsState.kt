@@ -24,15 +24,18 @@ internal fun rememberCurrentConversations(store: LauncherStore): List<Notificati
     val demoScenario = store.demoScenario
     val demoConversationState = store.demoConversationState
     val demoSessionStartedAt = store.demoSessionStartedAt
+    if (!demoModeEnabled) {
+        // One shared computation for every screen instead of one per caller.
+        return ConversationNotificationStore.liveConversations.value
+    }
     val conversations by remember(
-        demoModeEnabled,
         demoScenario,
         demoConversationState,
         demoSessionStartedAt,
     ) {
         derivedStateOf {
             ConversationNotificationStore.currentConversations(
-                useDemoData = demoModeEnabled,
+                useDemoData = true,
                 demoScenario = demoScenario,
                 demoConversationState = demoConversationState,
                 demoSessionStartedAt = demoSessionStartedAt,

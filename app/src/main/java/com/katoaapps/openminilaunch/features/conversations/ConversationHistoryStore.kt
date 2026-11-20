@@ -25,6 +25,7 @@ internal const val HISTORY_NOTIFICATION_KEY_PREFIX = "history:"
 internal const val MAX_STORED_MESSAGES_PER_CONVERSATION = 300
 internal const val MAX_STORED_CONVERSATIONS = 150
 private const val LOCAL_REPLY_MATCH_WINDOW_MILLIS = 120_000L
+private const val FALLBACK_REPOST_WINDOW_MILLIS = 10 * 60_000L
 
 /**
  * Adds the messages of [item] to [existing]. Messages at or before [deletedThrough] (the moment
@@ -70,10 +71,18 @@ internal fun mergeMessages(
         }
     }
     val incomingDeduped = incoming.filterNot { candidate ->
-        candidate.isLocalReply && kept.any { provider ->
+        val echoedReply = candidate.isLocalReply && kept.any { provider ->
             provider.isOutgoing && !provider.isLocalReply && provider.text == candidate.text &&
                 kotlin.math.abs(provider.timestamp - candidate.timestamp) < LOCAL_REPLY_MATCH_WINDOW_MILLIS
         }
+        // Plain-text notifications carry no message timestamps; the same text re-posted shortly
+        // after is the same message, not a new one.
+        val repostedText = candidate.id.startsWith(FALLBACK_MESSAGE_ID_PREFIX) && kept.any { stored ->
+            stored.id != candidate.id && stored.id.startsWith(FALLBACK_MESSAGE_ID_PREFIX) &&
+                stored.text == candidate.text &&
+                kotlin.math.abs(stored.timestamp - candidate.timestamp) < FALLBACK_REPOST_WINDOW_MILLIS
+        }
+        echoedReply || repostedText
     }
     return (kept + incomingDeduped)
         .distinctBy(ConversationMessage::id)
@@ -204,8 +213,21 @@ internal object ConversationHistoryStore {
             .maxByOrNull(StoredConversation::updatedAt)
             ?.id
 
-    fun snapshots(): List<ConversationNotification> =
-        conversations.values.map(StoredConversation::toConversationNotification)
+    // Main thread only. Unchanged conversations keep the same snapshot object, so grouping can
+    // reuse its previous result for them.
+    private val snapshotCache = HashMap<String, Pair<StoredConversation, ConversationNotification>>()
+
+    fun snapshots(): List<ConversationNotification> {
+        val current = conversations.values.toList()
+        if (snapshotCache.size > current.size) {
+            val ids = current.mapTo(HashSet(), StoredConversation::id)
+            snapshotCache.keys.retainAll(ids)
+        }
+        return current.map { stored ->
+            snapshotCache[stored.id]?.takeIf { it.first === stored }?.second
+                ?: stored.toConversationNotification().also { snapshotCache[stored.id] = stored to it }
+        }
+    }
 
     private fun trimConversations() {
         if (conversations.size <= MAX_STORED_CONVERSATIONS) return
@@ -228,9 +250,12 @@ internal object ConversationHistoryStore {
 
     private fun writeNow() {
         val target = file ?: return
-        val json = serialize(conversations.values.toList(), HashMap(deletedThrough))
+        // Immutable snapshots are taken here; turning them into JSON happens off the main thread.
+        val stored = conversations.values.toList()
+        val deleted = HashMap(deletedThrough)
         io.execute {
             runCatching {
+                val json = serialize(stored, deleted)
                 val temp = File(target.parentFile, "$FILE_NAME.tmp")
                 temp.writeText(json)
                 if (!temp.renameTo(target)) {
@@ -321,6 +346,6 @@ internal object ConversationHistoryStore {
     }
 
     private const val FILE_NAME = "conversation_history.json"
-    private const val SAVE_DELAY_MILLIS = 1_500L
+    private const val SAVE_DELAY_MILLIS = 5_000L
     private const val MAX_DELETED_MARKERS = 300
 }
