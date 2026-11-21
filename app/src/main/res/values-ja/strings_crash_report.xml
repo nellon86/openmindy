@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="crash_report_title">OpenMindy が停止しました</string>
+    <string name="crash_report_description">エラーを修正できるよう、このレポートをコピーして送ってください。</string>
+    <string name="crash_report_copy">コピー</string>
+    <string name="crash_report_share">共有</string>
+    <string name="crash_report_copied">レポートをコピーしました</string>
+</resources>

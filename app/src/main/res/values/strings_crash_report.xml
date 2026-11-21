@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="crash_report_title">OpenMindy stopped</string>
+    <string name="crash_report_description">Copy this report and send it so the error can be fixed.</string>
+    <string name="crash_report_copy">Copy</string>
+    <string name="crash_report_share">Share</string>
+    <string name="crash_report_copied">Report copied</string>
+</resources>

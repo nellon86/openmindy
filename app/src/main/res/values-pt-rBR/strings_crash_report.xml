@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="crash_report_title">O OpenMindy parou</string>
+    <string name="crash_report_description">Copie este relatório e envie para que o erro seja corrigido.</string>
+    <string name="crash_report_copy">Copiar</string>
+    <string name="crash_report_share">Compartilhar</string>
+    <string name="crash_report_copied">Relatório copiado</string>
+</resources>

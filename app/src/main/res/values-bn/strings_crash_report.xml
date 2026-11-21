@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="crash_report_title">OpenMindy বন্ধ হয়ে গেছে</string>
+    <string name="crash_report_description">ত্রুটি ঠিক করার জন্য এই রিপোর্ট কপি করে পাঠান।</string>
+    <string name="crash_report_copy">কপি</string>
+    <string name="crash_report_share">শেয়ার</string>
+    <string name="crash_report_copied">রিপোর্ট কপি হয়েছে</string>
+</resources>

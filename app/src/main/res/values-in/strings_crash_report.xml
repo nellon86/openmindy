@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="crash_report_title">OpenMindy berhenti</string>
+    <string name="crash_report_description">Salin laporan ini dan kirimkan agar kesalahannya bisa diperbaiki.</string>
+    <string name="crash_report_copy">Salin</string>
+    <string name="crash_report_share">Bagikan</string>
+    <string name="crash_report_copied">Laporan disalin</string>
+</resources>

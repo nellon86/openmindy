@@ -1,3 +1,9 @@
+OpenMindy 1.1.1
+
+- **Crash report:** if OpenMindy stops, a screen shows the error with Copy and Share buttons, so it can be reported and fixed.
+
+---
+
 OpenMindy 1.1.0
 
 - **Rename apps:** long-press an app in All apps → Rename. The new name is used everywhere in OpenMindy (Home, All apps, Quick Apps, Magic Box search, app pickers) and in alphabetical order; search also finds the app by its original name. An empty name or "Restore name" brings the original back. Names are included in OpenMindy backups and removed when the app is uninstalled.

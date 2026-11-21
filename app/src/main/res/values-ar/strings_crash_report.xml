@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="crash_report_title">توقف OpenMindy</string>
+    <string name="crash_report_description">انسخ هذا التقرير وأرسله ليتم إصلاح الخطأ.</string>
+    <string name="crash_report_copy">نسخ</string>
+    <string name="crash_report_share">مشاركة</string>
+    <string name="crash_report_copied">تم نسخ التقرير</string>
+</resources>

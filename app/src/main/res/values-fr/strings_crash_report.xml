@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="crash_report_title">OpenMindy s’est arrêté</string>
+    <string name="crash_report_description">Copiez ce rapport et envoyez-le pour que l’erreur soit corrigée.</string>
+    <string name="crash_report_copy">Copier</string>
+    <string name="crash_report_share">Partager</string>
+    <string name="crash_report_copied">Rapport copié</string>
+</resources>

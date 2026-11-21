@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="crash_report_title">OpenMindy رک گیا</string>
+    <string name="crash_report_description">غلطی ٹھیک کرنے کے لیے یہ رپورٹ کاپی کر کے بھیجیں۔</string>
+    <string name="crash_report_copy">کاپی کریں</string>
+    <string name="crash_report_share">شیئر کریں</string>
+    <string name="crash_report_copied">رپورٹ کاپی ہو گئی</string>
+</resources>
