@@ -33,6 +33,21 @@ class AppSearchMatcherTest {
         assertEquals(listOf(AppSearchTier.EXACT, AppSearchTier.PREFIX), results.map(AppSearchMatch::tier))
     }
 
+    @Test fun renamedAppIsFoundByNewAndOriginalName() {
+        val renamed = LauncherAppTarget(
+            label = "Facebook",
+            originalLabel = "Lite",
+            packageName = "com.facebook.lite",
+            componentName = ComponentName("com.facebook.lite", "Main"),
+            userSerial = 0,
+            isWorkProfile = false,
+            selectionKey = "launcher:0:com.facebook.lite/Main",
+        )
+        assertEquals(AppSearchTier.PREFIX, matcher.match(renamed, "face")?.tier)
+        assertEquals(AppSearchTier.PREFIX, matcher.match(renamed, "lit")?.tier)
+        assertEquals(null, matcher.match(renamed, "messenger"))
+    }
+
     @Test fun matchesWordsAndOrderedTokenPrefixes() {
         assertEquals(AppSearchTier.WORD_PREFIX, matcher.match(app("Google Maps"), "map")?.tier)
         assertEquals(AppSearchTier.TOKEN_PREFIX, matcher.match(app("Android Studio"), "and stu")?.tier)

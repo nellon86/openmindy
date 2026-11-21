@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rename_app">重命名</string>
+    <string name="rename_app_original">原名称：%1$s。搜索时也能用它找到应用。</string>
+    <string name="rename_app_restore">恢复名称</string>
+</resources>

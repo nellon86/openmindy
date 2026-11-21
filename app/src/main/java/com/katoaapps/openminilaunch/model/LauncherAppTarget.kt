@@ -11,4 +11,6 @@ data class LauncherAppTarget(
     override val isWorkProfile: Boolean,
     override val isAvailable: Boolean = true,
     override val selectionKey: String = launcherAppSelectionKey(userSerial, componentName),
+    /** The system name when [label] is a name the user chose in OpenMindy. */
+    val originalLabel: String? = null,
 ) : LauncherTarget

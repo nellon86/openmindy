@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rename_app">名前を変更</string>
+    <string name="rename_app_original">元の名前: %1$s。検索でもこの名前で見つかります。</string>
+    <string name="rename_app_restore">名前を元に戻す</string>
+</resources>

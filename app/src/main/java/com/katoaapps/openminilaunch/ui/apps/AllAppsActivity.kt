@@ -162,8 +162,14 @@ internal fun AllAppsScreen(
     val scope = rememberCoroutineScope()
     var managementTarget by remember { mutableStateOf<LauncherTarget?>(null) }
 
+    // Start at the top once per opening; later list refreshes (a rename, a paused app) keep
+    // the current position instead of jumping back.
+    var positioned by remember { mutableStateOf(false) }
     LaunchedEffect(apps) {
-        if (apps.isNotEmpty()) pagerState.scrollToPage(initialLauncherTargetsIndex(apps))
+        if (apps.isNotEmpty() && !positioned) {
+            pagerState.scrollToPage(initialLauncherTargetsIndex(apps))
+            positioned = true
+        }
     }
 
     val focusedApp = apps.getOrNull(pagerState.currentPage)
@@ -350,6 +356,10 @@ internal fun AllAppsScreen(
             displayLabel = displayLabel,
             actions = actions,
             onDismiss = { managementTarget = null },
+            onRename = { name ->
+                managementTarget = null
+                actions.renameLauncherApp(target.selectionKey, name)
+            },
             onAppInfo = {
                 managementTarget = null
                 if (!actions.openLauncherTargetAppInfo(target)) {

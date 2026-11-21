@@ -45,6 +45,10 @@ internal class AppSearchMatcher(
         if (query.value.isBlank()) return null
         val candidates = buildList {
             add(SearchCandidate(target.label, sourcePenalty = 0))
+            // A renamed app is still found by the name it has everywhere else on the phone.
+            (target as? LauncherAppTarget)?.originalLabel?.let { original ->
+                add(SearchCandidate(original, sourcePenalty = ORIGINAL_LABEL_PENALTY))
+            }
             if (target !is LauncherAppTarget && publisherLabel.isNotBlank()) {
                 add(SearchCandidate(publisherLabel, sourcePenalty = PUBLISHER_PENALTY))
                 add(
@@ -236,6 +240,7 @@ private fun tierBaseScore(tier: AppSearchTier): Int =
     (AppSearchTier.entries.size - tier.ordinal) * 1_000
 
 private const val QUALITY_MAX = 100
+private const val ORIGINAL_LABEL_PENALTY = 1
 private const val PUBLISHER_PENALTY = 8
 private const val COMBINED_LABEL_PENALTY = 16
 private const val MIN_SUBSEQUENCE_ABBREVIATION = 2

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rename_app">إعادة التسمية</string>
+    <string name="rename_app_original">الاسم الأصلي: %1$s. يمكن العثور على التطبيق به أيضًا في البحث.</string>
+    <string name="rename_app_restore">استعادة الاسم</string>
+</resources>

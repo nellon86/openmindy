@@ -11,6 +11,7 @@ import android.os.UserManager
 import com.katoaapps.openminilaunch.features.privatespace.AndroidProfileClassifier
 import com.katoaapps.openminilaunch.features.privatespace.AndroidProfileKind
 import com.katoaapps.openminilaunch.model.LauncherAppTarget
+import com.katoaapps.openminilaunch.model.launcherAppSelectionKey
 import com.katoaapps.openminilaunch.model.LauncherTarget
 import com.katoaapps.openminilaunch.model.launcherAppIdentity
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -45,6 +46,9 @@ internal class LauncherAppRepository private constructor(context: Context) {
 
     private val callback = object : LauncherApps.Callback() {
         override fun onPackageRemoved(packageName: String, user: UserHandle) {
+            userManager?.getSerialNumberForUser(user)
+                ?.takeIf { it >= 0 }
+                ?.let { userSerial -> AppCustomLabels.removePackage(packageName, userSerial) }
             invalidate()
             userManager?.getSerialNumberForUser(user)
                 ?.takeIf { it >= 0 }
@@ -76,6 +80,7 @@ internal class LauncherAppRepository private constructor(context: Context) {
         return synchronized(cacheLock) {
             targetsCache?.let { return@synchronized it }
             val service = launcherApps ?: return@synchronized emptyList()
+            AppCustomLabels.ensureLoaded(appContext)
             activityCache.clear()
             val discovered = ordinaryProfiles(service).flatMap { user ->
                 val serial = userManager?.getSerialNumberForUser(user)?.takeIf { it >= 0 }
@@ -88,8 +93,12 @@ internal class LauncherAppRepository private constructor(context: Context) {
                     val available = !quiet && runCatching {
                         service.isActivityEnabled(info.componentName, user)
                     }.getOrDefault(true)
+                    val systemLabel = info.label.toString()
+                    val selectionKey = launcherAppSelectionKey(serial, info.componentName)
+                    val customLabel = AppCustomLabels.labelFor(selectionKey)
                     LauncherAppTarget(
-                        label = info.label.toString(),
+                        label = customLabel ?: systemLabel,
+                        originalLabel = systemLabel.takeIf { customLabel != null },
                         packageName = info.applicationInfo.packageName,
                         componentName = info.componentName,
                         userSerial = serial,

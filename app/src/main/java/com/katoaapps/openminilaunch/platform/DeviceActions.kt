@@ -200,6 +200,14 @@ class DeviceActions(private val context: Context) {
         legacyShortcutRepository.retainSelections(selectionKeys)
     }
 
+    /** Gives an app a name inside OpenMindy; a blank name restores the system one. */
+    fun renameLauncherApp(selectionKey: String, name: String?) {
+        com.katoaapps.openminilaunch.features.apps.AppCustomLabels.ensureLoaded(context)
+        if (com.katoaapps.openminilaunch.features.apps.AppCustomLabels.set(selectionKey, name)) {
+            launcherAppRepository.invalidate()
+        }
+    }
+
     fun invalidateInstalledApps() {
         launcherAppRepository.invalidate()
         launcherShortcutRepository.invalidate()
@@ -309,6 +317,8 @@ class DeviceActions(private val context: Context) {
     )
 
     fun appLabel(packageName: String): String {
+        com.katoaapps.openminilaunch.features.apps.AppCustomLabels.ensureLoaded(context)
+        com.katoaapps.openminilaunch.features.apps.AppCustomLabels.labelForPackage(packageName)?.let { return it }
         synchronized(labelCache) { labelCache[packageName]?.let { return it } }
         return runCatching {
             val info = context.packageManager.getApplicationInfo(packageName, 0)

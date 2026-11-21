@@ -53,6 +53,7 @@ internal object LauncherBackupCodec {
     private const val MAX_TARGET_LENGTH = 2_048
     private const val MAX_TODO_TEXT_LENGTH = 20_000
     private const val TOTAL_SCREEN_SHORTCUT_OFF = "off"
+    private const val MAX_APP_CUSTOM_LABELS = 500
 
     fun encode(backup: LauncherBackup): String = JSONObject().apply {
         put("format", LAUNCHER_BACKUP_FORMAT)
@@ -85,6 +86,9 @@ internal object LauncherBackupCodec {
             ?.let { transfer ->
                 put("androidFavoriteAttention", encodeAndroidFavoriteAttention(transfer))
             }
+        backup.appCustomLabels?.takeIf(Map<String, String>::isNotEmpty)?.let { labels ->
+            put("appCustomLabels", JSONObject().apply { labels.forEach { (key, name) -> put(key, name) } })
+        }
         put("notIncluded", PORTABILITY_EXCLUSIONS.stringsJsonArray())
     }.toString(2)
 
@@ -115,6 +119,13 @@ internal object LauncherBackupCodec {
             androidFavoriteAttention = decodeAndroidFavoriteAttention(
                 root.optJSONObject("androidFavoriteAttention"),
             ),
+            appCustomLabels = root.optJSONObject("appCustomLabels")?.let { labels ->
+                buildMap {
+                    labels.keys().asSequence().take(MAX_APP_CUSTOM_LABELS).forEach { key ->
+                        labels.optString(key).safeText(40).takeIf(String::isNotEmpty)?.let { put(key.safeText(512), it) }
+                    }
+                }
+            },
         )
     }
 

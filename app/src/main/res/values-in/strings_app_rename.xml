@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rename_app">Ganti nama</string>
+    <string name="rename_app_original">Nama asli: %1$s. Nama ini juga menemukan aplikasi saat mencari.</string>
+    <string name="rename_app_restore">Pulihkan nama</string>
+</resources>

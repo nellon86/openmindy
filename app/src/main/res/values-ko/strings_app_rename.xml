@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rename_app">이름 변경</string>
+    <string name="rename_app_original">원래 이름: %1$s. 검색에서도 이 이름으로 찾을 수 있습니다.</string>
+    <string name="rename_app_restore">이름 복원</string>
+</resources>

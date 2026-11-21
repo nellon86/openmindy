@@ -68,6 +68,7 @@ internal fun LauncherStore.createPortableBackup(appVersion: String): LauncherBac
             .let(favoriteContactOrderStore::portableIntegratedOrder),
         favoriteAttentionColors = favoriteAttentionColorStore.colorsForBackup(),
         androidFavoriteAttention = favoriteAndroidAttentionReconciler.createTransfer(),
+        appCustomLabels = com.katoaapps.openminilaunch.features.apps.AppCustomLabels.all(),
     )
 }
 
@@ -171,6 +172,7 @@ internal fun LauncherStore.restorePortableBackup(
         }
     }
     backup.favoriteAttentionColors?.let(favoriteAttentionColorStore::mergeFromBackup)
+    backup.appCustomLabels?.let(com.katoaapps.openminilaunch.features.apps.AppCustomLabels::mergeFromBackup)
     favoriteAndroidAttentionReconciler.restore(backup.androidFavoriteAttention)
 
     return if (restoreWidgetPlaceholders) {
