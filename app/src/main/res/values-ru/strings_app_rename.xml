@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rename_app">Переименовать</string>
+    <string name="rename_app_original">Исходное название: %1$s. По нему приложение тоже находится в поиске.</string>
+    <string name="rename_app_restore">Вернуть название</string>
+</resources>

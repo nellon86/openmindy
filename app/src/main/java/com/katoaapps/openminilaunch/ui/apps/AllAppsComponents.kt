@@ -23,6 +23,16 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.AlertDialog
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import com.katoaapps.openminilaunch.features.apps.AppCustomLabels
+import com.katoaapps.openminilaunch.model.LauncherAppTarget
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -156,7 +166,21 @@ internal fun AppManagementDialog(
     actions: DeviceActions,
     onDismiss: () -> Unit,
     onAppInfo: () -> Unit,
+    onRename: ((String?) -> Unit)? = null,
 ) {
+    var renaming by remember { mutableStateOf(false) }
+    if (renaming && onRename != null && target is LauncherAppTarget) {
+        AppRenameDialog(
+            currentLabel = target.label,
+            systemLabel = target.originalLabel ?: target.label,
+            onRename = { name ->
+                renaming = false
+                onRename(name)
+            },
+            onDismiss = { renaming = false },
+        )
+        return
+    }
     AlertDialog(
         onDismissRequest = onDismiss,
         icon = {
@@ -174,8 +198,75 @@ internal fun AppManagementDialog(
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text(stringResource(R.string.cancel))
+            Row {
+                if (onRename != null && target is LauncherAppTarget) {
+                    TextButton(onClick = { renaming = true }) {
+                        Text(stringResource(R.string.rename_app))
+                    }
+                }
+                TextButton(onClick = onDismiss) {
+                    Text(stringResource(R.string.cancel))
+                }
+            }
+        },
+    )
+}
+
+/** Name an app inside OpenMindy. Saving an empty name, or "Restore", brings back [systemLabel]. */
+@Composable
+private fun AppRenameDialog(
+    currentLabel: String,
+    systemLabel: String,
+    onRename: (String?) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    var draft by remember {
+        mutableStateOf(
+            androidx.compose.ui.text.input.TextFieldValue(
+                currentLabel,
+                selection = androidx.compose.ui.text.TextRange(0, currentLabel.length),
+            ),
+        )
+    }
+    val focusRequester = remember { androidx.compose.ui.focus.FocusRequester() }
+    LaunchedEffect(Unit) { runCatching { focusRequester.requestFocus() } }
+    fun save() {
+        val clean = draft.text.trim()
+        onRename(clean.takeUnless { it.isEmpty() || it == systemLabel })
+    }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.rename_app)) },
+        text = {
+            Column {
+                androidx.compose.material3.OutlinedTextField(
+                    value = draft,
+                    onValueChange = { draft = it.copy(text = it.text.take(AppCustomLabels.MAX_LENGTH)) },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
+                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                        imeAction = androidx.compose.ui.text.input.ImeAction.Done,
+                    ),
+                    keyboardActions = androidx.compose.foundation.text.KeyboardActions(onDone = { save() }),
+                )
+                Text(
+                    stringResource(R.string.rename_app_original, systemLabel),
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(top = Dimens.dp8),
+                )
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = ::save) { Text(stringResource(R.string.save)) }
+        },
+        dismissButton = {
+            Row {
+                if (currentLabel != systemLabel) {
+                    TextButton(onClick = { onRename(null) }) {
+                        Text(stringResource(R.string.rename_app_restore))
+                    }
+                }
+                TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) }
             }
         },
     )

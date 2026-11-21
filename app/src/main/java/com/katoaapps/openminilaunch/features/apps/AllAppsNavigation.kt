@@ -27,8 +27,9 @@ internal fun letterForApp(app: LaunchableApp?): Char? =
 internal fun launcherTargetIndexForLetter(targets: List<LauncherTarget>, letter: Char): Int? =
     indexForLetter(targets, letter, LauncherTarget::label)
 
-internal fun initialLauncherTargetsIndex(targets: List<LauncherTarget>): Int =
-    launcherTargetIndexForLetter(targets, 'M') ?: 0
+/** All apps always opens at the first app of the alphabet. */
+@Suppress("UNUSED_PARAMETER")
+internal fun initialLauncherTargetsIndex(targets: List<LauncherTarget>): Int = 0
 
 internal fun letterForLauncherTarget(target: LauncherTarget?): Char? =
     target?.let { initialLetter(it, LauncherTarget::label) }

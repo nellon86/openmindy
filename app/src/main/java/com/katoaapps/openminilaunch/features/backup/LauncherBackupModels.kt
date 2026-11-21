@@ -41,6 +41,8 @@ internal data class LauncherBackup(
     val favoriteAttentionColors: Map<String, Int>? = null,
     /** Opaque, export-scoped tokens for best-effort Android favorite color reconciliation. */
     val androidFavoriteAttention: AndroidFavoriteAttentionTransfer? = null,
+    /** Names given to apps inside OpenMindy, by launcher selection key. Null in older backups. */
+    val appCustomLabels: Map<String, String>? = null,
 )
 
 internal data class LauncherBackupLayout(

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rename_app">Renombrar</string>
+    <string name="rename_app_original">Nombre original: %1$s. También sirve para encontrar la app al buscar.</string>
+    <string name="rename_app_restore">Restaurar nombre</string>
+</resources>

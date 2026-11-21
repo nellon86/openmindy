@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rename_app">نام بدلیں</string>
+    <string name="rename_app_original">اصل نام: %1$s۔ تلاش میں اس سے بھی ایپ مل جاتی ہے۔</string>
+    <string name="rename_app_restore">نام بحال کریں</string>
+</resources>

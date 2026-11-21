@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rename_app">নাম বদলান</string>
+    <string name="rename_app_original">মূল নাম: %1$s। সার্চে এই নামেও অ্যাপটি পাওয়া যায়।</string>
+    <string name="rename_app_restore">নাম ফিরিয়ে আনুন</string>
+</resources>
